@@ -1,0 +1,394 @@
+
+import React from 'react';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Award, Search } from 'lucide-react';
+
+// Mock data for community members
+const featuredCreators = [
+  {
+    id: 1,
+    name: "Maria Schmidt",
+    username: "@mariadesigns",
+    avatar: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56",
+    bio: "DIY-Enthusiastin und Innenarchitektin. Ich liebe es, alte Möbel zu restaurieren und neue zu bauen.",
+    tutorials: 24,
+    followers: 1240,
+    badges: ["Top Creator", "Holzexperte", "Upcycling-Meister"],
+    featured: true
+  },
+  {
+    id: 2,
+    name: "Thomas Weber",
+    username: "@thomasbuilds",
+    avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36",
+    bio: "Schreiner aus Leidenschaft. Bei mir findest du professionelle Tipps und Tricks für anspruchsvolle Projekte.",
+    tutorials: 18,
+    followers: 980,
+    badges: ["Profi-Handwerker", "Innovator"],
+    featured: true
+  },
+  {
+    id: 3,
+    name: "Julia Hoffmann",
+    username: "@juliascreates",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956",
+    bio: "Ich verwandle kleine Räume in gemütliche Oasen. Spezialisiert auf platzsparende Möbel und Multifunktionslösungen.",
+    tutorials: 15,
+    followers: 870,
+    badges: ["Newcomer des Jahres", "Design-Talent"],
+    featured: true
+  },
+  {
+    id: 4,
+    name: "Markus Bauer",
+    username: "@markuscraft",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
+    bio: "Vom Hobby zum Beruf. Ich zeige euch, wie ihr mit einfachen Werkzeugen beeindruckende Möbel bauen könnt.",
+    tutorials: 12,
+    followers: 720,
+    badges: ["Nachhaltigkeits-Champion", "Anfängerfreundlich"],
+    featured: true
+  }
+];
+
+const recentUsers = [
+  {
+    id: 5,
+    name: "Sophie Wagner",
+    username: "@sophiedesign",
+    avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80",
+    bio: "Designstudentin mit Liebe zum Minimalismus. Meine Projekte sind einfach, funktional und schön.",
+    tutorials: 3,
+    followers: 128,
+    badges: ["Newcomer"],
+    featured: false
+  },
+  {
+    id: 6,
+    name: "Lukas Meyer",
+    username: "@lukascrafts",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e",
+    bio: "Hobbytischler aus München. Entdecke meine ersten DIY-Projekte und gib mir Feedback!",
+    tutorials: 2,
+    followers: 64,
+    badges: ["Newcomer"],
+    featured: false
+  },
+  {
+    id: 7,
+    name: "Laura Schulz",
+    username: "@laurabuilds",
+    avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
+    bio: "Ich liebe es, alte Möbel zu upcyceln und ihnen neues Leben einzuhauchen.",
+    tutorials: 5,
+    followers: 210,
+    badges: ["Upcycling-Talent"],
+    featured: false
+  },
+  {
+    id: 8,
+    name: "Daniel Fischer",
+    username: "@danielmakes",
+    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+    bio: "Meine Spezialität: Outdoor-Möbel für Garten und Balkon aus wetterfesten Materialien.",
+    tutorials: 7,
+    followers: 345,
+    badges: ["Outdoor-Experte"],
+    featured: false
+  }
+];
+
+// Mock data for recent activity
+const recentActivity = [
+  {
+    id: 1,
+    user: {
+      name: "Maria Schmidt",
+      username: "@mariadesigns",
+      avatar: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56"
+    },
+    type: "tutorial",
+    content: "hat ein neues Tutorial veröffentlicht: \"Minimalistische Garderobe aus Eichenholz\"",
+    image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2",
+    time: "vor 2 Stunden",
+    likes: 34,
+    comments: 7
+  },
+  {
+    id: 2,
+    user: {
+      name: "Thomas Weber",
+      username: "@thomasbuilds",
+      avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36"
+    },
+    type: "comment",
+    content: "hat einen Kommentar zu deinem Projekt \"Couchtisch aus Palettenholz\" hinterlassen",
+    text: "Tolle Arbeit! Die Oberfläche sieht sehr professionell aus. Welche Holzbeize hast du verwendet?",
+    time: "vor 3 Stunden",
+    likes: 12,
+    comments: 1
+  },
+  {
+    id: 3,
+    user: {
+      name: "Julia Hoffmann",
+      username: "@juliascreates",
+      avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956"
+    },
+    type: "challenge",
+    content: "hat an der Challenge \"Upcycling-Wunder\" teilgenommen",
+    image: "https://images.unsplash.com/photo-1581428982868-e410dd047a90",
+    time: "vor 5 Stunden",
+    likes: 56,
+    comments: 14
+  },
+  {
+    id: 4,
+    user: {
+      name: "Sophie Wagner",
+      username: "@sophiedesign",
+      avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80"
+    },
+    type: "follow",
+    content: "folgt dir jetzt",
+    time: "vor 1 Tag",
+    likes: 0,
+    comments: 0
+  }
+];
+
+const Community = () => {
+  return (
+    <div className="min-h-screen py-12">
+      <div className="container px-4 md:px-6">
+        <div className="flex flex-col gap-8">
+          <div>
+            <h1 className="text-3xl font-bold mb-4">DIY-Community</h1>
+            <p className="text-muted-foreground mb-6">
+              Entdecke talentierte DIY-Enthusiasten, teile deine Projekte und tausche dich mit Gleichgesinnten aus. 
+              In unserer Community findest du Inspiration, Feedback und Unterstützung für deine Möbelbau-Projekte.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="lg:col-span-2">
+              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+                <h2 className="text-2xl font-bold">Community Feed</h2>
+                <div className="flex gap-2">
+                  <Button variant="outline" size="sm">
+                    <Search className="h-4 w-4 mr-2" />
+                    Suchen
+                  </Button>
+                  <Button size="sm">Beitrag erstellen</Button>
+                </div>
+              </div>
+              
+              <Tabs defaultValue="alle">
+                <TabsList className="mb-6">
+                  <TabsTrigger value="alle">Alle</TabsTrigger>
+                  <TabsTrigger value="projekte">Projekte</TabsTrigger>
+                  <TabsTrigger value="fragen">Fragen</TabsTrigger>
+                  <TabsTrigger value="tutorials">Tutorials</TabsTrigger>
+                </TabsList>
+                
+                <TabsContent value="alle" className="space-y-6">
+                  {recentActivity.map((activity) => (
+                    <Card key={activity.id}>
+                      <CardHeader className="p-4 pb-0">
+                        <div className="flex items-start gap-3">
+                          <Avatar className="h-10 w-10">
+                            <AvatarImage src={activity.user.avatar} alt={activity.user.name} />
+                            <AvatarFallback>{activity.user.name.charAt(0)}</AvatarFallback>
+                          </Avatar>
+                          <div>
+                            <div className="font-medium">{activity.user.name}</div>
+                            <div className="text-sm text-muted-foreground">{activity.user.username}</div>
+                            <div className="text-sm mt-1">
+                              {activity.content}
+                            </div>
+                            <div className="text-xs text-muted-foreground mt-1">{activity.time}</div>
+                          </div>
+                        </div>
+                      </CardHeader>
+                      
+                      <CardContent className="p-4 pt-3">
+                        {activity.type === 'comment' && (
+                          <div className="bg-muted p-3 rounded-md text-sm mt-2">
+                            "{activity.text}"
+                          </div>
+                        )}
+                        
+                        {(activity.type === 'tutorial' || activity.type === 'challenge') && activity.image && (
+                          <div className="mt-2 rounded-md overflow-hidden h-48">
+                            <img 
+                              src={activity.image} 
+                              alt="Projekt Vorschau" 
+                              className="w-full h-full object-cover"
+                            />
+                          </div>
+                        )}
+                      </CardContent>
+                      
+                      <CardFooter className="p-4 pt-0 flex justify-between">
+                        <div className="flex gap-4">
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 text-craft-wood mr-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
+                            </svg>
+                            <span className="text-sm">{activity.likes}</span>
+                          </div>
+                          <div className="flex items-center">
+                            <svg className="w-4 h-4 text-craft-wood mr-1" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clipRule="evenodd"></path>
+                            </svg>
+                            <span className="text-sm">{activity.comments}</span>
+                          </div>
+                        </div>
+                        <div>
+                          {activity.type !== 'follow' ? (
+                            <Button size="sm" variant="outline">Ansehen</Button>
+                          ) : (
+                            <Button size="sm" variant="outline">Profil</Button>
+                          )}
+                        </div>
+                      </CardFooter>
+                    </Card>
+                  ))}
+                </TabsContent>
+                
+                <TabsContent value="projekte">
+                  <div className="text-center p-12 border rounded-lg">
+                    <h3 className="text-xl font-medium mb-2">Projekte werden geladen...</h3>
+                    <p className="text-muted-foreground">
+                      Hier werden bald die neuesten Projekte aus der Community angezeigt.
+                    </p>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="fragen">
+                  <div className="text-center p-12 border rounded-lg">
+                    <h3 className="text-xl font-medium mb-2">Fragen werden geladen...</h3>
+                    <p className="text-muted-foreground">
+                      Hier werden bald die neuesten Fragen aus der Community angezeigt.
+                    </p>
+                  </div>
+                </TabsContent>
+                
+                <TabsContent value="tutorials">
+                  <div className="text-center p-12 border rounded-lg">
+                    <h3 className="text-xl font-medium mb-2">Tutorials werden geladen...</h3>
+                    <p className="text-muted-foreground">
+                      Hier werden bald die neuesten Tutorials aus der Community angezeigt.
+                    </p>
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </div>
+            
+            <div>
+              <Card>
+                <CardHeader>
+                  <CardTitle>Featured Creators</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {featuredCreators.slice(0, 3).map((creator) => (
+                    <div key={creator.id} className="flex gap-3 p-3 hover:bg-muted rounded-lg transition-colors">
+                      <Avatar className="h-10 w-10">
+                        <AvatarImage src={creator.avatar} alt={creator.name} />
+                        <AvatarFallback>{creator.name.charAt(0)}</AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <div className="font-medium flex items-center">
+                          {creator.name}
+                          {creator.badges.includes("Top Creator") && (
+                            <Award className="h-3 w-3 ml-1 text-craft-wood" />
+                          )}
+                        </div>
+                        <div className="text-sm text-muted-foreground">{creator.username}</div>
+                        <div className="flex gap-3 mt-1">
+                          <div className="text-xs">{creator.tutorials} Tutorials</div>
+                          <div className="text-xs">{creator.followers} Follower</div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </CardContent>
+                <CardFooter>
+                  <Button variant="outline" className="w-full">Alle Creator entdecken</Button>
+                </CardFooter>
+              </Card>
+              
+              <Card className="mt-6">
+                <CardHeader>
+                  <CardTitle>Dein Profil</CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <div className="flex justify-center mb-4">
+                    <Avatar className="h-24 w-24">
+                      <AvatarFallback>JD</AvatarFallback>
+                    </Avatar>
+                  </div>
+                  <h3 className="text-xl font-medium mb-2">Anmelden oder Registrieren</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Werde Teil unserer DIY-Community und teile deine Projekte mit der Welt.
+                  </p>
+                  <div className="flex flex-col gap-2">
+                    <Button asChild>
+                      <a href="/login">Anmelden</a>
+                    </Button>
+                    <Button variant="outline" asChild>
+                      <a href="/register">Registrieren</a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+              
+              <Card className="mt-6">
+                <CardHeader>
+                  <CardTitle>Community Badges</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <div className="flex flex-wrap gap-2">
+                    <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                      Anfänger
+                    </Badge>
+                    <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">
+                      Upcycling-Fan
+                    </Badge>
+                    <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-200">
+                      Design-Talent
+                    </Badge>
+                    <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                      Holzexperte
+                    </Badge>
+                    <Badge variant="outline" className="bg-red-100 text-red-800 border-red-200">
+                      Challenge-Sieger
+                    </Badge>
+                    <Badge variant="outline" className="bg-pink-100 text-pink-800 border-pink-200">
+                      Profi-Handwerker
+                    </Badge>
+                    <Badge variant="outline" className="bg-indigo-100 text-indigo-800 border-indigo-200">
+                      Innovator
+                    </Badge>
+                    <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-200">
+                      Nachhaltigkeits-Champion
+                    </Badge>
+                  </div>
+                  <p className="text-xs text-muted-foreground mt-2">
+                    Badges werden für besondere Leistungen und Beiträge in der Community verliehen.
+                  </p>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Community;

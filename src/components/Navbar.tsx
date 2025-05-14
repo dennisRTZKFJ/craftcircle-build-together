@@ -1,18 +1,21 @@
 
-import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Search } from "lucide-react";
-import { cn } from '@/lib/utils';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+import { Menu, Search, LogIn } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      setIsScrolled(window.scrollY > 20);
     };
-
     window.addEventListener('scroll', handleScroll);
     return () => {
       window.removeEventListener('scroll', handleScroll);
@@ -20,91 +23,70 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className={cn(
-      "fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-4",
-      isScrolled ? "bg-background/95 shadow-md backdrop-blur-sm py-3" : "bg-transparent"
-    )}>
-      <div className="container flex justify-between items-center">
-        <a href="/" className="flex items-center gap-2">
-          <div className="bg-craft-wood text-white font-bold p-2 rounded">
-            CC
-          </div>
-          <span className="font-playfair text-xl font-bold">CraftCircle</span>
-        </a>
-
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center space-x-6">
-          <a href="#projects" className="craft-link font-medium">Projekte</a>
-          <a href="#community" className="craft-link font-medium">Community</a>
-          <a href="#how-it-works" className="craft-link font-medium">So funktioniert's</a>
-          <a href="#ai-assistant" className="craft-link font-medium">KI-Assistent</a>
-        </nav>
-
-        <div className="hidden md:flex items-center gap-4">
-          <Button variant="ghost" size="icon">
-            <Search className="h-5 w-5" />
-          </Button>
-          <Button variant="outline">Anmelden</Button>
-          <Button>Registrieren</Button>
+    <header
+      className={`sticky top-0 z-40 w-full transition-all duration-200 ${
+        isScrolled ? 'bg-background/95 backdrop-blur-lg shadow-sm' : 'bg-transparent'
+      }`}
+    >
+      <div className="container flex h-16 items-center px-4 md:px-6">
+        <div className="flex items-center space-x-2 md:space-x-4">
+          <Link to="/" className="flex items-center space-x-2">
+            <div className="bg-craft-wood text-white w-8 h-8 rounded flex items-center justify-center font-bold">
+              CC
+            </div>
+            <span className="text-lg font-bold">CraftCircle</span>
+          </Link>
         </div>
+        <nav className="hidden md:flex items-center space-x-6 mx-6">
+          <Link to="/tutorials" className="craft-link text-sm font-medium">Tutorials</Link>
+          <Link to="/challenges" className="craft-link text-sm font-medium">Challenges</Link>
+          <Link to="/community" className="craft-link text-sm font-medium">Community</Link>
+          <Link to="/marketplace" className="craft-link text-sm font-medium">Materialien</Link>
+        </nav>
+        <div className="flex-1" />
+        <div className="flex items-center space-x-2">
+          <Button variant="outline" size="sm" className="hidden md:flex">
+            <Search className="h-4 w-4 mr-2" />
+            Suchen
+          </Button>
 
-        {/* Mobile menu button */}
-        <button 
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden p-2"
-        >
-          <div className={cn("w-6 h-0.5 bg-foreground transition-all", 
-            isMobileMenuOpen && "rotate-45 translate-y-1.5"
-          )}></div>
-          <div className={cn("w-6 h-0.5 bg-foreground my-1.5 transition-opacity", 
-            isMobileMenuOpen && "opacity-0"
-          )}></div>
-          <div className={cn("w-6 h-0.5 bg-foreground transition-all", 
-            isMobileMenuOpen && "-rotate-45 -translate-y-1.5"
-          )}></div>
-        </button>
-      </div>
-
-      {/* Mobile menu */}
-      <div className={cn(
-        "md:hidden fixed inset-0 bg-background z-40 transition-all duration-300 transform",
-        isMobileMenuOpen ? "translate-x-0" : "translate-x-full"
-      )}>
-        <div className="container pt-24 space-y-6">
-          <nav className="flex flex-col space-y-6">
-            <a 
-              href="#projects" 
-              className="text-xl font-medium" 
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Projekte
-            </a>
-            <a 
-              href="#community" 
-              className="text-xl font-medium" 
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              Community
-            </a>
-            <a 
-              href="#how-it-works" 
-              className="text-xl font-medium" 
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              So funktioniert's
-            </a>
-            <a 
-              href="#ai-assistant" 
-              className="text-xl font-medium" 
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              KI-Assistent
-            </a>
-          </nav>
-          <div className="flex flex-col space-y-4 pt-6 border-t border-border">
-            <Button variant="outline" onClick={() => setIsMobileMenuOpen(false)}>Anmelden</Button>
-            <Button onClick={() => setIsMobileMenuOpen(false)}>Registrieren</Button>
+          <div className="hidden md:flex space-x-1">
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/login">
+                <LogIn className="h-4 w-4 mr-2" />
+                Anmelden
+              </Link>
+            </Button>
+            <Button size="sm" asChild>
+              <Link to="/register">Registrieren</Link>
+            </Button>
           </div>
+
+          <Sheet>
+            <SheetTrigger asChild>
+              <Button variant="outline" size="icon" className="md:hidden">
+                <Menu className="h-5 w-5" />
+                <span className="sr-only">Navigation</span>
+              </Button>
+            </SheetTrigger>
+            <SheetContent side="right">
+              <nav className="flex flex-col gap-4 mt-8">
+                <Link to="/" className="text-lg font-medium">Home</Link>
+                <Link to="/tutorials" className="text-lg font-medium">Tutorials</Link>
+                <Link to="/challenges" className="text-lg font-medium">Challenges</Link>
+                <Link to="/community" className="text-lg font-medium">Community</Link>
+                <Link to="/marketplace" className="text-lg font-medium">Materialien</Link>
+                <div className="mt-4 space-y-2">
+                  <Button className="w-full" variant="outline" asChild>
+                    <Link to="/login">Anmelden</Link>
+                  </Button>
+                  <Button className="w-full" asChild>
+                    <Link to="/register">Registrieren</Link>
+                  </Button>
+                </div>
+              </nav>
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </header>
