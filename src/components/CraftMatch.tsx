@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, Clock, Tool, CircleCheck } from 'lucide-react';
+import { Star, Clock, Hammer, CheckCircle } from 'lucide-react';
 
 const CraftMatch = () => {
   // Mock data - in a real app this would come from a database/API
@@ -95,12 +95,12 @@ const CraftMatch = () => {
               <div className="space-y-3">
                 <div>
                   <h4 className="text-sm font-medium mb-1 flex items-center">
-                    <Tool className="h-4 w-4 mr-1 text-craft-wood" /> Benötigte Werkzeuge
+                    <Hammer className="h-4 w-4 mr-1 text-craft-wood" /> Benötigte Werkzeuge
                   </h4>
                   <div className="flex flex-wrap gap-1">
                     {project.tools.map((tool, i) => (
                       <Badge key={i} variant="secondary" className="text-xs">
-                        <CircleCheck className="h-3 w-3 mr-1 text-green-500" /> {tool}
+                        <CheckCircle className="h-3 w-3 mr-1 text-green-500" /> {tool}
                       </Badge>
                     ))}
                   </div>

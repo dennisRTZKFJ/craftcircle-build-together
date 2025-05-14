@@ -1,9 +1,10 @@
+
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Star, Trophy, BookOpen, Tool, Calendar, Heart, Plus } from 'lucide-react';
+import { Star, Trophy, BookOpen, Hammer, Calendar, Heart, Plus, Clock } from 'lucide-react';
 
 const UserDashboard = () => {
   // Mock data - in a real app this would come from a database/API
@@ -14,7 +15,7 @@ const UserDashboard = () => {
     averageRating: 4.7,
     skillLevel: 65, // percentage
     badges: [
-      { name: "Holzfäller", description: "5 Holzprojekte abgeschlossen", icon: <Tool className="h-3 w-3" /> },
+      { name: "Holzfäller", description: "5 Holzprojekte abgeschlossen", icon: <Hammer className="h-3 w-3" /> },
       { name: "Frühaufsteher", description: "Vor 8 Uhr aktiv", icon: <Calendar className="h-3 w-3" /> },
       { name: "Beliebter Creator", description: "Über 100 Likes", icon: <Heart className="h-3 w-3" /> },
     ],

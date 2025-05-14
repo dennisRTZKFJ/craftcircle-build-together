@@ -7,7 +7,7 @@ import {
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu, Search, LogIn, Tool } from 'lucide-react';
+import { Menu, Search, LogIn, Hammer } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -78,7 +78,7 @@ const Navbar = () => {
                 <Link to="/community" className="text-lg font-medium">Community</Link>
                 <Link to="/marketplace" className="text-lg font-medium">Materialien</Link>
                 <Link to="/dashboard" className="flex items-center text-lg font-medium">
-                  <Tool className="h-4 w-4 mr-2" />
+                  <Hammer className="h-4 w-4 mr-2" />
                   Meine Werkstatt
                 </Link>
                 <div className="mt-4 space-y-2">
