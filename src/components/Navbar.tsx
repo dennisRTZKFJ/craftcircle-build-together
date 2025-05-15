@@ -1,18 +1,28 @@
 
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import {
   Sheet,
   SheetContent,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { Menu, Search, LogIn, Hammer } from 'lucide-react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Menu, Search, LogIn, Hammer, X } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
@@ -21,6 +31,14 @@ const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      setSearchOpen(false);
+      navigate(`/tutorials?q=${encodeURIComponent(searchQuery)}`);
+    }
+  };
 
   return (
     <header
@@ -46,7 +64,12 @@ const Navbar = () => {
         </nav>
         <div className="flex-1" />
         <div className="flex items-center space-x-2">
-          <Button variant="outline" size="sm" className="hidden md:flex">
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="hidden md:flex"
+            onClick={() => setSearchOpen(true)}
+          >
             <Search className="h-4 w-4 mr-2" />
             Suchen
           </Button>
@@ -62,6 +85,16 @@ const Navbar = () => {
               <Link to="/register">Registrieren</Link>
             </Button>
           </div>
+
+          <Button 
+            variant="outline" 
+            size="icon" 
+            className="md:hidden"
+            onClick={() => setSearchOpen(true)}
+          >
+            <Search className="h-5 w-5" />
+            <span className="sr-only">Suchen</span>
+          </Button>
 
           <Sheet>
             <SheetTrigger asChild>
@@ -94,6 +127,43 @@ const Navbar = () => {
           </Sheet>
         </div>
       </div>
+
+      {/* Search Dialog */}
+      <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Suchen</DialogTitle>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="absolute right-4 top-4"
+              onClick={() => setSearchOpen(false)}
+            >
+              <X className="h-4 w-4" />
+              <span className="sr-only">Schließen</span>
+            </Button>
+          </DialogHeader>
+          <form onSubmit={handleSearch} className="space-y-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                className="pl-10"
+                placeholder="Projekte, Materialien, Autoren..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+            </div>
+            <div className="flex justify-end gap-2">
+              <Button variant="outline" type="button" onClick={() => setSearchOpen(false)}>
+                Abbrechen
+              </Button>
+              <Button type="submit" disabled={!searchQuery.trim()}>
+                Suchen
+              </Button>
+            </div>
+          </form>
+        </DialogContent>
+      </Dialog>
     </header>
   );
 };

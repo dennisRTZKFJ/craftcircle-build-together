@@ -8,6 +8,7 @@ import CommunitySection from '@/components/CommunitySection';
 import HowItWorks from '@/components/HowItWorks';
 import AIAssistant from '@/components/AIAssistant';
 import Footer from '@/components/Footer';
+import WeeklyChallenge from '@/components/WeeklyChallenge';
 
 const Index = () => {
   return (
@@ -16,6 +17,7 @@ const Index = () => {
       <Hero />
       <Features />
       <ProjectShowcase />
+      <WeeklyChallenge />
       <CommunitySection />
       <HowItWorks />
       <AIAssistant />
