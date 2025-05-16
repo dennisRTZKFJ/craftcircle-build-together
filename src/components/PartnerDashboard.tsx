@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
-import { TrendingUp, TrendingDown, Store, MapPin, Link, DollarSign, UploadCloud, Brain, Support } from 'lucide-react';
+import { TrendingUp, TrendingDown, Store, MapPin, Link, DollarSign, UploadCloud, Brain, HelpCircle } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 
 const PartnerDashboard = () => {
@@ -41,7 +40,7 @@ const PartnerDashboard = () => {
         </div>
         
         <Button onClick={handleContactSupport} className="flex items-center gap-2">
-          <Support className="h-4 w-4" />
+          <HelpCircle className="h-4 w-4" />
           <span>Support kontaktieren</span>
         </Button>
       </div>
