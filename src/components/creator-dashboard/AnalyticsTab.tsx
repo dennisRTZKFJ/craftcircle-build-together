@@ -1,0 +1,124 @@
+
+import React from 'react';
+import { 
+  Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter 
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { ChevronDown, TrendingUp } from 'lucide-react';
+
+interface Tutorial {
+  id: number;
+  title: string;
+  status: string;
+  views: number;
+  likes: number;
+  comments: number;
+  revenue: string;
+  date: string;
+  image: string;
+}
+
+interface AnalyticsTabProps {
+  tutorials: Tutorial[];
+}
+
+const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
+  return (
+    <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <Card>
+          <CardHeader>
+            <CardTitle>Zuschauerzahlen</CardTitle>
+            <CardDescription>Entwicklung der Aufrufe über Zeit</CardDescription>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
+              <div className="text-center p-4">
+                <TrendingUp className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
+                <p className="text-muted-foreground">
+                  Hier wird der Verlauf deiner Aufrufe angezeigt
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card>
+          <CardHeader>
+            <CardTitle>Content-Performance</CardTitle>
+            <CardDescription>Vergleich deiner Tutorials</CardDescription>
+          </CardHeader>
+          <CardContent className="p-6">
+            <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
+              <div className="text-center p-4">
+                <TrendingUp className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
+                <p className="text-muted-foreground">
+                  Hier wird die Performance deiner Tutorials verglichen
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+        
+        <Card className="md:col-span-2">
+          <CardHeader>
+            <CardTitle>Detaillierte Statistiken</CardTitle>
+            <CardDescription>Performance deiner Tutorials mit allen Metriken</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Tutorial</TableHead>
+                  <TableHead className="text-right">Aufrufe</TableHead>
+                  <TableHead className="text-right">Likes</TableHead>
+                  <TableHead className="text-right">Kommentare</TableHead>
+                  <TableHead className="text-right">Abschlussrate</TableHead>
+                  <TableHead className="text-right">Click-Through</TableHead>
+                  <TableHead className="text-right">Durchschn. Sehzeit</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {tutorials
+                  .filter(t => t.status === 'published')
+                  .map((tutorial) => (
+                    <TableRow key={tutorial.id}>
+                      <TableCell className="font-medium">{tutorial.title}</TableCell>
+                      <TableCell className="text-right">{tutorial.views.toLocaleString()}</TableCell>
+                      <TableCell className="text-right">{tutorial.likes}</TableCell>
+                      <TableCell className="text-right">{tutorial.comments}</TableCell>
+                      <TableCell className="text-right">
+                        {Math.round(65 + Math.random() * 20)}%
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {Math.round(10 + Math.random() * 15)}%
+                      </TableCell>
+                      <TableCell className="text-right">
+                        {Math.round(3 + Math.random() * 7)}m {Math.round(Math.random() * 59)}s
+                      </TableCell>
+                    </TableRow>
+                  ))
+                }
+              </TableBody>
+            </Table>
+          </CardContent>
+          <CardFooter className="flex justify-between">
+            <div>
+              <Button variant="outline">
+                Performance-Bericht exportieren
+              </Button>
+            </div>
+            <div>
+              <Button variant="outline">
+                Weitere Metriken anzeigen <ChevronDown className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </CardFooter>
+        </Card>
+      </div>
+    </div>
+  );
+};
+
+export default AnalyticsTab;
