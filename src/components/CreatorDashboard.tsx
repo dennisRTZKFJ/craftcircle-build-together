@@ -11,6 +11,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Progress } from "@/components/ui/progress";
 import { useToast } from "@/components/ui/use-toast";
+import { Separator } from "@/components/ui/separator";
 import {
   FileText, Upload, Star, Heart, Calendar, TrendingUp, 
   DollarSign, ArrowUpRight, MessageCircle, HelpCircle,
