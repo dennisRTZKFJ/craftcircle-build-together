@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -7,17 +6,19 @@ import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
 import { 
   User, CheckCircle, Calendar, Clock, MessageCircle, Heart,
   Award, Package, FileText, Star, Brain, Target, 
-  ArrowRight
+  ArrowRight, Crown, Check
 } from 'lucide-react';
 
 const UserDashboard = () => {
   const { toast } = useToast();
   const [weeklyGoal, setWeeklyGoal] = useState(1);
   const [weeklyProgress, setWeeklyProgress] = useState(0);
+  const [subscriptionDialogOpen, setSubscriptionDialogOpen] = useState(false);
   
   // Mock data for user projects
   const projects = [
@@ -223,6 +224,14 @@ const UserDashboard = () => {
     });
   };
   
+  const handleSubscribe = () => {
+    setSubscriptionDialogOpen(false);
+    toast({
+      title: "Abonnement",
+      description: "Danke für dein Interesse! Du wirst zur Zahlungsseite weitergeleitet."
+    });
+  };
+  
   return (
     <div className="container py-8">
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
@@ -231,10 +240,94 @@ const UserDashboard = () => {
           <p className="text-muted-foreground">Willkommen zurück in deiner persönlichen DIY-Zentrale</p>
         </div>
         
-        <Button onClick={startProject} className="whitespace-nowrap">
-          <FileText className="mr-2 h-4 w-4" />
-          Neues Projekt starten
-        </Button>
+        <div className="flex flex-wrap gap-3">
+          <Button onClick={startProject} className="whitespace-nowrap">
+            <FileText className="mr-2 h-4 w-4" />
+            Neues Projekt starten
+          </Button>
+          
+          <Dialog open={subscriptionDialogOpen} onOpenChange={setSubscriptionDialogOpen}>
+            <DialogTrigger asChild>
+              <Button variant="outline" className="whitespace-nowrap">
+                <Crown className="mr-2 h-4 w-4" />
+                Premium abonnieren
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-md">
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-2 text-craft-wood">
+                  <Crown className="h-5 w-5" />
+                  DIY Premium
+                </DialogTitle>
+                <DialogDescription>
+                  Erweitere deine Möglichkeiten und erhalte Zugang zu exklusiven Premium-Features
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="grid gap-4 py-4">
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-start gap-2">
+                    <div className="mt-0.5">
+                      <Check className="h-4 w-4 text-craft-wood" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Unbegrenzte Projekte</h4>
+                      <p className="text-sm text-muted-foreground">Erstelle und verwalte so viele Projekte wie du möchtest</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-2">
+                    <div className="mt-0.5">
+                      <Check className="h-4 w-4 text-craft-wood" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">KI-Projektassistent</h4>
+                      <p className="text-sm text-muted-foreground">Erhalte personalisierte Vorschläge und Anleitungen für deine Projekte</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-2">
+                    <div className="mt-0.5">
+                      <Check className="h-4 w-4 text-craft-wood" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Exklusive Tutorials</h4>
+                      <p className="text-sm text-muted-foreground">Zugang zu Premium-Inhalten von Top-Creatorn</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start gap-2">
+                    <div className="mt-0.5">
+                      <Check className="h-4 w-4 text-craft-wood" />
+                    </div>
+                    <div>
+                      <h4 className="font-medium">Priorisierter Support</h4>
+                      <p className="text-sm text-muted-foreground">Erhalte schnellere Antworten bei Fragen und Problemen</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="bg-muted p-4 rounded-lg">
+                  <div className="flex justify-between items-center mb-2">
+                    <div className="text-sm">Monatlicher Preis</div>
+                    <div className="text-lg font-bold">€9,99</div>
+                  </div>
+                  <div className="text-xs text-muted-foreground">Jederzeit kündbar. 14 Tage Geld-zurück-Garantie.</div>
+                </div>
+              </div>
+              
+              <DialogFooter className="flex flex-col sm:flex-row gap-2">
+                <Button variant="outline" onClick={() => setSubscriptionDialogOpen(false)}>
+                  Später entscheiden
+                </Button>
+                <Button onClick={handleSubscribe} className="gap-2">
+                  <Crown className="h-4 w-4" />
+                  Jetzt abonnieren
+                </Button>
+              </DialogFooter>
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
       
       {/* Welcome & Overview */}

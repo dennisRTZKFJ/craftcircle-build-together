@@ -4,7 +4,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/components/ui/use-toast";
-import { Upload, HelpCircle } from 'lucide-react';
+import { FileText, Upload, TrendingUp, DollarSign, MessageCircle, HelpCircle } from 'lucide-react';
 
 // Import components 
 import StatsOverview from './StatsOverview';
