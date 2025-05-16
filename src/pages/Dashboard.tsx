@@ -2,13 +2,14 @@
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import UserDashboard from '@/components/UserDashboard';
-import CreatorDashboard from '@/components/CreatorDashboard';
+import CreatorDashboard from '@/components/creator-dashboard/CreatorDashboard';
 import PartnerDashboard from '@/components/PartnerDashboard';
 import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { HelpCircle } from 'lucide-react';
+import { HelpCircle, User } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const { toast } = useToast();
@@ -40,15 +41,24 @@ const Dashboard = () => {
           </TabsList>
         </Tabs>
         
-        <Button 
-          variant="outline" 
-          size="sm" 
-          className="flex items-center gap-1 mt-2 md:mt-0"
-          onClick={handleSupportClick}
-        >
-          <HelpCircle className="h-4 w-4" />
-          <span>Support</span>
-        </Button>
+        <div className="flex gap-2 mt-2 md:mt-0">
+          <Link to="/account">
+            <Button variant="outline" size="sm" className="flex items-center gap-1">
+              <User className="h-4 w-4" />
+              <span>Mein Konto</span>
+            </Button>
+          </Link>
+          
+          <Button 
+            variant="outline" 
+            size="sm" 
+            className="flex items-center gap-1"
+            onClick={handleSupportClick}
+          >
+            <HelpCircle className="h-4 w-4" />
+            <span>Support</span>
+          </Button>
+        </div>
       </div>
       
       {/* Render the appropriate dashboard based on user type */}

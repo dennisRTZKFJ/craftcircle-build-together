@@ -180,10 +180,12 @@ const CreatorDashboard = () => {
                 <span>Tutorial hochladen</span>
               </Button>
             </DialogTrigger>
-            <UploadTutorialDialog 
-              onClose={() => setUploadDialogOpen(false)}
-              onUpload={handleUploadTutorial}
-            />
+            <DialogContent>
+              <UploadTutorialDialog 
+                onClose={() => setUploadDialogOpen(false)}
+                onUpload={handleUploadTutorial}
+              />
+            </DialogContent>
           </Dialog>
           
           <Button variant="outline" className="flex items-center gap-2" onClick={handleSupportRequest}>
