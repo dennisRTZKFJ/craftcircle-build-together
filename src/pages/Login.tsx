@@ -33,15 +33,15 @@ const Login = () => {
       // For demo purposes, accept any valid-looking email/password
       if (email && password && email.includes('@') && password.length >= 6) {
         toast({
-          title: "Erfolgreich angemeldet",
-          description: "Willkommen zurück bei CraftCircle!",
+          title: "Successfully logged in",
+          description: "Welcome back to CraftCircle!",
         });
         navigate('/dashboard');
       } else {
-        setError('Ungültige Anmeldedaten. Bitte überprüfen Sie Ihre E-Mail-Adresse und Ihr Passwort.');
+        setError('Invalid credentials. Please check your email and password.');
       }
     } catch (err) {
-      setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+      setError('An error occurred. Please try again later.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -54,9 +54,9 @@ const Login = () => {
       <div className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Anmelden</CardTitle>
+            <CardTitle className="text-2xl">Sign In</CardTitle>
             <CardDescription>
-              Geben Sie Ihre Anmeldedaten ein, um auf Ihr Konto zuzugreifen
+              Enter your credentials to access your account
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -67,7 +67,7 @@ const Login = () => {
             )}
             <form onSubmit={handleLogin} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email">E-Mail</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input 
                   id="email"
                   type="email" 
@@ -79,9 +79,9 @@ const Login = () => {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Passwort</Label>
+                  <Label htmlFor="password">Password</Label>
                   <Link to="/reset-password" className="text-sm text-craft-wood hover:underline">
-                    Passwort vergessen?
+                    Forgot password?
                   </Link>
                 </div>
                 <Input 
@@ -93,7 +93,7 @@ const Login = () => {
                 />
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Anmeldung..." : "Anmelden"}
+                {loading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
 
@@ -103,17 +103,17 @@ const Login = () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-card px-2 text-muted-foreground">
-                  oder fortfahren mit
+                  or continue with
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" onClick={() => toast({ description: "GitHub-Login ist noch nicht implementiert" })}>
+              <Button variant="outline" onClick={() => toast({ description: "GitHub login is not implemented yet" })}>
                 <Github className="mr-2 h-4 w-4" />
                 GitHub
               </Button>
-              <Button variant="outline" onClick={() => toast({ description: "Google-Login ist noch nicht implementiert" })}>
+              <Button variant="outline" onClick={() => toast({ description: "Google login is not implemented yet" })}>
                 <Mail className="mr-2 h-4 w-4" />
                 Google
               </Button>
@@ -121,13 +121,13 @@ const Login = () => {
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <div className="text-sm text-center text-muted-foreground">
-              Noch kein Konto?{' '}
+              Don't have an account?{' '}
               <Link to="/register" className="text-craft-wood hover:underline">
-                Registrieren
+                Sign up
               </Link>
             </div>
             <Button variant="ghost" size="sm" className="w-full" onClick={() => navigate('/')}>
-              Zurück zur Startseite
+              Back to homepage
             </Button>
           </CardFooter>
         </Card>

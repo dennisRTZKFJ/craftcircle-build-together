@@ -22,34 +22,34 @@ const Onboarding = () => {
   const [loading, setLoading] = useState(false);
   
   const interests = [
-    { id: 'furniture', name: 'Möbelbau', color: 'bg-amber-100 text-amber-800 border-amber-200' },
-    { id: 'outdoor', name: 'Outdoor & Garten', color: 'bg-green-100 text-green-800 border-green-200' },
-    { id: 'decor', name: 'Dekoration', color: 'bg-pink-100 text-pink-800 border-pink-200' },
-    { id: 'storage', name: 'Stauraum & Organisation', color: 'bg-blue-100 text-blue-800 border-blue-200' },
-    { id: 'renovation', name: 'Renovierung', color: 'bg-purple-100 text-purple-800 border-purple-200' },
+    { id: 'furniture', name: 'Furniture Building', color: 'bg-amber-100 text-amber-800 border-amber-200' },
+    { id: 'outdoor', name: 'Outdoor & Garden', color: 'bg-green-100 text-green-800 border-green-200' },
+    { id: 'decor', name: 'Decoration', color: 'bg-pink-100 text-pink-800 border-pink-200' },
+    { id: 'storage', name: 'Storage & Organization', color: 'bg-blue-100 text-blue-800 border-blue-200' },
+    { id: 'renovation', name: 'Renovation', color: 'bg-purple-100 text-purple-800 border-purple-200' },
     { id: 'upcycling', name: 'Upcycling', color: 'bg-emerald-100 text-emerald-800 border-emerald-200' },
-    { id: 'kids', name: 'Kindermöbel', color: 'bg-red-100 text-red-800 border-red-200' },
-    { id: 'small', name: 'Kleine Wohnungen', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' }
+    { id: 'kids', name: 'Kids Furniture', color: 'bg-red-100 text-red-800 border-red-200' },
+    { id: 'small', name: 'Small Apartments', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' }
   ];
   
   const suggestedProjects = {
     beginner: [
-      { id: 'b1', name: 'Einfaches Wandregal', image: 'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0' },
-      { id: 'b2', name: 'Schlüsselboard', image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92' },
-      { id: 'b3', name: 'Pflanzentisch', image: 'https://images.unsplash.com/photo-1617104678098-de229db51175' },
-      { id: 'b4', name: 'Stiftehalter', image: 'https://images.unsplash.com/photo-1507955987999-16c7252dfede' },
+      { id: 'b1', name: 'Simple Wall Shelf', image: 'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0' },
+      { id: 'b2', name: 'Key Holder', image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92' },
+      { id: 'b3', name: 'Plant Stand', image: 'https://images.unsplash.com/photo-1617104678098-de229db51175' },
+      { id: 'b4', name: 'Pencil Holder', image: 'https://images.unsplash.com/photo-1507955987999-16c7252dfede' },
     ],
     intermediate: [
-      { id: 'i1', name: 'Couchtisch', image: 'https://images.unsplash.com/photo-1596079890744-c1a0462d0975' },
-      { id: 'i2', name: 'Garderobe', image: 'https://images.unsplash.com/photo-1609799529593-38cd08a93427' },
-      { id: 'i3', name: 'Hängeregal', image: 'https://images.unsplash.com/photo-1600607686527-daf21308b35b' },
-      { id: 'i4', name: 'Schreibtisch', image: 'https://images.unsplash.com/photo-1593476550610-87baa860004a' },
+      { id: 'i1', name: 'Coffee Table', image: 'https://images.unsplash.com/photo-1596079890744-c1a0462d0975' },
+      { id: 'i2', name: 'Coat Rack', image: 'https://images.unsplash.com/photo-1609799529593-38cd08a93427' },
+      { id: 'i3', name: 'Hanging Shelf', image: 'https://images.unsplash.com/photo-1600607686527-daf21308b35b' },
+      { id: 'i4', name: 'Desk', image: 'https://images.unsplash.com/photo-1593476550610-87baa860004a' },
     ],
     advanced: [
-      { id: 'a1', name: 'Bett mit Stauraum', image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85' },
-      { id: 'a2', name: 'Kleiderschrank', image: 'https://images.unsplash.com/photo-1606152536277-5aa1fd33e150' },
-      { id: 'a3', name: 'Sitzbank', image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03' },
-      { id: 'a4', name: 'Wickelkommode', image: 'https://images.unsplash.com/photo-1580229769680-56e5612c380e' },
+      { id: 'a1', name: 'Bed with Storage', image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85' },
+      { id: 'a2', name: 'Wardrobe', image: 'https://images.unsplash.com/photo-1606152536277-5aa1fd33e150' },
+      { id: 'a3', name: 'Bench', image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03' },
+      { id: 'a4', name: 'Changing Table', image: 'https://images.unsplash.com/photo-1580229769680-56e5612c380e' },
     ]
   };
 
@@ -91,8 +91,8 @@ const Onboarding = () => {
       await new Promise(resolve => setTimeout(resolve, 1500));
       
       toast({
-        title: "Onboarding abgeschlossen!",
-        description: "Deine DIY-Reise beginnt jetzt.",
+        title: "Onboarding completed!",
+        description: "Your DIY journey begins now.",
       });
 
       navigate('/dashboard');
@@ -100,8 +100,8 @@ const Onboarding = () => {
       console.error(err);
       toast({
         variant: "destructive",
-        title: "Fehler",
-        description: "Es ist ein Fehler aufgetreten. Bitte versuche es später erneut.",
+        title: "Error",
+        description: "An error occurred. Please try again later.",
       });
     } finally {
       setLoading(false);
@@ -113,8 +113,8 @@ const Onboarding = () => {
       <Navbar />
       <div className="flex-1 container py-8 max-w-5xl">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-2">Willkommen bei CraftCircle!</h1>
-          <p className="text-muted-foreground">Lass uns dein Erlebnis personalisieren</p>
+          <h1 className="text-3xl font-bold mb-2">Welcome to CraftCircle!</h1>
+          <p className="text-muted-foreground">Let's personalize your experience</p>
           
           <div className="flex items-center justify-center gap-2 mt-6">
             <div className={`h-2 w-16 rounded-full ${currentStep === 1 ? 'bg-craft-wood' : 'bg-craft-wood/30'}`}></div>
@@ -125,8 +125,8 @@ const Onboarding = () => {
 
         {currentStep === 1 && (
           <div className="space-y-6 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-semibold">Was interessiert dich?</h2>
-            <p className="text-muted-foreground">Wähle deine DIY-Interessen aus, damit wir dir passende Inhalte zeigen können</p>
+            <h2 className="text-2xl font-semibold">What are you interested in?</h2>
+            <p className="text-muted-foreground">Choose your DIY interests so we can show you relevant content</p>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {interests.map((interest) => (
@@ -152,54 +152,54 @@ const Onboarding = () => {
             </div>
             
             <div className="pt-4 flex justify-between">
-              <Button variant="ghost" onClick={() => navigate('/dashboard')}>Überspringen</Button>
-              <Button onClick={handleNext}>Weiter <ArrowRight className="ml-2 h-4 w-4" /></Button>
+              <Button variant="ghost" onClick={() => navigate('/dashboard')}>Skip</Button>
+              <Button onClick={handleNext}>Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
             </div>
           </div>
         )}
 
         {currentStep === 2 && (
           <div className="space-y-6 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-semibold">Wie viel Erfahrung hast du?</h2>
-            <p className="text-muted-foreground">Wir passen die Projektvorschläge und Tutorials an dein Niveau an</p>
+            <h2 className="text-2xl font-semibold">How much experience do you have?</h2>
+            <p className="text-muted-foreground">We'll adapt project suggestions and tutorials to your level</p>
             
             <RadioGroup value={experienceLevel} onValueChange={setExperienceLevel} className="space-y-4">
               <div className={`flex items-start space-x-4 border rounded-lg p-4 transition-all ${experienceLevel === 'beginner' ? 'border-craft-wood bg-craft-wood/10' : 'border-border'}`}>
                 <RadioGroupItem value="beginner" id="beginner" />
                 <div className="flex flex-col">
-                  <Label htmlFor="beginner" className="text-base font-medium">Anfänger</Label>
-                  <p className="text-sm text-muted-foreground">Ich bin neu beim Heimwerken und habe wenig oder keine Erfahrung mit Werkzeugen.</p>
+                  <Label htmlFor="beginner" className="text-base font-medium">Beginner</Label>
+                  <p className="text-sm text-muted-foreground">I'm new to DIY and have little or no experience with tools.</p>
                 </div>
               </div>
               
               <div className={`flex items-start space-x-4 border rounded-lg p-4 transition-all ${experienceLevel === 'intermediate' ? 'border-craft-wood bg-craft-wood/10' : 'border-border'}`}>
                 <RadioGroupItem value="intermediate" id="intermediate" />
                 <div className="flex flex-col">
-                  <Label htmlFor="intermediate" className="text-base font-medium">Fortgeschritten</Label>
-                  <p className="text-sm text-muted-foreground">Ich habe bereits einige Projekte umgesetzt und kenne mich mit den grundlegenden Werkzeugen aus.</p>
+                  <Label htmlFor="intermediate" className="text-base font-medium">Intermediate</Label>
+                  <p className="text-sm text-muted-foreground">I've completed a few projects and am familiar with basic tools.</p>
                 </div>
               </div>
               
               <div className={`flex items-start space-x-4 border rounded-lg p-4 transition-all ${experienceLevel === 'advanced' ? 'border-craft-wood bg-craft-wood/10' : 'border-border'}`}>
                 <RadioGroupItem value="advanced" id="advanced" />
                 <div className="flex flex-col">
-                  <Label htmlFor="advanced" className="text-base font-medium">Profi</Label>
-                  <p className="text-sm text-muted-foreground">Ich bin ein erfahrener DIY-Enthusiast und kann auch komplexe Projekte umsetzen.</p>
+                  <Label htmlFor="advanced" className="text-base font-medium">Advanced</Label>
+                  <p className="text-sm text-muted-foreground">I'm an experienced DIY enthusiast and can tackle complex projects.</p>
                 </div>
               </div>
             </RadioGroup>
 
             <div className="pt-4 flex justify-between">
-              <Button variant="outline" onClick={handlePrev}>Zurück</Button>
-              <Button onClick={handleNext}>Weiter <ArrowRight className="ml-2 h-4 w-4" /></Button>
+              <Button variant="outline" onClick={handlePrev}>Back</Button>
+              <Button onClick={handleNext}>Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
             </div>
           </div>
         )}
 
         {currentStep === 3 && (
           <div className="space-y-6 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-semibold">Erste Projekte für dich</h2>
-            <p className="text-muted-foreground">Wähle Projekte aus, die dich interessieren. Du kannst später weitere hinzufügen.</p>
+            <h2 className="text-2xl font-semibold">First Projects for You</h2>
+            <p className="text-muted-foreground">Choose projects that interest you. You can add more later.</p>
             
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {suggestedProjects[experienceLevel as keyof typeof suggestedProjects].map((project) => (
@@ -221,7 +221,7 @@ const Onboarding = () => {
                     {selectedProjects.includes(project.id) && (
                       <div className="absolute inset-0 bg-craft-wood/20 flex items-center justify-center">
                         <Button size="sm" variant="secondary">
-                          <Check className="h-4 w-4 mr-1" /> Ausgewählt
+                          <Check className="h-4 w-4 mr-1" /> Selected
                         </Button>
                       </div>
                     )}
@@ -235,9 +235,9 @@ const Onboarding = () => {
             </div>
 
             <div className="pt-4 flex justify-between">
-              <Button variant="outline" onClick={handlePrev}>Zurück</Button>
+              <Button variant="outline" onClick={handlePrev}>Back</Button>
               <Button onClick={completeOnboarding} disabled={loading}>
-                {loading ? "Wird eingerichtet..." : "Fertig"}
+                {loading ? "Setting up..." : "Finish"}
               </Button>
             </div>
           </div>

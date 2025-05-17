@@ -63,32 +63,32 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
       <StatsCard
-        title="Aufrufe"
+        title="Views"
         icon={<Eye className="h-5 w-5 text-craft-wood" />}
         value={analytics.views.total.toLocaleString()}
         trend={analytics.views.trend}
-        description="im letzten Monat"
+        description="last month"
       />
       <StatsCard
         title="Engagement"
         icon={<Heart className="h-5 w-5 text-craft-wood" />}
         value={analytics.engagement.total}
         trend={analytics.engagement.trend}
-        description="im letzten Monat"
+        description="last month"
       />
       <StatsCard
-        title="Einnahmen"
+        title="Revenue"
         icon={<DollarSign className="h-5 w-5 text-craft-wood" />}
         value={analytics.revenue.total}
         trend={analytics.revenue.trend}
-        description="im letzten Monat"
+        description="last month"
       />
       <StatsCard
-        title="Follower"
+        title="Followers"
         icon={<ArrowUpRight className="h-5 w-5 text-craft-wood" />}
         value={analytics.followers.total.toLocaleString()}
         trend={analytics.followers.trend}
-        description="im letzten Monat"
+        description="last month"
       />
     </div>
   );

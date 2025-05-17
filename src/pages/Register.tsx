@@ -33,13 +33,13 @@ const Register = () => {
     try {
       // Validation
       if (password !== passwordConfirm) {
-        setError('Die Passwörter stimmen nicht überein.');
+        setError('Passwords do not match.');
         setLoading(false);
         return;
       }
       
       if (!agreedToTerms) {
-        setError('Bitte stimmen Sie den Nutzungsbedingungen zu.');
+        setError('Please agree to the terms of use.');
         setLoading(false);
         return;
       }
@@ -50,15 +50,15 @@ const Register = () => {
       // For demo purposes, accept any valid-looking registration
       if (name && email && email.includes('@') && password.length >= 6) {
         toast({
-          title: "Registrierung erfolgreich!",
-          description: "Bitte überprüfen Sie Ihre E-Mail-Adresse für den Bestätigungslink.",
+          title: "Registration successful!",
+          description: "Please check your email for the confirmation link.",
         });
         navigate('/onboarding');
       } else {
-        setError('Ungültige Eingaben. Bitte überprüfen Sie Ihre Daten.');
+        setError('Invalid input. Please check your data.');
       }
     } catch (err) {
-      setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+      setError('An error occurred. Please try again later.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -71,9 +71,9 @@ const Register = () => {
       <div className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Registrieren</CardTitle>
+            <CardTitle className="text-2xl">Sign Up</CardTitle>
             <CardDescription>
-              Erstellen Sie ein Konto und starten Sie Ihre DIY-Reise
+              Create an account and start your DIY journey
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -87,14 +87,14 @@ const Register = () => {
                 <Label htmlFor="name">Name</Label>
                 <Input 
                   id="name"
-                  placeholder="Max Mustermann"
+                  placeholder="John Doe"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">E-Mail</Label>
+                <Label htmlFor="email">Email</Label>
                 <Input 
                   id="email"
                   type="email" 
@@ -105,7 +105,7 @@ const Register = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Passwort</Label>
+                <Label htmlFor="password">Password</Label>
                 <Input 
                   id="password"
                   type="password"
@@ -115,7 +115,7 @@ const Register = () => {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="passwordConfirm">Passwort bestätigen</Label>
+                <Label htmlFor="passwordConfirm">Confirm Password</Label>
                 <Input 
                   id="passwordConfirm"
                   type="password"
@@ -134,11 +134,11 @@ const Register = () => {
                   htmlFor="terms"
                   className="text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                 >
-                  Ich stimme den <Link to="/terms" className="text-craft-wood hover:underline">Nutzungsbedingungen</Link> und <Link to="/privacy" className="text-craft-wood hover:underline">Datenschutzrichtlinien</Link> zu
+                  I agree to the <Link to="/terms" className="text-craft-wood hover:underline">Terms of Use</Link> and <Link to="/privacy" className="text-craft-wood hover:underline">Privacy Policy</Link>
                 </label>
               </div>
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? "Registrierung..." : "Registrieren"}
+                {loading ? "Registering..." : "Sign up"}
               </Button>
             </form>
 
@@ -148,17 +148,17 @@ const Register = () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-card px-2 text-muted-foreground">
-                  oder registrieren mit
+                  or register with
                 </span>
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" onClick={() => toast({ description: "GitHub-Registrierung ist noch nicht implementiert" })}>
+              <Button variant="outline" onClick={() => toast({ description: "GitHub registration is not implemented yet" })}>
                 <Github className="mr-2 h-4 w-4" />
                 GitHub
               </Button>
-              <Button variant="outline" onClick={() => toast({ description: "Google-Registrierung ist noch nicht implementiert" })}>
+              <Button variant="outline" onClick={() => toast({ description: "Google registration is not implemented yet" })}>
                 <Mail className="mr-2 h-4 w-4" />
                 Google
               </Button>
@@ -166,13 +166,13 @@ const Register = () => {
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <div className="text-sm text-center text-muted-foreground">
-              Bereits ein Konto?{' '}
+              Already have an account?{' '}
               <Link to="/login" className="text-craft-wood hover:underline">
-                Anmelden
+                Sign in
               </Link>
             </div>
             <Button variant="ghost" size="sm" className="w-full" onClick={() => navigate('/')}>
-              Zurück zur Startseite
+              Back to homepage
             </Button>
           </CardFooter>
         </Card>

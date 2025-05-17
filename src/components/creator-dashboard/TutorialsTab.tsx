@@ -33,21 +33,21 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Deine Tutorials</CardTitle>
-          <CardDescription>Verwalte deine veröffentlichten und geplanten Tutorials</CardDescription>
+          <CardTitle>Your Tutorials</CardTitle>
+          <CardDescription>Manage your published and planned tutorials</CardDescription>
         </CardHeader>
         <CardContent>
           <Table>
             <TableHeader>
               <TableRow>
-                <TableHead>Titel</TableHead>
+                <TableHead>Title</TableHead>
                 <TableHead>Status</TableHead>
-                <TableHead className="hidden md:table-cell">Datum</TableHead>
-                <TableHead className="hidden md:table-cell">Aufrufe</TableHead>
+                <TableHead className="hidden md:table-cell">Date</TableHead>
+                <TableHead className="hidden md:table-cell">Views</TableHead>
                 <TableHead className="hidden md:table-cell">Likes</TableHead>
-                <TableHead className="hidden md:table-cell">Kommentare</TableHead>
-                <TableHead className="hidden md:table-cell">Einnahmen</TableHead>
-                <TableHead>Aktionen</TableHead>
+                <TableHead className="hidden md:table-cell">Comments</TableHead>
+                <TableHead className="hidden md:table-cell">Revenue</TableHead>
+                <TableHead>Actions</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -69,7 +69,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                     <Badge variant={tutorial.status === 'published' ? 'default' : 'outline'} className={
                       tutorial.status === 'published' ? '' : 'bg-amber-100 text-amber-800 border-amber-200'
                     }>
-                      {tutorial.status === 'published' ? 'Veröffentlicht' : 'Entwurf'}
+                      {tutorial.status === 'published' ? 'Published' : 'Draft'}
                     </Badge>
                   </TableCell>
                   <TableCell className="hidden md:table-cell">{tutorial.date}</TableCell>
@@ -84,7 +84,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                       onClick={() => handleEditTutorial(tutorial.id)}
                     >
                       <Edit className="h-4 w-4" />
-                      <span className="sr-only md:not-sr-only md:ml-2">Bearbeiten</span>
+                      <span className="sr-only md:not-sr-only md:ml-2">Edit</span>
                     </Button>
                   </TableCell>
                 </TableRow>
@@ -94,17 +94,17 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
         </CardContent>
         <CardFooter className="flex justify-between">
           <div className="text-sm text-muted-foreground">
-            Zeige {tutorials.length} von {tutorials.length} Tutorials
+            Showing {tutorials.length} of {tutorials.length} tutorials
           </div>
           <div className="flex items-center gap-2">
             <Button variant="outline" size="sm">
-              Tutorial-Ideen generieren
+              Generate Tutorial Ideas
             </Button>
             <Dialog>
               <DialogTrigger asChild>
                 <Button size="sm">
                   <Upload className="h-4 w-4 mr-2" />
-                  Neues Tutorial
+                  New Tutorial
                 </Button>
               </DialogTrigger>
               <UploadTutorialDialog />
@@ -116,8 +116,8 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Tutorial-Status</CardTitle>
-            <CardDescription>Fortschritt deiner Projekte</CardDescription>
+            <CardTitle>Tutorial Status</CardTitle>
+            <CardDescription>Progress of your projects</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -140,7 +140,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                       ) : (
                         <Clock className="h-3 w-3 mr-1 text-amber-600" />
                       )}
-                      {tutorial.status === 'published' ? 'Veröffentlicht' : 'In Bearbeitung'}
+                      {tutorial.status === 'published' ? 'Published' : 'In Progress'}
                     </div>
                     <div>{tutorial.date}</div>
                   </div>
@@ -152,8 +152,8 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
         
         <Card>
           <CardHeader>
-            <CardTitle>Erfolgreiche Tutorials</CardTitle>
-            <CardDescription>Deine beliebtesten Inhalte</CardDescription>
+            <CardTitle>Successful Tutorials</CardTitle>
+            <CardDescription>Your most popular content</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
@@ -173,7 +173,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                     <div className="flex-1 truncate">
                       <div className="font-medium truncate">{tutorial.title}</div>
                       <div className="text-sm text-muted-foreground">
-                        {tutorial.views.toLocaleString()} Aufrufe • {tutorial.likes} Likes
+                        {tutorial.views.toLocaleString()} views • {tutorial.likes} likes
                       </div>
                     </div>
                     <Star className="h-5 w-5 text-amber-500" />
@@ -183,7 +183,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
               
               <div className="pt-4">
                 <Button variant="outline" size="sm" className="w-full">
-                  Vollständige Rangliste anzeigen
+                  View full ranking
                 </Button>
               </div>
             </div>

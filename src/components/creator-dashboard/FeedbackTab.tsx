@@ -31,8 +31,8 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Top-Kommentare</CardTitle>
-          <CardDescription>Die beliebtesten Nutzer-Kommentare zu deinen Tutorials</CardDescription>
+          <CardTitle>Top Comments</CardTitle>
+          <CardDescription>The most popular user comments on your tutorials</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           {topComments.map((comment) => (
@@ -55,7 +55,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
                       <span className="text-sm">{comment.likes}</span>
                     </div>
                     <Button variant="ghost" size="sm" className="h-8 text-sm">
-                      Antworten
+                      Reply
                     </Button>
                   </div>
                 </div>
@@ -65,7 +65,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
         </CardContent>
         <CardFooter>
           <Button variant="outline" className="w-full">
-            Alle Kommentare anzeigen
+            View all comments
           </Button>
         </CardFooter>
       </Card>
@@ -73,18 +73,18 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Verbesserungsvorschläge</CardTitle>
-            <CardDescription>Feedback von der Community</CardDescription>
+            <CardTitle>Improvement Suggestions</CardTitle>
+            <CardDescription>Feedback from the community</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div className="space-y-2">
-                <h4 className="font-medium">Projekt-Voraussetzungen</h4>
+                <h4 className="font-medium">Project Requirements</h4>
                 <p className="text-sm text-muted-foreground">
-                  Einige Nutzer wünschen sich mehr Details zu benötigten Werkzeugen und Materialien am Anfang der Tutorials.
+                  Some users would like more details on the required tools and materials at the beginning of tutorials.
                 </p>
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline">14 Erwähnungen</Badge>
+                  <Badge variant="outline">14 mentions</Badge>
                   <Button variant="ghost" size="sm" className="h-8">
                     Details
                   </Button>
@@ -92,12 +92,12 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
               </div>
               <Separator />
               <div className="space-y-2">
-                <h4 className="font-medium">Alternative Materialien</h4>
+                <h4 className="font-medium">Alternative Materials</h4>
                 <p className="text-sm text-muted-foreground">
-                  Mehrere Anfänger bitten um kostengünstigere Alternativen zu den hochwertigen Materialien.
+                  Several beginners ask for less expensive alternatives to the high-quality materials.
                 </p>
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline">8 Erwähnungen</Badge>
+                  <Badge variant="outline">8 mentions</Badge>
                   <Button variant="ghost" size="sm" className="h-8">
                     Details
                   </Button>
@@ -105,12 +105,12 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
               </div>
               <Separator />
               <div className="space-y-2">
-                <h4 className="font-medium">Video-Länge</h4>
+                <h4 className="font-medium">Video Length</h4>
                 <p className="text-sm text-muted-foreground">
-                  Einige Nutzer wünschen sich kompaktere Tutorials mit weniger Wiederholungen.
+                  Some users would prefer more compact tutorials with fewer repetitions.
                 </p>
                 <div className="flex items-center justify-between">
-                  <Badge variant="outline">5 Erwähnungen</Badge>
+                  <Badge variant="outline">5 mentions</Badge>
                   <Button variant="ghost" size="sm" className="h-8">
                     Details
                   </Button>
@@ -120,56 +120,56 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
           </CardContent>
           <CardFooter>
             <Button variant="outline" className="w-full">
-              Feedback-Analyse durchführen
+              Run feedback analysis
             </Button>
           </CardFooter>
         </Card>
         
         <Card>
           <CardHeader>
-            <CardTitle>Creator-Support</CardTitle>
-            <CardDescription>Verbessere deine Tutorial-Qualität</CardDescription>
+            <CardTitle>Creator Support</CardTitle>
+            <CardDescription>Improve your tutorial quality</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex items-center gap-4 p-4 bg-muted rounded-lg mb-4">
               <Calendar className="h-10 w-10 text-craft-wood" />
               <div>
-                <h4 className="font-medium">Creator-Sprechstunde</h4>
+                <h4 className="font-medium">Creator Office Hours</h4>
                 <p className="text-sm text-muted-foreground">
-                  Vereinbare ein persönliches Gespräch mit unserem Creator-Team für individuelle Tipps und Feedback.
+                  Schedule a personal call with our creator team for individual tips and feedback.
                 </p>
                 <Button className="mt-2" size="sm">
-                  Termin buchen
+                  Book appointment
                 </Button>
               </div>
             </div>
             
             <div className="space-y-4 mt-6">
-              <h4 className="font-medium">Tutorial-Qualitätsscore</h4>
+              <h4 className="font-medium">Tutorial Quality Score</h4>
               <div className="flex items-center gap-2">
                 <div className="text-2xl font-bold">87/100</div>
                 <Badge className="bg-green-100 text-green-800 border-green-200">
-                  Sehr gut
+                  Very good
                 </Badge>
               </div>
               <p className="text-sm text-muted-foreground">
-                Deine Tutorials schneiden im Vergleich zu ähnlichen Creators überdurchschnittlich gut ab.
+                Your tutorials perform above average compared to similar creators.
               </p>
               
               <div className="space-y-2 mt-4">
-                <h5 className="text-sm font-medium">Verbesserungspotenzial:</h5>
+                <h5 className="text-sm font-medium">Room for improvement:</h5>
                 <ul className="space-y-1 text-sm">
                   <li className="flex items-start gap-2">
                     <div className="h-5 w-5 flex-shrink-0 rounded-full bg-amber-100 flex items-center justify-center">
                       <span className="text-amber-800 text-xs">!</span>
                     </div>
-                    <span>Mehr Nahaufnahmen bei detaillierten Arbeitsschritten</span>
+                    <span>More close-ups during detailed work steps</span>
                   </li>
                   <li className="flex items-start gap-2">
                     <div className="h-5 w-5 flex-shrink-0 rounded-full bg-amber-100 flex items-center justify-center">
                       <span className="text-amber-800 text-xs">!</span>
                     </div>
-                    <span>Detailliertere Materialangaben mit Alternativen</span>
+                    <span>More detailed material specifications with alternatives</span>
                   </li>
                 </ul>
               </div>
@@ -177,7 +177,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
           </CardContent>
           <CardFooter>
             <Button className="w-full" onClick={handleSupportRequest}>
-              Support kontaktieren
+              Contact support
             </Button>
           </CardFooter>
         </Card>

@@ -33,14 +33,14 @@ const ResetPassword = () => {
       if (email && email.includes('@')) {
         setSubmitted(true);
         toast({
-          title: "E-Mail gesendet",
-          description: "Bitte überprüfen Sie Ihren Posteingang für weitere Anweisungen.",
+          title: "Email sent",
+          description: "Please check your inbox for further instructions.",
         });
       } else {
-        setError('Ungültige E-Mail-Adresse. Bitte überprüfen Sie Ihre Eingabe.');
+        setError('Invalid email address. Please check your input.');
       }
     } catch (err) {
-      setError('Ein Fehler ist aufgetreten. Bitte versuchen Sie es später erneut.');
+      setError('An error occurred. Please try again later.');
       console.error(err);
     } finally {
       setLoading(false);
@@ -53,9 +53,9 @@ const ResetPassword = () => {
       <div className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl">Passwort zurücksetzen</CardTitle>
+            <CardTitle className="text-2xl">Reset Password</CardTitle>
             <CardDescription>
-              Geben Sie Ihre E-Mail-Adresse ein, um Ihr Passwort zurückzusetzen
+              Enter your email address to reset your password
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
@@ -69,8 +69,8 @@ const ResetPassword = () => {
               <div className="space-y-4">
                 <Alert>
                   <AlertDescription>
-                    Wir haben Ihnen eine E-Mail mit einem Link zum Zurücksetzen Ihres Passworts gesendet. 
-                    Bitte überprüfen Sie Ihren Posteingang und folgen Sie den Anweisungen.
+                    We have sent you an email with a link to reset your password. 
+                    Please check your inbox and follow the instructions.
                   </AlertDescription>
                 </Alert>
                 <Button
@@ -80,13 +80,13 @@ const ResetPassword = () => {
                     setEmail('');
                   }}
                 >
-                  Erneut senden
+                  Send again
                 </Button>
               </div>
             ) : (
               <form onSubmit={handleResetPassword} className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="email">E-Mail</Label>
+                  <Label htmlFor="email">Email</Label>
                   <Input 
                     id="email"
                     type="email" 
@@ -97,20 +97,20 @@ const ResetPassword = () => {
                   />
                 </div>
                 <Button type="submit" className="w-full" disabled={loading}>
-                  {loading ? "Wird gesendet..." : "Link senden"}
+                  {loading ? "Sending..." : "Send link"}
                 </Button>
               </form>
             )}
           </CardContent>
           <CardFooter className="flex flex-col space-y-4">
             <div className="text-sm text-center text-muted-foreground">
-              Erinnern Sie sich an Ihr Passwort?{' '}
+              Remember your password?{' '}
               <Link to="/login" className="text-craft-wood hover:underline">
-                Zurück zum Login
+                Back to login
               </Link>
             </div>
             <Button variant="ghost" size="sm" className="w-full" onClick={() => navigate('/')}>
-              Zurück zur Startseite
+              Back to homepage
             </Button>
           </CardFooter>
         </Card>

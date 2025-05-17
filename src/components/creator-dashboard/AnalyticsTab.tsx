@@ -29,15 +29,15 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Zuschauerzahlen</CardTitle>
-            <CardDescription>Entwicklung der Aufrufe über Zeit</CardDescription>
+            <CardTitle>Viewer Numbers</CardTitle>
+            <CardDescription>View count development over time</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
             <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
               <div className="text-center p-4">
                 <TrendingUp className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
                 <p className="text-muted-foreground">
-                  Hier wird der Verlauf deiner Aufrufe angezeigt
+                  Your views history will be displayed here
                 </p>
               </div>
             </div>
@@ -46,15 +46,15 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
         
         <Card>
           <CardHeader>
-            <CardTitle>Content-Performance</CardTitle>
-            <CardDescription>Vergleich deiner Tutorials</CardDescription>
+            <CardTitle>Content Performance</CardTitle>
+            <CardDescription>Comparison of your tutorials</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
             <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
               <div className="text-center p-4">
                 <TrendingUp className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
                 <p className="text-muted-foreground">
-                  Hier wird die Performance deiner Tutorials verglichen
+                  Performance comparison of your tutorials will be shown here
                 </p>
               </div>
             </div>
@@ -63,20 +63,20 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
         
         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle>Detaillierte Statistiken</CardTitle>
-            <CardDescription>Performance deiner Tutorials mit allen Metriken</CardDescription>
+            <CardTitle>Detailed Statistics</CardTitle>
+            <CardDescription>Performance of your tutorials with all metrics</CardDescription>
           </CardHeader>
           <CardContent>
             <Table>
               <TableHeader>
                 <TableRow>
                   <TableHead>Tutorial</TableHead>
-                  <TableHead className="text-right">Aufrufe</TableHead>
+                  <TableHead className="text-right">Views</TableHead>
                   <TableHead className="text-right">Likes</TableHead>
-                  <TableHead className="text-right">Kommentare</TableHead>
-                  <TableHead className="text-right">Abschlussrate</TableHead>
+                  <TableHead className="text-right">Comments</TableHead>
+                  <TableHead className="text-right">Completion Rate</TableHead>
                   <TableHead className="text-right">Click-Through</TableHead>
-                  <TableHead className="text-right">Durchschn. Sehzeit</TableHead>
+                  <TableHead className="text-right">Avg. Viewing Time</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -106,12 +106,12 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
           <CardFooter className="flex justify-between">
             <div>
               <Button variant="outline">
-                Performance-Bericht exportieren
+                Export Performance Report
               </Button>
             </div>
             <div>
               <Button variant="outline">
-                Weitere Metriken anzeigen <ChevronDown className="ml-2 h-4 w-4" />
+                Show More Metrics <ChevronDown className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </CardFooter>

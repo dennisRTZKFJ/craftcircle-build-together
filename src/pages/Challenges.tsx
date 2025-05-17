@@ -9,22 +9,22 @@ import { Trophy } from 'lucide-react';
 // Mock data for challenges
 const currentChallenge = {
   id: 1,
-  title: "Upcycling-Wunder",
-  description: "Verwandle alte Holzreste oder ausrangierte Möbel in etwas Neues und Nützliches. Sei kreativ und gib alten Materialien ein zweites Leben!",
-  startDate: "15. Mai 2025",
-  endDate: "22. Mai 2025",
+  title: "Upcycling Wonder",
+  description: "Transform old wood scraps or discarded furniture into something new and useful. Be creative and give old materials a second life!",
+  startDate: "May 15, 2025",
+  endDate: "May 22, 2025",
   participants: 124,
   image: "https://images.unsplash.com/photo-1599619351208-3e6c839d6828",
-  prize: "Hornbach Gutschein im Wert von €50"
+  prize: "Hornbach voucher worth €50"
 };
 
 const pastChallenges = [
   {
     id: 2,
-    title: "Mini-Budget Wunder",
-    description: "Erstelle ein nützliches Möbelstück für unter €30",
-    startDate: "1. Mai 2025",
-    endDate: "8. Mai 2025",
+    title: "Mini-Budget Wonder",
+    description: "Create a useful piece of furniture for under €30",
+    startDate: "May 1, 2025",
+    endDate: "May 8, 2025",
     participants: 156,
     winner: "Sabine Müller",
     winnerImage: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56",
@@ -33,10 +33,10 @@ const pastChallenges = [
   },
   {
     id: 3,
-    title: "Balkon-Makeover",
-    description: "Gestalte ein Balkonmöbel, das wenig Platz braucht aber viel hermacht",
-    startDate: "15. April 2025",
-    endDate: "22. April 2025",
+    title: "Balcony Makeover",
+    description: "Design a balcony piece of furniture that needs little space but has a big impact",
+    startDate: "April 15, 2025",
+    endDate: "April 22, 2025",
     participants: 98,
     winner: "Thomas Weber",
     winnerImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36",
@@ -45,10 +45,10 @@ const pastChallenges = [
   },
   {
     id: 4,
-    title: "Ein-Werkzeug-Projekt",
-    description: "Baue etwas Nützliches mit nur einem einzigen Werkzeug",
-    startDate: "1. April 2025",
-    endDate: "8. April 2025",
+    title: "One-Tool Project",
+    description: "Build something useful with just one single tool",
+    startDate: "April 1, 2025",
+    endDate: "April 8, 2025",
     participants: 112,
     winner: "Jana Schmidt",
     winnerImage: "https://images.unsplash.com/photo-1580489944761-15a19d654956",
@@ -61,36 +61,36 @@ const pastChallenges = [
 const submissions = [
   {
     id: 1,
-    user: "Markus Bauer",
+    user: "Mark Bauer",
     userImage: "https://images.unsplash.com/photo-1599566150163-29194dcaad36",
-    projectTitle: "Zeitungsständer aus alten Skateboards",
+    projectTitle: "Magazine Rack from Old Skateboards",
     projectImage: "https://images.unsplash.com/photo-1600489000022-c2086d79f9d4",
-    description: "Aus zwei kaputten Skateboards und ein paar Schrauben habe ich diesen Zeitungsständer gebaut.",
+    description: "From two broken skateboards and a few screws, I built this magazine rack.",
     likes: 48,
     comments: 12,
-    date: "17. Mai 2025"
+    date: "May 17, 2025"
   },
   {
     id: 2,
     user: "Laura Fischer",
     userImage: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56",
-    projectTitle: "Couchtisch aus einer alten Tür",
+    projectTitle: "Coffee Table from an Old Door",
     projectImage: "https://images.unsplash.com/photo-1581428982868-e410dd047a90",
-    description: "Diese Holztür habe ich auf einem Flohmarkt gefunden und in einen praktischen Couchtisch verwandelt.",
+    description: "I found this wooden door at a flea market and transformed it into a practical coffee table.",
     likes: 37,
     comments: 8,
-    date: "16. Mai 2025"
+    date: "May 16, 2025"
   },
   {
     id: 3,
     user: "Stefan Müller",
     userImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d",
-    projectTitle: "Garderobe aus alten Werkzeugen",
+    projectTitle: "Coat Rack from Old Tools",
     projectImage: "https://images.unsplash.com/photo-1595428774223-ef52624120d2",
-    description: "Alte Werkzeuge neu gedacht: Diese Garderobe besteht aus gebrauchten Hämmern, Zangen und anderen Werkzeugen.",
+    description: "Old tools reimagined: This coat rack consists of used hammers, pliers, and other tools.",
     likes: 29,
     comments: 5,
-    date: "16. Mai 2025"
+    date: "May 16, 2025"
   },
 ];
 
@@ -102,8 +102,8 @@ const Challenges = () => {
           <div>
             <h1 className="text-3xl font-bold mb-4">CraftChallenges</h1>
             <p className="text-muted-foreground mb-6">
-              Baue. Teile. Gewinne. Bei unseren wöchentlichen DIY-Herausforderungen kannst du 
-              deine Fähigkeiten unter Beweis stellen und von der Community Anerkennung bekommen.
+              Build. Share. Win. In our weekly DIY challenges, you can showcase your skills and get
+              recognition from the community.
             </p>
           </div>
 
@@ -118,7 +118,7 @@ const Challenges = () => {
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute bottom-4 left-4 z-20">
-                    <Badge className="bg-craft-wood text-white border-none mb-2">Aktuelle Challenge</Badge>
+                    <Badge className="bg-craft-wood text-white border-none mb-2">Current Challenge</Badge>
                     <h2 className="text-2xl font-bold text-white">{currentChallenge.title}</h2>
                   </div>
                 </div>
@@ -126,15 +126,15 @@ const Challenges = () => {
                 <CardContent className="p-6">
                   <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                     <div>
-                      <p className="text-muted-foreground mb-1">Zeitraum</p>
+                      <p className="text-muted-foreground mb-1">Period</p>
                       <p className="font-medium">{currentChallenge.startDate} - {currentChallenge.endDate}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground mb-1">Teilnehmer:innen</p>
-                      <p className="font-medium">{currentChallenge.participants} Maker</p>
+                      <p className="text-muted-foreground mb-1">Participants</p>
+                      <p className="font-medium">{currentChallenge.participants} Makers</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground mb-1">Zu gewinnen</p>
+                      <p className="text-muted-foreground mb-1">Prize</p>
                       <p className="font-medium flex items-center">
                         <Trophy className="h-4 w-4 mr-2 text-craft-wood" />
                         {currentChallenge.prize}
@@ -143,21 +143,21 @@ const Challenges = () => {
                   </div>
                   
                   <div className="mb-6">
-                    <h3 className="text-xl font-bold mb-2">Die Challenge</h3>
+                    <h3 className="text-xl font-bold mb-2">The Challenge</h3>
                     <p>{currentChallenge.description}</p>
                   </div>
                   
                   <div className="flex gap-4">
-                    <Button>Teilnehmen</Button>
-                    <Button variant="outline">Alle Details</Button>
+                    <Button>Participate</Button>
+                    <Button variant="outline">All Details</Button>
                   </div>
                 </CardContent>
               </Card>
               
               <div className="mt-8">
                 <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold">Aktuelle Einreichungen</h2>
-                  <Button variant="outline" size="sm">Alle ansehen</Button>
+                  <h2 className="text-2xl font-bold">Current Submissions</h2>
+                  <Button variant="outline" size="sm">View All</Button>
                 </div>
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -187,24 +187,26 @@ const Challenges = () => {
                         <CardTitle className="text-lg">{submission.projectTitle}</CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
-                        <p className="text-sm text-muted-foreground line-clamp-2">{submission.description}</p>
+                        <p className="text-sm text-muted-foreground">{submission.description}</p>
                       </CardContent>
-                      <CardFooter className="p-4 pt-0 flex justify-between">
-                        <div className="flex items-center gap-4">
+                      <CardFooter className="p-4 pt-2 flex items-center justify-between">
+                        <div className="flex gap-4">
                           <div className="flex items-center">
-                            <svg className="w-4 h-4 text-craft-wood mr-1" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-4 h-4 text-craft-wood" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
                             </svg>
-                            <span className="text-sm">{submission.likes}</span>
+                            <span className="ml-1 text-sm">{submission.likes}</span>
                           </div>
                           <div className="flex items-center">
-                            <svg className="w-4 h-4 text-craft-wood mr-1" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M18 13v5l-5-5H4a2 2 0 01-2-2V4a2 2 0 012-2h12a2 2 0 012 2v9z"></path>
+                            <svg className="w-4 h-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20">
+                              <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1H4v8.5h12V6zm-6 7a1 1 0 100-2 1 1 0 000 2z"></path>
                             </svg>
-                            <span className="text-sm">{submission.comments}</span>
+                            <span className="ml-1 text-sm">{submission.comments}</span>
                           </div>
                         </div>
-                        <Button size="sm">Details</Button>
+                        <Button variant="ghost" size="sm">
+                          Details
+                        </Button>
                       </CardFooter>
                     </Card>
                   ))}
@@ -215,103 +217,89 @@ const Challenges = () => {
             <div>
               <Card>
                 <CardHeader>
-                  <CardTitle>Hall of Fame</CardTitle>
-                  <CardDescription>Vergangene Challenges und Gewinner:innen</CardDescription>
+                  <CardTitle>Past Challenges</CardTitle>
+                  <CardDescription>See previous challenges and winners</CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <Tabs defaultValue="winners">
-                    <TabsList className="grid w-full grid-cols-2 mb-4">
-                      <TabsTrigger value="winners">Gewinner:innen</TabsTrigger>
-                      <TabsTrigger value="challenges">Challenges</TabsTrigger>
-                    </TabsList>
-                    
-                    <TabsContent value="winners" className="space-y-4">
-                      {pastChallenges.map((challenge) => (
-                        <div key={challenge.id} className="flex gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
-                          <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                <CardContent className="space-y-6">
+                  {pastChallenges.map((challenge) => (
+                    <div key={challenge.id} className="border-b pb-6 last:border-0">
+                      <div className="aspect-[16/9] overflow-hidden rounded-md mb-3">
+                        <img 
+                          src={challenge.projectImage} 
+                          alt={challenge.title}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <h3 className="font-bold mb-2">{challenge.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-3">{challenge.description}</p>
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full overflow-hidden">
                             <img 
-                              src={challenge.winnerImage}
+                              src={challenge.winnerImage} 
                               alt={challenge.winner}
                               className="w-full h-full object-cover"
                             />
                           </div>
-                          <div>
-                            <p className="font-medium">{challenge.winner}</p>
-                            <p className="text-sm text-muted-foreground">
-                              {challenge.title}
-                            </p>
-                            <div className="flex items-center mt-1">
-                              <Trophy className="h-3 w-3 text-craft-wood mr-1" />
-                              <span className="text-xs">{challenge.likes} Likes</span>
-                            </div>
+                          <div className="text-sm">
+                            Winner: <span className="font-medium">{challenge.winner}</span>
                           </div>
                         </div>
-                      ))}
-                    </TabsContent>
-                    
-                    <TabsContent value="challenges" className="space-y-4">
-                      {pastChallenges.map((challenge) => (
-                        <div key={challenge.id} className="flex gap-3 p-3 rounded-lg hover:bg-muted transition-colors">
-                          <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
-                            <img 
-                              src={challenge.projectImage}
-                              alt={challenge.title}
-                              className="w-full h-full object-cover"
-                            />
-                          </div>
-                          <div>
-                            <p className="font-medium">{challenge.title}</p>
-                            <p className="text-xs text-muted-foreground">
-                              {challenge.startDate} - {challenge.endDate}
-                            </p>
-                            <div className="flex items-center mt-1">
-                              <svg className="w-3 h-3 text-craft-wood mr-1" fill="currentColor" viewBox="0 0 20 20">
-                                <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"></path>
-                              </svg>
-                              <span className="text-xs">{challenge.participants} Teilnehmer:innen</span>
-                            </div>
-                          </div>
-                        </div>
-                      ))}
-                    </TabsContent>
-                  </Tabs>
+                        <Badge variant="outline">
+                          {challenge.participants} participants
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full">Alle vergangenen Challenges</Button>
+                  <Button variant="outline" className="w-full">
+                    View All Past Challenges
+                  </Button>
                 </CardFooter>
               </Card>
               
-              <Card className="mt-6">
-                <CardHeader>
-                  <CardTitle>Mach mit!</CardTitle>
-                  <CardDescription>So funktionieren die CraftChallenges</CardDescription>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <div className="flex gap-2">
-                    <div className="bg-craft-teal text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">1</div>
-                    <p className="text-sm">Melde dich für die aktuelle Challenge an</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="bg-craft-teal text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">2</div>
-                    <p className="text-sm">Baue dein Projekt und dokumentiere den Prozess</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="bg-craft-teal text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">3</div>
-                    <p className="text-sm">Reiche dein fertiges Projekt mit Fotos ein</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="bg-craft-teal text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">4</div>
-                    <p className="text-sm">Sammle Likes und Kommentare der Community</p>
-                  </div>
-                  <div className="flex gap-2">
-                    <div className="bg-craft-teal text-white w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0">5</div>
-                    <p className="text-sm">Die beliebtesten Projekte werden ausgezeichnet</p>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full">Jetzt teilnehmen</Button>
-                </CardFooter>
-              </Card>
+              <div className="mt-8">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Challenge Rewards</CardTitle>
+                    <CardDescription>What you can win by participating</CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div className="flex items-center gap-3">
+                      <Trophy className="h-10 w-10 text-amber-500" />
+                      <div>
+                        <h4 className="font-medium">Material Vouchers</h4>
+                        <p className="text-sm text-muted-foreground">Gift cards from our partners for your next projects</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <svg className="h-10 w-10 text-craft-wood" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
+                        <path d="M15 8h-3v4H8v3h7z"></path>
+                      </svg>
+                      <div>
+                        <h4 className="font-medium">Featured Projects</h4>
+                        <p className="text-sm text-muted-foreground">Your project showcased on our homepage and social media</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-3">
+                      <svg className="h-10 w-10 text-craft-wood" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
+                      </svg>
+                      <div>
+                        <h4 className="font-medium">Community Recognition</h4>
+                        <p className="text-sm text-muted-foreground">Gain followers and reputation in the DIY community</p>
+                      </div>
+                    </div>
+                  </CardContent>
+                  <CardFooter>
+                    <Button className="w-full">
+                      Join This Week's Challenge
+                    </Button>
+                  </CardFooter>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
