@@ -49,9 +49,11 @@ const Navbar = () => {
       <div className="container flex h-16 items-center px-4 md:px-6">
         <div className="flex items-center space-x-2 md:space-x-4">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="bg-craft-wood text-white w-8 h-8 rounded flex items-center justify-center font-bold">
-              CC
-            </div>
+            <img 
+              src="/lovable-uploads/338c44ac-7396-43e0-9592-632f2df54ad9.png" 
+              alt="CraftCircle Logo" 
+              className="w-10 h-10"
+            />
             <span className="text-lg font-bold">CraftCircle</span>
           </Link>
         </div>
@@ -59,8 +61,8 @@ const Navbar = () => {
           <Link to="/tutorials" className="craft-link text-sm font-medium">Tutorials</Link>
           <Link to="/challenges" className="craft-link text-sm font-medium">Challenges</Link>
           <Link to="/community" className="craft-link text-sm font-medium">Community</Link>
-          <Link to="/marketplace" className="craft-link text-sm font-medium">Materialien</Link>
-          <Link to="/dashboard" className="craft-link text-sm font-medium">Meine Werkstatt</Link>
+          <Link to="/marketplace" className="craft-link text-sm font-medium">Materials</Link>
+          <Link to="/dashboard" className="craft-link text-sm font-medium">My Workshop</Link>
         </nav>
         <div className="flex-1" />
         <div className="flex items-center space-x-2">
@@ -71,18 +73,18 @@ const Navbar = () => {
             onClick={() => setSearchOpen(true)}
           >
             <Search className="h-4 w-4 mr-2" />
-            Suchen
+            Search
           </Button>
 
           <div className="hidden md:flex space-x-1">
             <Button variant="outline" size="sm" asChild>
               <Link to="/login">
                 <LogIn className="h-4 w-4 mr-2" />
-                Anmelden
+                Log In
               </Link>
             </Button>
             <Button size="sm" asChild>
-              <Link to="/register">Registrieren</Link>
+              <Link to="/register">Register</Link>
             </Button>
           </div>
 
@@ -93,7 +95,7 @@ const Navbar = () => {
             onClick={() => setSearchOpen(true)}
           >
             <Search className="h-5 w-5" />
-            <span className="sr-only">Suchen</span>
+            <span className="sr-only">Search</span>
           </Button>
 
           <Sheet>
@@ -109,17 +111,17 @@ const Navbar = () => {
                 <Link to="/tutorials" className="text-lg font-medium">Tutorials</Link>
                 <Link to="/challenges" className="text-lg font-medium">Challenges</Link>
                 <Link to="/community" className="text-lg font-medium">Community</Link>
-                <Link to="/marketplace" className="text-lg font-medium">Materialien</Link>
+                <Link to="/marketplace" className="text-lg font-medium">Materials</Link>
                 <Link to="/dashboard" className="flex items-center text-lg font-medium">
                   <Hammer className="h-4 w-4 mr-2" />
-                  Meine Werkstatt
+                  My Workshop
                 </Link>
                 <div className="mt-4 space-y-2">
                   <Button className="w-full" variant="outline" asChild>
-                    <Link to="/login">Anmelden</Link>
+                    <Link to="/login">Log In</Link>
                   </Button>
                   <Button className="w-full" asChild>
-                    <Link to="/register">Registrieren</Link>
+                    <Link to="/register">Register</Link>
                   </Button>
                 </div>
               </nav>
@@ -132,7 +134,7 @@ const Navbar = () => {
       <Dialog open={searchOpen} onOpenChange={setSearchOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Suchen</DialogTitle>
+            <DialogTitle>Search</DialogTitle>
             <Button
               variant="ghost"
               size="icon"
@@ -140,7 +142,7 @@ const Navbar = () => {
               onClick={() => setSearchOpen(false)}
             >
               <X className="h-4 w-4" />
-              <span className="sr-only">Schließen</span>
+              <span className="sr-only">Close</span>
             </Button>
           </DialogHeader>
           <form onSubmit={handleSearch} className="space-y-4">
@@ -148,17 +150,17 @@ const Navbar = () => {
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
                 className="pl-10"
-                placeholder="Projekte, Materialien, Autoren..."
+                placeholder="Projects, materials, authors..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
             <div className="flex justify-end gap-2">
               <Button variant="outline" type="button" onClick={() => setSearchOpen(false)}>
-                Abbrechen
+                Cancel
               </Button>
               <Button type="submit" disabled={!searchQuery.trim()}>
-                Suchen
+                Search
               </Button>
             </div>
           </form>

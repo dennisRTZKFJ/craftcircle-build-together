@@ -26,30 +26,34 @@ const Hero = () => {
           >
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-craft-wood/10 border border-craft-wood/20 text-craft-dark-wood text-sm mb-2">
               <Star className="h-4 w-4 text-craft-wood" fill="currentColor" />
-              <span>Kreativität entfesseln</span>
+              <span>Unleash Creativity</span>
             </div>
             
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
-              Erschaffe <span className="text-craft-dark-wood relative">
-                Einzigartiges
+              Create <span className="text-craft-dark-wood relative">
+                Unique
                 <svg className="absolute -bottom-2 left-0 w-full" viewBox="0 0 400 15" xmlns="http://www.w3.org/2000/svg">
                   <path d="M 0,10 C 150,30 250,-10 400,12" stroke="#D4A76A" strokeWidth="5" fill="none" strokeLinecap="round" />
                 </svg>
-              </span> mit deinen Händen
+              </span> pieces with your hands
             </h1>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-[600px]">
-              Entdecke Schritt-für-Schritt Anleitungen für beeindruckende Möbelstücke, 
-              die deinem Zuhause eine persönliche Note verleihen – ganz ohne Vorkenntnisse.
+              Discover step-by-step guides for impressive furniture pieces
+              that give your home a personal touch – no prior knowledge needed.
             </p>
+            
+            <div className="text-xl md:text-2xl font-bold uppercase tracking-wide text-craft-dark-wood">
+              BUILD IT YOURSELF. MAKE IT LAST.
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
               <Button size="lg" className="text-base font-medium group">
-                Starte dein Projekt
+                Start your project
                 <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
               </Button>
               <Button size="lg" variant="outline" className="text-base font-medium">
-                Wie es funktioniert
+                How it works
               </Button>
             </div>
             
@@ -57,19 +61,19 @@ const Hero = () => {
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
-                  <strong className="text-foreground">10.000+</strong> DIY-Enthusiasten
+                  <strong className="text-foreground">10,000+</strong> DIY enthusiasts
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Star className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
-                  <strong className="text-foreground">4.8/5</strong> Zufriedenheit
+                  <strong className="text-foreground">4.8/5</strong> satisfaction
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
-                  <strong className="text-foreground">150+</strong> Projekte
+                  <strong className="text-foreground">150+</strong> projects
                 </span>
               </div>
             </div>
@@ -89,7 +93,7 @@ const Hero = () => {
               >
                 <img 
                   src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" 
-                  alt="Handgefertigte Holzschale" 
+                  alt="Handcrafted wooden bowl" 
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -99,7 +103,7 @@ const Hero = () => {
               >
                 <img 
                   src="https://images.unsplash.com/photo-1558274235-9b315bae9b7a" 
-                  alt="Werkzeuge" 
+                  alt="Tools" 
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -109,7 +113,7 @@ const Hero = () => {
               >
                 <img 
                   src="https://images.unsplash.com/photo-1540103711724-ebf833bde8d1" 
-                  alt="Fertiges Möbelstück" 
+                  alt="Finished furniture piece" 
                   className="w-full h-full object-cover"
                 />
               </motion.div>
@@ -119,7 +123,7 @@ const Hero = () => {
               >
                 <img 
                   src="https://images.unsplash.com/photo-1581612222497-018b5accd0c4" 
-                  alt="DIY-Workshop" 
+                  alt="DIY Workshop" 
                   className="w-full h-full object-cover"
                 />
               </motion.div>

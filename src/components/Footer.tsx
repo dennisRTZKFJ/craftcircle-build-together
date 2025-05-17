@@ -8,13 +8,15 @@ const Footer = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <a href="/" className="flex items-center gap-2 mb-4">
-              <div className="bg-craft-wood text-white font-bold p-2 rounded">
-                CC
-              </div>
+              <img 
+                src="/lovable-uploads/338c44ac-7396-43e0-9592-632f2df54ad9.png" 
+                alt="CraftCircle Logo" 
+                className="w-10 h-10"
+              />
               <span className="font-playfair text-xl font-bold">CraftCircle</span>
             </a>
             <p className="text-muted-foreground mb-4">
-              Wo deine Ideen Gestalt annehmen. Deine kreative Werkstatt im Netz für DIY-Möbelprojekte.
+              Where your ideas take shape. Your creative workshop online for DIY furniture projects.
             </p>
             <div className="flex gap-4">
               <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">
@@ -41,43 +43,43 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-bold text-lg mb-4">Entdecken</h3>
+            <h3 className="font-bold text-lg mb-4">Discover</h3>
             <ul className="space-y-3">
-              <li><a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">Projekte</a></li>
+              <li><a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">Projects</a></li>
               <li><a href="#community" className="text-muted-foreground hover:text-foreground transition-colors">Community</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Creator werden</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Erfolgsgeschichten</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Become a Creator</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Success Stories</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Blog</a></li>
             </ul>
           </div>
           
           <div>
-            <h3 className="font-bold text-lg mb-4">Unterstützung</h3>
+            <h3 className="font-bold text-lg mb-4">Support</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Hilfe-Center</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Kontakt</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Help Center</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Ressourcen</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Partnerschaften</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Resources</a></li>
+              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Partnerships</a></li>
             </ul>
           </div>
           
           <div>
             <h3 className="font-bold text-lg mb-4">Newsletter</h3>
             <p className="text-muted-foreground mb-4">
-              Erhalte kreative DIY-Inspirationen und Projekttipps direkt in dein Postfach.
+              Receive creative DIY inspiration and project tips directly in your inbox.
             </p>
             <form className="space-y-2">
               <input 
                 type="email" 
-                placeholder="E-Mail-Adresse" 
+                placeholder="Email address" 
                 className="w-full px-4 py-2 rounded-md bg-background border border-border focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <button 
                 type="submit" 
                 className="w-full bg-craft-wood hover:bg-craft-dark-wood text-white px-4 py-2 rounded-md transition-colors"
               >
-                Abonnieren
+                Subscribe
               </button>
             </form>
           </div>
@@ -85,12 +87,12 @@ const Footer = () => {
         
         <div className="pt-8 mt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} CraftCircle. Alle Rechte vorbehalten.
+            © {new Date().getFullYear()} CraftCircle. All rights reserved.
           </div>
           <div className="flex gap-6 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Datenschutz</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">AGB</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Impressum</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Terms & Conditions</a>
+            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Imprint</a>
           </div>
         </div>
       </div>

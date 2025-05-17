@@ -9,97 +9,99 @@ import { Calendar, Trophy, Users, Clock, ArrowRight } from 'lucide-react';
 const WeeklyChallenge = () => {
   // This would normally come from an API, using mock data for now
   const challengeData = {
-    title: "Mini Pflanzenregal aus Restholz",
-    description: "Erschaffe ein schönes kleines Regal für deine Pflanzen aus Holzresten. Perfekt für Anfänger und eine tolle Möglichkeit, Materialreste zu verwerten!",
+    title: "Mini Plant Shelf from Scrap Wood",
+    description: "Create a beautiful little shelf for your plants using wood scraps. Perfect for beginners and a great way to recycle leftover materials!",
     image: "https://images.unsplash.com/photo-1602123233898-9b027ca9a8da",
-    deadline: "18. Mai 2025",
-    difficulty: "Anfänger",
+    deadline: "May 18, 2025",
+    difficulty: "Beginner",
     participants: 47,
-    duration: "2-3 Stunden"
+    duration: "2-3 hours"
   };
 
   return (
-    <div className="container py-12">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold mb-2">Challenge der Woche</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">
-          Stelle dich unserer wöchentlichen DIY-Herausforderung, teile dein Ergebnis und gewinne Preise!
-        </p>
-      </div>
-      
-      <Card className="overflow-hidden border-2 border-craft-wood">
-        <div className="grid md:grid-cols-2 gap-0">
-          <div className="relative h-64 md:h-auto overflow-hidden">
-            <Badge className="absolute top-4 left-4 bg-craft-wood border-none z-10 px-3 py-1.5">
-              <Trophy className="h-4 w-4 mr-2" />
-              Aktuell
-            </Badge>
-            <img 
-              src={challengeData.image} 
-              alt={challengeData.title}
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-            />
-          </div>
-          
-          <div>
-            <CardHeader>
-              <div className="flex items-center justify-between mb-2">
-                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
-                  {challengeData.difficulty}
-                </Badge>
-                <div className="flex gap-4">
-                  <span className="text-sm text-muted-foreground flex items-center">
-                    <Clock className="h-3 w-3 mr-1" /> {challengeData.duration}
-                  </span>
-                  <span className="text-sm text-muted-foreground flex items-center">
-                    <Users className="h-3 w-3 mr-1" /> {challengeData.participants} Teilnehmer
-                  </span>
-                </div>
-              </div>
-              <CardTitle className="text-2xl">{challengeData.title}</CardTitle>
-              <CardDescription>
-                <div className="flex items-center text-craft-wood">
-                  <Calendar className="h-4 w-4 mr-1" />
-                  Einsendeschluss: {challengeData.deadline}
-                </div>
-              </CardDescription>
-            </CardHeader>
-            
-            <CardContent>
-              <p className="mb-6">{challengeData.description}</p>
-              
-              <div className="space-y-2">
-                <div className="bg-muted rounded-lg p-3">
-                  <h4 className="font-medium mb-1">Zu gewinnen:</h4>
-                  <ul className="text-sm space-y-1">
-                    <li className="flex items-baseline gap-2">
-                      <span className="text-craft-wood">•</span>
-                      <span>Geschenkgutschein im Wert von €50</span>
-                    </li>
-                    <li className="flex items-baseline gap-2">
-                      <span className="text-craft-wood">•</span>
-                      <span>Feature-Platz auf der CraftCircle Homepage</span>
-                    </li>
-                    <li className="flex items-baseline gap-2">
-                      <span className="text-craft-wood">•</span>
-                      <span>Exklusives "Challenge-Meister" Abzeichen</span>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </CardContent>
-            
-            <CardFooter className="flex justify-between">
-              <Button variant="outline">Gallerie ansehen</Button>
-              <Button asChild>
-                <Link to="/challenges/weekly">
-                  Teilnehmen <ArrowRight className="h-4 w-4 ml-1" />
-                </Link>
-              </Button>
-            </CardFooter>
-          </div>
+    <div className="py-24 bg-craft-wood/5">
+      <div className="container">
+        <div className="text-center mb-8">
+          <h2 className="text-3xl font-bold mb-2">Weekly Challenge</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            Take on our weekly DIY challenge, share your result, and win prizes!
+          </p>
         </div>
-      </Card>
+      
+        <Card className="overflow-hidden border-2 border-craft-wood">
+          <div className="grid md:grid-cols-2 gap-0">
+            <div className="relative h-64 md:h-auto overflow-hidden">
+              <Badge className="absolute top-4 left-4 bg-craft-wood border-none z-10 px-3 py-1.5">
+                <Trophy className="h-4 w-4 mr-2" />
+                Current
+              </Badge>
+              <img 
+                src={challengeData.image} 
+                alt={challengeData.title}
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+          
+            <div>
+              <CardHeader>
+                <div className="flex items-center justify-between mb-2">
+                  <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                    {challengeData.difficulty}
+                  </Badge>
+                  <div className="flex gap-4">
+                    <span className="text-sm text-muted-foreground flex items-center">
+                      <Clock className="h-3 w-3 mr-1" /> {challengeData.duration}
+                    </span>
+                    <span className="text-sm text-muted-foreground flex items-center">
+                      <Users className="h-3 w-3 mr-1" /> {challengeData.participants} Participants
+                    </span>
+                  </div>
+                </div>
+                <CardTitle className="text-2xl">{challengeData.title}</CardTitle>
+                <CardDescription>
+                  <div className="flex items-center text-craft-wood">
+                    <Calendar className="h-4 w-4 mr-1" />
+                    Submission deadline: {challengeData.deadline}
+                  </div>
+                </CardDescription>
+              </CardHeader>
+            
+              <CardContent>
+                <p className="mb-6">{challengeData.description}</p>
+              
+                <div className="space-y-2">
+                  <div className="bg-muted rounded-lg p-3">
+                    <h4 className="font-medium mb-1">Prizes:</h4>
+                    <ul className="text-sm space-y-1">
+                      <li className="flex items-baseline gap-2">
+                        <span className="text-craft-wood">•</span>
+                        <span>$50 gift certificate</span>
+                      </li>
+                      <li className="flex items-baseline gap-2">
+                        <span className="text-craft-wood">•</span>
+                        <span>Featured spot on the CraftCircle homepage</span>
+                      </li>
+                      <li className="flex items-baseline gap-2">
+                        <span className="text-craft-wood">•</span>
+                        <span>Exclusive "Challenge Master" badge</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            
+              <CardFooter className="flex justify-between">
+                <Button variant="outline">View Gallery</Button>
+                <Button asChild>
+                  <Link to="/challenges/weekly">
+                    Participate <ArrowRight className="h-4 w-4 ml-1" />
+                  </Link>
+                </Button>
+              </CardFooter>
+            </div>
+          </div>
+        </Card>
+      </div>
     </div>
   );
 };

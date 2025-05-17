@@ -5,21 +5,21 @@ import { ArrowRight } from 'lucide-react';
 
 const testimonials = [
   {
-    quote: "Dank CraftCircle habe ich mein erstes Möbelstück gebaut! Die Schritt-für-Schritt-Anleitung war so klar, dass es selbst für mich als Anfängerin super einfach war.",
+    quote: "Thanks to CraftCircle, I built my first piece of furniture! The step-by-step guide was so clear that it was super easy even for me as a beginner.",
     author: "Lisa Meyer",
-    role: "DIY-Einsteigerin",
+    role: "DIY Beginner",
     image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&h=150&fit=crop&crop=faces"
   },
   {
-    quote: "Als Tischler schätze ich die Qualität der Anleitungen auf CraftCircle. Die Community gibt mir immer wieder neue Ideen und Feedback zu meinen eigenen Projekten.",
+    quote: "As a woodworker, I appreciate the quality of the instructions on CraftCircle. The community always gives me new ideas and feedback on my own projects.",
     author: "Martin Schmidt",
-    role: "Hobby-Tischler",
+    role: "Hobby Woodworker",
     image: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=150&h=150&fit=crop&crop=faces"
   },
   {
-    quote: "Die KI-Hilfe von CraftCircle hat mir enorm geholfen, als ich bei meinem Schreibtisch-Projekt nicht weiterkam. In Sekundenschnelle hatte ich die perfekte Lösung!",
+    quote: "CraftCircle's AI help was incredibly useful when I got stuck on my desk project. Within seconds, I had the perfect solution!",
     author: "Sophia Wagner",
-    role: "Innenarchitektur-Studentin",
+    role: "Interior Design Student",
     image: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?w=150&h=150&fit=crop&crop=faces"
   },
 ];
@@ -30,9 +30,9 @@ const CommunitySection = () => {
       <div className="container px-4 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Für dich gemacht – von Menschen wie dir.</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Made for you – by people like you.</h2>
             <p className="text-lg text-muted-foreground mb-6">
-              Finde personalisierte Empfehlungen, entdecke neue Lieblingsideen und lasse dich von echten DIY-Profis inspirieren. Oder werde selbst Creator:in und verdiene mit deinen Projekten Geld.
+              Find personalized recommendations, discover new favorite ideas and get inspired by real DIY pros. Or become a creator yourself and earn money with your projects.
             </p>
             <div className="space-y-6 mt-8">
               {testimonials.map((testimonial, index) => (
@@ -54,7 +54,7 @@ const CommunitySection = () => {
             </div>
             <div className="mt-8">
               <Button>
-                Community beitreten
+                Join the community
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -70,24 +70,24 @@ const CommunitySection = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-3xl font-bold text-craft-dark-wood">10k+</p>
-                  <p className="text-sm text-muted-foreground">Aktive Mitglieder</p>
+                  <p className="text-sm text-muted-foreground">Active Members</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-3xl font-bold text-craft-dark-wood">5k+</p>
-                  <p className="text-sm text-muted-foreground">DIY-Projekte</p>
+                  <p className="text-sm text-muted-foreground">DIY Projects</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-3xl font-bold text-craft-dark-wood">98%</p>
-                  <p className="text-sm text-muted-foreground">Positive Bewertungen</p>
+                  <p className="text-sm text-muted-foreground">Positive Reviews</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
                   <p className="text-3xl font-bold text-craft-dark-wood">24/7</p>
-                  <p className="text-sm text-muted-foreground">Community-Support</p>
+                  <p className="text-sm text-muted-foreground">Community Support</p>
                 </div>
               </div>
               <div className="mt-6 p-4 bg-craft-light-green/10 rounded-lg">
                 <p className="text-sm text-center">
-                  "Zusammen haben unsere Mitglieder über 5.000 einzelne Möbelstücke gebaut und dabei mehr als 250.000 kg CO₂ eingespart!"
+                  "Together, our members have built over 5,000 individual pieces of furniture and saved more than 250,000 kg of CO₂ in the process!"
                 </p>
               </div>
             </div>

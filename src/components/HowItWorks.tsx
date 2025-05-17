@@ -6,34 +6,34 @@ import { ArrowRight } from 'lucide-react';
 const steps = [
   {
     number: "01",
-    title: "Projekt auswählen",
-    description: "Stöbere durch unsere kuratierte Sammlung von DIY-Möbelprojekten. Filter nach Schwierigkeitsgrad, benötigten Werkzeugen oder Möbeltyp."
+    title: "Choose a Project",
+    description: "Browse through our curated collection of DIY furniture projects. Filter by difficulty level, required tools, or furniture type."
   },
   {
     number: "02",
-    title: "Materialien besorgen",
-    description: "Jede Anleitung enthält eine detaillierte Materialliste. Du kannst die benötigten Materialien direkt bei unseren Partnern kaufen oder lokale Alternativen finden."
+    title: "Gather Materials",
+    description: "Each guide includes a detailed materials list. You can buy the required materials directly from our partners or find local alternatives."
   },
   {
     number: "03",
-    title: "Schritt für Schritt bauen",
-    description: "Folge unseren detaillierten Anleitungen mit Bildern und Videos. Bei Fragen hilft dir unsere KI oder die Community weiter."
+    title: "Build Step by Step",
+    description: "Follow our detailed instructions with images and videos. If you have questions, our AI or the community will help you."
   },
   {
     number: "04",
-    title: "Teilen & Inspirieren",
-    description: "Zeige dein fertiges Projekt der Community, erhalte Feedback und inspiriere andere. Für besonders hilfreiche Beiträge erhältst du Belohnungen."
+    title: "Share & Inspire",
+    description: "Show your finished project to the community, get feedback and inspire others. You'll earn rewards for particularly helpful contributions."
   }
 ];
 
 const HowItWorks = () => {
   return (
-    <section id="how-it-works" className="py-24">
+    <section id="how-it-works" className="py-24 bg-craft-wood/5">
       <div className="container px-4 md:px-6">
         <div className="text-center max-w-[800px] mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">So funktioniert's</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">How It Works</h2>
           <p className="text-muted-foreground text-lg">
-            Von der Idee zum fertigen Möbelstück in nur wenigen Schritten - mit CraftCircle wird DIY zum Kinderspiel.
+            From idea to finished furniture piece in just a few steps - with CraftCircle, DIY becomes child's play.
           </p>
         </div>
         
@@ -58,10 +58,10 @@ const HowItWorks = () => {
         
         <div className="mt-16 text-center">
           <p className="font-medium mb-6">
-            Bereit, dein erstes Möbelstück zu bauen?
+            Ready to build your first piece of furniture?
           </p>
           <Button size="lg">
-            Jetzt starten
+            Start now
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

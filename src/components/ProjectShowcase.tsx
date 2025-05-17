@@ -6,61 +6,61 @@ import { ArrowRight } from 'lucide-react';
 
 const projects = [
   {
-    title: "Minimalistisches Regal",
+    title: "Minimalist Shelf",
     image: "https://images.unsplash.com/photo-1591129841117-3adfd313e34f",
-    category: "Anfänger",
-    duration: "3 Stunden",
+    category: "Beginner",
+    duration: "3 hours",
     likes: 214,
     author: "Maria Schmidt",
   },
   {
-    title: "Rustikaler Couchtisch",
+    title: "Rustic Coffee Table",
     image: "https://images.unsplash.com/photo-1581428982868-e410dd047a90",
-    category: "Mittel",
-    duration: "6 Stunden",
+    category: "Intermediate",
+    duration: "6 hours",
     likes: 342,
     author: "Thomas Weber",
   },
   {
-    title: "Modernes Sideboard",
+    title: "Modern Sideboard",
     image: "https://images.unsplash.com/photo-1538688525198-9b88f6f53126",
-    category: "Fortgeschritten",
-    duration: "8 Stunden",
+    category: "Advanced",
+    duration: "8 hours",
     likes: 178,
     author: "Julia Hoffmann",
   },
   {
-    title: "Nachttisch mit Schublade",
+    title: "Bedside Table with Drawer",
     image: "https://images.unsplash.com/photo-1558997519-83ea9252edf8",
-    category: "Anfänger",
-    duration: "4 Stunden",
+    category: "Beginner",
+    duration: "4 hours",
     likes: 156,
     author: "Markus Bauer",
   },
 ];
 
 const categoryColors = {
-  "Anfänger": "bg-green-100 text-green-800 border-green-200",
-  "Mittel": "bg-amber-100 text-amber-800 border-amber-200",
-  "Fortgeschritten": "bg-red-100 text-red-800 border-red-200"
+  "Beginner": "bg-green-100 text-green-800 border-green-200",
+  "Intermediate": "bg-amber-100 text-amber-800 border-amber-200",
+  "Advanced": "bg-red-100 text-red-800 border-red-200"
 };
 
 const ProjectShowcase = () => {
   return (
-    <section id="projects" className="py-24">
+    <section id="projects" className="py-24 bg-craft-wood/5">
       <div className="container px-4 md:px-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Beliebte Projekte</h2>
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">Popular Projects</h2>
             <p className="text-muted-foreground max-w-[600px]">
-              Entdecke unsere am besten bewerteten DIY-Möbelprojekte, von Anfängern bis zu Profis erstellt.
+              Discover our best-rated DIY furniture projects, created by beginners and experts alike.
             </p>
           </div>
           <div className="flex gap-2">
-            <Button variant="outline" size="sm">Alle</Button>
-            <Button variant="outline" size="sm" className="text-green-800">Anfänger</Button>
-            <Button variant="outline" size="sm" className="text-amber-800">Mittel</Button>
-            <Button variant="outline" size="sm" className="text-red-800">Fortgeschritten</Button>
+            <Button variant="outline" size="sm">All</Button>
+            <Button variant="outline" size="sm" className="text-green-800">Beginner</Button>
+            <Button variant="outline" size="sm" className="text-amber-800">Intermediate</Button>
+            <Button variant="outline" size="sm" className="text-red-800">Advanced</Button>
           </div>
         </div>
         
@@ -85,7 +85,7 @@ const ProjectShowcase = () => {
                   <span className="text-sm text-muted-foreground">{project.duration}</span>
                 </div>
                 <h3 className="font-bold text-lg mb-1">{project.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">Von {project.author}</p>
+                <p className="text-sm text-muted-foreground mb-3">By {project.author}</p>
                 <div className="flex items-center justify-between">
                   <div className="flex items-center">
                     <svg className="w-4 h-4 text-craft-wood" fill="currentColor" viewBox="0 0 20 20">
@@ -94,7 +94,7 @@ const ProjectShowcase = () => {
                     <span className="ml-1 text-sm">{project.likes}</span>
                   </div>
                   <Button variant="ghost" size="sm" className="text-xs">
-                    Anleitung
+                    Instructions
                     <ArrowRight className="ml-1 h-3 w-3" />
                   </Button>
                 </div>
@@ -105,7 +105,7 @@ const ProjectShowcase = () => {
         
         <div className="mt-12 text-center">
           <Button>
-            Mehr Projekte entdecken
+            Discover more projects
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

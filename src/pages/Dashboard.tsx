@@ -18,8 +18,8 @@ const Dashboard = () => {
   
   const handleSupportClick = () => {
     toast({
-      title: "Support angefordert",
-      description: "Ein Mitglied unseres Teams wird sich in Kürze bei dir melden.",
+      title: "Support requested",
+      description: "A member of our team will contact you shortly.",
     });
   };
 
@@ -35,7 +35,7 @@ const Dashboard = () => {
           className="w-full md:w-auto"
         >
           <TabsList className="grid w-full grid-cols-3">
-            <TabsTrigger value="diy">DIY Nutzer</TabsTrigger>
+            <TabsTrigger value="diy">DIY User</TabsTrigger>
             <TabsTrigger value="creator">Creator</TabsTrigger>
             <TabsTrigger value="partner">Partner</TabsTrigger>
           </TabsList>
@@ -45,7 +45,7 @@ const Dashboard = () => {
           <Link to="/account">
             <Button variant="outline" size="sm" className="flex items-center gap-1">
               <User className="h-4 w-4" />
-              <span>Mein Konto</span>
+              <span>My Account</span>
             </Button>
           </Link>
           

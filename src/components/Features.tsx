@@ -5,27 +5,27 @@ import { CheckCircle } from 'lucide-react';
 const features = [
   {
     icon: "🔨",
-    title: "Baue deine Möbel selbst",
-    description: "Klar strukturierte Schritt-für-Schritt-Guides, Materialempfehlungen und Einkaufsmöglichkeiten direkt beim Anbieter - Selbstbauen wird einfach, ganz ohne Vorkenntnisse.",
-    benefits: ["Detaillierte Anleitungen", "Materiallisten", "Werkzeugempfehlungen"]
+    title: "Build Your Own Furniture",
+    description: "Clearly structured step-by-step guides, material recommendations, and shopping options directly from suppliers - DIY becomes easy, no prior knowledge required.",
+    benefits: ["Detailed Instructions", "Materials Lists", "Tool Recommendations"]
   },
   {
     icon: "🌱",
-    title: "Nachhaltig & Individuell",
-    description: "Spare Geld. Sei nachhaltig. Erschaffe mit Herz. CraftCircle steht für kreative Freiheit und verantwortungsvolles Handeln.",
-    benefits: ["Langlebige Möbel", "Nachhaltiges Design", "Einzigartige Stücke"]
+    title: "Sustainable & Individual",
+    description: "Save money. Be sustainable. Create with heart. CraftCircle stands for creative freedom and responsible action.",
+    benefits: ["Long-lasting Furniture", "Sustainable Design", "Unique Pieces"]
   },
   {
     icon: "🤝",
-    title: "Gemeinschaft erleben",
-    description: "Tausche dich mit Gleichgesinnten aus, teile deine Projekte, erhalte Feedback und wachse über dich hinaus. Jeder Beitrag macht unsere Community stärker.",
-    benefits: ["Hilfreiche Community", "Projektteilungen", "DIY-Events"]
+    title: "Experience Community",
+    description: "Exchange ideas with like-minded people, share your projects, receive feedback, and grow beyond yourself. Every contribution makes our community stronger.",
+    benefits: ["Helpful Community", "Project Sharing", "DIY Events"]
   },
   {
     icon: "🧠",
-    title: "Dein Bau-Assistent. Powered by KI.",
-    description: "Unsere AI hilft dir, passende Projekte für dein Level zu finden und gibt dir Antworten, wenn du mal nicht weiterkommst.",
-    benefits: ["Personalisierte Empfehlungen", "Sofortige Hilfe", "Skill-Level Anpassung"]
+    title: "Your Building Assistant. Powered by AI.",
+    description: "Our AI helps you find suitable projects for your level and gives you answers when you get stuck.",
+    benefits: ["Personalized Recommendations", "Instant Help", "Skill Level Adaptation"]
   }
 ];
 
@@ -34,9 +34,9 @@ const Features = () => {
     <section id="features" className="py-24 bg-muted/50">
       <div className="container px-4 md:px-6">
         <div className="text-center max-w-[800px] mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Gestalte deinen eigenen Raum</h2>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Design Your Own Space</h2>
           <p className="text-muted-foreground text-lg">
-            Bei CraftCircle findest du alles, was du brauchst, um deine DIY-Möbelprojekte zu verwirklichen - egal auf welchem Level du bist.
+            At CraftCircle, you'll find everything you need to realize your DIY furniture projects - no matter what level you're at.
           </p>
         </div>
         
