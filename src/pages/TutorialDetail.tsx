@@ -34,63 +34,63 @@ import RelatedTutorials from '@/components/RelatedTutorials';
 const tutorialsData = [
   {
     id: "rustikaler-couchtisch",
-    title: "Rustikaler Couchtisch aus Altholz",
-    shortDescription: "Ein robuster Couchtisch aus wiederverwendetem Holz mit modernen Metallbeinen.",
-    longDescription: "Ein DIY-Projekt, das Tradition mit modernem Design verbindet. Dieser Couchtisch kombiniert die Wärme von wiederverwendetem Holz mit der klaren Linienführung von Industriedesign. Das perfekte Möbelstück für dein Wohnzimmer - mit Geschichte und Persönlichkeit.",
+    title: "Rustic Coffee Table",
+    shortDescription: "A sturdy coffee table made from reclaimed wood with modern metal legs.",
+    longDescription: "A DIY project that combines tradition with modern design. This coffee table combines the warmth of reclaimed wood with the clean lines of industrial design. The perfect piece of furniture for your living room - with history and personality.",
     image: "https://images.unsplash.com/photo-1581428982868-e410dd047a90",
-    category: "Mittel",
-    duration: "6 Stunden",
-    price: "€80-€120",
+    category: "Intermediate",
+    duration: "6 hours",
+    price: "$80-$120",
     materials: [
-      { name: "Altholzbretter", amount: "4-5 Stück", description: "Idealerweise Eiche oder Kiefer, ca. 120x20cm", link: "#" },
-      { name: "Hairpin-Tischbeine", amount: "4 Stück", description: "Metall, schwarz, 40cm Höhe", link: "#" },
-      { name: "Holzschleifpapier", amount: "je 1 Bogen", description: "Körnung 80, 120 und 240", link: "#" },
-      { name: "Holzleim", amount: "1 Flasche", description: "Wasserfest", link: "#" },
-      { name: "Holzöl oder Wachs", amount: "1 Dose", description: "Natürlich, für Möbel geeignet", link: "#" },
-      { name: "Holzschrauben", amount: "16 Stück", description: "30mm Länge", link: "#" },
+      { name: "Reclaimed wood boards", amount: "4-5 pieces", description: "Ideally oak or pine, approx. 120x20cm", link: "#" },
+      { name: "Hairpin table legs", amount: "4 pieces", description: "Metal, black, 40cm height", link: "#" },
+      { name: "Sandpaper", amount: "1 sheet each", description: "Grit 80, 120 and 240", link: "#" },
+      { name: "Wood glue", amount: "1 bottle", description: "Waterproof", link: "#" },
+      { name: "Wood oil or wax", amount: "1 can", description: "Natural, suitable for furniture", link: "#" },
+      { name: "Wood screws", amount: "16 pieces", description: "30mm length", link: "#" },
     ],
-    tools: ["Schleifmaschine", "Akkuschrauber", "Maßband", "Stichsäge", "Pinsel", "Schraubzwingen"],
+    tools: ["Sander", "Drill", "Measuring tape", "Jigsaw", "Brush", "Clamps"],
     steps: [
       {
-        title: "Holz vorbereiten",
-        description: "Reinige die Altholzbretter gründlich und schleife sie mit Körnung 80 ab, um alte Farbreste und Splitter zu entfernen.",
+        title: "Prepare the wood",
+        description: "Clean the reclaimed wood boards thoroughly and sand them with 80 grit to remove old paint residue and splinters.",
         image: "https://images.unsplash.com/photo-1505798577917-a65157d3320a",
-        tips: "Achte beim Schleifen auf die Richtung der Holzmaserung."
+        tips: "Pay attention to the direction of the wood grain when sanding."
       },
       {
-        title: "Bretter zuschneiden",
-        description: "Miss die gewünschte Tischgröße aus (empfohlen: 120x60cm) und schneide die Bretter entsprechend zu. Achte auf saubere, gerade Kanten.",
+        title: "Cut the boards",
+        description: "Measure the desired table size (recommended: 120x60cm) and cut the boards accordingly. Make sure to create clean, straight edges.",
         image: "https://images.unsplash.com/photo-1622219809260-ce065fcce7c5",
-        tips: "Verwende eine Führungsschiene für die Stichsäge, um präzise Schnitte zu erzielen."
+        tips: "Use a guide rail for the jigsaw to achieve precise cuts."
       },
       {
-        title: "Bretter verleimen",
-        description: "Trage Holzleim auf die Längskanten der Bretter auf und presse sie mit Schraubzwingen zusammen. Lasse den Leim mindestens 24 Stunden trocknen.",
+        title: "Glue the boards",
+        description: "Apply wood glue to the longitudinal edges of the boards and press them together with clamps. Let the glue dry for at least 24 hours.",
         image: "https://images.unsplash.com/photo-1541985498139-75a6919f5a35",
-        tips: "Lege die Bretter beim Verleimen auf eine ebene Fläche, um Verzug zu vermeiden."
+        tips: "Place the boards on a flat surface when gluing to avoid warping."
       },
       {
-        title: "Feinschliff",
-        description: "Schleife die Tischplatte zunächst mit Körnung 120, dann mit 240 glatt. Achte besonders auf die Kanten und Ecken.",
+        title: "Fine sanding",
+        description: "Sand the tabletop first with 120 grit, then with 240 grit. Pay special attention to the edges and corners.",
         image: "https://images.unsplash.com/photo-1556809944-7a8792d0d216",
-        tips: "Staub regelmäßig zwischen den Schleifgängen absaugen."
+        tips: "Vacuum dust regularly between sanding passes."
       },
       {
-        title: "Tischbeine montieren",
-        description: "Markiere die Positionen für die Tischbeine (ca. 10cm von jeder Ecke entfernt). Befestige die Hairpin-Beine mit den Holzschrauben an der Unterseite der Tischplatte.",
+        title: "Mount the table legs",
+        description: "Mark the positions for the table legs (approx. 10cm from each corner). Attach the hairpin legs to the underside of the tabletop with wood screws.",
         image: "https://images.unsplash.com/photo-1616464598261-27bf86f3f855",
-        tips: "Bohre vor, um ein Splittern des Holzes zu vermeiden."
+        tips: "Pre-drill to prevent the wood from splitting."
       },
       {
-        title: "Oberfläche behandeln",
-        description: "Trage das Holzöl oder Wachs nach Herstelleranweisung auf. Für optimalen Schutz empfehlen sich 2-3 Schichten.",
+        title: "Treat the surface",
+        description: "Apply the wood oil or wax according to the manufacturer's instructions. For optimal protection, 2-3 layers are recommended.",
         image: "https://images.unsplash.com/photo-1508872528308-49c63d2e7b52",
-        tips: "Lasse jede Schicht vollständig trocknen und schleife leicht mit feinem Schleifpapier zwischen den Schichten."
+        tips: "Allow each layer to dry completely and lightly sand with fine sandpaper between layers."
       }
     ],
     author: {
       name: "Thomas Weber",
-      role: "Tischlermeister",
+      role: "Master Carpenter",
       avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a"
     },
     publishDate: "2023-03-15",
@@ -101,24 +101,24 @@ const tutorialsData = [
         id: 1,
         author: "Julia M.",
         avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330",
-        date: "vor 2 Wochen",
-        content: "Tolles Tutorial! Ich habe den Tisch letztes Wochenende gebaut und bin super zufrieden mit dem Ergebnis. Eine Frage: Welches Holzöl hast du genau verwendet?",
+        date: "2 weeks ago",
+        content: "Great tutorial! I built the table last weekend and am very happy with the result. One question: Which wood oil did you use exactly?",
         likes: 12
       },
       {
         id: 2,
         author: "Markus K.",
         avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36",
-        date: "vor 5 Tagen",
-        content: "Die Anleitung war sehr hilfreich, aber ich hatte Probleme beim Verleimen der Bretter. Sie sind nicht ganz gerade geblieben. Gibt es einen Trick?",
+        date: "5 days ago",
+        content: "The instructions were very helpful, but I had problems gluing the boards. They didn't stay completely straight. Is there a trick?",
         likes: 3
       },
       {
         id: 3,
         author: "Thomas Weber",
         avatar: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
-        date: "vor 4 Tagen",
-        content: "@Markus K. Für gerade Bretter ist es wichtig, dass du sie während des Leimens auf eine absolut ebene Fläche legst und die Zwingen gleichmäßig anziehst. Außerdem hilft es, zwischen den Zwingen und dem Holz Holzreste zu legen, um Druckstellen zu vermeiden.",
+        date: "4 days ago",
+        content: "@Markus K. For straight boards, it's important to place them on an absolutely flat surface during gluing and tighten the clamps evenly. It also helps to place wood scraps between the clamps and the wood to avoid pressure marks.",
         likes: 8
       }
     ],
@@ -126,62 +126,62 @@ const tutorialsData = [
   },
   {
     id: "mini-gewuerzregal",
-    title: "Mini-Gewürzregal für die Küche",
-    shortDescription: "Ein platzsparendes, wandmontiertes Gewürzregal für kleine Küchen.",
-    longDescription: "Dieses schlanke, aber funktionale Wandregal ist die perfekte Lösung für kleine Küchen mit begrenztem Stauraum. Mit diesem DIY-Projekt kannst du deine Gewürze übersichtlich und griffbereit aufbewahren, ohne wertvollen Platz auf der Arbeitsplatte zu opfern.",
+    title: "Mini Spice Rack for the Kitchen",
+    shortDescription: "A space-saving, wall-mounted spice rack for small kitchens.",
+    longDescription: "This slim yet functional wall shelf is the perfect solution for small kitchens with limited storage space. With this DIY project, you can store your spices in an organized and accessible way without sacrificing valuable counter space.",
     image: "https://images.unsplash.com/photo-1509402308937-0240d9a4438e",
-    category: "Anfänger",
-    duration: "2 Stunden",
-    price: "€15-€25",
+    category: "Beginner",
+    duration: "2 hours",
+    price: "$15-$25",
     materials: [
-      { name: "Holzbrett", amount: "1 Stück", description: "Kiefer, ca. 60x15x2cm", link: "#" },
-      { name: "Rundholz", amount: "1 Stück", description: "Durchmesser 12mm, Länge 60cm", link: "#" },
-      { name: "Wandhaken", amount: "2 Stück", description: "Zum Aufhängen des Regals", link: "#" },
-      { name: "Holzleim", amount: "1 Flasche", description: "Wasserfest", link: "#" },
-      { name: "Holzlasur oder Farbe", amount: "nach Bedarf", description: "In deiner Wunschfarbe", link: "#" },
+      { name: "Wooden board", amount: "1 piece", description: "Pine, approx. 60x15x2cm", link: "#" },
+      { name: "Dowel", amount: "1 piece", description: "Diameter 12mm, length 60cm", link: "#" },
+      { name: "Wall hooks", amount: "2 pieces", description: "For hanging the shelf", link: "#" },
+      { name: "Wood glue", amount: "1 bottle", description: "Waterproof", link: "#" },
+      { name: "Wood stain or paint", amount: "as needed", description: "In your desired color", link: "#" },
     ],
-    tools: ["Bohrmaschine", "Holzbohrer 12mm", "Schleifpapier", "Pinsel", "Maßband", "Bleistift"],
+    tools: ["Power drill", "12mm wood drill bit", "Sandpaper", "Brush", "Measuring tape", "Pencil"],
     steps: [
       {
-        title: "Material vorbereiten",
-        description: "Schleife das Holzbrett und das Rundholz mit feinem Schleifpapier glatt. Achte besonders auf die Kanten des Bretts.",
+        title: "Prepare materials",
+        description: "Sand the wooden board and dowel smooth with fine sandpaper. Pay special attention to the edges of the board.",
         image: "https://images.unsplash.com/photo-1505798577917-a65157d3320a",
-        tips: "Rundhölzer haben oft raue Stellen, die zu Splittern führen können - hier gründlich schleifen."
+        tips: "Dowels often have rough spots that can cause splinters - sand these thoroughly."
       },
       {
-        title: "Löcher bohren",
-        description: "Markiere auf der Unterseite des Bretts in regelmäßigen Abständen Punkte für die Bohrungen (ca. 5cm vom Rand und dann alle 10cm). Bohre mit dem 12mm Bohrer ca. 1cm tief.",
+        title: "Drill holes",
+        description: "Mark points at regular intervals on the underside of the board for drilling (approx. 5cm from the edge and then every 10cm). Drill with the 12mm bit about 1cm deep.",
         image: "https://images.unsplash.com/photo-1532298229144-0ec0c57515c7",
-        tips: "Um ein Ausreißen des Holzes zu vermeiden, lege beim Bohren ein Holzstück unter."
+        tips: "To prevent the wood from tearing, place a piece of wood underneath when drilling."
       },
       {
-        title: "Rundholz zuschneiden",
-        description: "Schneide das Rundholz in Stücke, die etwa 10cm länger als die Tiefe des Regals sind (also ca. 25cm).",
+        title: "Cut the dowel",
+        description: "Cut the dowel into pieces that are about 10cm longer than the depth of the shelf (approx. 25cm).",
         image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71",
-        tips: "Eine Feinsäge gibt besonders saubere Schnitte."
+        tips: "A fine saw gives particularly clean cuts."
       },
       {
-        title: "Rundholz einkleben",
-        description: "Gib etwas Holzleim in die Bohrlöcher und stecke die Rundhölzer hinein. Achte darauf, dass sie gerade stehen.",
+        title: "Glue in the dowels",
+        description: "Put some wood glue in the drill holes and insert the dowels. Make sure they are standing straight.",
         image: "https://images.unsplash.com/photo-1541985498139-75a6919f5a35",
-        tips: "Überschüssigen Leim sofort mit einem feuchten Tuch entfernen."
+        tips: "Remove excess glue immediately with a damp cloth."
       },
       {
-        title: "Oberfläche behandeln",
-        description: "Nach dem Trocknen des Leims (ca. 24 Stunden) kannst du das Regal nach Wunsch lasieren oder streichen.",
+        title: "Treat the surface",
+        description: "After the glue has dried (approx. 24 hours), you can stain or paint the shelf as desired.",
         image: "https://images.unsplash.com/photo-1508872528308-49c63d2e7b52",
-        tips: "Für Küchenmöbel empfiehlt sich eine wasserfeste, lebensmittelechte Behandlung."
+        tips: "A waterproof, food-safe treatment is recommended for kitchen furniture."
       },
       {
-        title: "Aufhängen",
-        description: "Bringe die Wandhaken an der Rückseite des Regals an und hänge es an der gewünschten Stelle auf.",
+        title: "Mounting",
+        description: "Attach the wall hooks to the back of the shelf and hang it at the desired location.",
         image: "https://images.unsplash.com/photo-1523413363574-c30aa1c2a516",
-        tips: "Verwende eine Wasserwaage, um das Regal gerade aufzuhängen."
+        tips: "Use a level to hang the shelf straight."
       }
     ],
     author: {
       name: "Lisa Müller",
-      role: "DIY-Enthusiastin",
+      role: "DIY Enthusiast",
       avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2"
     },
     publishDate: "2023-06-22",
@@ -192,16 +192,16 @@ const tutorialsData = [
         id: 1,
         author: "Stefan R.",
         avatar: "https://images.unsplash.com/photo-1570295999919-56ceb5ecca61",
-        date: "vor 1 Woche",
-        content: "Super einfach nachzubauen und sieht toll aus! Ich habe meins in Mintgrün gestrichen, passt perfekt in meine Küche.",
+        date: "1 week ago",
+        content: "Super easy to build and looks great! I painted mine mint green, fits perfectly in my kitchen.",
         likes: 9
       },
       {
         id: 2,
         author: "Anna W.",
         avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956",
-        date: "vor 3 Wochen",
-        content: "Danke für die Anleitung! Hab's nachgebaut, aber statt Rundhölzern habe ich kleine Metallstangen verwendet. Sieht auch schick aus!",
+        date: "3 weeks ago",
+        content: "Thanks for the instructions! I built it, but instead of dowels I used small metal rods. Looks chic too!",
         likes: 15
       }
     ],
@@ -223,10 +223,10 @@ const TutorialDetail = () => {
       <>
         <Navbar />
         <div className="container py-20 text-center">
-          <h1 className="text-3xl font-bold mb-4">Tutorial nicht gefunden</h1>
-          <p className="mb-8">Das gesuchte Tutorial konnte nicht gefunden werden.</p>
+          <h1 className="text-3xl font-bold mb-4">Tutorial not found</h1>
+          <p className="mb-8">The requested tutorial could not be found.</p>
           <Button asChild>
-            <a href="/tutorials">Zurück zu allen Tutorials</a>
+            <a href="/tutorials">Back to all tutorials</a>
           </Button>
         </div>
         <Footer />
@@ -237,10 +237,10 @@ const TutorialDetail = () => {
   const handleSaveTutorial = () => {
     setSaved(!saved);
     toast({
-      title: !saved ? "Tutorial gespeichert" : "Tutorial entfernt",
+      title: !saved ? "Tutorial saved" : "Tutorial removed",
       description: !saved 
-        ? "Das Tutorial wurde zu deinen Favoriten hinzugefügt." 
-        : "Das Tutorial wurde aus deinen Favoriten entfernt.",
+        ? "The tutorial has been added to your favorites." 
+        : "The tutorial has been removed from your favorites.",
       duration: 2000,
     });
   };
@@ -248,8 +248,8 @@ const TutorialDetail = () => {
   const handleLikeTutorial = () => {
     setLiked(!liked);
     toast({
-      title: !liked ? "Tutorial geliked" : "Like entfernt",
-      description: !liked ? "Danke für dein Feedback!" : "Like wurde entfernt.",
+      title: !liked ? "Tutorial liked" : "Like removed",
+      description: !liked ? "Thanks for your feedback!" : "Like has been removed.",
       duration: 2000,
     });
   };
@@ -257,8 +257,8 @@ const TutorialDetail = () => {
   const handleRateTutorial = (rating: number) => {
     setCurrentRating(rating);
     toast({
-      title: "Bewertung gespeichert",
-      description: `Du hast dieses Tutorial mit ${rating} Sternen bewertet.`,
+      title: "Rating saved",
+      description: `You rated this tutorial ${rating} stars.`,
       duration: 2000,
     });
   };
@@ -267,8 +267,8 @@ const TutorialDetail = () => {
     e.preventDefault();
     if (commentText.trim()) {
       toast({
-        title: "Kommentar gesendet",
-        description: "Dein Kommentar wird nach Überprüfung veröffentlicht.",
+        title: "Comment submitted",
+        description: "Your comment will be published after review.",
         duration: 2000,
       });
       setCommentText('');
@@ -286,9 +286,9 @@ const TutorialDetail = () => {
             <div>
               <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline" className={
-                  tutorial.category === "Anfänger" 
+                  tutorial.category === "Beginner" 
                     ? "bg-green-100 text-green-800 border-green-200" 
-                    : tutorial.category === "Mittel"
+                    : tutorial.category === "Intermediate"
                     ? "bg-amber-100 text-amber-800 border-amber-200"
                     : "bg-red-100 text-red-800 border-red-200"
                 }>
@@ -325,7 +325,7 @@ const TutorialDetail = () => {
                   </div>
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  Veröffentlicht am {tutorial.publishDate}
+                  Published on {tutorial.publishDate}
                 </div>
               </div>
               
@@ -346,18 +346,18 @@ const TutorialDetail = () => {
               <div className="flex flex-wrap gap-2 mb-6">
                 <Button onClick={handleSaveTutorial} variant={saved ? "default" : "outline"} className="gap-2">
                   {saved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
-                  {saved ? "Gespeichert" : "Speichern"}
+                  {saved ? "Saved" : "Save"}
                 </Button>
                 <Button onClick={handleLikeTutorial} variant={liked ? "default" : "outline"} className="gap-2">
                   <HeartIcon className="h-4 w-4" fill={liked ? "currentColor" : "none"} />
-                  {liked ? "Gefällt mir" : "Gefällt mir"}
+                  {liked ? "Liked" : "Like"}
                 </Button>
                 <Button variant="outline" className="gap-2">
                   <Share2 className="h-4 w-4" />
-                  Teilen
+                  Share
                 </Button>
                 <div className="ml-auto flex items-center">
-                  <span className="mr-2 text-sm">Bewerten:</span>
+                  <span className="mr-2 text-sm">Rate:</span>
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -381,9 +381,9 @@ const TutorialDetail = () => {
             {/* Tutorial content */}
             <Tabs defaultValue="anleitung">
               <TabsList className="mb-4">
-                <TabsTrigger value="anleitung">Schritt-für-Schritt-Anleitung</TabsTrigger>
-                <TabsTrigger value="materialien">Materialien und Werkzeuge</TabsTrigger>
-                <TabsTrigger value="video">Video-Anleitung</TabsTrigger>
+                <TabsTrigger value="anleitung">Step-by-Step Guide</TabsTrigger>
+                <TabsTrigger value="materialien">Materials and Tools</TabsTrigger>
+                <TabsTrigger value="video">Video Tutorial</TabsTrigger>
               </TabsList>
               
               <TabsContent value="anleitung" className="space-y-6">
@@ -399,7 +399,7 @@ const TutorialDetail = () => {
                   <AspectRatio ratio={16 / 9}>
                     <iframe 
                       src={tutorial.videoUrl} 
-                      title={`Video-Anleitung: ${tutorial.title}`}
+                      title={`Video Tutorial: ${tutorial.title}`}
                       className="w-full h-full"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
@@ -410,9 +410,9 @@ const TutorialDetail = () => {
                   <div className="flex items-start gap-3">
                     <Info className="h-5 w-5 text-craft-wood flex-shrink-0 mt-0.5" />
                     <p className="text-sm">
-                      Falls das Video nicht geladen werden kann, aktualisiere bitte die Seite oder 
-                      versuche es später noch einmal. Du kannst auch die Schritt-für-Schritt-Anleitung 
-                      verwenden, die alle notwendigen Informationen enthält.
+                      If the video cannot be loaded, please refresh the page or 
+                      try again later. You can also use the step-by-step guide 
+                      which contains all necessary information.
                     </p>
                   </div>
                 </div>
@@ -421,19 +421,19 @@ const TutorialDetail = () => {
             
             {/* Comments section */}
             <div className="mt-12">
-              <h2 className="text-2xl font-bold mb-6">Kommentare ({tutorial.comments.length})</h2>
+              <h2 className="text-2xl font-bold mb-6">Comments ({tutorial.comments.length})</h2>
               
               <div className="mb-8">
-                <h3 className="text-lg font-medium mb-4">Schreibe einen Kommentar</h3>
+                <h3 className="text-lg font-medium mb-4">Write a comment</h3>
                 <form onSubmit={handleSubmitComment}>
                   <Textarea 
-                    placeholder="Teile deine Erfahrungen und Fragen..." 
+                    placeholder="Share your experiences and questions..." 
                     className="mb-4"
                     value={commentText}
                     onChange={(e) => setCommentText(e.target.value)}
                     rows={4}
                   />
-                  <Button type="submit" disabled={!commentText.trim()}>Kommentar senden</Button>
+                  <Button type="submit" disabled={!commentText.trim()}>Submit Comment</Button>
                 </form>
               </div>
               
@@ -446,15 +446,15 @@ const TutorialDetail = () => {
             {/* Materials sidebar card */}
             <Card>
               <CardHeader>
-                <CardTitle>Materialliste</CardTitle>
+                <CardTitle>Materials List</CardTitle>
                 <CardDescription>
-                  Alles was du für dieses Projekt brauchst.
+                  Everything you need for this project.
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <h3 className="font-medium mb-2 flex items-center">
-                    <List className="h-4 w-4 mr-2 text-craft-wood" /> Materialien
+                    <List className="h-4 w-4 mr-2 text-craft-wood" /> Materials
                   </h3>
                   <ul className="space-y-1.5">
                     {tutorial.materials.slice(0, 3).map((material, index) => (
@@ -466,7 +466,7 @@ const TutorialDetail = () => {
                     {tutorial.materials.length > 3 && (
                       <li className="text-sm text-craft-wood">
                         <Button variant="link" className="p-0 h-auto">
-                          +{tutorial.materials.length - 3} weitere Materialien
+                          +{tutorial.materials.length - 3} more materials
                         </Button>
                       </li>
                     )}
@@ -475,7 +475,7 @@ const TutorialDetail = () => {
                 
                 <div>
                   <h3 className="font-medium mb-2 flex items-center">
-                    <Hammer className="h-4 w-4 mr-2 text-craft-wood" /> Werkzeuge
+                    <Hammer className="h-4 w-4 mr-2 text-craft-wood" /> Tools
                   </h3>
                   <ul className="space-y-1.5">
                     {tutorial.tools.slice(0, 3).map((tool, index) => (
@@ -487,7 +487,7 @@ const TutorialDetail = () => {
                     {tutorial.tools.length > 3 && (
                       <li className="text-sm text-craft-wood">
                         <Button variant="link" className="p-0 h-auto">
-                          +{tutorial.tools.length - 3} weitere Werkzeuge
+                          +{tutorial.tools.length - 3} more tools
                         </Button>
                       </li>
                     )}
@@ -496,7 +496,7 @@ const TutorialDetail = () => {
                 
                 <div className="pt-2">
                   <div className="flex items-center justify-between text-sm">
-                    <span>Geschätzte Kosten:</span>
+                    <span>Estimated Cost:</span>
                     <span className="font-medium">{tutorial.price}</span>
                   </div>
                 </div>
@@ -504,7 +504,7 @@ const TutorialDetail = () => {
               <CardFooter>
                 <Button variant="outline" className="w-full" asChild>
                   <a href="#materialien">
-                    Vollständige Liste ansehen
+                    View Complete List
                   </a>
                 </Button>
               </CardFooter>

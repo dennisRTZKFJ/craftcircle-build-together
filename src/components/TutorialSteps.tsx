@@ -32,7 +32,7 @@ const TutorialSteps = ({ steps }: TutorialStepsProps) => {
               <AspectRatio ratio={4 / 3}>
                 <img 
                   src={step.image} 
-                  alt={`Schritt ${index + 1}: ${step.title}`} 
+                  alt={`Step ${index + 1}: ${step.title}`} 
                   className="w-full h-full object-cover"
                 />
               </AspectRatio>
@@ -45,7 +45,7 @@ const TutorialSteps = ({ steps }: TutorialStepsProps) => {
                 <Alert className="bg-craft-wood/10 border-craft-wood">
                   <Info className="h-4 w-4 text-craft-wood" />
                   <AlertDescription className="text-sm pl-2">
-                    <strong>Tipp:</strong> {step.tips}
+                    <strong>Tip:</strong> {step.tips}
                   </AlertDescription>
                 </Alert>
               )}

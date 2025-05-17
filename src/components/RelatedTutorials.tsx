@@ -10,24 +10,24 @@ import { Link } from 'react-router-dom';
 const tutorialsData = [
   {
     id: "rustikaler-couchtisch",
-    title: "Rustikaler Couchtisch aus Altholz",
+    title: "Rustic Coffee Table",
     image: "https://images.unsplash.com/photo-1581428982868-e410dd047a90",
-    category: "Mittel",
-    duration: "6 Stunden"
+    category: "Intermediate",
+    duration: "6 hours"
   },
   {
     id: "mini-gewuerzregal",
-    title: "Mini-Gewürzregal für die Küche",
+    title: "Mini Spice Rack",
     image: "https://images.unsplash.com/photo-1509402308937-0240d9a4438e",
-    category: "Anfänger",
-    duration: "2 Stunden"
+    category: "Beginner",
+    duration: "2 hours"
   },
   {
     id: "wandgarderobe",
-    title: "Moderne Wandgarderobe",
+    title: "Modern Wall Coat Rack",
     image: "https://images.unsplash.com/photo-1595428774223-ef52624120d2",
-    category: "Anfänger",
-    duration: "3 Stunden"
+    category: "Beginner",
+    duration: "3 hours"
   }
 ];
 
@@ -41,7 +41,7 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
   return (
     <Card>
       <CardContent className="p-4">
-        <h3 className="font-bold mb-4">Das könnte dich auch interessieren</h3>
+        <h3 className="font-bold mb-4">You might also like</h3>
         <div className="space-y-4">
           {relatedTutorials.map((tutorial) => (
             <div key={tutorial.id} className="flex items-start gap-3">
@@ -60,9 +60,9 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
                 
                 <div className="flex gap-2 mt-1">
                   <Badge variant="outline" className={
-                    tutorial.category === "Anfänger" 
+                    tutorial.category === "Beginner" 
                       ? "bg-green-100 text-green-800 border-green-200" 
-                      : tutorial.category === "Mittel"
+                      : tutorial.category === "Intermediate"
                       ? "bg-amber-100 text-amber-800 border-amber-200"
                       : "bg-red-100 text-red-800 border-red-200"
                   }>
@@ -78,7 +78,7 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
         </div>
         
         <Button variant="outline" className="w-full mt-4" asChild>
-          <Link to="/tutorials">Alle Tutorials ansehen</Link>
+          <Link to="/tutorials">View all tutorials</Link>
         </Button>
       </CardContent>
     </Card>
