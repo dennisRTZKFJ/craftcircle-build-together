@@ -1,15 +1,13 @@
 
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import UserDashboard from '@/components/UserDashboard';
-import CreatorDashboard from '@/components/creator-dashboard/CreatorDashboard';
-import PartnerDashboard from '@/components/PartnerDashboard';
 import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { HelpCircle, User } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
-import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const { toast } = useToast();
@@ -19,7 +17,7 @@ const Dashboard = () => {
   const handleSupportClick = () => {
     toast({
       title: "Support requested",
-      description: "A member of our team will contact you shortly.",
+      description: "A member of our team will contact you shortly."
     });
   };
 
@@ -63,8 +61,24 @@ const Dashboard = () => {
       
       {/* Render the appropriate dashboard based on user type */}
       {userType === 'diy' && <UserDashboard />}
-      {userType === 'creator' && <CreatorDashboard />}
-      {userType === 'partner' && <PartnerDashboard />}
+      {userType === 'creator' && (
+        <div className="container py-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">Creator Dashboard</h2>
+          <p className="mb-6">Manage your tutorials, view analytics, and track your earnings as a creator.</p>
+          <Link to="/creator-dashboard">
+            <Button size="lg">Go to Creator Dashboard</Button>
+          </Link>
+        </div>
+      )}
+      {userType === 'partner' && (
+        <div className="container py-8 text-center">
+          <h2 className="text-2xl font-bold mb-4">Partner Dashboard</h2>
+          <p className="mb-6">Manage your products, orders, and integrations as a partner.</p>
+          <Link to="/partner-dashboard">
+            <Button size="lg">Go to Partner Dashboard</Button>
+          </Link>
+        </div>
+      )}
       
       <Footer />
     </div>
