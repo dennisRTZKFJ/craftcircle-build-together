@@ -17,6 +17,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 import Onboarding from "./pages/Onboarding";
+import FirstProjects from "./pages/FirstProjects";
 import Account from "./pages/Account";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import PaymentsPage from "./pages/PaymentsPage";
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/first-projects" element={<FirstProjects />} />
           <Route path="/account" element={<Account />} />
           <Route path="/admin" element={<AdminDashboard />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

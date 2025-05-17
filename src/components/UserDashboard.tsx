@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -24,42 +25,42 @@ const UserDashboard = () => {
   const projects = [
     { 
       id: 1, 
-      name: 'Kaffeetisch aus Eichenholz', 
+      name: 'Oak Coffee Table', 
       status: 'completed', 
       progress: 100, 
-      date: '10.05.2025',
+      date: '05/10/2025',
       image: 'https://images.unsplash.com/photo-1596079890744-c1a0462d0975'
     },
     { 
       id: 2, 
-      name: 'Regal für Kinderzimmer', 
+      name: 'Children\'s Bookshelf', 
       status: 'in-progress', 
       progress: 75, 
-      date: '13.05.2025',
+      date: '05/13/2025',
       image: 'https://images.unsplash.com/photo-1617104678098-de229db51175'
     },
     { 
       id: 3, 
-      name: 'Garderobe aus Altholz', 
+      name: 'Reclaimed Wood Coat Rack', 
       status: 'in-progress', 
       progress: 30, 
-      date: '16.05.2025',
+      date: '05/16/2025',
       image: 'https://images.unsplash.com/photo-1609799529593-38cd08a93427'
     },
     { 
       id: 4, 
-      name: 'Schreibtisch mit Schubladen', 
+      name: 'Desk with Drawers', 
       status: 'planned', 
       progress: 0, 
-      date: '20.05.2025',
+      date: '05/20/2025',
       image: 'https://images.unsplash.com/photo-1593476550610-87baa860004a'
     },
     { 
       id: 5, 
-      name: 'Beistelltisch Projekt', 
+      name: 'Side Table Project', 
       status: 'abandoned', 
       progress: 40, 
-      date: '02.05.2025',
+      date: '05/02/2025',
       image: 'https://images.unsplash.com/photo-1581428982868-e410dd047a90'
     },
   ];
@@ -68,24 +69,24 @@ const UserDashboard = () => {
   const comments = [
     {
       id: 1,
-      content: 'Großartige Idee mit der versteckten Verbindung! Hat bei meinem Projekt super funktioniert.',
+      content: 'Great idea with the hidden connection! Worked perfectly in my project.',
       likes: 24,
-      tutorial: 'Minimalistische Garderobe',
-      date: 'vor 2 Tagen'
+      tutorial: 'Minimalist Coat Rack',
+      date: '2 days ago'
     },
     {
       id: 2,
-      content: 'Vielen Dank für die detaillierte Anleitung. Als Anfänger hat mir das sehr geholfen.',
+      content: 'Thank you for the detailed instructions. As a beginner, this was very helpful.',
       likes: 17,
-      tutorial: 'Couchtisch aus Eichenholz',
-      date: 'vor 1 Woche'
+      tutorial: 'Oak Coffee Table',
+      date: '1 week ago'
     },
     {
       id: 3,
-      content: 'Welches Werkzeug hast du für die Kanten verwendet? Meine sehen nicht so gleichmäßig aus.',
+      content: 'What tool did you use for the edges? Mine don\'t look as even.',
       likes: 5,
-      tutorial: 'Bücherregal mit unsichtbaren Befestigungen',
-      date: 'vor 2 Wochen'
+      tutorial: 'Bookshelf with Invisible Mounts',
+      date: '2 weeks ago'
     },
   ];
   
@@ -93,35 +94,35 @@ const UserDashboard = () => {
   const materialLists = [
     {
       id: 1,
-      name: 'Couchtisch Eiche',
+      name: 'Oak Coffee Table',
       items: 8,
       purchased: true,
-      date: '05.05.2025',
-      totalCost: '€147,80'
+      date: '05/05/2025',
+      totalCost: '$147.80'
     },
     {
       id: 2,
-      name: 'Kinderzimmerregal',
+      name: 'Children\'s Room Shelf',
       items: 12,
       purchased: true,
-      date: '10.05.2025',
-      totalCost: '€84,95'
+      date: '05/10/2025',
+      totalCost: '$84.95'
     },
     {
       id: 3,
-      name: 'Garderobe',
+      name: 'Coat Rack',
       items: 6,
       purchased: false,
-      date: '15.05.2025',
-      totalCost: '€62,50'
+      date: '05/15/2025',
+      totalCost: '$62.50'
     },
     {
       id: 4,
-      name: 'Schreibtisch',
+      name: 'Desk',
       items: 15,
       purchased: false,
-      date: '20.05.2025',
-      totalCost: '€219,30'
+      date: '05/20/2025',
+      totalCost: '$219.30'
     },
   ];
   
@@ -129,23 +130,23 @@ const UserDashboard = () => {
   const aiRecommendations = [
     {
       id: 1,
-      title: 'Nachttisch mit integrierter Ladestation',
-      difficulty: 'Mittel',
-      tools: 'Säge, Bohrmaschine, Schleifpapier',
+      title: 'Nightstand with Integrated Charging Station',
+      difficulty: 'Intermediate',
+      tools: 'Saw, Drill, Sandpaper',
       image: 'https://images.unsplash.com/photo-1506377295352-e3154d43ea9e'
     },
     {
       id: 2,
-      title: 'Schlüsselboard mit Ablage',
-      difficulty: 'Einfach',
-      tools: 'Säge, Bohrmaschine, Schraubendreher',
+      title: 'Key Holder with Storage',
+      difficulty: 'Easy',
+      tools: 'Saw, Drill, Screwdriver',
       image: 'https://images.unsplash.com/photo-1596079890701-dd42edf0b7d4'
     },
     {
       id: 3,
-      title: 'Schwebendes Bücherregal',
-      difficulty: 'Anspruchsvoll',
-      tools: 'Kreissäge, Bohrmaschine, Wasserwaage, Dübelfräse',
+      title: 'Floating Bookshelf',
+      difficulty: 'Advanced',
+      tools: 'Circular Saw, Drill, Level, Doweling Jig',
       image: 'https://images.unsplash.com/photo-1594026112284-02bb6f3352fe'
     },
   ];
@@ -154,48 +155,48 @@ const UserDashboard = () => {
   const achievements = [
     {
       id: 1,
-      name: 'Erste Schritte',
-      description: 'Erstes DIY-Projekt abgeschlossen',
+      name: 'First Steps',
+      description: 'Completed first DIY project',
       icon: <Award className="h-8 w-8" />,
       earned: true,
-      date: '02.04.2025'
+      date: '04/02/2025'
     },
     {
       id: 2,
-      name: 'Fleißige Biene',
-      description: '5 Projekte abgeschlossen',
+      name: 'Busy Bee',
+      description: 'Completed 5 projects',
       icon: <CheckCircle className="h-8 w-8" />,
       earned: false,
       progress: 20
     },
     {
       id: 3,
-      name: 'Holzexperte',
-      description: '10 Tutorials zum Thema Holzbearbeitung angesehen',
+      name: 'Wood Expert',
+      description: 'Viewed 10 woodworking tutorials',
       icon: <FileText className="h-8 w-8" />,
       earned: true,
-      date: '28.04.2025'
+      date: '04/28/2025'
     },
     {
       id: 4,
-      name: 'Hilfsbereiter Handwerker',
-      description: '10 hilfreiche Kommentare verfasst',
+      name: 'Helpful Craftsperson',
+      description: 'Posted 10 helpful comments',
       icon: <MessageCircle className="h-8 w-8" />,
       earned: false,
       progress: 30
     },
     {
       id: 5,
-      name: 'Werkzeugsammler',
-      description: 'Alle grundlegenden Werkzeuge erworben',
+      name: 'Tool Collector',
+      description: 'Acquired all basic tools',
       icon: <Package className="h-8 w-8" />,
       earned: true,
-      date: '15.04.2025'
+      date: '04/15/2025'
     },
     {
       id: 6,
-      name: 'Herausforderer',
-      description: 'An einer wöchentlichen Challenge teilgenommen',
+      name: 'Challenger',
+      description: 'Participated in a weekly challenge',
       icon: <Target className="h-8 w-8" />,
       earned: false,
       progress: 0
@@ -205,30 +206,30 @@ const UserDashboard = () => {
   const setGoal = (goal: number) => {
     setWeeklyGoal(goal);
     toast({
-      title: "Wochenziel gesetzt",
-      description: `Du hast dir vorgenommen, ${goal} Projekt(e) pro Woche abzuschließen.`
+      title: "Weekly goal set",
+      description: `You've set a goal to complete ${goal} project(s) per week.`
     });
   };
   
   const startProject = () => {
     toast({
-      title: "Neues Projekt",
-      description: "Du kannst jetzt ein neues Projekt starten."
+      title: "New Project",
+      description: "You can now start a new project."
     });
   };
   
   const viewAllProjects = () => {
     toast({
-      title: "Projektverlauf",
-      description: "Hier findest du eine vollständige Übersicht deiner Projekte."
+      title: "Project History",
+      description: "Here you'll find a complete overview of your projects."
     });
   };
   
   const handleSubscribe = () => {
     setSubscriptionDialogOpen(false);
     toast({
-      title: "Abonnement",
-      description: "Danke für dein Interesse! Du wirst zur Zahlungsseite weitergeleitet."
+      title: "Subscription",
+      description: "Thank you for your interest! You will be redirected to the payment page."
     });
   };
   
@@ -236,21 +237,21 @@ const UserDashboard = () => {
     <div className="container py-8">
       <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
         <div>
-          <h1 className="text-3xl font-bold">Meine Werkstatt</h1>
-          <p className="text-muted-foreground">Willkommen zurück in deiner persönlichen DIY-Zentrale</p>
+          <h1 className="text-3xl font-bold">My Workshop</h1>
+          <p className="text-muted-foreground">Welcome back to your personal DIY hub</p>
         </div>
         
         <div className="flex flex-wrap gap-3">
           <Button onClick={startProject} className="whitespace-nowrap">
             <FileText className="mr-2 h-4 w-4" />
-            Neues Projekt starten
+            Start New Project
           </Button>
           
           <Dialog open={subscriptionDialogOpen} onOpenChange={setSubscriptionDialogOpen}>
             <DialogTrigger asChild>
               <Button variant="outline" className="whitespace-nowrap">
                 <Crown className="mr-2 h-4 w-4" />
-                Premium abonnieren
+                Subscribe to Premium
               </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
@@ -260,7 +261,7 @@ const UserDashboard = () => {
                   DIY Premium
                 </DialogTitle>
                 <DialogDescription>
-                  Erweitere deine Möglichkeiten und erhalte Zugang zu exklusiven Premium-Features
+                  Expand your capabilities and get access to exclusive premium features
                 </DialogDescription>
               </DialogHeader>
               
@@ -271,8 +272,8 @@ const UserDashboard = () => {
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
-                      <h4 className="font-medium">Unbegrenzte Projekte</h4>
-                      <p className="text-sm text-muted-foreground">Erstelle und verwalte so viele Projekte wie du möchtest</p>
+                      <h4 className="font-medium">Unlimited Projects</h4>
+                      <p className="text-sm text-muted-foreground">Create and manage as many projects as you want</p>
                     </div>
                   </div>
                   
@@ -281,8 +282,8 @@ const UserDashboard = () => {
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
-                      <h4 className="font-medium">KI-Projektassistent</h4>
-                      <p className="text-sm text-muted-foreground">Erhalte personalisierte Vorschläge und Anleitungen für deine Projekte</p>
+                      <h4 className="font-medium">AI Project Assistant</h4>
+                      <p className="text-sm text-muted-foreground">Get personalized suggestions and guidance for your projects</p>
                     </div>
                   </div>
                   
@@ -291,8 +292,8 @@ const UserDashboard = () => {
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
-                      <h4 className="font-medium">Exklusive Tutorials</h4>
-                      <p className="text-sm text-muted-foreground">Zugang zu Premium-Inhalten von Top-Creatorn</p>
+                      <h4 className="font-medium">Exclusive Tutorials</h4>
+                      <p className="text-sm text-muted-foreground">Access to premium content from top creators</p>
                     </div>
                   </div>
                   
@@ -301,28 +302,28 @@ const UserDashboard = () => {
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
-                      <h4 className="font-medium">Priorisierter Support</h4>
-                      <p className="text-sm text-muted-foreground">Erhalte schnellere Antworten bei Fragen und Problemen</p>
+                      <h4 className="font-medium">Priority Support</h4>
+                      <p className="text-sm text-muted-foreground">Get faster responses to your questions and issues</p>
                     </div>
                   </div>
                 </div>
                 
                 <div className="bg-muted p-4 rounded-lg">
                   <div className="flex justify-between items-center mb-2">
-                    <div className="text-sm">Monatlicher Preis</div>
-                    <div className="text-lg font-bold">€9,99</div>
+                    <div className="text-sm">Monthly Price</div>
+                    <div className="text-lg font-bold">$9.99</div>
                   </div>
-                  <div className="text-xs text-muted-foreground">Jederzeit kündbar. 14 Tage Geld-zurück-Garantie.</div>
+                  <div className="text-xs text-muted-foreground">Cancel anytime. 14-day money-back guarantee.</div>
                 </div>
               </div>
               
               <DialogFooter className="flex flex-col sm:flex-row gap-2">
                 <Button variant="outline" onClick={() => setSubscriptionDialogOpen(false)}>
-                  Später entscheiden
+                  Decide Later
                 </Button>
                 <Button onClick={handleSubscribe} className="gap-2">
                   <Crown className="h-4 w-4" />
-                  Jetzt abonnieren
+                  Subscribe Now
                 </Button>
               </DialogFooter>
             </DialogContent>
@@ -336,8 +337,8 @@ const UserDashboard = () => {
           <CardHeader className="pb-3">
             <div className="flex justify-between items-start">
               <div>
-                <CardTitle>Willkommen in deiner Werkstatt</CardTitle>
-                <CardDescription>Dein persönlicher DIY-Bereich</CardDescription>
+                <CardTitle>Welcome to your Workshop</CardTitle>
+                <CardDescription>Your personal DIY space</CardDescription>
               </div>
               <Avatar className="h-10 w-10">
                 <AvatarFallback>JD</AvatarFallback>
@@ -348,21 +349,21 @@ const UserDashboard = () => {
             <div className="space-y-4">
               <div>
                 <div className="flex items-center justify-between mb-2">
-                  <div className="text-sm font-medium">Dein Fortschritt diese Woche</div>
-                  <div className="text-sm text-muted-foreground">{weeklyProgress} von {weeklyGoal} Projekten</div>
+                  <div className="text-sm font-medium">Your progress this week</div>
+                  <div className="text-sm text-muted-foreground">{weeklyProgress} of {weeklyGoal} projects</div>
                 </div>
                 <Progress value={weeklyProgress / weeklyGoal * 100} className="h-2" />
               </div>
               
               <div className="flex flex-wrap gap-2 mt-4">
                 <Button variant="outline" size="sm" onClick={() => setGoal(1)} className={weeklyGoal === 1 ? "border-craft-wood" : ""}>
-                  1 Projekt / Woche
+                  1 Project / Week
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => setGoal(2)} className={weeklyGoal === 2 ? "border-craft-wood" : ""}>
-                  2 Projekte / Woche
+                  2 Projects / Week
                 </Button>
                 <Button variant="outline" size="sm" onClick={() => setGoal(3)} className={weeklyGoal === 3 ? "border-craft-wood" : ""}>
-                  3 Projekte / Woche
+                  3 Projects / Week
                 </Button>
               </div>
             </div>
@@ -375,7 +376,7 @@ const UserDashboard = () => {
                 </div>
                 <div>
                   <div className="text-xl font-bold">3</div>
-                  <div className="text-xs text-muted-foreground">Abgeschlossene Projekte</div>
+                  <div className="text-xs text-muted-foreground">Completed Projects</div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -384,7 +385,7 @@ const UserDashboard = () => {
                 </div>
                 <div>
                   <div className="text-xl font-bold">2</div>
-                  <div className="text-xs text-muted-foreground">Laufende Projekte</div>
+                  <div className="text-xs text-muted-foreground">Active Projects</div>
                 </div>
               </div>
               <div className="flex items-center gap-3">
@@ -393,7 +394,7 @@ const UserDashboard = () => {
                 </div>
                 <div>
                   <div className="text-xl font-bold">3</div>
-                  <div className="text-xs text-muted-foreground">Verdiente Abzeichen</div>
+                  <div className="text-xs text-muted-foreground">Earned Badges</div>
                 </div>
               </div>
             </div>
@@ -402,8 +403,8 @@ const UserDashboard = () => {
         
         <Card>
           <CardHeader>
-            <CardTitle>Was baue ich als Nächstes?</CardTitle>
-            <CardDescription>KI-Projektempfehlungen für dich</CardDescription>
+            <CardTitle>What Should I Build Next?</CardTitle>
+            <CardDescription>AI Project Recommendations for You</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="relative h-36 rounded-md overflow-hidden">
@@ -416,12 +417,12 @@ const UserDashboard = () => {
                 <div className="text-center text-white p-4">
                   <Brain className="h-6 w-6 mx-auto mb-2" />
                   <div className="font-medium text-sm">{aiRecommendations[0].title}</div>
-                  <div className="text-xs mt-1">Schwierigkeit: {aiRecommendations[0].difficulty}</div>
+                  <div className="text-xs mt-1">Difficulty: {aiRecommendations[0].difficulty}</div>
                 </div>
               </div>
             </div>
             <Button className="w-full" variant="outline">
-              Mehr Vorschläge
+              More Suggestions
               <ArrowRight className="ml-1 h-4 w-4" />
             </Button>
           </CardContent>
@@ -431,19 +432,19 @@ const UserDashboard = () => {
       <Tabs defaultValue="projects" className="w-full">
         <TabsList className="grid grid-cols-5 max-w-3xl mb-8">
           <TabsTrigger value="projects">
-            <FileText className="h-4 w-4 mr-2" /> Projektverlauf
+            <FileText className="h-4 w-4 mr-2" /> Project History
           </TabsTrigger>
           <TabsTrigger value="comments">
-            <MessageCircle className="h-4 w-4 mr-2" /> Kommentare
+            <MessageCircle className="h-4 w-4 mr-2" /> Comments
           </TabsTrigger>
           <TabsTrigger value="materials">
-            <Package className="h-4 w-4 mr-2" /> Materiallisten
+            <Package className="h-4 w-4 mr-2" /> Material Lists
           </TabsTrigger>
           <TabsTrigger value="ideas">
-            <Brain className="h-4 w-4 mr-2" /> KI-Empfehlungen
+            <Brain className="h-4 w-4 mr-2" /> AI Recommendations
           </TabsTrigger>
           <TabsTrigger value="achievements">
-            <Award className="h-4 w-4 mr-2" /> Erfolge
+            <Award className="h-4 w-4 mr-2" /> Achievements
           </TabsTrigger>
         </TabsList>
         
@@ -465,19 +466,19 @@ const UserDashboard = () => {
                       project.status === 'planned' ? 'bg-amber-100 text-amber-800 border-amber-200' :
                       'bg-red-100 text-red-800 border-red-200'
                     }>
-                      {project.status === 'completed' ? 'Fertig' :
-                       project.status === 'in-progress' ? 'In Arbeit' :
-                       project.status === 'planned' ? 'Geplant' : 'Abgebrochen'}
+                      {project.status === 'completed' ? 'Completed' :
+                       project.status === 'in-progress' ? 'In Progress' :
+                       project.status === 'planned' ? 'Planned' : 'Abandoned'}
                     </Badge>
                   </div>
                 </div>
                 <CardContent className="p-4">
                   <h3 className="font-bold">{project.name}</h3>
-                  <div className="text-sm text-muted-foreground mt-1">Fällig am: {project.date}</div>
+                  <div className="text-sm text-muted-foreground mt-1">Due: {project.date}</div>
                   
                   <div className="mt-4">
                     <div className="flex justify-between text-sm mb-1">
-                      <span>Fortschritt</span>
+                      <span>Progress</span>
                       <span>{project.progress}%</span>
                     </div>
                     <Progress value={project.progress} className="h-1.5" />
@@ -486,7 +487,7 @@ const UserDashboard = () => {
                 <CardFooter className="flex justify-between p-4 pt-0">
                   <Button variant="ghost" size="sm">Details</Button>
                   {project.status !== 'completed' && project.status !== 'abandoned' && (
-                    <Button size="sm">Fortsetzen</Button>
+                    <Button size="sm">Continue</Button>
                   )}
                 </CardFooter>
               </Card>
@@ -497,18 +498,18 @@ const UserDashboard = () => {
                 <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mx-auto mb-2">
                   <FileText className="h-5 w-5" />
                 </div>
-                <h3 className="font-medium">Neues Projekt</h3>
+                <h3 className="font-medium">New Project</h3>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Starte ein neues DIY-Abenteuer
+                  Start a new DIY adventure
                 </p>
-                <Button className="mt-4" onClick={startProject}>Projekt erstellen</Button>
+                <Button className="mt-4" onClick={startProject}>Create Project</Button>
               </div>
             </Card>
           </div>
           
           <div className="flex justify-center">
             <Button variant="outline" onClick={viewAllProjects}>
-              Alle Projekte anzeigen
+              View All Projects
             </Button>
           </div>
         </TabsContent>
@@ -536,7 +537,7 @@ const UserDashboard = () => {
                       <Heart className="h-4 w-4 mr-1 text-craft-wood" />
                       <span className="text-sm">{comment.likes} Likes</span>
                     </div>
-                    <Button variant="ghost" size="sm">Zum Tutorial</Button>
+                    <Button variant="ghost" size="sm">Go to Tutorial</Button>
                   </div>
                 </CardFooter>
               </Card>
@@ -546,9 +547,9 @@ const UserDashboard = () => {
               <div className="text-center p-8">
                 <MessageCircle className="h-8 w-8 mx-auto mb-4 text-muted-foreground" />
                 <p className="text-muted-foreground">
-                  Teile deine Erfahrungen und Gedanken mit der Community
+                  Share your experiences and thoughts with the community
                 </p>
-                <Button variant="outline" className="mt-4">Tutorials durchstöbern</Button>
+                <Button variant="outline" className="mt-4">Browse Tutorials</Button>
               </div>
             </Card>
           </div>
@@ -558,31 +559,31 @@ const UserDashboard = () => {
         <TabsContent value="materials" className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Deine Materiallisten</CardTitle>
-              <CardDescription>Verwalte deine Einkaufslisten und gespeicherten Materialien</CardDescription>
+              <CardTitle>Your Material Lists</CardTitle>
+              <CardDescription>Manage your shopping lists and saved materials</CardDescription>
             </CardHeader>
             <CardContent>
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead>Projekt</TableHead>
-                    <TableHead>Anzahl Materialien</TableHead>
+                    <TableHead>Project</TableHead>
+                    <TableHead>Number of Items</TableHead>
                     <TableHead>Status</TableHead>
-                    <TableHead>Datum</TableHead>
-                    <TableHead>Kosten</TableHead>
-                    <TableHead>Aktionen</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead>Cost</TableHead>
+                    <TableHead>Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
                   {materialLists.map((list) => (
                     <TableRow key={list.id}>
                       <TableCell className="font-medium">{list.name}</TableCell>
-                      <TableCell>{list.items} Teile</TableCell>
+                      <TableCell>{list.items} items</TableCell>
                       <TableCell>
                         <Badge variant="outline" className={list.purchased ? 
                           'bg-green-100 text-green-800 border-green-200' : 
                           'bg-amber-100 text-amber-800 border-amber-200'}>
-                          {list.purchased ? 'Gekauft' : 'Gespeichert'}
+                          {list.purchased ? 'Purchased' : 'Saved'}
                         </Badge>
                       </TableCell>
                       <TableCell>{list.date}</TableCell>
@@ -596,8 +597,8 @@ const UserDashboard = () => {
               </Table>
             </CardContent>
             <CardFooter className="flex justify-between">
-              <Button variant="outline">Neue Liste erstellen</Button>
-              <Button>Bei Partner bestellen</Button>
+              <Button variant="outline">Create New List</Button>
+              <Button>Order from Partner</Button>
             </CardFooter>
           </Card>
         </TabsContent>
@@ -625,17 +626,17 @@ const UserDashboard = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center gap-2">
                     <Brain className="h-4 w-4 text-craft-wood" />
-                    <div className="text-sm font-medium">KI-Empfehlung</div>
+                    <div className="text-sm font-medium">AI Recommendation</div>
                   </div>
                   <div className="mt-3">
                     <p className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Benötigte Werkzeuge:</span> {recommendation.tools}
+                      <span className="font-medium text-foreground">Tools needed:</span> {recommendation.tools}
                     </p>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between p-4 pt-0">
-                  <Button variant="outline" size="sm">Tutorial finden</Button>
-                  <Button size="sm">Projekt starten</Button>
+                  <Button variant="outline" size="sm">Find Tutorial</Button>
+                  <Button size="sm">Start Project</Button>
                 </CardFooter>
               </Card>
             ))}
@@ -645,11 +646,11 @@ const UserDashboard = () => {
                 <div className="h-16 w-16 rounded-full bg-craft-wood/10 flex items-center justify-center mx-auto mb-4">
                   <Brain className="h-8 w-8 text-craft-wood" />
                 </div>
-                <h3 className="font-medium mb-2">Mehr Ideen entdecken</h3>
+                <h3 className="font-medium mb-2">Discover More Ideas</h3>
                 <p className="text-muted-foreground">
-                  Erzähle der KI mehr über deine Interessen und Fähigkeiten für bessere Vorschläge
+                  Tell the AI more about your interests and skills for better suggestions
                 </p>
-                <Button className="mt-4">Interessen anpassen</Button>
+                <Button className="mt-4">Customize Interests</Button>
               </div>
             </Card>
           </div>
@@ -677,12 +678,12 @@ const UserDashboard = () => {
                   <div className="mt-4">
                     {achievement.earned ? (
                       <Badge className="bg-green-100 text-green-800 border-green-200">
-                        Verdient am {achievement.date}
+                        Earned on {achievement.date}
                       </Badge>
                     ) : (
                       <div>
                         <div className="text-xs text-muted-foreground mb-1">
-                          {achievement.progress}% abgeschlossen
+                          {achievement.progress}% completed
                         </div>
                         <Progress value={achievement.progress} className="h-1" />
                       </div>
@@ -695,7 +696,7 @@ const UserDashboard = () => {
           
           <div className="text-center">
             <Button variant="outline">
-              Alle Erfolge anzeigen
+              View All Achievements
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           </div>

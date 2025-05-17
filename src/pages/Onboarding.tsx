@@ -10,7 +10,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Check, ArrowRight, Star } from 'lucide-react';
+import { Check, ArrowRight } from 'lucide-react';
 
 const Onboarding = () => {
   const navigate = useNavigate();
@@ -18,8 +18,6 @@ const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedInterests, setSelectedInterests] = useState<string[]>([]);
   const [experienceLevel, setExperienceLevel] = useState('beginner');
-  const [selectedProjects, setSelectedProjects] = useState<string[]>([]);
-  const [loading, setLoading] = useState(false);
   
   const interests = [
     { id: 'furniture', name: 'Furniture Building', color: 'bg-amber-100 text-amber-800 border-amber-200' },
@@ -31,27 +29,6 @@ const Onboarding = () => {
     { id: 'kids', name: 'Kids Furniture', color: 'bg-red-100 text-red-800 border-red-200' },
     { id: 'small', name: 'Small Apartments', color: 'bg-indigo-100 text-indigo-800 border-indigo-200' }
   ];
-  
-  const suggestedProjects = {
-    beginner: [
-      { id: 'b1', name: 'Simple Wall Shelf', image: 'https://images.unsplash.com/photo-1601628828688-632f38a5a7d0' },
-      { id: 'b2', name: 'Key Holder', image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92' },
-      { id: 'b3', name: 'Plant Stand', image: 'https://images.unsplash.com/photo-1617104678098-de229db51175' },
-      { id: 'b4', name: 'Pencil Holder', image: 'https://images.unsplash.com/photo-1507955987999-16c7252dfede' },
-    ],
-    intermediate: [
-      { id: 'i1', name: 'Coffee Table', image: 'https://images.unsplash.com/photo-1596079890744-c1a0462d0975' },
-      { id: 'i2', name: 'Coat Rack', image: 'https://images.unsplash.com/photo-1609799529593-38cd08a93427' },
-      { id: 'i3', name: 'Hanging Shelf', image: 'https://images.unsplash.com/photo-1600607686527-daf21308b35b' },
-      { id: 'i4', name: 'Desk', image: 'https://images.unsplash.com/photo-1593476550610-87baa860004a' },
-    ],
-    advanced: [
-      { id: 'a1', name: 'Bed with Storage', image: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85' },
-      { id: 'a2', name: 'Wardrobe', image: 'https://images.unsplash.com/photo-1606152536277-5aa1fd33e150' },
-      { id: 'a3', name: 'Bench', image: 'https://images.unsplash.com/photo-1556228720-195a672e8a03' },
-      { id: 'a4', name: 'Changing Table', image: 'https://images.unsplash.com/photo-1580229769680-56e5612c380e' },
-    ]
-  };
 
   const toggleInterest = (id: string) => {
     if (selectedInterests.includes(id)) {
@@ -61,50 +38,18 @@ const Onboarding = () => {
     }
   };
 
-  const toggleProject = (id: string) => {
-    if (selectedProjects.includes(id)) {
-      setSelectedProjects(selectedProjects.filter(item => item !== id));
-    } else {
-      setSelectedProjects([...selectedProjects, id]);
-    }
-  };
-
   const handleNext = () => {
-    if (currentStep < 3) {
+    if (currentStep < 2) {
       setCurrentStep(currentStep + 1);
     } else {
-      completeOnboarding();
+      // Instead of showing the third step, navigate to the FirstProjects page
+      navigate('/first-projects', { state: { experienceLevel } });
     }
   };
 
   const handlePrev = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
-    }
-  };
-
-  const completeOnboarding = async () => {
-    setLoading(true);
-    
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      toast({
-        title: "Onboarding completed!",
-        description: "Your DIY journey begins now.",
-      });
-
-      navigate('/dashboard');
-    } catch (err) {
-      console.error(err);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "An error occurred. Please try again later.",
-      });
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -119,7 +64,7 @@ const Onboarding = () => {
           <div className="flex items-center justify-center gap-2 mt-6">
             <div className={`h-2 w-16 rounded-full ${currentStep === 1 ? 'bg-craft-wood' : 'bg-craft-wood/30'}`}></div>
             <div className={`h-2 w-16 rounded-full ${currentStep === 2 ? 'bg-craft-wood' : 'bg-craft-wood/30'}`}></div>
-            <div className={`h-2 w-16 rounded-full ${currentStep === 3 ? 'bg-craft-wood' : 'bg-craft-wood/30'}`}></div>
+            <div className={`h-2 w-16 rounded-full bg-craft-wood/30`}></div>
           </div>
         </div>
 
@@ -192,53 +137,6 @@ const Onboarding = () => {
             <div className="pt-4 flex justify-between">
               <Button variant="outline" onClick={handlePrev}>Back</Button>
               <Button onClick={handleNext}>Next <ArrowRight className="ml-2 h-4 w-4" /></Button>
-            </div>
-          </div>
-        )}
-
-        {currentStep === 3 && (
-          <div className="space-y-6 max-w-3xl mx-auto">
-            <h2 className="text-2xl font-semibold">First Projects for You</h2>
-            <p className="text-muted-foreground">Choose projects that interest you. You can add more later.</p>
-            
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {suggestedProjects[experienceLevel as keyof typeof suggestedProjects].map((project) => (
-                <div
-                  key={project.id}
-                  className={`border rounded-lg overflow-hidden cursor-pointer transition-all ${
-                    selectedProjects.includes(project.id) 
-                      ? 'border-craft-wood shadow-sm' 
-                      : 'border-border hover:border-craft-wood/50'
-                  }`}
-                  onClick={() => toggleProject(project.id)}
-                >
-                  <div className="relative h-40">
-                    <img 
-                      src={project.image} 
-                      alt={project.name} 
-                      className="w-full h-full object-cover"
-                    />
-                    {selectedProjects.includes(project.id) && (
-                      <div className="absolute inset-0 bg-craft-wood/20 flex items-center justify-center">
-                        <Button size="sm" variant="secondary">
-                          <Check className="h-4 w-4 mr-1" /> Selected
-                        </Button>
-                      </div>
-                    )}
-                  </div>
-                  <div className="p-3 flex items-center justify-between">
-                    <div className="font-medium">{project.name}</div>
-                    <Star className="h-4 w-4 text-amber-500" />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="pt-4 flex justify-between">
-              <Button variant="outline" onClick={handlePrev}>Back</Button>
-              <Button onClick={completeOnboarding} disabled={loading}>
-                {loading ? "Setting up..." : "Finish"}
-              </Button>
             </div>
           </div>
         )}
