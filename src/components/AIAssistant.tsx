@@ -1,9 +1,8 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from '@/components/ui/badge';
-import { Bot, ArrowRight, PenTool, Tool, Hammer, Lightbulb } from 'lucide-react';
+import { Bot, ArrowRight, PenTool, Wrench, Hammer, Lightbulb } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const AIAssistant = () => {
@@ -81,7 +80,7 @@ const AIAssistant = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
               <div className="flex items-start gap-3">
                 <div className="bg-craft-wood/10 p-2 rounded-full">
-                  <Tool className="h-5 w-5 text-craft-wood" />
+                  <Wrench className="h-5 w-5 text-craft-wood" />
                 </div>
                 <div>
                   <h3 className="font-bold mb-1">Tool Recommendations</h3>
