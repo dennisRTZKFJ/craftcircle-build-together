@@ -7,10 +7,11 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
 import { Calendar, CreditCard, Download, Tag } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const PaymentsPage = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   
   // Mock data
@@ -29,14 +30,7 @@ const PaymentsPage = () => {
   ];
 
   const handleUpdatePayment = () => {
-    setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      toast({
-        title: "Payment method updated",
-        description: "Your payment information has been successfully updated."
-      });
-    }, 1500);
+    navigate('/account/payments/update-method');
   };
   
   const handleCancelSubscription = () => {
@@ -121,8 +115,8 @@ const PaymentsPage = () => {
               </div>
             </CardContent>
             <CardFooter>
-              <Button size="sm" onClick={handleUpdatePayment} disabled={loading}>
-                {loading ? "Updating..." : "Update Payment Method"}
+              <Button size="sm" onClick={handleUpdatePayment}>
+                Update Payment Method
               </Button>
             </CardFooter>
           </Card>

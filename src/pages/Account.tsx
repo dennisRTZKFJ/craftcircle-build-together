@@ -102,7 +102,7 @@ const Account = () => {
             </Card>
           </Link>
           
-          <Link to="/subscription" className="block">
+          <Link to="/premium-upgrade" className="block">
             <Card className="h-full hover:border-primary transition-colors bg-craft-wood/5 border-craft-wood/30">
               <CardHeader>
                 <div className="bg-craft-wood text-white p-2 rounded-full w-fit h-fit mb-2">

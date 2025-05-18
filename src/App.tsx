@@ -17,10 +17,13 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ResetPassword from "./pages/ResetPassword";
 import Onboarding from "./pages/Onboarding";
+import OnboardingExperience from "./pages/OnboardingExperience";
 import FirstProjects from "./pages/FirstProjects";
 import Account from "./pages/Account";
 import SubscriptionPage from "./pages/SubscriptionPage";
 import PaymentsPage from "./pages/PaymentsPage";
+import UpdatePaymentMethodPage from "./pages/UpdatePaymentMethodPage";
+import PremiumUpgradePage from "./pages/PremiumUpgradePage";
 import ProjectsPage from "./pages/ProjectsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import SettingsPage from "./pages/SettingsPage";
@@ -48,7 +51,9 @@ const App = () => (
           <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
           <Route path="/creator-dashboard/upload" element={<UploadTutorialPage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
+          <Route path="/premium-upgrade" element={<PremiumUpgradePage />} />
           <Route path="/account/payments" element={<PaymentsPage />} />
+          <Route path="/account/payments/update-method" element={<UpdatePaymentMethodPage />} />
           <Route path="/account/projects" element={<ProjectsPage />} />
           <Route path="/account/notifications" element={<NotificationsPage />} />
           <Route path="/account/settings" element={<SettingsPage />} />
@@ -56,6 +61,7 @@ const App = () => (
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/onboarding/experience" element={<OnboardingExperience />} />
           <Route path="/first-projects" element={<FirstProjects />} />
           <Route path="/account" element={<Account />} />
           <Route path="/admin" element={<AdminDashboard />} />
