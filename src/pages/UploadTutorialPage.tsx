@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -13,6 +14,7 @@ import { Link } from 'react-router-dom';
 
 const UploadTutorialPage = () => {
   const { toast } = useToast();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,6 +22,7 @@ const UploadTutorialPage = () => {
       title: "Tutorial Submitted",
       description: "Your tutorial is now being reviewed by our team."
     });
+    navigate('/creator-dashboard/upload/success');
   };
 
   return (

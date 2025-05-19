@@ -10,6 +10,7 @@ import { Dialog, DialogTrigger } from "@/components/ui/dialog";
 import { Progress } from "@/components/ui/progress";
 import { Check, Clock, Edit, Star, Upload } from 'lucide-react';
 import UploadTutorialDialog from './UploadTutorialDialog';
+import { Link, useNavigate } from 'react-router-dom';
 
 interface Tutorial {
   id: number;
@@ -29,6 +30,12 @@ interface TutorialsTabProps {
 }
 
 const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
+  const navigate = useNavigate();
+  
+  const handleEdit = (id: number) => {
+    navigate(`/creator-dashboard/edit/${id}`);
+  };
+  
   return (
     <div className="space-y-6">
       <Card>
@@ -81,7 +88,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                     <Button 
                       variant="outline" 
                       size="sm" 
-                      onClick={() => handleEditTutorial(tutorial.id)}
+                      onClick={() => handleEdit(tutorial.id)}
                     >
                       <Edit className="h-4 w-4" />
                       <span className="sr-only md:not-sr-only md:ml-2">Edit</span>
@@ -100,15 +107,12 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
             <Button variant="outline" size="sm">
               Generate Tutorial Ideas
             </Button>
-            <Dialog>
-              <DialogTrigger asChild>
-                <Button size="sm">
-                  <Upload className="h-4 w-4 mr-2" />
-                  New Tutorial
-                </Button>
-              </DialogTrigger>
-              <UploadTutorialDialog />
-            </Dialog>
+            <Link to="/creator-dashboard/upload">
+              <Button size="sm">
+                <Upload className="h-4 w-4 mr-2" />
+                New Tutorial
+              </Button>
+            </Link>
           </div>
         </CardFooter>
       </Card>

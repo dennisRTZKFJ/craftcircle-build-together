@@ -28,6 +28,8 @@ import ProjectsPage from "./pages/ProjectsPage";
 import NotificationsPage from "./pages/NotificationsPage";
 import SettingsPage from "./pages/SettingsPage";
 import UploadTutorialPage from "./pages/UploadTutorialPage";
+import EditTutorialPage from "./pages/EditTutorialPage";
+import TutorialSuccessPage from "./pages/TutorialSuccessPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
@@ -50,6 +52,8 @@ const App = () => (
           <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
           <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
           <Route path="/creator-dashboard/upload" element={<UploadTutorialPage />} />
+          <Route path="/creator-dashboard/upload/success" element={<TutorialSuccessPage />} />
+          <Route path="/creator-dashboard/edit/:id" element={<EditTutorialPage />} />
           <Route path="/subscription" element={<SubscriptionPage />} />
           <Route path="/premium-upgrade" element={<PremiumUpgradePage />} />
           <Route path="/account/payments" element={<PaymentsPage />} />
