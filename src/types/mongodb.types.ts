@@ -1,14 +1,14 @@
 
 /**
- * Type definitions for MongoDB document interfaces
- * These help with proper typing when working with MongoDB documents
+ * MongoDB document type definitions
+ * These types represent the structure of documents in the MongoDB database
  */
 
-// Base MongoDB document interface
+// Base MongoDB document with standard fields
 export interface MongoDocument {
-  _id: string;
-  createdAt?: string;
-  updatedAt?: string;
+  _id: string | number;  // MongoDB document ID
+  createdAt?: string;    // ISO date string
+  updatedAt?: string;    // ISO date string
 }
 
 // User document in MongoDB
@@ -17,8 +17,9 @@ export interface MongoUser extends MongoDocument {
   email: string;
   role: 'diy' | 'creator' | 'partner' | 'admin';
   avatar?: string;
-  passwordHash?: string; // Only used on the backend
-  refreshTokens?: string[]; // Only used on the backend
+  passwordHash?: string;  // Not returned to frontend
+  emailVerified?: boolean;
+  lastLogin?: string;     // ISO date string
 }
 
 // Tutorial document in MongoDB
@@ -26,29 +27,28 @@ export interface MongoTutorial extends MongoDocument {
   title: string;
   description?: string;
   status: 'draft' | 'published' | 'archived';
-  authorId: string; // References user _id
-  views: number;
-  likes: number;
-  comments: number;
-  revenue?: string;
-  date?: string;
-  image?: string;
+  userId: string;        // Reference to user who created it
   content?: {
     sections: {
+      id: number;
       title: string;
       content: string;
       imageUrl?: string;
     }[];
   };
   materials?: {
+    id: number;
     name: string;
     quantity: number;
     unit: string;
     optional: boolean;
   }[];
-  tags?: string[];
-  category?: string;
-  difficulty?: 'beginner' | 'intermediate' | 'advanced';
+  views?: number;
+  likes?: number;
+  comments?: number;
+  revenue?: string;
+  date?: string;
+  image?: string;
 }
 
 // Project document in MongoDB
@@ -56,61 +56,79 @@ export interface MongoProject extends MongoDocument {
   name: string;
   description?: string;
   status: 'planned' | 'in-progress' | 'completed' | 'abandoned' | 'new';
-  userId: string; // References user _id
-  tutorialId?: string; // Optional, if based on a tutorial
+  userId: string;        // Reference to user who created it
   image?: string;
-  materials?: {
-    name: string;
-    quantity: number;
-    unit: string;
-    acquired: boolean;
-  }[];
-  steps?: {
-    title: string;
-    description: string;
-    completed: boolean;
-    imageUrl?: string;
-  }[];
+}
+
+// Material document in MongoDB (subdocument or separate collection)
+export interface MongoMaterial extends MongoDocument {
+  projectId: string | number;
+  name: string;
+  quantity: number;
+  unit: string;
+  acquired: boolean;
+}
+
+// Project Step document in MongoDB (subdocument or separate collection)
+export interface MongoProjectStep extends MongoDocument {
+  projectId: string | number;
+  title: string;
+  description: string;
+  completed: boolean;
+  imageUrl?: string;
 }
 
 // Comment document in MongoDB
 export interface MongoComment extends MongoDocument {
-  tutorialId: string; // References tutorial _id
-  userId: string; // References user _id
+  userId: string;
+  tutorialId: string | number;
   text: string;
   likes: number;
+  user?: {     // Populated field from User collection
+    name: string;
+    avatar: string;
+  };
 }
 
 // Subscription document in MongoDB
 export interface MongoSubscription extends MongoDocument {
-  userId: string; // References user _id
+  userId: string;
   status: 'active' | 'canceled' | 'past_due' | 'inactive';
   plan: 'monthly' | 'yearly' | 'free';
   renewalDate?: string;
-  paymentMethodId?: string;
-  trialEnds?: string;
+  paymentProcessorId?: string; // ID from payment processor (e.g. Stripe)
 }
 
 // Payment Method document in MongoDB
 export interface MongoPaymentMethod extends MongoDocument {
-  userId: string; // References user _id
+  userId: string;
   type: 'card' | 'paypal';
   last4?: string;
   expiryMonth?: number;
   expiryYear?: number;
   brand?: string;
-  isDefault: boolean;
-  tokenizedData?: string; // Encrypted token, only used on backend
+  paymentProcessorId?: string; // ID from payment processor (e.g. Stripe)
 }
 
 // Transaction document in MongoDB
 export interface MongoTransaction extends MongoDocument {
-  userId: string; // References user _id
+  userId: string;
+  date: string;
   type: 'payment' | 'income' | 'refund';
-  amount: number;
-  currency: string;
   description: string;
-  status: 'pending' | 'completed' | 'failed';
-  paymentMethodId?: string;
-  subscriptionId?: string;
+  amount: string;
+  paymentProcessorId?: string; // ID from payment processor (e.g. Stripe)
+}
+
+// User Settings document in MongoDB
+export interface MongoUserSettings extends MongoDocument {
+  userId: string;
+  notifications: {
+    email: boolean;
+    browser: boolean;
+  };
+  privacy: {
+    showProfile: boolean;
+    showProjects: boolean;
+  };
 }

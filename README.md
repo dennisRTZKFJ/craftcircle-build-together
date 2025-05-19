@@ -1,119 +1,69 @@
 
-# CraftCircle Frontend
+# CraftCircle - Frontend
 
-A modern frontend for the CraftCircle platform built with React, TypeScript, Tailwind CSS, and ShadCN UI.
+A community platform for DIY enthusiasts to share projects, tutorials, and connect with each other.
 
-## Project Structure
+## Tech Stack
+
+- React with TypeScript
+- React Router for navigation
+- TanStack Query for data fetching and caching
+- Tailwind CSS for styling
+- Shadcn/UI for component library
+
+## Backend Integration 
+
+This React frontend is designed to connect with:
+- **Spring Boot** REST API backend
+- **MongoDB** database
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Start development server: `npm run dev`
+
+## Configuration
+
+The application uses environment variables for configuration:
+
+```
+REACT_APP_API_URL=https://api.craftcircle.com/v1  # Spring Boot API URL
+```
+
+## Authentication
+
+The application is set up for JWT-based authentication with Spring Security:
+
+- Login/Register forms ready for backend integration
+- Token storage and refresh mechanisms in place
+- Role-based access control (admin, creator, partner, diy)
+
+## API Integration Points
+
+All API service files are structured to make backend integration straightforward:
+
+- Mock data is clearly marked with `// MOCK:` comments
+- Placeholder API calls include `// 🔧 INTEGRATION:` comments showing Spring Boot endpoints
+- Config toggle `useMockData` in `src/config/app.config.ts` to switch between mock and real data
+
+## Folder Structure
 
 ```
 src/
-  ├── components/       # UI components
-  ├── config/           # App configuration
-  ├── contexts/         # React context providers
-  ├── hooks/            # Custom hooks
-  ├── lib/              # Utility functions
-  ├── pages/            # Application pages
-  ├── services/         # API services
+  ├── components/       # Reusable UI components
+  ├── config/           # Application configuration
+  ├── contexts/         # React contexts for global state
+  ├── hooks/            # Custom React hooks
+  ├── pages/            # Page components (routes)
+  ├── services/         # API services and data fetching
   └── types/            # TypeScript type definitions
 ```
 
-## Backend Integration Guide
+## MongoDB Integration
 
-This frontend is designed to integrate with a Spring Boot backend using MongoDB. Here's how to connect it:
+The frontend is prepared to handle MongoDB document structures:
 
-### API Integration
-
-1. Set `useMockData: false` in `src/config/app.config.ts`
-2. Update the API base URL to point to your Spring Boot backend:
-
-```ts
-api: {
-  baseUrl: 'https://your-api-domain.com/api',
-  // ...
-}
-```
-
-### Expected Backend Endpoints
-
-The frontend expects the following RESTful endpoints:
-
-#### Authentication (Spring Security)
-
-- `POST /auth/login` - Login with email/password, returns JWT token
-- `POST /auth/register` - Register new user
-- `POST /auth/reset-password` - Request password reset
-- `POST /auth/refresh-token` - Refresh JWT token
-
-#### Users
-
-- `GET /users/me` - Get current user profile
-- `GET /users/{id}` - Get user by ID
-- `PATCH /users/{id}` - Update user profile
-
-#### Tutorials
-
-- `GET /tutorials` - List tutorials
-- `GET /tutorials/{id}` - Get tutorial details
-- `POST /tutorials` - Create new tutorial
-- `PUT /tutorials/{id}` - Update tutorial
-- `DELETE /tutorials/{id}` - Delete tutorial
-- `GET /tutorials/{id}/comments` - Get tutorial comments
-
-#### Projects
-
-- `GET /projects` - List user projects
-- `GET /projects/{id}` - Get project details
-- `POST /projects` - Create new project
-- `PUT /projects/{id}` - Update project
-- `DELETE /projects/{id}` - Delete project
-
-#### Subscriptions
-
-- `GET /subscriptions/current` - Get user's subscription
-- `POST /subscriptions` - Subscribe to plan
-- `DELETE /subscriptions/current` - Cancel subscription
-
-See `src/config/app.config.ts` for the complete list of endpoints.
-
-### MongoDB Document Structure
-
-The frontend expects MongoDB documents with the following structure:
-
-- Documents use `_id` as the primary key (automatically converted to `id` in frontend)
-- Documents typically include `createdAt` and `updatedAt` timestamps
-- See `src/types/mongodb.types.ts` for detailed document structures
-
-### Security & Authentication
-
-- The frontend uses JWT tokens for authentication
-- Include token in Authorization header: `Authorization: Bearer <token>`
-- Implement refresh token mechanism via `/auth/refresh-token` endpoint
-- Use Spring Security for role-based access control
-
-### Mocking vs Real Implementation
-
-Currently, mock data is used for development. To switch to real implementation:
-
-1. Set `useMockData: false` in `src/config/app.config.ts`
-2. Ensure all endpoints are implemented in your Spring Boot backend
-3. Update any environment variables or configuration as needed
-
-### Environment Variables
-
-Set these environment variables for production:
-
-- `REACT_APP_API_URL`: Backend API URL
-- `REACT_APP_ENV`: Set to `production` for production mode
-
-## Development
-
-```bash
-# Install dependencies
-npm install
-
-# Start development server
-npm run dev
-
-# Build for production
-npm run build
-```
+- Field mapping from MongoDB `_id` to frontend `id` in place
+- Support for MongoDB standard fields (`createdAt`, `updatedAt`)
+- Flexible document structure handling

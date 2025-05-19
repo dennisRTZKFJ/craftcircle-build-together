@@ -25,12 +25,19 @@ export const AppConfig = {
       users: {
         current: '/users/me',
         profile: (id: string) => `/users/${id}`,
+        settings: '/users/me/settings',
+        updateProfile: '/users/me',
+        updateSettings: '/users/me/settings',
+        uploadAvatar: '/users/me/avatar',
       },
       // Tutorial endpoints
       tutorials: {
         list: '/tutorials',
         detail: (id: number) => `/tutorials/${id}`,
         comments: (id: number) => `/tutorials/${id}/comments`,
+        create: '/tutorials',
+        update: (id: number) => `/tutorials/${id}`,
+        delete: (id: number) => `/tutorials/${id}`,
       },
       // Project endpoints
       projects: {
@@ -38,10 +45,17 @@ export const AppConfig = {
         detail: (id: number) => `/projects/${id}`,
         materials: (id: number) => `/projects/${id}/materials`,
         steps: (id: number) => `/projects/${id}/steps`,
+        create: '/projects',
+        update: (id: number) => `/projects/${id}`,
+        delete: (id: number) => `/projects/${id}`,
       },
       // Subscription endpoints
       subscriptions: {
         current: '/subscriptions/current',
+        create: '/subscriptions',
+        cancel: '/subscriptions/current',
+        paymentMethods: '/payment-methods',
+        transactions: '/transactions',
       }
     }
   },

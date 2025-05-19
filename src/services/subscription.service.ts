@@ -43,6 +43,7 @@ class SubscriptionService {
    */
   async getSubscription(): Promise<Subscription> {
     // 🔧 INTEGRATION: Replace with Spring Boot subscription endpoint
+    // GET /subscriptions/current will return MongoDB document with user subscription
     const endpoint = AppConfig.api.endpoints.subscriptions.current;
     return apiClient.request<Subscription>(endpoint);
   }
@@ -53,7 +54,9 @@ class SubscriptionService {
    */
   async subscribe(plan: 'monthly' | 'yearly'): Promise<Subscription> {
     // 🔧 INTEGRATION: Replace with real Spring Boot + payment processor integration
-    return apiClient.request<Subscription>('/subscriptions', {
+    // POST /subscriptions will process payment and create subscription document
+    const endpoint = AppConfig.api.endpoints.subscriptions.create;
+    return apiClient.request<Subscription>(endpoint, {
       method: 'POST',
       body: { plan },
     });
@@ -64,7 +67,9 @@ class SubscriptionService {
    */
   async cancelSubscription(): Promise<void> {
     // 🔧 INTEGRATION: Replace with real Spring Boot subscription cancellation endpoint
-    await apiClient.request('/subscriptions/current', {
+    // DELETE /subscriptions/current will mark subscription as canceled
+    const endpoint = AppConfig.api.endpoints.subscriptions.cancel;
+    await apiClient.request(endpoint, {
       method: 'DELETE',
     });
   }
@@ -74,7 +79,9 @@ class SubscriptionService {
    */
   async getPaymentMethods(): Promise<PaymentMethod[]> {
     // 🔧 INTEGRATION: Replace with Spring Boot payment methods endpoint
-    return apiClient.request<PaymentMethod[]>('/payment-methods');
+    // GET /payment-methods will return array of MongoDB payment method documents
+    const endpoint = AppConfig.api.endpoints.subscriptions.paymentMethods;
+    return apiClient.request<PaymentMethod[]>(endpoint);
   }
   
   /**
@@ -82,7 +89,9 @@ class SubscriptionService {
    */
   async addPaymentMethod(tokenizedPaymentInfo: any): Promise<PaymentMethod> {
     // 🔧 INTEGRATION: Replace with real payment processor integration
-    return apiClient.request<PaymentMethod>('/payment-methods', {
+    // POST /payment-methods will store payment method in MongoDB and with payment processor
+    const endpoint = AppConfig.api.endpoints.subscriptions.paymentMethods;
+    return apiClient.request<PaymentMethod>(endpoint, {
       method: 'POST',
       body: tokenizedPaymentInfo,
     });
@@ -93,7 +102,9 @@ class SubscriptionService {
    */
   async removePaymentMethod(id: string): Promise<void> {
     // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
-    await apiClient.request(`/payment-methods/${id}`, {
+    // DELETE /payment-methods/{id} will remove payment method from MongoDB and payment processor
+    const endpoint = `${AppConfig.api.endpoints.subscriptions.paymentMethods}/${id}`;
+    await apiClient.request(endpoint, {
       method: 'DELETE',
     });
   }
@@ -103,7 +114,9 @@ class SubscriptionService {
    */
   async getTransactions(params?: {startDate?: string, endDate?: string}): Promise<Transaction[]> {
     // 🔧 INTEGRATION: Replace with real Spring Boot transactions endpoint
-    return apiClient.request<Transaction[]>('/transactions', {
+    // GET /transactions will return array of MongoDB transaction documents
+    const endpoint = AppConfig.api.endpoints.subscriptions.transactions;
+    return apiClient.request<Transaction[]>(endpoint, {
       params: params as Record<string, string>
     });
   }

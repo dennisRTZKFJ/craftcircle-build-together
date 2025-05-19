@@ -47,6 +47,7 @@ class AuthService {
   async login(credentials: LoginCredentials): Promise<User> {
     try {
       // 🔧 INTEGRATION: Replace mock implementation with Spring Security auth endpoint
+      // POST /auth/login with credentials, expects JWT token response
       const endpoint = AppConfig.api.endpoints.auth.login;
       const response = await apiClient.request<AuthResponse>(endpoint, {
         method: 'POST',
@@ -70,6 +71,7 @@ class AuthService {
   async register(data: RegisterData): Promise<User> {
     try {
       // 🔧 INTEGRATION: Replace mock implementation with Spring Security register endpoint
+      // POST /auth/register with user data, expects JWT token response
       const endpoint = AppConfig.api.endpoints.auth.register;
       const response = await apiClient.request<AuthResponse>(endpoint, {
         method: 'POST',
@@ -92,6 +94,7 @@ class AuthService {
   async resetPassword(email: string): Promise<void> {
     try {
       // 🔧 INTEGRATION: Replace mock implementation with Spring Security password reset endpoint
+      // POST /auth/reset-password with email, triggers password reset email
       const endpoint = AppConfig.api.endpoints.auth.resetPassword;
       await apiClient.request(endpoint, {
         method: 'POST',
@@ -116,6 +119,7 @@ class AuthService {
     
     try {
       // 🔧 INTEGRATION: Replace with Spring Security token refresh endpoint
+      // POST /auth/refresh-token with current refresh token, expects new JWT token pair
       const endpoint = AppConfig.api.endpoints.auth.refreshToken;
       const response = await apiClient.request<{token: string, refreshToken: string}>(endpoint, {
         method: 'POST',

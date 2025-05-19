@@ -8,6 +8,10 @@ interface ProtectedRouteProps {
   requiredRole?: 'diy' | 'creator' | 'partner' | 'admin';
 }
 
+/**
+ * Protected route component that handles authentication and authorization
+ * Integrates with Spring Security JWT token validation
+ */
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole }) => {
   const { isAuthenticated, user, loading, hasRole } = useAuth();
   const location = useLocation();
@@ -35,6 +39,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole }) 
   }
 
   // If a specific role is required, check if the user has it
+  // This provides role-based access control using Spring Security roles
   if (requiredRole && !hasRole(requiredRole)) {
     // Redirect to dashboard if user doesn't have the required role
     return <Navigate to="/dashboard" replace />;

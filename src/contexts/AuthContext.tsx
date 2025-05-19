@@ -2,6 +2,11 @@
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
 import { authService, User } from '@/services/auth.service';
 
+/**
+ * Authentication context for managing user authentication state
+ * Integrates with Spring Security JWT token authentication
+ */
+
 interface AuthContextType {
   user: User | null;
   loading: boolean;
@@ -24,9 +29,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Initialize auth state from localStorage and validate token
     const initializeAuth = async () => {
       try {
+        // 🔧 INTEGRATION: This will validate JWT token with Spring Security
+        // If token is expired, it will attempt to refresh using refresh token
         const isValid = await authService.isAuthenticated();
         
         if (isValid) {
+          // 🔧 INTEGRATION: User data from JWT token or stored user data
           const currentUser = authService.getCurrentUser();
           setUser(currentUser);
           setIsAuthenticated(true);
@@ -50,10 +58,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     initializeAuth();
   }, []);
   
-  // Login handler
+  // Login handler - integrates with Spring Security login endpoint
   const login = async (email: string, password: string) => {
     setLoading(true);
     try {
+      // 🔧 INTEGRATION: This will call Spring Security login endpoint
+      // and receive JWT token with user data
       const user = await authService.login({ email, password });
       setUser(user);
       setIsAuthenticated(true);
@@ -62,10 +72,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
   
-  // Register handler
+  // Register handler - integrates with Spring Security register endpoint
   const register = async (name: string, email: string, password: string) => {
     setLoading(true);
     try {
+      // 🔧 INTEGRATION: This will call Spring Security register endpoint
+      // and receive JWT token with user data
       const user = await authService.register({ name, email, password });
       setUser(user);
       setIsAuthenticated(true);
@@ -74,19 +86,23 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   };
   
-  // Logout handler
+  // Logout handler - clears JWT token and user data
   const logout = () => {
+    // 🔧 INTEGRATION: No backend call needed, just clear local tokens
+    // Some implementations may want to invalidate the token on the server
     authService.logout();
     setUser(null);
     setIsAuthenticated(false);
   };
   
-  // Reset password handler
+  // Reset password handler - integrates with Spring Security reset password endpoint
   const resetPassword = async (email: string) => {
+    // 🔧 INTEGRATION: This will call Spring Security reset password endpoint
     await authService.resetPassword(email);
   };
   
   // Check if user has a specific role
+  // Used for role-based access control with Spring Security
   const hasRole = (role: 'diy' | 'creator' | 'partner' | 'admin'): boolean => {
     if (!user) return false;
     return user.role === role;

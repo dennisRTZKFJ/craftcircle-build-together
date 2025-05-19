@@ -92,6 +92,7 @@ class ApiClient {
       // Transform _id to id if needed
       if (transformed._id && !transformed.id) {
         transformed.id = transformed._id;
+        delete transformed._id;
       }
       
       // Process nested objects
@@ -169,7 +170,7 @@ class ApiClient {
     // Simulate network latency
     await new Promise(resolve => setTimeout(resolve, 500));
     
-    // 🔧 TODO: Replace with actual API implementation
+    // 🔧 MOCK: Replace with actual API implementation
     // This is just a mock implementation to simulate different endpoints
     if (endpoint.startsWith('/auth')) {
       return mockAuthData(endpoint, options);
@@ -191,14 +192,23 @@ class ApiClient {
       return mockSubscriptionData(endpoint, options);
     }
     
+    if (endpoint.startsWith('/payment-methods')) {
+      return mockPaymentMethodData(endpoint, options);
+    }
+    
+    if (endpoint.startsWith('/transactions')) {
+      return mockTransactionData(endpoint, options);
+    }
+    
     return { message: 'No mock data available for this endpoint' };
   }
 }
 
-// Mock data implementations - these would be removed in production
-// 🔧 MOCK: These mock functions will be replaced with actual API calls
+// MOCK: The following mock data implementations will be replaced with actual API calls in production
+// 🔧 MOCK: These mock functions will be removed when connecting to real Spring Boot backend
 function mockAuthData(endpoint: string, options: ApiRequestOptions): any {
   if (endpoint === '/auth/login') {
+    // 🔧 INTEGRATION: Real endpoint will be POST /auth/login with JWT response
     return {
       user: {
         _id: 'user-1', // MongoDB style ID
@@ -215,6 +225,7 @@ function mockAuthData(endpoint: string, options: ApiRequestOptions): any {
   }
   
   if (endpoint === '/auth/register') {
+    // 🔧 INTEGRATION: Real endpoint will be POST /auth/register with JWT response
     return {
       user: {
         _id: 'new-user-1', // MongoDB style ID
@@ -230,6 +241,7 @@ function mockAuthData(endpoint: string, options: ApiRequestOptions): any {
   }
   
   if (endpoint === '/auth/refresh-token') {
+    // 🔧 INTEGRATION: Real endpoint will be POST /auth/refresh-token with JWT response
     return {
       token: 'new-mock-jwt-token',
       refreshToken: 'new-mock-refresh-token',
@@ -241,6 +253,7 @@ function mockAuthData(endpoint: string, options: ApiRequestOptions): any {
 
 function mockUserData(endpoint: string, options: ApiRequestOptions): any {
   if (endpoint === '/users/me') {
+    // 🔧 INTEGRATION: Real endpoint will be GET /users/me with user profile data
     return {
       _id: 'user-1',
       name: 'John Doe',
@@ -251,6 +264,36 @@ function mockUserData(endpoint: string, options: ApiRequestOptions): any {
       createdAt: '2025-01-15T08:30:00Z',
       updatedAt: '2025-05-10T14:22:10Z',
     };
+  }
+  
+  if (endpoint === '/users/me/settings') {
+    // 🔧 INTEGRATION: Real endpoint will be GET /users/me/settings with user settings
+    if (options.method === 'GET') {
+      return {
+        _id: 'settings-1',
+        userId: 'user-1',
+        notifications: {
+          email: true,
+          browser: true,
+        },
+        privacy: {
+          showProfile: true,
+          showProjects: true,
+        },
+        createdAt: '2025-01-15T08:30:00Z',
+        updatedAt: '2025-05-10T14:22:10Z',
+      };
+    }
+    
+    // 🔧 INTEGRATION: Real endpoint will be PUT /users/me/settings to update settings
+    if (options.method === 'PUT') {
+      return {
+        _id: 'settings-1',
+        userId: 'user-1',
+        ...options.body,
+        updatedAt: new Date().toISOString(),
+      };
+    }
   }
   
   return { error: 'Unknown user endpoint' };
@@ -312,13 +355,54 @@ function mockTutorialData(endpoint: string, options: ApiRequestOptions): any {
     },
   ];
   
-  // Return a specific tutorial by ID
-  if (endpoint.match(/\/tutorials\/\d+$/)) {
+  // 🔧 INTEGRATION: Real endpoint will be GET /tutorials with pagination and filtering
+  if (endpoint === '/tutorials' && options.method === 'GET') {
+    return tutorials;
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be POST /tutorials to create new tutorial
+  if (endpoint === '/tutorials' && options.method === 'POST') {
+    const newTutorial = {
+      _id: tutorials.length + 1,
+      ...options.body,
+      views: 0,
+      likes: 0,
+      comments: 0,
+      revenue: '€0,00',
+      status: 'draft',
+      date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }),
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    return newTutorial;
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be GET /tutorials/{id} to get specific tutorial
+  if (endpoint.match(/\/tutorials\/\d+$/) && options.method === 'GET') {
     const tutorialId = parseInt(endpoint.split('/').pop() || '0');
     return tutorials.find(t => t._id === tutorialId) || { error: 'Tutorial not found' };
   }
   
-  // Return tutorial comments
+  // 🔧 INTEGRATION: Real endpoint will be PUT /tutorials/{id} to update tutorial
+  if (endpoint.match(/\/tutorials\/\d+$/) && options.method === 'PUT') {
+    const tutorialId = parseInt(endpoint.split('/').pop() || '0');
+    const tutorial = tutorials.find(t => t._id === tutorialId);
+    if (!tutorial) {
+      return { error: 'Tutorial not found' };
+    }
+    return {
+      ...tutorial,
+      ...options.body,
+      updatedAt: new Date().toISOString(),
+    };
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be DELETE /tutorials/{id} to remove tutorial
+  if (endpoint.match(/\/tutorials\/\d+$/) && options.method === 'DELETE') {
+    return {};
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be GET /tutorials/{id}/comments for tutorial comments
   if (endpoint.match(/\/tutorials\/\d+\/comments$/)) {
     return [
       {
@@ -348,8 +432,23 @@ function mockTutorialData(endpoint: string, options: ApiRequestOptions): any {
     ];
   }
   
-  // Return all tutorials
-  return tutorials;
+  // 🔧 INTEGRATION: Real endpoint will be POST /tutorials/{id}/comments to add a comment
+  if (endpoint.match(/\/tutorials\/\d+\/comments$/) && options.method === 'POST') {
+    return {
+      _id: `c${Date.now()}`,
+      tutorialId: parseInt(endpoint.split('/')[2]),
+      userId: 'user-1',
+      user: {
+        name: 'John Doe',
+        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d'
+      },
+      text: options.body?.comment || '',
+      createdAt: new Date().toISOString(),
+      likes: 0
+    };
+  }
+  
+  return { error: 'Unknown tutorials endpoint' };
 }
 
 function mockProjectData(endpoint: string, options: ApiRequestOptions): any {
@@ -396,13 +495,48 @@ function mockProjectData(endpoint: string, options: ApiRequestOptions): any {
     }
   ];
   
-  // Return a specific project by ID
-  if (endpoint.match(/\/projects\/\d+$/)) {
+  // 🔧 INTEGRATION: Real endpoint will be GET /projects with pagination and filtering
+  if (endpoint === '/projects' && options.method === 'GET') {
+    return projects;
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be POST /projects to create new project
+  if (endpoint === '/projects' && options.method === 'POST') {
+    const newProject = {
+      _id: projects.length + 1,
+      ...options.body,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+    return newProject;
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be GET /projects/{id} to get specific project
+  if (endpoint.match(/\/projects\/\d+$/) && options.method === 'GET') {
     const projectId = parseInt(endpoint.split('/').pop() || '0');
     return projects.find(p => p._id === projectId) || { error: 'Project not found' };
   }
   
-  // Return project materials
+  // 🔧 INTEGRATION: Real endpoint will be PUT /projects/{id} to update project
+  if (endpoint.match(/\/projects\/\d+$/) && options.method === 'PUT') {
+    const projectId = parseInt(endpoint.split('/').pop() || '0');
+    const project = projects.find(p => p._id === projectId);
+    if (!project) {
+      return { error: 'Project not found' };
+    }
+    return {
+      ...project,
+      ...options.body,
+      updatedAt: new Date().toISOString(),
+    };
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be DELETE /projects/{id} to remove project
+  if (endpoint.match(/\/projects\/\d+$/) && options.method === 'DELETE') {
+    return {};
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be GET /projects/{id}/materials for project materials
   if (endpoint.match(/\/projects\/\d+\/materials$/)) {
     return [
       { _id: 'm1', name: 'Walnut Boards', quantity: 4, unit: 'pieces', acquired: true },
@@ -411,7 +545,15 @@ function mockProjectData(endpoint: string, options: ApiRequestOptions): any {
     ];
   }
   
-  // Return project steps
+  // 🔧 INTEGRATION: Real endpoint will be POST /projects/{id}/materials to add material
+  if (endpoint.match(/\/projects\/\d+\/materials$/) && options.method === 'POST') {
+    return {
+      _id: `m${Date.now()}`,
+      ...options.body,
+    };
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be GET /projects/{id}/steps for project steps
   if (endpoint.match(/\/projects\/\d+\/steps$/)) {
     return [
       { _id: 's1', title: 'Cut the wood', description: 'Cut all boards to size', completed: true },
@@ -420,12 +562,21 @@ function mockProjectData(endpoint: string, options: ApiRequestOptions): any {
     ];
   }
   
-  // Return all projects
-  return projects;
+  // 🔧 INTEGRATION: Real endpoint will be PATCH /projects/{id}/steps/{stepId} to update step status
+  if (endpoint.match(/\/projects\/\d+\/steps\/\w+$/) && options.method === 'PATCH') {
+    return {
+      _id: endpoint.split('/').pop(),
+      ...options.body,
+      updatedAt: new Date().toISOString(),
+    };
+  }
+  
+  return { error: 'Unknown projects endpoint' };
 }
 
 function mockSubscriptionData(endpoint: string, options: ApiRequestOptions): any {
-  if (endpoint === '/subscriptions/current') {
+  // 🔧 INTEGRATION: Real endpoint will be GET /subscriptions/current for user subscription
+  if (endpoint === '/subscriptions/current' && options.method === 'GET') {
     return {
       _id: 'sub-1',
       status: 'active',
@@ -436,7 +587,8 @@ function mockSubscriptionData(endpoint: string, options: ApiRequestOptions): any
     };
   }
   
-  if (options.method === 'POST') {
+  // 🔧 INTEGRATION: Real endpoint will be POST /subscriptions to create subscription
+  if (endpoint === '/subscriptions' && options.method === 'POST') {
     return {
       _id: 'sub-2',
       status: 'active',
@@ -447,7 +599,94 @@ function mockSubscriptionData(endpoint: string, options: ApiRequestOptions): any
     };
   }
   
+  // 🔧 INTEGRATION: Real endpoint will be DELETE /subscriptions/current to cancel subscription
+  if (endpoint === '/subscriptions/current' && options.method === 'DELETE') {
+    return {};
+  }
+  
   return { error: 'Unknown subscription endpoint' };
+}
+
+function mockPaymentMethodData(endpoint: string, options: ApiRequestOptions): any {
+  // 🔧 INTEGRATION: Real endpoint will be GET /payment-methods for user payment methods
+  if (endpoint === '/payment-methods' && options.method === 'GET') {
+    return [
+      {
+        _id: 'pm-1',
+        type: 'card',
+        last4: '4242',
+        expiryMonth: 12,
+        expiryYear: 2025,
+        brand: 'Visa',
+        createdAt: '2025-01-15T08:30:00Z',
+        updatedAt: '2025-01-15T08:30:00Z',
+      },
+      {
+        _id: 'pm-2',
+        type: 'paypal',
+        createdAt: '2025-02-20T11:45:12Z',
+        updatedAt: '2025-02-20T11:45:12Z',
+      }
+    ];
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be POST /payment-methods to add payment method
+  if (endpoint === '/payment-methods' && options.method === 'POST') {
+    return {
+      _id: `pm-${Date.now()}`,
+      type: options.body?.type || 'card',
+      last4: options.body?.last4 || '4242',
+      expiryMonth: options.body?.expiryMonth || 12,
+      expiryYear: options.body?.expiryYear || 2025,
+      brand: options.body?.brand || 'Visa',
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+  }
+  
+  // 🔧 INTEGRATION: Real endpoint will be DELETE /payment-methods/{id} to remove payment method
+  if (endpoint.match(/\/payment-methods\/[\w-]+$/) && options.method === 'DELETE') {
+    return {};
+  }
+  
+  return { error: 'Unknown payment-methods endpoint' };
+}
+
+function mockTransactionData(endpoint: string, options: ApiRequestOptions): any {
+  // 🔧 INTEGRATION: Real endpoint will be GET /transactions for user transaction history
+  if (endpoint === '/transactions' && options.method === 'GET') {
+    return [
+      {
+        _id: 'txn-1',
+        date: '2025-05-15T00:00:00Z',
+        type: 'payment',
+        description: 'Monthly subscription payment',
+        amount: '9.99',
+        createdAt: '2025-05-15T08:30:00Z',
+        updatedAt: '2025-05-15T08:30:00Z',
+      },
+      {
+        _id: 'txn-2',
+        date: '2025-05-10T00:00:00Z',
+        type: 'income',
+        description: 'Tutorial earnings payout',
+        amount: '124.50',
+        createdAt: '2025-05-10T14:22:10Z',
+        updatedAt: '2025-05-10T14:22:10Z',
+      },
+      {
+        _id: 'txn-3',
+        date: '2025-04-15T00:00:00Z',
+        type: 'payment',
+        description: 'Monthly subscription payment',
+        amount: '9.99',
+        createdAt: '2025-04-15T08:30:00Z',
+        updatedAt: '2025-04-15T08:30:00Z',
+      },
+    ];
+  }
+  
+  return { error: 'Unknown transactions endpoint' };
 }
 
 // Create and export API client instance
