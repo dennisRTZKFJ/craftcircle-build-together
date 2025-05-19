@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -7,18 +7,27 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { AlertCircle, LogOut } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
+import { useAuth } from '@/contexts/AuthContext';
 
 const SignOut = () => {
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { logout, isAuthenticated } = useAuth();
+  
+  // If user is not authenticated, redirect to home page
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleSignOut = async () => {
     setIsLoggingOut(true);
     
     try {
-      // Simulate an API call for signing out
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // 🔧 INTEGRATION: In a real app, this would call API endpoint to invalidate tokens
+      logout();
       
       // Show success message
       toast({
@@ -93,3 +102,4 @@ const SignOut = () => {
 };
 
 export default SignOut;
+

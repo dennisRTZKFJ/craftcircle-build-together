@@ -13,14 +13,24 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Menu, Search, LogIn, Hammer, X, LogOut } from 'lucide-react';
+import { Menu, Search, LogIn, Hammer, X, LogOut, User } from 'lucide-react';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  const { user, isAuthenticated, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -38,6 +48,12 @@ const Navbar = () => {
       setSearchOpen(false);
       navigate(`/tutorials?q=${encodeURIComponent(searchQuery)}`);
     }
+  };
+
+  const handleSignOut = () => {
+    // Clear authentication state
+    logout();
+    navigate('/sign-out');
   };
 
   return (
@@ -62,7 +78,9 @@ const Navbar = () => {
           <Link to="/challenges" className="craft-link text-sm font-medium">Challenges</Link>
           <Link to="/community" className="craft-link text-sm font-medium">Community</Link>
           <Link to="/marketplace" className="craft-link text-sm font-medium">Materials</Link>
-          <Link to="/dashboard" className="craft-link text-sm font-medium">My Workshop</Link>
+          {isAuthenticated && (
+            <Link to="/dashboard" className="craft-link text-sm font-medium">My Workshop</Link>
+          )}
         </nav>
         <div className="flex-1" />
         <div className="flex items-center space-x-2">
@@ -77,21 +95,46 @@ const Navbar = () => {
           </Button>
 
           <div className="hidden md:flex space-x-1">
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/login">
-                <LogIn className="h-4 w-4 mr-2" />
-                Log In
-              </Link>
-            </Button>
-            <Button size="sm" asChild>
-              <Link to="/register">Register</Link>
-            </Button>
-            <Button variant="outline" size="sm" asChild>
-              <Link to="/sign-out">
-                <LogOut className="h-4 w-4 mr-2" />
-                Sign Out
-              </Link>
-            </Button>
+            {!isAuthenticated ? (
+              <>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/login">
+                    <LogIn className="h-4 w-4 mr-2" />
+                    Log In
+                  </Link>
+                </Button>
+                <Button size="sm" asChild>
+                  <Link to="/register">Register</Link>
+                </Button>
+              </>
+            ) : (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="flex items-center gap-2">
+                    <Avatar className="h-6 w-6">
+                      <AvatarImage src={user?.avatar} alt={user?.name} />
+                      <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
+                    </Avatar>
+                    <span className="hidden sm:inline">{user?.name}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuItem onClick={() => navigate('/account')}>
+                    <User className="h-4 w-4 mr-2" />
+                    My Account
+                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
+                    <Hammer className="h-4 w-4 mr-2" />
+                    My Workshop
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleSignOut}>
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Sign Out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           <Button 
@@ -118,23 +161,33 @@ const Navbar = () => {
                 <Link to="/challenges" className="text-lg font-medium">Challenges</Link>
                 <Link to="/community" className="text-lg font-medium">Community</Link>
                 <Link to="/marketplace" className="text-lg font-medium">Materials</Link>
-                <Link to="/dashboard" className="flex items-center text-lg font-medium">
-                  <Hammer className="h-4 w-4 mr-2" />
-                  My Workshop
-                </Link>
+                {isAuthenticated && (
+                  <Link to="/dashboard" className="flex items-center text-lg font-medium">
+                    <Hammer className="h-4 w-4 mr-2" />
+                    My Workshop
+                  </Link>
+                )}
                 <div className="mt-4 space-y-2">
-                  <Button className="w-full" variant="outline" asChild>
-                    <Link to="/login">Log In</Link>
-                  </Button>
-                  <Button className="w-full" asChild>
-                    <Link to="/register">Register</Link>
-                  </Button>
-                  <Button className="w-full" variant="outline" asChild>
-                    <Link to="/sign-out" className="flex items-center justify-center">
-                      <LogOut className="h-4 w-4 mr-2" />
-                      Sign Out
-                    </Link>
-                  </Button>
+                  {!isAuthenticated ? (
+                    <>
+                      <Button className="w-full" variant="outline" asChild>
+                        <Link to="/login">Log In</Link>
+                      </Button>
+                      <Button className="w-full" asChild>
+                        <Link to="/register">Register</Link>
+                      </Button>
+                    </>
+                  ) : (
+                    <>
+                      <Button className="w-full" variant="outline" asChild>
+                        <Link to="/account">My Account</Link>
+                      </Button>
+                      <Button className="w-full" variant="outline" onClick={handleSignOut}>
+                        <LogOut className="h-4 w-4 mr-2" />
+                        Sign Out
+                      </Button>
+                    </>
+                  )}
                 </div>
               </nav>
             </SheetContent>
@@ -183,3 +236,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

@@ -9,41 +9,38 @@ import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/use-toast';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useAuth } from '@/contexts/AuthContext';
 
 const ResetPassword = () => {
   const [email, setEmail] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { resetPassword, loading } = useAuth();
 
-  // This is a mock password reset function
-  // In a real implementation, this would use Supabase Auth or similar
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      // For demo purposes, accept any valid-looking email
-      if (email && email.includes('@')) {
-        setSubmitted(true);
-        toast({
-          title: "Email sent",
-          description: "Please check your inbox for further instructions.",
-        });
-      } else {
+      // Validate email
+      if (!email || !email.includes('@')) {
         setError('Invalid email address. Please check your input.');
+        return;
       }
-    } catch (err) {
-      setError('An error occurred. Please try again later.');
+      
+      // Call reset password
+      await resetPassword(email);
+      
+      setSubmitted(true);
+      toast({
+        title: "Email sent",
+        description: "Please check your inbox for further instructions.",
+      });
+    } catch (err: any) {
+      setError(err?.message || 'An error occurred. Please try again later.');
       console.error(err);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -121,3 +118,4 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
+

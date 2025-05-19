@@ -8,13 +8,20 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { HelpCircle, User } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
+import { useAuth } from '@/contexts/AuthContext';
 
 const Dashboard = () => {
   const { toast } = useToast();
-  // In a real app, this would come from authentication/user profile
-  const [userType, setUserType] = useState<'diy' | 'creator' | 'partner'>('diy');
+  const { user } = useAuth();
+  
+  // Get user role from auth context, or default to 'diy'
+  const defaultRole = user?.role || 'diy';
+  const [userType, setUserType] = useState<'diy' | 'creator' | 'partner'>(
+    defaultRole === 'admin' ? 'diy' : defaultRole as 'diy' | 'creator' | 'partner'
+  );
   
   const handleSupportClick = () => {
+    // 🔧 INTEGRATION: Replace with actual support request API call
     toast({
       title: "Support requested",
       description: "A member of our team will contact you shortly."
@@ -25,7 +32,7 @@ const Dashboard = () => {
     <div className="min-h-screen">
       <Navbar />
       
-      {/* Dashboard Type Selector (In a real app, this might be based on user role) */}
+      {/* Dashboard Type Selector */}
       <div className="container py-4 flex flex-wrap justify-between items-center">
         <Tabs 
           value={userType} 
@@ -86,3 +93,4 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+

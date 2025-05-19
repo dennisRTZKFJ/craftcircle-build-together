@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -13,75 +13,136 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { useToast } from '@/components/ui/use-toast';
 import { Edit, Trash2, Trophy } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { projectService, Project } from '@/services/project.service';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const ProjectsPage = () => {
   const { toast } = useToast();
-  
-  // Projects state
-  const [projects, setProjects] = useState([
-    { id: 1, name: "Coffee Table", status: "completed" },
-    { id: 2, name: "Wall Shelf", status: "in-progress" },
-    { id: 3, name: "Oak Desk", status: "in-progress" },
-    { id: 4, name: "Coat Rack", status: "planned" },
-    { id: 5, name: "Side Table", status: "abandoned" }
-  ]);
-  
-  // New project dialog
+  const queryClient = useQueryClient();
+
+  // Project state
   const [showNewProjectDialog, setShowNewProjectDialog] = useState(false);
   const [newProject, setNewProject] = useState({ name: "", description: "" });
   
   // Edit project dialog
   const [editProjectIndex, setEditProjectIndex] = useState<number | null>(null);
   const [editedProject, setEditedProject] = useState({ id: 0, name: "", description: "" });
+
+  // Fetch projects using React Query
+  const { 
+    data: projects = [],
+    isLoading: loadingProjects,
+    error
+  } = useQuery({
+    queryKey: ['projects'],
+    queryFn: projectService.getProjects
+  });
+
+  // Mutations for project operations
+  const createProjectMutation = useMutation({
+    mutationFn: (project: Omit<Project, 'id'>) => projectService.createProject(project),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      setShowNewProjectDialog(false);
+      setNewProject({ name: "", description: "" });
+      toast({
+        title: "Project Created",
+        description: `Your project "${data.name}" has been successfully created.`
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive", 
+        title: "Error",
+        description: "Failed to create project. Please try again."
+      });
+    }
+  });
+
+  const updateProjectMutation = useMutation({
+    mutationFn: ({ id, data }: { id: number; data: Partial<Project> }) => 
+      projectService.updateProject(id, data),
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      setEditProjectIndex(null);
+      toast({
+        title: "Project Updated",
+        description: `Your project has been successfully updated.`
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive", 
+        title: "Error",
+        description: "Failed to update project. Please try again."
+      });
+    }
+  });
+
+  const deleteProjectMutation = useMutation({
+    mutationFn: (id: number) => projectService.deleteProject(id),
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] });
+      toast({
+        title: "Project Deleted",
+        description: `The project has been successfully deleted.`
+      });
+    },
+    onError: (error) => {
+      toast({
+        variant: "destructive", 
+        title: "Error",
+        description: "Failed to delete project. Please try again."
+      });
+    }
+  });
   
   const handleCreateProject = () => {
     if (!newProject.name) return;
     
-    const project = {
-      id: projects.length + 1,
+    createProjectMutation.mutate({
       name: newProject.name,
-      status: "new"
-    };
-    
-    setProjects([...projects, project]);
-    setNewProject({ name: "", description: "" });
-    setShowNewProjectDialog(false);
-    
-    toast({
-      title: "Project Created",
-      description: `Your project "${project.name}" has been successfully created.`
+      description: newProject.description,
+      status: 'new'
     });
   };
   
   const handleUpdateProject = () => {
     if (editProjectIndex === null) return;
     
-    const updatedProjects = [...projects];
-    updatedProjects[editProjectIndex] = {
-      ...updatedProjects[editProjectIndex],
-      name: editedProject.name
-    };
-    
-    setProjects(updatedProjects);
-    setEditProjectIndex(null);
-    
-    toast({
-      title: "Project Updated",
-      description: `Your project has been successfully updated.`
+    const projectToUpdate = projects[editProjectIndex];
+    updateProjectMutation.mutate({
+      id: projectToUpdate.id,
+      data: {
+        name: editedProject.name,
+        description: editedProject.description
+      }
     });
   };
   
-  const handleDeleteProject = (index: number) => {
-    const updatedProjects = [...projects];
-    const deletedProject = updatedProjects[index];
-    updatedProjects.splice(index, 1);
-    setProjects(updatedProjects);
-    
-    toast({
-      title: "Project Deleted",
-      description: `The project "${deletedProject.name}" has been successfully deleted.`
-    });
+  const handleDeleteProject = (id: number) => {
+    deleteProjectMutation.mutate(id);
   };
+
+  if (error) {
+    return (
+      <div className="min-h-screen">
+        <Navbar />
+        <div className="container py-8">
+          <div className="text-center py-8">
+            <h3 className="font-medium text-lg">Error loading projects</h3>
+            <p className="text-muted-foreground mt-1">
+              There was a problem loading your projects. Please try again later.
+            </p>
+            <Button className="mt-4" onClick={() => queryClient.invalidateQueries({ queryKey: ['projects'] })}>
+              Retry
+            </Button>
+          </div>
+        </div>
+        <Footer />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen">
@@ -110,7 +171,11 @@ const ProjectsPage = () => {
           
           <CardContent>
             <div className="space-y-4">
-              {projects.length === 0 ? (
+              {loadingProjects ? (
+                <div className="flex justify-center py-8">
+                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent"></div>
+                </div>
+              ) : projects.length === 0 ? (
                 <div className="text-center py-8">
                   <Trophy className="h-12 w-12 mx-auto mb-4 text-muted-foreground" />
                   <h3 className="font-medium text-lg">No projects found</h3>
@@ -127,6 +192,9 @@ const ProjectsPage = () => {
                     <div key={project.id} className="py-4 flex items-center justify-between">
                       <div>
                         <h4 className="font-medium">{project.name}</h4>
+                        {project.description && (
+                          <p className="text-sm text-muted-foreground mt-1">{project.description}</p>
+                        )}
                         <div className="flex items-center mt-1">
                           <Badge variant="outline" className={
                             project.status === 'completed' ? 'bg-green-100 text-green-800 border-green-200' :
@@ -148,8 +216,9 @@ const ProjectsPage = () => {
                             if (open) {
                               setEditProjectIndex(index);
                               setEditedProject({
-                                ...project,
-                                description: ""
+                                id: project.id,
+                                name: project.name,
+                                description: project.description || ""
                               });
                             } else {
                               setEditProjectIndex(null);
@@ -159,8 +228,9 @@ const ProjectsPage = () => {
                           <Button variant="ghost" size="sm" onClick={() => {
                             setEditProjectIndex(index);
                             setEditedProject({
-                              ...project,
-                              description: ""
+                              id: project.id,
+                              name: project.name,
+                              description: project.description || ""
                             });
                           }}>
                             <Edit className="h-4 w-4" />
@@ -192,8 +262,18 @@ const ProjectsPage = () => {
                             </div>
                             
                             <DialogFooter>
-                              <Button variant="outline" onClick={() => setEditProjectIndex(null)}>Cancel</Button>
-                              <Button onClick={handleUpdateProject}>Update</Button>
+                              <Button 
+                                variant="outline" 
+                                onClick={() => setEditProjectIndex(null)}
+                              >
+                                Cancel
+                              </Button>
+                              <Button 
+                                onClick={handleUpdateProject}
+                                disabled={updateProjectMutation.isPending}
+                              >
+                                {updateProjectMutation.isPending ? "Updating..." : "Update"}
+                              </Button>
                             </DialogFooter>
                           </DialogContent>
                         </Dialog>
@@ -214,10 +294,11 @@ const ProjectsPage = () => {
                             <AlertDialogFooter>
                               <AlertDialogCancel>Cancel</AlertDialogCancel>
                               <AlertDialogAction 
-                                onClick={() => handleDeleteProject(index)}
+                                onClick={() => handleDeleteProject(project.id)}
                                 className="bg-destructive text-destructive-foreground"
+                                disabled={deleteProjectMutation.isPending}
                               >
-                                Delete
+                                {deleteProjectMutation.isPending ? "Deleting..." : "Delete"}
                               </AlertDialogAction>
                             </AlertDialogFooter>
                           </AlertDialogContent>
@@ -263,8 +344,18 @@ const ProjectsPage = () => {
             </div>
             
             <DialogFooter>
-              <Button variant="outline" onClick={() => setShowNewProjectDialog(false)}>Cancel</Button>
-              <Button onClick={handleCreateProject}>Create Project</Button>
+              <Button 
+                variant="outline" 
+                onClick={() => setShowNewProjectDialog(false)}
+              >
+                Cancel
+              </Button>
+              <Button 
+                onClick={handleCreateProject}
+                disabled={createProjectMutation.isPending || !newProject.name.trim()}
+              >
+                {createProjectMutation.isPending ? "Creating..." : "Create Project"}
+              </Button>
             </DialogFooter>
           </DialogContent>
         </Dialog>
@@ -275,3 +366,4 @@ const ProjectsPage = () => {
 };
 
 export default ProjectsPage;
+

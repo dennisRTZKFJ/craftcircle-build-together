@@ -1,51 +1,54 @@
 
 import React, { useState } from 'react';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useToast } from '@/components/ui/use-toast';
-import { ArrowRight, Github, Mail, MessageCircle } from 'lucide-react';
+import { Github, Mail } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { toast } = useToast();
+  const { login, loading } = useAuth();
+  
+  // Get the redirect path from location state, or default to dashboard
+  const from = (location.state as any)?.from?.pathname || '/dashboard';
 
-  // This is a mock login function
-  // In a real implementation, this would use Supabase Auth or similar
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
     
     try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await login(email, password);
       
-      // For demo purposes, accept any valid-looking email/password
-      if (email && password && email.includes('@') && password.length >= 6) {
-        toast({
-          title: "Successfully logged in",
-          description: "Welcome back to CraftCircle!",
-        });
-        navigate('/dashboard');
-      } else {
-        setError('Invalid credentials. Please check your email and password.');
-      }
-    } catch (err) {
-      setError('An error occurred. Please try again later.');
-      console.error(err);
-    } finally {
-      setLoading(false);
+      toast({
+        title: "Successfully logged in",
+        description: "Welcome back to CraftCircle!",
+      });
+      
+      // Redirect to the page user tried to visit or dashboard
+      navigate(from);
+    } catch (err: any) {
+      console.error('Login error:', err);
+      setError(err?.message || 'Invalid credentials. Please check your email and password.');
     }
+  };
+
+  const handleSocialLogin = (provider: string) => {
+    // 🔧 INTEGRATION: Replace with actual social login implementation
+    toast({ 
+      description: `${provider} login is not implemented yet`
+    });
   };
 
   return (
@@ -109,11 +112,11 @@ const Login = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" onClick={() => toast({ description: "GitHub login is not implemented yet" })}>
+              <Button variant="outline" onClick={() => handleSocialLogin('GitHub')}>
                 <Github className="mr-2 h-4 w-4" />
                 GitHub
               </Button>
-              <Button variant="outline" onClick={() => toast({ description: "Google login is not implemented yet" })}>
+              <Button variant="outline" onClick={() => handleSocialLogin('Google')}>
                 <Mail className="mr-2 h-4 w-4" />
                 Google
               </Button>
@@ -138,3 +141,4 @@ const Login = () => {
 };
 
 export default Login;
+
