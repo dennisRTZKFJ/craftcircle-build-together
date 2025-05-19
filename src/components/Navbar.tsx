@@ -14,7 +14,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Menu, Search, LogIn, Hammer, X } from 'lucide-react';
+import { Menu, Search, LogIn, Hammer, X, LogOut } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -86,6 +86,12 @@ const Navbar = () => {
             <Button size="sm" asChild>
               <Link to="/register">Register</Link>
             </Button>
+            <Button variant="outline" size="sm" asChild>
+              <Link to="/sign-out">
+                <LogOut className="h-4 w-4 mr-2" />
+                Sign Out
+              </Link>
+            </Button>
           </div>
 
           <Button 
@@ -122,6 +128,12 @@ const Navbar = () => {
                   </Button>
                   <Button className="w-full" asChild>
                     <Link to="/register">Register</Link>
+                  </Button>
+                  <Button className="w-full" variant="outline" asChild>
+                    <Link to="/sign-out" className="flex items-center justify-center">
+                      <LogOut className="h-4 w-4 mr-2" />
+                      Sign Out
+                    </Link>
                   </Button>
                 </div>
               </nav>

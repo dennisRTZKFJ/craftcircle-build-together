@@ -31,6 +31,7 @@ import UploadTutorialPage from "./pages/UploadTutorialPage";
 import EditTutorialPage from "./pages/EditTutorialPage";
 import TutorialSuccessPage from "./pages/TutorialSuccessPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import SignOut from "./pages/SignOut";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => (
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/sign-out" element={<SignOut />} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/onboarding/experience" element={<OnboardingExperience />} />
           <Route path="/first-projects" element={<FirstProjects />} />
