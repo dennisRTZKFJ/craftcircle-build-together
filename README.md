@@ -1,73 +1,119 @@
-# Welcome to your Lovable project
 
-## Project info
+# CraftCircle Frontend
 
-**URL**: https://lovable.dev/projects/197d3534-b576-4cc5-b9dc-aeec855d449b
+A modern frontend for the CraftCircle platform built with React, TypeScript, Tailwind CSS, and ShadCN UI.
 
-## How can I edit this code?
+## Project Structure
 
-There are several ways of editing your application.
-
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/197d3534-b576-4cc5-b9dc-aeec855d449b) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
+```
+src/
+  ├── components/       # UI components
+  ├── config/           # App configuration
+  ├── contexts/         # React context providers
+  ├── hooks/            # Custom hooks
+  ├── lib/              # Utility functions
+  ├── pages/            # Application pages
+  ├── services/         # API services
+  └── types/            # TypeScript type definitions
 ```
 
-**Edit a file directly in GitHub**
+## Backend Integration Guide
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+This frontend is designed to integrate with a Spring Boot backend using MongoDB. Here's how to connect it:
 
-**Use GitHub Codespaces**
+### API Integration
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+1. Set `useMockData: false` in `src/config/app.config.ts`
+2. Update the API base URL to point to your Spring Boot backend:
 
-## What technologies are used for this project?
+```ts
+api: {
+  baseUrl: 'https://your-api-domain.com/api',
+  // ...
+}
+```
 
-This project is built with:
+### Expected Backend Endpoints
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+The frontend expects the following RESTful endpoints:
 
-## How can I deploy this project?
+#### Authentication (Spring Security)
 
-Simply open [Lovable](https://lovable.dev/projects/197d3534-b576-4cc5-b9dc-aeec855d449b) and click on Share -> Publish.
+- `POST /auth/login` - Login with email/password, returns JWT token
+- `POST /auth/register` - Register new user
+- `POST /auth/reset-password` - Request password reset
+- `POST /auth/refresh-token` - Refresh JWT token
 
-## Can I connect a custom domain to my Lovable project?
+#### Users
 
-Yes, you can!
+- `GET /users/me` - Get current user profile
+- `GET /users/{id}` - Get user by ID
+- `PATCH /users/{id}` - Update user profile
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+#### Tutorials
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+- `GET /tutorials` - List tutorials
+- `GET /tutorials/{id}` - Get tutorial details
+- `POST /tutorials` - Create new tutorial
+- `PUT /tutorials/{id}` - Update tutorial
+- `DELETE /tutorials/{id}` - Delete tutorial
+- `GET /tutorials/{id}/comments` - Get tutorial comments
+
+#### Projects
+
+- `GET /projects` - List user projects
+- `GET /projects/{id}` - Get project details
+- `POST /projects` - Create new project
+- `PUT /projects/{id}` - Update project
+- `DELETE /projects/{id}` - Delete project
+
+#### Subscriptions
+
+- `GET /subscriptions/current` - Get user's subscription
+- `POST /subscriptions` - Subscribe to plan
+- `DELETE /subscriptions/current` - Cancel subscription
+
+See `src/config/app.config.ts` for the complete list of endpoints.
+
+### MongoDB Document Structure
+
+The frontend expects MongoDB documents with the following structure:
+
+- Documents use `_id` as the primary key (automatically converted to `id` in frontend)
+- Documents typically include `createdAt` and `updatedAt` timestamps
+- See `src/types/mongodb.types.ts` for detailed document structures
+
+### Security & Authentication
+
+- The frontend uses JWT tokens for authentication
+- Include token in Authorization header: `Authorization: Bearer <token>`
+- Implement refresh token mechanism via `/auth/refresh-token` endpoint
+- Use Spring Security for role-based access control
+
+### Mocking vs Real Implementation
+
+Currently, mock data is used for development. To switch to real implementation:
+
+1. Set `useMockData: false` in `src/config/app.config.ts`
+2. Ensure all endpoints are implemented in your Spring Boot backend
+3. Update any environment variables or configuration as needed
+
+### Environment Variables
+
+Set these environment variables for production:
+
+- `REACT_APP_API_URL`: Backend API URL
+- `REACT_APP_ENV`: Set to `production` for production mode
+
+## Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+
+# Build for production
+npm run build
+```

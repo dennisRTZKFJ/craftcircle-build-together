@@ -1,21 +1,26 @@
 
 import { apiClient } from './api';
+import { AppConfig } from '@/config/app.config';
 
 /**
  * Authentication service for user login, registration, and session management
+ * Handles JWT token storage and refresh for Spring Security integration
  */
 
-interface User {
-  id: string;
+export interface User {
+  id: string;        // Converted from MongoDB _id
   name: string;
   email: string;
   role: 'diy' | 'creator' | 'partner' | 'admin';
   avatar?: string;
+  createdAt?: string;
+  updatedAt?: string;
 }
 
-interface LoginResponse {
+interface AuthResponse {
   user: User;
-  token: string;
+  token: string;      // JWT access token
+  refreshToken?: string; // Optional refresh token
 }
 
 interface LoginCredentials {
@@ -31,22 +36,25 @@ interface RegisterData {
 
 class AuthService {
   private tokenKey = 'craft_circle_auth_token';
+  private refreshTokenKey = 'craft_circle_refresh_token';
   private userKey = 'craft_circle_user';
+  private tokenExpiryKey = 'craft_circle_token_expiry';
   
   /**
    * Login with email and password
+   * @returns User object with authentication token
    */
   async login(credentials: LoginCredentials): Promise<User> {
     try {
-      // 🔧 INTEGRATION: Replace mock implementation with real backend call
-      const response = await apiClient.request<LoginResponse>('/auth/login', {
+      // 🔧 INTEGRATION: Replace mock implementation with Spring Security auth endpoint
+      const endpoint = AppConfig.api.endpoints.auth.login;
+      const response = await apiClient.request<AuthResponse>(endpoint, {
         method: 'POST',
         body: credentials,
       });
       
       // Store token and user data
-      this.setToken(response.token);
-      this.setUser(response.user);
+      this.setAuthData(response);
       
       return response.user;
     } catch (error) {
@@ -57,18 +65,19 @@ class AuthService {
   
   /**
    * Register a new user
+   * @returns User object with authentication token
    */
   async register(data: RegisterData): Promise<User> {
     try {
-      // 🔧 INTEGRATION: Replace mock implementation with real backend call
-      const response = await apiClient.request<LoginResponse>('/auth/register', {
+      // 🔧 INTEGRATION: Replace mock implementation with Spring Security register endpoint
+      const endpoint = AppConfig.api.endpoints.auth.register;
+      const response = await apiClient.request<AuthResponse>(endpoint, {
         method: 'POST',
         body: data,
       });
       
       // Store token and user data
-      this.setToken(response.token);
-      this.setUser(response.user);
+      this.setAuthData(response);
       
       return response.user;
     } catch (error) {
@@ -82,8 +91,9 @@ class AuthService {
    */
   async resetPassword(email: string): Promise<void> {
     try {
-      // 🔧 INTEGRATION: Replace mock implementation with real backend call
-      await apiClient.request('/auth/reset-password', {
+      // 🔧 INTEGRATION: Replace mock implementation with Spring Security password reset endpoint
+      const endpoint = AppConfig.api.endpoints.auth.resetPassword;
+      await apiClient.request(endpoint, {
         method: 'POST',
         body: { email },
       });
@@ -94,12 +104,53 @@ class AuthService {
   }
   
   /**
+   * Refresh the access token using refresh token
+   * @returns New auth tokens
+   */
+  async refreshToken(): Promise<boolean> {
+    const refreshToken = this.getRefreshToken();
+    
+    if (!refreshToken) {
+      return false;
+    }
+    
+    try {
+      // 🔧 INTEGRATION: Replace with Spring Security token refresh endpoint
+      const endpoint = AppConfig.api.endpoints.auth.refreshToken;
+      const response = await apiClient.request<{token: string, refreshToken: string}>(endpoint, {
+        method: 'POST',
+        body: { refreshToken },
+      });
+      
+      // Update stored tokens
+      this.setToken(response.token);
+      if (response.refreshToken) {
+        this.setRefreshToken(response.refreshToken);
+      }
+      
+      // Set new expiry (typically 1 hour from now)
+      const expiryTime = new Date();
+      expiryTime.setHours(expiryTime.getHours() + 1); // Adjust based on actual token lifetime
+      this.setTokenExpiry(expiryTime.getTime());
+      
+      return true;
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      // Clear auth data on refresh failure
+      this.logout();
+      return false;
+    }
+  }
+  
+  /**
    * Logout the current user
    */
   logout(): void {
     // Remove token and user data from storage
     localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem(this.userKey);
+    localStorage.removeItem(this.tokenExpiryKey);
     
     // Clear authorization header
     apiClient.setAuthToken(null);
@@ -121,10 +172,53 @@ class AuthService {
   }
   
   /**
-   * Check if a user is authenticated
+   * Get the refresh token if available
    */
-  isAuthenticated(): boolean {
-    return !!this.getToken();
+  getRefreshToken(): string | null {
+    return localStorage.getItem(this.refreshTokenKey);
+  }
+  
+  /**
+   * Check if a user is authenticated
+   * Also performs token validation and auto-refresh if needed
+   */
+  async isAuthenticated(): Promise<boolean> {
+    const token = this.getToken();
+    if (!token) return false;
+    
+    // Check if token is expired
+    const expiry = this.getTokenExpiry();
+    const now = Date.now();
+    
+    // If token is valid and not expired
+    if (expiry && now < expiry) {
+      return true;
+    }
+    
+    // If token is expired but we have a refresh token, try to refresh
+    if (this.getRefreshToken()) {
+      return await this.refreshToken();
+    }
+    
+    // No valid token and can't refresh
+    return false;
+  }
+  
+  /**
+   * Set authentication data from login/register response
+   */
+  private setAuthData(data: AuthResponse): void {
+    this.setToken(data.token);
+    this.setUser(data.user);
+    
+    if (data.refreshToken) {
+      this.setRefreshToken(data.refreshToken);
+    }
+    
+    // Set token expiry (typically 1 hour from now)
+    const expiryTime = new Date();
+    expiryTime.setHours(expiryTime.getHours() + 1); // Adjust based on actual token lifetime
+    this.setTokenExpiry(expiryTime.getTime());
   }
   
   /**
@@ -136,12 +230,33 @@ class AuthService {
   }
   
   /**
+   * Store refresh token
+   */
+  private setRefreshToken(token: string): void {
+    localStorage.setItem(this.refreshTokenKey, token);
+  }
+  
+  /**
    * Store user data
    */
   private setUser(user: User): void {
     localStorage.setItem(this.userKey, JSON.stringify(user));
   }
+  
+  /**
+   * Store token expiry timestamp
+   */
+  private setTokenExpiry(timestamp: number): void {
+    localStorage.setItem(this.tokenExpiryKey, timestamp.toString());
+  }
+  
+  /**
+   * Get token expiry timestamp
+   */
+  private getTokenExpiry(): number | null {
+    const expiry = localStorage.getItem(this.tokenExpiryKey);
+    return expiry ? parseInt(expiry, 10) : null;
+  }
 }
 
 export const authService = new AuthService();
-

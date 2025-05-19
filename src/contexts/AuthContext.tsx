@@ -1,37 +1,47 @@
 
 import React, { createContext, useState, useEffect, useContext, ReactNode } from 'react';
-import { authService } from '@/services/auth.service';
+import { authService, User } from '@/services/auth.service';
 
 interface AuthContextType {
-  user: any | null;
+  user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (name: string, email: string, password: string) => Promise<void>;
   logout: () => void;
   resetPassword: (email: string) => Promise<void>;
   isAuthenticated: boolean;
+  hasRole: (role: 'diy' | 'creator' | 'partner' | 'admin') => boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<any | null>(null);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   
   useEffect(() => {
-    // Initialize auth state from localStorage
+    // Initialize auth state from localStorage and validate token
     const initializeAuth = async () => {
       try {
-        if (authService.isAuthenticated()) {
+        const isValid = await authService.isAuthenticated();
+        
+        if (isValid) {
           const currentUser = authService.getCurrentUser();
           setUser(currentUser);
           setIsAuthenticated(true);
+        } else {
+          // Clear potentially invalid auth data
+          authService.logout();
+          setUser(null);
+          setIsAuthenticated(false);
         }
       } catch (error) {
         console.error('Failed to initialize auth:', error);
         // Clear potentially corrupted auth data
         authService.logout();
+        setUser(null);
+        setIsAuthenticated(false);
       } finally {
         setLoading(false);
       }
@@ -76,6 +86,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await authService.resetPassword(email);
   };
   
+  // Check if user has a specific role
+  const hasRole = (role: 'diy' | 'creator' | 'partner' | 'admin'): boolean => {
+    if (!user) return false;
+    return user.role === role;
+  };
+  
   const value = {
     user,
     loading,
@@ -84,6 +100,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     logout,
     resetPassword,
     isAuthenticated,
+    hasRole,
   };
   
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
@@ -96,4 +113,3 @@ export const useAuth = () => {
   }
   return context;
 };
-
