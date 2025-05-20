@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -11,14 +11,16 @@ import { Switch } from '@/components/ui/switch';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/components/ui/use-toast';
 import { Link } from 'react-router-dom';
+import { useTheme } from '@/contexts/ThemeContext';
+import { Moon, Sun, Monitor } from 'lucide-react';
 
 const SettingsPage = () => {
   const { toast } = useToast();
+  const { theme, setTheme } = useTheme();
   const [userType, setUserType] = useState<'diy' | 'creator' | 'partner'>('diy');
   
   // Settings state
   const [language, setLanguage] = useState('en');
-  const [theme, setTheme] = useState('light');
   const [privacy, setPrivacy] = useState('public');
   
   const handleSaveSettings = () => {
@@ -71,18 +73,42 @@ const SettingsPage = () => {
                   </Select>
                 </div>
                 
-                <div className="space-y-2">
+                <div className="space-y-4">
                   <Label htmlFor="theme">Theme</Label>
-                  <Select defaultValue={theme} onValueChange={setTheme}>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select Theme" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="light">Light</SelectItem>
-                      <SelectItem value="dark">Dark</SelectItem>
-                      <SelectItem value="system">System Default</SelectItem>
-                    </SelectContent>
-                  </Select>
+                  <div className="flex items-center space-x-4">
+                    <Button 
+                      variant={theme === 'light' ? 'default' : 'outline'} 
+                      size="icon" 
+                      onClick={() => setTheme('light')}
+                      className="w-10 h-10 rounded-full"
+                    >
+                      <Sun className="h-5 w-5" />
+                      <span className="sr-only">Light Mode</span>
+                    </Button>
+                    <Button 
+                      variant={theme === 'dark' ? 'default' : 'outline'} 
+                      size="icon" 
+                      onClick={() => setTheme('dark')}
+                      className="w-10 h-10 rounded-full"
+                    >
+                      <Moon className="h-5 w-5" />
+                      <span className="sr-only">Dark Mode</span>
+                    </Button>
+                    <Button 
+                      variant={theme === 'system' ? 'default' : 'outline'} 
+                      size="icon" 
+                      onClick={() => setTheme('system')}
+                      className="w-10 h-10 rounded-full"
+                    >
+                      <Monitor className="h-5 w-5" />
+                      <span className="sr-only">System Theme</span>
+                    </Button>
+                  </div>
+                  <p className="text-sm text-muted-foreground">
+                    {theme === 'light' && 'Light mode is currently active.'}
+                    {theme === 'dark' && 'Dark mode is currently active.'}
+                    {theme === 'system' && 'Using your device theme preference.'}
+                  </p>
                 </div>
                 
                 <div className="flex items-center justify-between">

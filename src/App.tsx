@@ -1,10 +1,10 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
+import { ThemeProvider } from "./contexts/ThemeContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
 
 // Pages
@@ -43,65 +43,66 @@ const queryClient = new QueryClient();
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <AuthProvider>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <Routes>
-            {/* Public routes */}
-            <Route path="/" element={<Index />} />
-            <Route path="/tutorials" element={<Tutorials />} />
-            <Route path="/tutorials/:id" element={<TutorialDetail />} />
-            <Route path="/challenges" element={<Challenges />} />
-            <Route path="/community" element={<Community />} />
-            <Route path="/marketplace" element={<Marketplace />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/reset-password" element={<ResetPassword />} />
-            <Route path="/sign-out" element={<SignOut />} />
-            
-            {/* Protected routes - require authentication */}
-            <Route element={<ProtectedRoute />}>
-              <Route path="/onboarding" element={<Onboarding />} />
-              <Route path="/onboarding/experience" element={<OnboardingExperience />} />
-              <Route path="/first-projects" element={<FirstProjects />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/account" element={<Account />} />
-              <Route path="/subscription" element={<SubscriptionPage />} />
-              <Route path="/premium-upgrade" element={<PremiumUpgradePage />} />
-              <Route path="/account/payments" element={<PaymentsPage />} />
-              <Route path="/account/payments/update-method" element={<UpdatePaymentMethodPage />} />
-              <Route path="/account/projects" element={<ProjectsPage />} />
-              <Route path="/account/notifications" element={<NotificationsPage />} />
-              <Route path="/account/settings" element={<SettingsPage />} />
-            </Route>
-            
-            {/* Creator routes */}
-            <Route element={<ProtectedRoute requiredRole="creator" />}>
-              <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
-              <Route path="/creator-dashboard/upload" element={<UploadTutorialPage />} />
-              <Route path="/creator-dashboard/upload/success" element={<TutorialSuccessPage />} />
-              <Route path="/creator-dashboard/edit/:id" element={<EditTutorialPage />} />
-            </Route>
-            
-            {/* Partner routes */}
-            <Route element={<ProtectedRoute requiredRole="partner" />}>
-              <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
-            </Route>
-            
-            {/* Admin routes */}
-            <Route element={<ProtectedRoute requiredRole="admin" />}>
-              <Route path="/admin" element={<AdminDashboard />} />
-            </Route>
-            
-            {/* 404 - Not found */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
+      <ThemeProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <Routes>
+              {/* Public routes */}
+              <Route path="/" element={<Index />} />
+              <Route path="/tutorials" element={<Tutorials />} />
+              <Route path="/tutorials/:id" element={<TutorialDetail />} />
+              <Route path="/challenges" element={<Challenges />} />
+              <Route path="/community" element={<Community />} />
+              <Route path="/marketplace" element={<Marketplace />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+              <Route path="/reset-password" element={<ResetPassword />} />
+              <Route path="/sign-out" element={<SignOut />} />
+              
+              {/* Protected routes - require authentication */}
+              <Route element={<ProtectedRoute />}>
+                <Route path="/onboarding" element={<Onboarding />} />
+                <Route path="/onboarding/experience" element={<OnboardingExperience />} />
+                <Route path="/first-projects" element={<FirstProjects />} />
+                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/account" element={<Account />} />
+                <Route path="/subscription" element={<SubscriptionPage />} />
+                <Route path="/premium-upgrade" element={<PremiumUpgradePage />} />
+                <Route path="/account/payments" element={<PaymentsPage />} />
+                <Route path="/account/payments/update-method" element={<UpdatePaymentMethodPage />} />
+                <Route path="/account/projects" element={<ProjectsPage />} />
+                <Route path="/account/notifications" element={<NotificationsPage />} />
+                <Route path="/account/settings" element={<SettingsPage />} />
+              </Route>
+              
+              {/* Creator routes */}
+              <Route element={<ProtectedRoute requiredRole="creator" />}>
+                <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
+                <Route path="/creator-dashboard/upload" element={<UploadTutorialPage />} />
+                <Route path="/creator-dashboard/upload/success" element={<TutorialSuccessPage />} />
+                <Route path="/creator-dashboard/edit/:id" element={<EditTutorialPage />} />
+              </Route>
+              
+              {/* Partner routes */}
+              <Route element={<ProtectedRoute requiredRole="partner" />}>
+                <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
+              </Route>
+              
+              {/* Admin routes */}
+              <Route element={<ProtectedRoute requiredRole="admin" />}>
+                <Route path="/admin" element={<AdminDashboard />} />
+              </Route>
+              
+              {/* 404 - Not found */}
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </TooltipProvider>
+      </ThemeProvider>
     </AuthProvider>
   </QueryClientProvider>
 );
 
 export default App;
-

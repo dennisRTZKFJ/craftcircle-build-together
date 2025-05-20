@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -22,8 +21,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Input } from "@/components/ui/input";
-import { Menu, Search, LogIn, Hammer, X, LogOut, User } from 'lucide-react';
+import { Menu, Search, LogIn, Hammer, X, LogOut, User, Moon, Sun } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
+import { useTheme } from '@/contexts/ThemeContext';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,6 +31,7 @@ const Navbar = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
+  const { theme, setTheme, isDarkMode } = useTheme();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -54,6 +55,10 @@ const Navbar = () => {
     // Clear authentication state
     logout();
     navigate('/sign-out');
+  };
+
+  const toggleTheme = () => {
+    setTheme(isDarkMode ? 'light' : 'dark');
   };
 
   return (
@@ -84,6 +89,16 @@ const Navbar = () => {
         </nav>
         <div className="flex-1" />
         <div className="flex items-center space-x-2">
+          <Button 
+            variant="ghost" 
+            size="icon"
+            onClick={toggleTheme}
+            className="mr-1"
+          >
+            {isDarkMode ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            <span className="sr-only">{isDarkMode ? 'Light Mode' : 'Dark Mode'}</span>
+          </Button>
+
           <Button 
             variant="outline" 
             size="sm" 
