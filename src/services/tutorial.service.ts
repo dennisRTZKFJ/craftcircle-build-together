@@ -57,6 +57,14 @@ export interface Comment {
   updatedAt?: string;    // MongoDB timestamp
 }
 
+export interface TutorialRating {
+  id: string;            // Converted from MongoDB _id
+  value: number;         // 1-5 stars
+  userId: string;
+  tutorialId: number;
+  createdAt?: string;    // MongoDB timestamp
+}
+
 class TutorialService {
   /**
    * Get all tutorials
@@ -65,6 +73,26 @@ class TutorialService {
     // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
     // GET /tutorials will return array of MongoDB tutorial documents
     const endpoint = AppConfig.api.endpoints.tutorials.list;
+    return apiClient.request<Tutorial[]>(endpoint);
+  }
+  
+  /**
+   * Get featured tutorials
+   */
+  async getFeaturedTutorials(): Promise<Tutorial[]> {
+    // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
+    // GET /tutorials/featured will return array of featured tutorial documents
+    const endpoint = AppConfig.api.endpoints.tutorials.featured;
+    return apiClient.request<Tutorial[]>(endpoint);
+  }
+  
+  /**
+   * Get trending tutorials
+   */
+  async getTrendingTutorials(): Promise<Tutorial[]> {
+    // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
+    // GET /tutorials/trending will return array of trending tutorial documents
+    const endpoint = AppConfig.api.endpoints.tutorials.trending;
     return apiClient.request<Tutorial[]>(endpoint);
   }
   
@@ -113,6 +141,43 @@ class TutorialService {
     const endpoint = AppConfig.api.endpoints.tutorials.delete(id);
     await apiClient.request(endpoint, {
       method: 'DELETE',
+    });
+  }
+  
+  /**
+   * Like a tutorial
+   */
+  async likeTutorial(id: number): Promise<void> {
+    // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
+    // POST /tutorials/{id}/like will increment likes count in MongoDB
+    const endpoint = AppConfig.api.endpoints.tutorials.like(id);
+    await apiClient.request(endpoint, {
+      method: 'POST',
+    });
+  }
+  
+  /**
+   * Unlike a previously liked tutorial
+   */
+  async unlikeTutorial(id: number): Promise<void> {
+    // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
+    // POST /tutorials/{id}/unlike will decrement likes count in MongoDB
+    const endpoint = AppConfig.api.endpoints.tutorials.unlike(id);
+    await apiClient.request(endpoint, {
+      method: 'POST',
+    });
+  }
+  
+  /**
+   * Rate a tutorial (1-5 stars)
+   */
+  async rateTutorial(id: number, rating: number): Promise<void> {
+    // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
+    // POST /tutorials/{id}/rate will store rating in MongoDB
+    const endpoint = AppConfig.api.endpoints.tutorials.rate(id);
+    await apiClient.request<TutorialRating>(endpoint, {
+      method: 'POST',
+      body: { rating },
     });
   }
   

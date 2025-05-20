@@ -30,7 +30,7 @@ const ResetPassword = () => {
         return;
       }
       
-      // Call reset password
+      // 🔧 INTEGRATION: This calls the real password reset endpoint via AuthContext
       await resetPassword(email);
       
       setSubmitted(true);
@@ -118,4 +118,3 @@ const ResetPassword = () => {
 };
 
 export default ResetPassword;
-

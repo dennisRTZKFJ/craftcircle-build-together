@@ -11,6 +11,8 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Github, Mail } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { authService } from '@/services/auth.service';
+import { AppConfig } from '@/config/app.config';
 
 const Register = () => {
   const [name, setName] = useState('');
@@ -23,8 +25,6 @@ const Register = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  // This is a mock registration function
-  // In a real implementation, this would use Supabase Auth or similar
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -44,25 +44,50 @@ const Register = () => {
         return;
       }
       
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // For demo purposes, accept any valid-looking registration
-      if (name && email && email.includes('@') && password.length >= 6) {
+      if (AppConfig.useMockData) {
+        // MOCK: Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // MOCK: Basic validation
+        if (name && email && email.includes('@') && password.length >= 6) {
+          toast({
+            title: "Registration successful!",
+            description: "Please check your email for the confirmation link.",
+          });
+          navigate('/onboarding');
+        } else {
+          setError('Invalid input. Please check your data.');
+        }
+      } else {
+        // REAL API: Register user with Spring Boot backend
+        await authService.register({
+          name,
+          email,
+          password
+        });
+
         toast({
           title: "Registration successful!",
           description: "Please check your email for the confirmation link.",
         });
+        
+        // Redirect to onboarding page
         navigate('/onboarding');
-      } else {
-        setError('Invalid input. Please check your data.');
       }
-    } catch (err) {
-      setError('An error occurred. Please try again later.');
+    } catch (err: any) {
+      setError(err?.message || 'An error occurred. Please try again later.');
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleSocialLogin = (provider: string) => {
+    // 🔧 INTEGRATION: Replace with actual social login implementation
+    // This would typically redirect to OAuth provider URL
+    toast({ 
+      description: `${provider} login is not implemented yet`
+    });
   };
 
   return (
@@ -154,11 +179,11 @@ const Register = () => {
             </div>
 
             <div className="grid grid-cols-2 gap-3">
-              <Button variant="outline" onClick={() => toast({ description: "GitHub registration is not implemented yet" })}>
+              <Button variant="outline" onClick={() => handleSocialLogin('GitHub')}>
                 <Github className="mr-2 h-4 w-4" />
                 GitHub
               </Button>
-              <Button variant="outline" onClick={() => toast({ description: "Google registration is not implemented yet" })}>
+              <Button variant="outline" onClick={() => handleSocialLogin('Google')}>
                 <Mail className="mr-2 h-4 w-4" />
                 Google
               </Button>

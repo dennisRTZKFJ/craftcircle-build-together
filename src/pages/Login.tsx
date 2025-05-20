@@ -29,6 +29,7 @@ const Login = () => {
     setError(null);
     
     try {
+      // 🔧 INTEGRATION: This will call the real login endpoint via AuthContext
       await login(email, password);
       
       toast({
@@ -45,7 +46,8 @@ const Login = () => {
   };
 
   const handleSocialLogin = (provider: string) => {
-    // 🔧 INTEGRATION: Replace with actual social login implementation
+    // 🔧 INTEGRATION: Replace with actual OAuth implementation for social login
+    // This would typically redirect to provider's OAuth URL
     toast({ 
       description: `${provider} login is not implemented yet`
     });
@@ -141,4 +143,3 @@ const Login = () => {
 };
 
 export default Login;
-

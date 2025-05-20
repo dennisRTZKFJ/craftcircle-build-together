@@ -20,6 +20,7 @@ export const AppConfig = {
         register: '/auth/register',
         resetPassword: '/auth/reset-password',
         refreshToken: '/auth/refresh-token',
+        logout: '/auth/logout',
       },
       // User endpoints
       users: {
@@ -29,15 +30,21 @@ export const AppConfig = {
         updateProfile: '/users/me',
         updateSettings: '/users/me/settings',
         uploadAvatar: '/users/me/avatar',
+        stats: '/users/me/stats',
       },
       // Tutorial endpoints
       tutorials: {
         list: '/tutorials',
+        featured: '/tutorials/featured',
+        trending: '/tutorials/trending',
         detail: (id: number) => `/tutorials/${id}`,
         comments: (id: number) => `/tutorials/${id}/comments`,
         create: '/tutorials',
         update: (id: number) => `/tutorials/${id}`,
         delete: (id: number) => `/tutorials/${id}`,
+        like: (id: number) => `/tutorials/${id}/like`,
+        unlike: (id: number) => `/tutorials/${id}/unlike`,
+        rate: (id: number) => `/tutorials/${id}/rate`,
       },
       // Project endpoints
       projects: {
@@ -48,15 +55,41 @@ export const AppConfig = {
         create: '/projects',
         update: (id: number) => `/projects/${id}`,
         delete: (id: number) => `/projects/${id}`,
+        share: (id: number) => `/projects/${id}/share`,
       },
       // Subscription endpoints
       subscriptions: {
         current: '/subscriptions/current',
         create: '/subscriptions',
-        cancel: '/subscriptions/current',
+        cancel: '/subscriptions/cancel',
         paymentMethods: '/payment-methods',
+        addPaymentMethod: '/payment-methods',
+        removePaymentMethod: (id: string) => `/payment-methods/${id}`,
         transactions: '/transactions',
-      }
+      },
+      // Community endpoints
+      community: {
+        posts: '/community/posts',
+        post: (id: string) => `/community/posts/${id}`,
+        comments: (id: string) => `/community/posts/${id}/comments`,
+        like: (id: string) => `/community/posts/${id}/like`,
+        unlike: (id: string) => `/community/posts/${id}/unlike`,
+      },
+      // Creator analytics endpoints
+      analytics: {
+        overview: '/analytics/overview',
+        tutorials: '/analytics/tutorials',
+        revenue: '/analytics/revenue',
+        audience: '/analytics/audience',
+        feedback: '/analytics/feedback',
+      },
+      // Partner dashboard endpoints
+      partners: {
+        stats: '/partners/stats',
+        products: '/partners/products',
+        orders: '/partners/orders',
+        analytics: '/partners/analytics',
+      },
     }
   },
   

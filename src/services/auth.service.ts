@@ -150,6 +150,9 @@ class AuthService {
    * Logout the current user
    */
   logout(): void {
+    // 🔧 INTEGRATION: In a real implementation, you might want to invalidate the token on the server
+    // POST /auth/logout with the current token
+
     // Remove token and user data from storage
     localStorage.removeItem(this.tokenKey);
     localStorage.removeItem(this.refreshTokenKey);

@@ -95,6 +95,19 @@ class ProjectService {
   }
   
   /**
+   * Share a project with other users
+   */
+  async shareProject(id: number, userEmails: string[]): Promise<void> {
+    // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
+    // POST /projects/{id}/share will share project with specified users
+    const endpoint = AppConfig.api.endpoints.projects.share(id);
+    await apiClient.request(endpoint, {
+      method: 'POST',
+      body: { userEmails },
+    });
+  }
+  
+  /**
    * Add material to a project
    */
   async addMaterial(projectId: number, material: Omit<Material, 'id'>): Promise<Material> {

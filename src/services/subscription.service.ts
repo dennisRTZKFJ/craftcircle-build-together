@@ -67,7 +67,7 @@ class SubscriptionService {
    */
   async cancelSubscription(): Promise<void> {
     // 🔧 INTEGRATION: Replace with real Spring Boot subscription cancellation endpoint
-    // DELETE /subscriptions/current will mark subscription as canceled
+    // POST /subscriptions/cancel will mark subscription as canceled
     const endpoint = AppConfig.api.endpoints.subscriptions.cancel;
     await apiClient.request(endpoint, {
       method: 'DELETE',
@@ -90,7 +90,7 @@ class SubscriptionService {
   async addPaymentMethod(tokenizedPaymentInfo: any): Promise<PaymentMethod> {
     // 🔧 INTEGRATION: Replace with real payment processor integration
     // POST /payment-methods will store payment method in MongoDB and with payment processor
-    const endpoint = AppConfig.api.endpoints.subscriptions.paymentMethods;
+    const endpoint = AppConfig.api.endpoints.subscriptions.addPaymentMethod;
     return apiClient.request<PaymentMethod>(endpoint, {
       method: 'POST',
       body: tokenizedPaymentInfo,
@@ -103,7 +103,7 @@ class SubscriptionService {
   async removePaymentMethod(id: string): Promise<void> {
     // 🔧 INTEGRATION: Replace with real Spring Boot endpoint
     // DELETE /payment-methods/{id} will remove payment method from MongoDB and payment processor
-    const endpoint = `${AppConfig.api.endpoints.subscriptions.paymentMethods}/${id}`;
+    const endpoint = AppConfig.api.endpoints.subscriptions.removePaymentMethod(id);
     await apiClient.request(endpoint, {
       method: 'DELETE',
     });
