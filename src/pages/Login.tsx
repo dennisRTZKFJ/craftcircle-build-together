@@ -1,4 +1,18 @@
 
+/**
+ * Login Page
+ * 
+ * Allows existing users to sign in with:
+ * - Email and password authentication
+ * - Social login options
+ * - Password reset link
+ * 
+ * Integration with Spring Boot:
+ * - Connects to /auth/login endpoint
+ * - Handles JWT token response
+ * - Redirects to appropriate page on success
+ */
+
 import React, { useState } from 'react';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -12,10 +26,18 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 
+/**
+ * Login Page Component
+ * 
+ * Handles user authentication flow and form validation.
+ */
 const Login = () => {
+  // Form state
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  
+  // Hooks
   const navigate = useNavigate();
   const location = useLocation();
   const { toast } = useToast();
@@ -24,6 +46,18 @@ const Login = () => {
   // Get the redirect path from location state, or default to dashboard
   const from = (location.state as any)?.from?.pathname || '/dashboard';
 
+  /**
+   * Handle Login Form Submission
+   * 
+   * Validates credentials and attempts authentication.
+   * 
+   * Production implementation:
+   * - Sends login request to Spring Boot backend
+   * - Stores JWT token on success
+   * - Redirects to original destination or dashboard
+   * 
+   * @param e Form event
+   */
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -45,6 +79,18 @@ const Login = () => {
     }
   };
 
+  /**
+   * Handle Social Login
+   * 
+   * Initiates OAuth flow with selected provider.
+   * 
+   * Production implementation:
+   * - Redirects to OAuth provider (GitHub, Google, etc.)
+   * - Provider redirects back to application with auth code
+   * - Backend validates code and returns user info with JWT
+   * 
+   * @param provider OAuth provider name
+   */
   const handleSocialLogin = (provider: string) => {
     // 🔧 INTEGRATION: Replace with actual OAuth implementation for social login
     // This would typically redirect to provider's OAuth URL
@@ -65,12 +111,16 @@ const Login = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Error alert */}
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
+            
+            {/* Login form */}
             <form onSubmit={handleLogin} className="space-y-4">
+              {/* Email field */}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input 
@@ -82,6 +132,8 @@ const Login = () => {
                   required
                 />
               </div>
+              
+              {/* Password field with reset link */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label htmlFor="password">Password</Label>
@@ -97,11 +149,14 @@ const Login = () => {
                   required
                 />
               </div>
+              
+              {/* Submit button */}
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Signing in..." : "Sign in"}
               </Button>
             </form>
 
+            {/* Social login options */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -124,6 +179,8 @@ const Login = () => {
               </Button>
             </div>
           </CardContent>
+          
+          {/* Footer with registration link */}
           <CardFooter className="flex flex-col space-y-4">
             <div className="text-sm text-center text-muted-foreground">
               Don't have an account?{' '}

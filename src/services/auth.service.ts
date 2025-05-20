@@ -1,12 +1,26 @@
 
+/**
+ * Authentication Service
+ * 
+ * Manages user authentication, registration, and session handling.
+ * Integrates with Spring Security JWT authentication.
+ * 
+ * This service:
+ * - Handles login/register API calls
+ * - Manages JWT token storage and refresh
+ * - Provides authentication status checks
+ * - Handles user logout
+ */
+
 import { apiClient } from './api';
 import { AppConfig } from '@/config/app.config';
 
 /**
- * Authentication service for user login, registration, and session management
- * Handles JWT token storage and refresh for Spring Security integration
+ * User Interface
+ * 
+ * Represents a user in the system.
+ * Maps to MongoDB user document structure.
  */
-
 export interface User {
   id: string;        // Converted from MongoDB _id
   name: string;
@@ -17,23 +31,63 @@ export interface User {
   updatedAt?: string;
 }
 
+/**
+ * Authentication Response Interface
+ * 
+ * Represents the response from authentication endpoints.
+ */
 interface AuthResponse {
   user: User;
   token: string;      // JWT access token
   refreshToken?: string; // Optional refresh token
 }
 
+/**
+ * Login Credentials Interface
+ * 
+ * Represents login request body
+ */
 interface LoginCredentials {
   email: string;
   password: string;
 }
 
+/**
+ * Registration Data Interface
+ * 
+ * Represents registration request body
+ */
 interface RegisterData {
   name: string;
   email: string;
   password: string;
 }
 
+/**
+ * Authentication Service Class
+ * 
+ * Handles all authentication-related functionality.
+ * 
+ * Usage example:
+ * ```typescript
+ * // Login
+ * try {
+ *   const user = await authService.login({
+ *     email: 'user@example.com',
+ *     password: 'password123'
+ *   });
+ *   console.log('Logged in as:', user.name);
+ * } catch (err) {
+ *   console.error('Login failed:', err);
+ * }
+ * 
+ * // Check if user is authenticated
+ * const isAuthenticated = await authService.isAuthenticated();
+ * 
+ * // Get current user
+ * const currentUser = authService.getCurrentUser();
+ * ```
+ */
 class AuthService {
   private tokenKey = 'craft_circle_auth_token';
   private refreshTokenKey = 'craft_circle_refresh_token';
@@ -41,8 +95,18 @@ class AuthService {
   private tokenExpiryKey = 'craft_circle_token_expiry';
   
   /**
-   * Login with email and password
-   * @returns User object with authentication token
+   * Login with Email and Password
+   * 
+   * Authenticates a user and stores their session information.
+   * 
+   * @param credentials User login credentials
+   * @returns User object
+   * @throws Error if authentication fails
+   * 
+   * Production implementation:
+   * - Sends credentials to Spring Security endpoint
+   * - Receives JWT token if successful
+   * - Stores token for subsequent API calls
    */
   async login(credentials: LoginCredentials): Promise<User> {
     try {
@@ -65,8 +129,18 @@ class AuthService {
   }
   
   /**
-   * Register a new user
-   * @returns User object with authentication token
+   * Register New User
+   * 
+   * Creates a new user account and automatically logs them in.
+   * 
+   * @param data User registration data
+   * @returns Newly created user
+   * @throws Error if registration fails
+   * 
+   * Production implementation:
+   * - Sends registration data to Spring Security endpoint
+   * - Receives JWT token if successful
+   * - Stores token for subsequent API calls
    */
   async register(data: RegisterData): Promise<User> {
     try {
@@ -89,7 +163,17 @@ class AuthService {
   }
   
   /**
-   * Reset password with email
+   * Reset Password
+   * 
+   * Initiates password reset process by sending email to user.
+   * 
+   * @param email User email address
+   * @throws Error if reset request fails
+   * 
+   * Production implementation:
+   * - Sends reset request to Spring Security endpoint
+   * - Backend sends password reset email to user
+   * - User clicks link in email to set new password
    */
   async resetPassword(email: string): Promise<void> {
     try {
@@ -107,8 +191,17 @@ class AuthService {
   }
   
   /**
-   * Refresh the access token using refresh token
-   * @returns New auth tokens
+   * Refresh Authentication Token
+   * 
+   * Uses refresh token to obtain a new access token when the
+   * current one expires. This maintains the user session.
+   * 
+   * @returns Success status
+   * 
+   * Production implementation:
+   * - Sends refresh token to Spring Security endpoint
+   * - Receives new access token (and optionally new refresh token)
+   * - Updates stored tokens
    */
   async refreshToken(): Promise<boolean> {
     const refreshToken = this.getRefreshToken();
@@ -147,7 +240,14 @@ class AuthService {
   }
   
   /**
-   * Logout the current user
+   * Logout User
+   * 
+   * Ends the user session and clears authentication data.
+   * 
+   * Production implementation:
+   * - Optionally invalidates token on backend
+   * - Clears local storage and auth headers
+   * - Redirects to login page
    */
   logout(): void {
     // 🔧 INTEGRATION: In a real implementation, you might want to invalidate the token on the server
@@ -164,7 +264,11 @@ class AuthService {
   }
   
   /**
-   * Get the current authenticated user
+   * Get Current User
+   * 
+   * Retrieves the currently authenticated user from storage.
+   * 
+   * @returns User object or null if not authenticated
    */
   getCurrentUser(): User | null {
     const userJson = localStorage.getItem(this.userKey);
@@ -172,22 +276,46 @@ class AuthService {
   }
   
   /**
-   * Get the current authentication token
+   * Get Authentication Token
+   * 
+   * Retrieves the current JWT token from storage.
+   * 
+   * @returns JWT token or null
    */
   getToken(): string | null {
     return localStorage.getItem(this.tokenKey);
   }
   
   /**
-   * Get the refresh token if available
+   * Get Refresh Token
+   * 
+   * Retrieves the current refresh token from storage.
+   * 
+   * @returns Refresh token or null
    */
   getRefreshToken(): string | null {
     return localStorage.getItem(this.refreshTokenKey);
   }
   
   /**
-   * Check if a user is authenticated
-   * Also performs token validation and auto-refresh if needed
+   * Check Authentication Status
+   * 
+   * Determines if user is currently authenticated with a valid token.
+   * Automatically refreshes token if expired but refresh token is valid.
+   * 
+   * @returns Authentication status
+   * 
+   * Usage example:
+   * ```typescript
+   * // Check authentication before accessing protected resource
+   * if (await authService.isAuthenticated()) {
+   *   // User is authenticated, proceed
+   *   loadUserData();
+   * } else {
+   *   // User is not authenticated, redirect to login
+   *   navigate('/login');
+   * }
+   * ```
    */
   async isAuthenticated(): Promise<boolean> {
     const token = this.getToken();
@@ -212,7 +340,12 @@ class AuthService {
   }
   
   /**
-   * Set authentication data from login/register response
+   * Set Authentication Data
+   * 
+   * Stores user session data from login/register response.
+   * 
+   * @param data Authentication response data
+   * @private
    */
   private setAuthData(data: AuthResponse): void {
     this.setToken(data.token);
@@ -229,7 +362,10 @@ class AuthService {
   }
   
   /**
-   * Store authentication token
+   * Store Authentication Token
+   * 
+   * @param token JWT token
+   * @private
    */
   private setToken(token: string): void {
     localStorage.setItem(this.tokenKey, token);
@@ -237,28 +373,40 @@ class AuthService {
   }
   
   /**
-   * Store refresh token
+   * Store Refresh Token
+   * 
+   * @param token Refresh token
+   * @private
    */
   private setRefreshToken(token: string): void {
     localStorage.setItem(this.refreshTokenKey, token);
   }
   
   /**
-   * Store user data
+   * Store User Data
+   * 
+   * @param user User object
+   * @private
    */
   private setUser(user: User): void {
     localStorage.setItem(this.userKey, JSON.stringify(user));
   }
   
   /**
-   * Store token expiry timestamp
+   * Store Token Expiry Timestamp
+   * 
+   * @param timestamp Expiry timestamp in milliseconds
+   * @private
    */
   private setTokenExpiry(timestamp: number): void {
     localStorage.setItem(this.tokenExpiryKey, timestamp.toString());
   }
   
   /**
-   * Get token expiry timestamp
+   * Get Token Expiry Timestamp
+   * 
+   * @returns Expiry timestamp or null
+   * @private
    */
   private getTokenExpiry(): number | null {
     const expiry = localStorage.getItem(this.tokenExpiryKey);
@@ -266,4 +414,9 @@ class AuthService {
   }
 }
 
+/**
+ * Authentication Service Instance
+ * 
+ * Exported for use throughout the application
+ */
 export const authService = new AuthService();

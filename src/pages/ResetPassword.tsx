@@ -1,4 +1,16 @@
 
+/**
+ * Password Reset Page
+ * 
+ * Allows users to request a password reset by providing their email.
+ * An email with reset instructions is sent to the user.
+ * 
+ * Integration with Spring Boot:
+ * - Connects to /auth/reset-password endpoint
+ * - Handles success/error messages
+ * - Provides UI feedback on submission
+ */
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -11,14 +23,43 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { useAuth } from '@/contexts/AuthContext';
 
+/**
+ * Password Reset Page Component
+ * 
+ * Handles password reset request flow:
+ * 1. User enters email address
+ * 2. System validates email format
+ * 3. Request is sent to backend API
+ * 4. User receives success message or error
+ * 
+ * Production implementation:
+ * - Backend sends password reset email with secure token link
+ * - User follows link to set new password
+ */
 const ResetPassword = () => {
+  // Form state
   const [email, setEmail] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  
+  // Hooks
   const navigate = useNavigate();
   const { toast } = useToast();
   const { resetPassword, loading } = useAuth();
 
+  /**
+   * Handle Password Reset Form Submission
+   * 
+   * Validates email and submits reset request.
+   * 
+   * Production implementation:
+   * - Validates email format
+   * - Sends request to Spring Boot endpoint
+   * - Backend generates reset token and sends email
+   * - Updates UI to show success message
+   * 
+   * @param e Form event
+   */
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -56,12 +97,14 @@ const ResetPassword = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {/* Error message */}
             {error && (
               <Alert variant="destructive">
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
             
+            {/* Success state after submission */}
             {submitted ? (
               <div className="space-y-4">
                 <Alert>
@@ -81,6 +124,7 @@ const ResetPassword = () => {
                 </Button>
               </div>
             ) : (
+              // Form for email input
               <form onSubmit={handleResetPassword} className="space-y-4">
                 <div className="space-y-2">
                   <Label htmlFor="email">Email</Label>

@@ -1,22 +1,53 @@
-
 import { AppConfig } from '@/config/app.config';
 
 /**
- * API client for making requests to the Spring Boot backend
- * Currently returns mock data, but can be connected to real endpoints later
+ * API Client Service
+ * 
+ * This service handles all HTTP requests to the backend API.
+ * It provides:
+ * - Authentication header management
+ * - Error handling
+ * - Response transformation (MongoDB -> Frontend)
+ * - Mock data for development
+ * 
+ * When switching to production:
+ * 1. Set useMockData to false in AppConfig
+ * 2. Configure correct baseUrl
+ * 3. Ensure all backend endpoints match the paths in AppConfig
  */
 
+/**
+ * API Request Options Interface
+ * 
+ * Defines the available options for API requests
+ */
 interface ApiRequestOptions {
+  /** HTTP method to use */
   method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
+  
+  /** Request body (automatically converted to JSON) */
   body?: any;
+  
+  /** Additional headers to include */
   headers?: Record<string, string>;
+  
+  /** URL query parameters */
   params?: Record<string, string>;
 }
 
+/**
+ * API Client Class
+ * 
+ * Handles API requests, authentication, and response processing
+ */
 class ApiClient {
   private baseUrl: string;
   private defaultHeaders: Record<string, string>;
 
+  /**
+   * Constructor
+   * @param baseUrl Base URL for all API requests
+   */
   constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
     this.defaultHeaders = {
@@ -26,8 +57,22 @@ class ApiClient {
   }
 
   /**
-   * Set authentication token for subsequent requests
-   * @param token JWT token from Spring Security
+   * Set Authentication Token
+   * 
+   * Updates the default headers with the JWT authentication token.
+   * Should be called after successful login and token refresh.
+   * 
+   * @param token JWT token from authentication
+   * 
+   * Example usage:
+   * ```typescript
+   * // After login:
+   * const authResponse = await loginUser(credentials);
+   * apiClient.setAuthToken(authResponse.token);
+   * 
+   * // To clear token (during logout):
+   * apiClient.setAuthToken(null);
+   * ```
    */
   setAuthToken(token: string | null) {
     if (token) {
@@ -38,7 +83,14 @@ class ApiClient {
   }
 
   /**
-   * Build URL with query parameters
+   * Build URL with Query Parameters
+   * 
+   * Constructs a full URL including any query parameters
+   * 
+   * @param endpoint API endpoint path
+   * @param params Query parameters object
+   * @returns Complete URL string
+   * @private
    */
   private buildUrl(endpoint: string, params?: Record<string, string>): string {
     const url = `${this.baseUrl}${endpoint}`;
@@ -53,7 +105,15 @@ class ApiClient {
   }
 
   /**
-   * Handle API errors consistently
+   * Handle API Errors
+   * 
+   * Processes API errors consistently, providing better error messages
+   * and handling special cases like authentication failures
+   * 
+   * @param error Error object from fetch
+   * @param endpoint API endpoint that was accessed
+   * @returns Never - always throws an error
+   * @private
    */
   private handleApiError(error: any, endpoint: string): never {
     // Log error for debugging
@@ -74,8 +134,20 @@ class ApiClient {
   }
 
   /**
-   * Transform MongoDB response to frontend format
-   * Handles things like _id to id conversion
+   * Transform MongoDB Response to Frontend Format
+   * 
+   * Recursively processes API responses to transform MongoDB-style
+   * documents to frontend format (e.g. _id → id)
+   * 
+   * @param data Response data to transform
+   * @returns Transformed data
+   * @private
+   * 
+   * Example transformation:
+   * ```
+   * Input: { _id: "123", name: "Project", items: [{ _id: "456", title: "Item" }] }
+   * Output: { id: "123", name: "Project", items: [{ id: "456", title: "Item" }] }
+   * ```
    */
   private transformResponse(data: any): any {
     if (!data) return data;
@@ -109,8 +181,31 @@ class ApiClient {
   }
 
   /**
-   * Make a request to the API
-   * If useMockData is true, it will return mock data instead
+   * Make API Request
+   * 
+   * Main method to make requests to the API.
+   * If useMockData is true, it returns mock data instead.
+   * 
+   * @param endpoint API endpoint path
+   * @param options Request options
+   * @returns Promise with the response data
+   * 
+   * Example usage:
+   * ```typescript
+   * // GET request
+   * const users = await apiClient.request<User[]>('/users');
+   * 
+   * // POST request with body
+   * const newUser = await apiClient.request<User>('/users', {
+   *   method: 'POST',
+   *   body: { name: 'John', email: 'john@example.com' }
+   * });
+   * 
+   * // With query parameters
+   * const filteredProjects = await apiClient.request<Project[]>('/projects', {
+   *   params: { status: 'active', sort: 'date' }
+   * });
+   * ```
    */
   async request<T>(endpoint: string, options: ApiRequestOptions = {}): Promise<T> {
     if (AppConfig.useMockData) {
@@ -163,8 +258,15 @@ class ApiClient {
   }
 
   /**
-   * Return mock data for development
-   * This function will be replaced with actual API calls in production
+   * Get Mock Data for Development
+   * 
+   * Returns mock data for the specified endpoint during development.
+   * This function will be replaced with actual API calls in production.
+   * 
+   * @param endpoint API endpoint path
+   * @param options Request options
+   * @returns Mock response data
+   * @private
    */
   private async getMockData(endpoint: string, options: ApiRequestOptions): Promise<any> {
     // Simulate network latency
@@ -206,6 +308,12 @@ class ApiClient {
 
 // MOCK: The following mock data implementations will be replaced with actual API calls in production
 // 🔧 MOCK: These mock functions will be removed when connecting to real Spring Boot backend
+
+/**
+ * Mock Authentication Data
+ * 
+ * Provides mock responses for auth-related endpoints
+ */
 function mockAuthData(endpoint: string, options: ApiRequestOptions): any {
   if (endpoint === '/auth/login') {
     // 🔧 INTEGRATION: Real endpoint will be POST /auth/login with JWT response
@@ -251,6 +359,11 @@ function mockAuthData(endpoint: string, options: ApiRequestOptions): any {
   return { error: 'Unknown auth endpoint' };
 }
 
+/**
+ * Mock User Data
+ * 
+ * Provides mock responses for user-related endpoints
+ */
 function mockUserData(endpoint: string, options: ApiRequestOptions): any {
   if (endpoint === '/users/me') {
     // 🔧 INTEGRATION: Real endpoint will be GET /users/me with user profile data
@@ -299,6 +412,11 @@ function mockUserData(endpoint: string, options: ApiRequestOptions): any {
   return { error: 'Unknown user endpoint' };
 }
 
+/**
+ * Mock Tutorial Data
+ * 
+ * Provides mock responses for tutorial-related endpoints
+ */
 function mockTutorialData(endpoint: string, options: ApiRequestOptions): any {
   const tutorials = [
     { 
@@ -433,7 +551,7 @@ function mockTutorialData(endpoint: string, options: ApiRequestOptions): any {
   }
   
   // 🔧 INTEGRATION: Real endpoint will be POST /tutorials/{id}/comments to add a comment
-  if (endpoint.match(/\/tutorials\/\d+\/comments$/) && options.method === 'POST') {
+  if (endpoint.match(/\/tutorials\/\d+\/comments$/)) {
     return {
       _id: `c${Date.now()}`,
       tutorialId: parseInt(endpoint.split('/')[2]),
@@ -451,6 +569,11 @@ function mockTutorialData(endpoint: string, options: ApiRequestOptions): any {
   return { error: 'Unknown tutorials endpoint' };
 }
 
+/**
+ * Mock Project Data
+ * 
+ * Provides mock responses for project-related endpoints
+ */
 function mockProjectData(endpoint: string, options: ApiRequestOptions): any {
   const projects = [
     { 
@@ -574,6 +697,11 @@ function mockProjectData(endpoint: string, options: ApiRequestOptions): any {
   return { error: 'Unknown projects endpoint' };
 }
 
+/**
+ * Mock Subscription Data
+ * 
+ * Provides mock responses for subscription-related endpoints
+ */
 function mockSubscriptionData(endpoint: string, options: ApiRequestOptions): any {
   // 🔧 INTEGRATION: Real endpoint will be GET /subscriptions/current for user subscription
   if (endpoint === '/subscriptions/current' && options.method === 'GET') {
@@ -607,6 +735,11 @@ function mockSubscriptionData(endpoint: string, options: ApiRequestOptions): any
   return { error: 'Unknown subscription endpoint' };
 }
 
+/**
+ * Mock Payment Method Data
+ * 
+ * Provides mock responses for payment method-related endpoints
+ */
 function mockPaymentMethodData(endpoint: string, options: ApiRequestOptions): any {
   // 🔧 INTEGRATION: Real endpoint will be GET /payment-methods for user payment methods
   if (endpoint === '/payment-methods' && options.method === 'GET') {
@@ -652,6 +785,11 @@ function mockPaymentMethodData(endpoint: string, options: ApiRequestOptions): an
   return { error: 'Unknown payment-methods endpoint' };
 }
 
+/**
+ * Mock Transaction Data
+ * 
+ * Provides mock responses for transaction-related endpoints
+ */
 function mockTransactionData(endpoint: string, options: ApiRequestOptions): any {
   // 🔧 INTEGRATION: Real endpoint will be GET /transactions for user transaction history
   if (endpoint === '/transactions' && options.method === 'GET') {
@@ -689,5 +827,9 @@ function mockTransactionData(endpoint: string, options: ApiRequestOptions): any 
   return { error: 'Unknown transactions endpoint' };
 }
 
-// Create and export API client instance
+/**
+ * API Client Instance
+ * 
+ * Created and exported for use throughout the application
+ */
 export const apiClient = new ApiClient(AppConfig.api.baseUrl);

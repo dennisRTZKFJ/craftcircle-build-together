@@ -1,4 +1,19 @@
 
+/**
+ * Registration Page
+ * 
+ * Allows new users to create an account with:
+ * - Basic information (name, email)
+ * - Password creation and confirmation
+ * - Terms acceptance
+ * - Social login options
+ * 
+ * Integration with Spring Boot:
+ * - Connects to /auth/register endpoint
+ * - Handles JWT token response
+ * - Redirects to onboarding flow on success
+ */
+
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -14,30 +29,54 @@ import Footer from '@/components/Footer';
 import { authService } from '@/services/auth.service';
 import { AppConfig } from '@/config/app.config';
 
+/**
+ * Registration Page Component
+ * 
+ * Handles user registration flow and form validation.
+ */
 const Register = () => {
+  // Form state
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirm, setPasswordConfirm] = useState('');
   const [agreedToTerms, setAgreedToTerms] = useState(false);
+  
+  // UI state
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  
+  // Hooks
   const navigate = useNavigate();
   const { toast } = useToast();
 
+  /**
+   * Handle Registration Form Submission
+   * 
+   * Validates form data and submits registration request.
+   * 
+   * Production implementation:
+   * - Validates input client-side
+   * - Sends registration data to Spring Boot backend
+   * - Handles success/failure responses
+   * - Redirects to onboarding on success
+   * 
+   * @param e Form event
+   */
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
     
     try {
-      // Validation
+      // Validation - passwords must match
       if (password !== passwordConfirm) {
         setError('Passwords do not match.');
         setLoading(false);
         return;
       }
       
+      // Validation - terms must be accepted
       if (!agreedToTerms) {
         setError('Please agree to the terms of use.');
         setLoading(false);
@@ -82,6 +121,19 @@ const Register = () => {
     }
   };
 
+  /**
+   * Handle Social Login
+   * 
+   * Initiates OAuth flow with selected provider.
+   * 
+   * Production implementation:
+   * - Redirects to OAuth provider
+   * - Provider redirects back with auth code
+   * - Backend exchanges code for user info
+   * - Creates or logs in user
+   * 
+   * @param provider OAuth provider name
+   */
   const handleSocialLogin = (provider: string) => {
     // 🔧 INTEGRATION: Replace with actual social login implementation
     // This would typically redirect to OAuth provider URL
@@ -108,6 +160,7 @@ const Register = () => {
               </Alert>
             )}
             <form onSubmit={handleRegister} className="space-y-4">
+              {/* Name field */}
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>
                 <Input 
@@ -118,6 +171,8 @@ const Register = () => {
                   required
                 />
               </div>
+              
+              {/* Email field */}
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input 
@@ -129,6 +184,8 @@ const Register = () => {
                   required
                 />
               </div>
+              
+              {/* Password field */}
               <div className="space-y-2">
                 <Label htmlFor="password">Password</Label>
                 <Input 
@@ -139,6 +196,8 @@ const Register = () => {
                   required
                 />
               </div>
+              
+              {/* Password confirmation */}
               <div className="space-y-2">
                 <Label htmlFor="passwordConfirm">Confirm Password</Label>
                 <Input 
@@ -149,6 +208,8 @@ const Register = () => {
                   required
                 />
               </div>
+              
+              {/* Terms acceptance */}
               <div className="flex items-center space-x-2">
                 <Checkbox 
                   id="terms" 
@@ -162,11 +223,14 @@ const Register = () => {
                   I agree to the <Link to="/terms" className="text-craft-wood hover:underline">Terms of Use</Link> and <Link to="/privacy" className="text-craft-wood hover:underline">Privacy Policy</Link>
                 </label>
               </div>
+              
+              {/* Submit button */}
               <Button type="submit" className="w-full" disabled={loading}>
                 {loading ? "Registering..." : "Sign up"}
               </Button>
             </form>
 
+            {/* Social login options */}
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -189,6 +253,8 @@ const Register = () => {
               </Button>
             </div>
           </CardContent>
+          
+          {/* Footer with login link */}
           <CardFooter className="flex flex-col space-y-4">
             <div className="text-sm text-center text-muted-foreground">
               Already have an account?{' '}
