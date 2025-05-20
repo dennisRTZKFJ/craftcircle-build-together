@@ -11,7 +11,7 @@ export const AppConfig = {
   // API configuration
   api: {
     // Base URL for Spring Boot REST API
-    baseUrl: process.env.REACT_APP_API_URL || 'https://api.craftcircle.com/v1',
+    baseUrl: import.meta.env.VITE_API_URL || 'https://api.craftcircle.com/v1',
     timeout: 10000, // 10 seconds
     endpoints: {
       // Auth endpoints
