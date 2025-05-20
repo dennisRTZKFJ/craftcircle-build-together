@@ -108,32 +108,18 @@ const Navbar = () => {
                 </Button>
               </>
             ) : (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="flex items-center gap-2">
-                    <Avatar className="h-6 w-6">
-                      <AvatarImage src={user?.avatar} alt={user?.name} />
-                      <AvatarFallback>{user?.name?.charAt(0) || "U"}</AvatarFallback>
-                    </Avatar>
-                    <span className="hidden sm:inline">{user?.name}</span>
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => navigate('/account')}>
+              <>
+                <Button variant="outline" size="sm" asChild>
+                  <Link to="/account">
                     <User className="h-4 w-4 mr-2" />
                     My Account
-                  </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => navigate('/dashboard')}>
-                    <Hammer className="h-4 w-4 mr-2" />
-                    My Workshop
-                  </DropdownMenuItem>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={handleSignOut}>
-                    <LogOut className="h-4 w-4 mr-2" />
-                    Sign Out
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
+                  </Link>
+                </Button>
+                <Button size="sm" onClick={handleSignOut}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Sign Out
+                </Button>
+              </>
             )}
           </div>
 
@@ -182,7 +168,7 @@ const Navbar = () => {
                       <Button className="w-full" variant="outline" asChild>
                         <Link to="/account">My Account</Link>
                       </Button>
-                      <Button className="w-full" variant="outline" onClick={handleSignOut}>
+                      <Button className="w-full" variant="destructive" onClick={handleSignOut}>
                         <LogOut className="h-4 w-4 mr-2" />
                         Sign Out
                       </Button>
@@ -236,4 +222,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
