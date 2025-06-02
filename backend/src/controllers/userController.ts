@@ -7,7 +7,10 @@
 
 import { Request, Response } from 'express';
 import User from '@/models/User';
+import Project from '@/models/Project';
 import Tutorial from '@/models/Tutorial';
+import Subscription from '@/models/Subscription';
+import ContentCreator from '@/models/ContentCreator';
 import { ApiResponse, AuthenticatedRequest } from '@/types';
 import { logger } from '@/utils/logger';
 
@@ -17,7 +20,14 @@ import { logger } from '@/utils/logger';
  */
 export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    if (!req.user) {
+    const user = await User.findById(req.userId)
+      .populate({
+        path: 'subscription',
+        model: Subscription
+      })
+      .lean();
+
+    if (!user) {
       const response: ApiResponse = {
         success: false,
         message: 'User not found'
@@ -25,10 +35,23 @@ export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) =
       return res.status(404).json(response);
     }
 
+    // Get subscription info
+    const subscription = await Subscription.findOne({ user: req.userId }).lean();
+
+    // Get creator profile if user is a creator
+    let creatorProfile = null;
+    if (user.role === 'creator') {
+      creatorProfile = await ContentCreator.findOne({ user: req.userId }).lean();
+    }
+
     const response: ApiResponse = {
       success: true,
       message: 'User profile retrieved successfully',
-      data: req.user.toJSON()
+      data: {
+        ...user,
+        subscription,
+        creatorProfile
+      }
     };
 
     res.json(response);
@@ -50,19 +73,21 @@ export const getCurrentUser = async (req: AuthenticatedRequest, res: Response) =
  */
 export const updateProfile = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const { name, bio, location, website, socialLinks } = req.body;
+    const allowedUpdates = [
+      'name', 'bio', 'location', 'website', 'socialLinks'
+    ];
+    
+    const updates: any = {};
+    Object.keys(req.body).forEach(key => {
+      if (allowedUpdates.includes(key)) {
+        updates[key] = req.body[key];
+      }
+    });
 
     const user = await User.findByIdAndUpdate(
       req.userId,
-      {
-        ...(name && { name }),
-        ...(bio && { bio }),
-        ...(location && { location }),
-        ...(website && { website }),
-        ...(socialLinks && { socialLinks }),
-        updatedAt: new Date()
-      },
-      { new: true }
+      { ...updates, updatedAt: new Date() },
+      { new: true, runValidators: true }
     );
 
     if (!user) {
@@ -76,7 +101,7 @@ export const updateProfile = async (req: AuthenticatedRequest, res: Response) =>
     const response: ApiResponse = {
       success: true,
       message: 'Profile updated successfully',
-      data: user.toJSON()
+      data: user
     };
 
     res.json(response);
@@ -98,7 +123,9 @@ export const updateProfile = async (req: AuthenticatedRequest, res: Response) =>
  */
 export const getUserSettings = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const user = await User.findById(req.userId).select('preferences');
+    const user = await User.findById(req.userId)
+      .select('preferences')
+      .lean();
 
     if (!user) {
       const response: ApiResponse = {
@@ -111,7 +138,7 @@ export const getUserSettings = async (req: AuthenticatedRequest, res: Response) 
     const response: ApiResponse = {
       success: true,
       message: 'User settings retrieved successfully',
-      data: { preferences: user.preferences }
+      data: user.preferences
     };
 
     res.json(response);
@@ -137,13 +164,8 @@ export const updateUserSettings = async (req: AuthenticatedRequest, res: Respons
 
     const user = await User.findByIdAndUpdate(
       req.userId,
-      { 
-        $set: { 
-          preferences: { ...preferences },
-          updatedAt: new Date()
-        }
-      },
-      { new: true }
+      { preferences, updatedAt: new Date() },
+      { new: true, runValidators: true }
     ).select('preferences');
 
     if (!user) {
@@ -157,13 +179,13 @@ export const updateUserSettings = async (req: AuthenticatedRequest, res: Respons
     const response: ApiResponse = {
       success: true,
       message: 'Settings updated successfully',
-      data: { preferences: user.preferences }
+      data: user.preferences
     };
 
     res.json(response);
 
   } catch (error) {
-    logger.error('Update user settings error:', error);
+    logger.error('Update settings error:', error);
     const response: ApiResponse = {
       success: false,
       message: 'Failed to update settings',
@@ -179,8 +201,9 @@ export const updateUserSettings = async (req: AuthenticatedRequest, res: Respons
  */
 export const uploadAvatar = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    // Mock implementation - in real app would handle file upload
-    const avatarUrl = '/uploads/avatars/default-avatar.png';
+    // In a real implementation, you'd handle file upload here
+    // For now, we'll just accept an avatar URL from the request body
+    const { avatarUrl } = req.body;
 
     const user = await User.findByIdAndUpdate(
       req.userId,
@@ -198,8 +221,8 @@ export const uploadAvatar = async (req: AuthenticatedRequest, res: Response) => 
 
     const response: ApiResponse = {
       success: true,
-      message: 'Avatar uploaded successfully',
-      data: { avatarUrl }
+      message: 'Avatar updated successfully',
+      data: { avatar: user.avatar }
     };
 
     res.json(response);
@@ -221,7 +244,11 @@ export const uploadAvatar = async (req: AuthenticatedRequest, res: Response) => 
  */
 export const getUserStats = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const user = await User.findById(req.userId).select('stats');
+    const [user, projectsCount, tutorialsCount] = await Promise.all([
+      User.findById(req.userId).select('stats').lean(),
+      Project.countDocuments({ user: req.userId }),
+      Tutorial.countDocuments({ author: req.userId })
+    ]);
 
     if (!user) {
       const response: ApiResponse = {
@@ -231,10 +258,24 @@ export const getUserStats = async (req: AuthenticatedRequest, res: Response) => 
       return res.status(404).json(response);
     }
 
+    // Get additional statistics
+    const [completedProjects, inProgressProjects] = await Promise.all([
+      Project.countDocuments({ user: req.userId, status: 'COMPLETED' }),
+      Project.countDocuments({ user: req.userId, status: 'IN_PROGRESS' })
+    ]);
+
+    const stats = {
+      ...user.stats,
+      totalProjects: projectsCount,
+      completedProjects,
+      inProgressProjects,
+      totalTutorials: tutorialsCount
+    };
+
     const response: ApiResponse = {
       success: true,
       message: 'User statistics retrieved successfully',
-      data: user.stats
+      data: stats
     };
 
     res.json(response);
@@ -256,11 +297,43 @@ export const getUserStats = async (req: AuthenticatedRequest, res: Response) => 
  */
 export const getUserProjects = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    // Mock implementation - would query Project model
+    const {
+      page = '1',
+      limit = '12',
+      status
+    } = req.query as any;
+
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    // Build filter
+    const filter: any = { user: req.userId };
+    
+    if (status) {
+      filter.status = status;
+    }
+
+    const [projects, total] = await Promise.all([
+      Project.find(filter)
+        .populate('tutorial', 'title thumbnail')
+        .sort({ updatedAt: -1 })
+        .skip(skip)
+        .limit(limitNum)
+        .lean(),
+      Project.countDocuments(filter)
+    ]);
+
     const response: ApiResponse = {
       success: true,
       message: 'User projects retrieved successfully',
-      data: []
+      data: projects,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
+      }
     };
 
     res.json(response);
@@ -282,15 +355,43 @@ export const getUserProjects = async (req: AuthenticatedRequest, res: Response) 
  */
 export const getUserTutorials = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    const tutorials = await Tutorial.find({ author: req.userId })
-      .sort({ createdAt: -1 })
-      .select('title description status stats createdAt')
-      .lean();
+    const {
+      page = '1',
+      limit = '12',
+      status
+    } = req.query as any;
+
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    // Build filter
+    const filter: any = { author: req.userId };
+    
+    if (status) {
+      filter.status = status;
+    }
+
+    const [tutorials, total] = await Promise.all([
+      Tutorial.find(filter)
+        .select('title description thumbnail category difficulty status stats publishedAt createdAt')
+        .sort({ updatedAt: -1 })
+        .skip(skip)
+        .limit(limitNum)
+        .lean(),
+      Tutorial.countDocuments(filter)
+    ]);
 
     const response: ApiResponse = {
       success: true,
       message: 'User tutorials retrieved successfully',
-      data: tutorials
+      data: tutorials,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
+      }
     };
 
     res.json(response);

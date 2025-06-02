@@ -2,15 +2,17 @@
 /**
  * Tutorial Controller
  * 
- * Handles all tutorial-related business logic including CRUD operations,
- * search, filtering, rating, and social interactions.
+ * Handles all tutorial-related operations including CRUD, search, rating, and interactions.
  */
 
 import { Request, Response } from 'express';
 import Tutorial from '@/models/Tutorial';
+import Rating from '@/models/Rating';
+import Comment from '@/models/Comment';
 import User from '@/models/User';
-import { ApiResponse, AuthenticatedRequest, SearchQuery } from '@/types';
+import { ApiResponse, AuthenticatedRequest } from '@/types';
 import { logger } from '@/utils/logger';
+import { createNotification } from './notificationController';
 
 /**
  * Get paginated list of tutorials with search and filtering
@@ -25,48 +27,53 @@ export const getTutorials = async (req: Request, res: Response) => {
       difficulty,
       tags,
       q,
-      sort = 'createdAt',
-      order = 'desc'
-    } = req.query as SearchQuery;
+      sort = 'newest'
+    } = req.query as any;
 
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
     const skip = (pageNum - 1) * limitNum;
 
-    // Build search filter
+    // Build filter
     const filter: any = { status: 'published' };
-
+    
     if (category) {
       filter.category = category;
     }
-
+    
     if (difficulty) {
       filter.difficulty = difficulty;
     }
-
+    
     if (tags) {
-      filter.tags = { $in: tags.split(',') };
+      const tagArray = tags.split(',').map((tag: string) => tag.trim());
+      filter.tags = { $in: tagArray };
     }
-
+    
     if (q) {
       filter.$text = { $search: q };
     }
 
-    // Build sort object
-    const sortObj: any = {};
-    if (sort === 'popularity') {
-      sortObj['stats.views'] = order === 'asc' ? 1 : -1;
-    } else if (sort === 'rating') {
-      sortObj['stats.averageRating'] = order === 'asc' ? 1 : -1;
-    } else {
-      sortObj[sort] = order === 'asc' ? 1 : -1;
+    // Build sort
+    let sortOption: any = { publishedAt: -1 }; // default: newest
+    
+    switch (sort) {
+      case 'popular':
+        sortOption = { 'stats.views': -1, 'stats.likes': -1 };
+        break;
+      case 'rating':
+        sortOption = { 'stats.averageRating': -1, 'stats.totalRatings': -1 };
+        break;
+      case 'oldest':
+        sortOption = { publishedAt: 1 };
+        break;
     }
 
-    // Execute queries
     const [tutorials, total] = await Promise.all([
       Tutorial.find(filter)
         .populate('author', 'name avatar')
-        .sort(sortObj)
+        .select('title description thumbnail category difficulty duration stats publishedAt')
+        .sort(sortOption)
         .skip(skip)
         .limit(limitNum)
         .lean(),
@@ -99,6 +106,60 @@ export const getTutorials = async (req: Request, res: Response) => {
 };
 
 /**
+ * Get featured tutorials
+ * GET /api/tutorials/featured
+ */
+export const getFeaturedTutorials = async (req: Request, res: Response) => {
+  try {
+    const tutorials = await Tutorial.getFeatured(5);
+
+    const response: ApiResponse = {
+      success: true,
+      message: 'Featured tutorials retrieved successfully',
+      data: tutorials
+    };
+
+    res.json(response);
+
+  } catch (error) {
+    logger.error('Get featured tutorials error:', error);
+    const response: ApiResponse = {
+      success: false,
+      message: 'Failed to retrieve featured tutorials',
+      error: 'Internal server error'
+    };
+    res.status(500).json(response);
+  }
+};
+
+/**
+ * Get trending tutorials
+ * GET /api/tutorials/trending
+ */
+export const getTrendingTutorials = async (req: Request, res: Response) => {
+  try {
+    const tutorials = await Tutorial.getTrending(10);
+
+    const response: ApiResponse = {
+      success: true,
+      message: 'Trending tutorials retrieved successfully',
+      data: tutorials
+    };
+
+    res.json(response);
+
+  } catch (error) {
+    logger.error('Get trending tutorials error:', error);
+    const response: ApiResponse = {
+      success: false,
+      message: 'Failed to retrieve trending tutorials',
+      error: 'Internal server error'
+    };
+    res.status(500).json(response);
+  }
+};
+
+/**
  * Get single tutorial by ID
  * GET /api/tutorials/:id
  */
@@ -107,7 +168,7 @@ export const getTutorialById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const tutorial = await Tutorial.findById(id)
-      .populate('author', 'name avatar bio')
+      .populate('author', 'name avatar bio website socialLinks')
       .lean();
 
     if (!tutorial) {
@@ -148,18 +209,26 @@ export const createTutorial = async (req: AuthenticatedRequest, res: Response) =
   try {
     const tutorialData = {
       ...req.body,
-      author: req.userId
+      author: req.userId,
+      stats: {
+        views: 0,
+        likes: 0,
+        dislikes: 0,
+        favorites: 0,
+        completions: 0,
+        averageRating: 0,
+        totalRatings: 0
+      }
     };
 
     const tutorial = new Tutorial(tutorialData);
     await tutorial.save();
+    await tutorial.populate('author', 'name avatar');
 
     // Update user stats
     await User.findByIdAndUpdate(req.userId, {
       $inc: { 'stats.tutorialsCreated': 1 }
     });
-
-    await tutorial.populate('author', 'name avatar');
 
     const response: ApiResponse = {
       success: true,
@@ -188,16 +257,16 @@ export const updateTutorial = async (req: AuthenticatedRequest, res: Response) =
   try {
     const { id } = req.params;
 
-    const tutorial = await Tutorial.findByIdAndUpdate(
-      id,
+    const tutorial = await Tutorial.findOneAndUpdate(
+      { _id: id, author: req.userId },
       { ...req.body, updatedAt: new Date() },
-      { new: true }
+      { new: true, runValidators: true }
     ).populate('author', 'name avatar');
 
     if (!tutorial) {
       const response: ApiResponse = {
         success: false,
-        message: 'Tutorial not found'
+        message: 'Tutorial not found or unauthorized'
       };
       return res.status(404).json(response);
     }
@@ -229,18 +298,21 @@ export const deleteTutorial = async (req: AuthenticatedRequest, res: Response) =
   try {
     const { id } = req.params;
 
-    const tutorial = await Tutorial.findByIdAndDelete(id);
+    const tutorial = await Tutorial.findOneAndDelete({
+      _id: id,
+      author: req.userId
+    });
 
     if (!tutorial) {
       const response: ApiResponse = {
         success: false,
-        message: 'Tutorial not found'
+        message: 'Tutorial not found or unauthorized'
       };
       return res.status(404).json(response);
     }
 
     // Update user stats
-    await User.findByIdAndUpdate(tutorial.author, {
+    await User.findByIdAndUpdate(req.userId, {
       $inc: { 'stats.tutorialsCreated': -1 }
     });
 
@@ -263,69 +335,37 @@ export const deleteTutorial = async (req: AuthenticatedRequest, res: Response) =
 };
 
 /**
- * Get featured tutorials
- * GET /api/tutorials/featured
- */
-export const getFeaturedTutorials = async (req: Request, res: Response) => {
-  try {
-    const tutorials = await (Tutorial as any).getFeatured(5);
-
-    const response: ApiResponse = {
-      success: true,
-      message: 'Featured tutorials retrieved successfully',
-      data: tutorials
-    };
-
-    res.json(response);
-
-  } catch (error) {
-    logger.error('Get featured tutorials error:', error);
-    const response: ApiResponse = {
-      success: false,
-      message: 'Failed to retrieve featured tutorials',
-      error: 'Internal server error'
-    };
-    res.status(500).json(response);
-  }
-};
-
-/**
- * Get trending tutorials
- * GET /api/tutorials/trending
- */
-export const getTrendingTutorials = async (req: Request, res: Response) => {
-  try {
-    const tutorials = await (Tutorial as any).getTrending(10);
-
-    const response: ApiResponse = {
-      success: true,
-      message: 'Trending tutorials retrieved successfully',
-      data: tutorials
-    };
-
-    res.json(response);
-
-  } catch (error) {
-    logger.error('Get trending tutorials error:', error);
-    const response: ApiResponse = {
-      success: false,
-      message: 'Failed to retrieve trending tutorials',
-      error: 'Internal server error'
-    };
-    res.status(500).json(response);
-  }
-};
-
-/**
- * Like/unlike tutorial
+ * Like or unlike tutorial
  * POST /api/tutorials/:id/like
  */
 export const likeTutorial = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id } = req.params;
-    
-    // Implementation would check if user already liked and toggle
+
+    const tutorial = await Tutorial.findById(id);
+    if (!tutorial) {
+      const response: ApiResponse = {
+        success: false,
+        message: 'Tutorial not found'
+      };
+      return res.status(404).json(response);
+    }
+
+    // In a production app, you'd track who liked what to prevent double-liking
+    // For now, just increment the counter
     await Tutorial.findByIdAndUpdate(id, { $inc: { 'stats.likes': 1 } });
+
+    // Create notification for tutorial author
+    if (tutorial.author.toString() !== req.userId) {
+      await createNotification(
+        tutorial.author.toString(),
+        'tutorial_like',
+        'Tutorial Liked',
+        `Someone liked your tutorial "${tutorial.title}"`,
+        { tutorialId: id },
+        `/tutorials/${id}`
+      );
+    }
 
     const response: ApiResponse = {
       success: true,
@@ -354,28 +394,40 @@ export const rateTutorial = async (req: AuthenticatedRequest, res: Response) => 
     const { id } = req.params;
     const { rating } = req.body;
 
-    const tutorial = await Tutorial.findById(id);
-    if (!tutorial) {
-      const response: ApiResponse = {
-        success: false,
-        message: 'Tutorial not found'
-      };
-      return res.status(404).json(response);
+    // Check if user already rated this tutorial
+    const existingRating = await Rating.findOne({
+      user: req.userId,
+      target: id,
+      targetModel: 'Tutorial'
+    });
+
+    if (existingRating) {
+      // Update existing rating
+      existingRating.stars = rating;
+      await existingRating.save();
+    } else {
+      // Create new rating
+      await Rating.create({
+        user: req.userId,
+        target: id,
+        targetModel: 'Tutorial',
+        stars: rating
+      });
     }
 
-    // Calculate new average rating
-    const newTotalRatings = tutorial.stats.totalRatings + 1;
-    const newAverageRating = 
-      (tutorial.stats.averageRating * tutorial.stats.totalRatings + rating) / newTotalRatings;
+    // Recalculate tutorial average rating
+    const ratings = await Rating.find({ target: id, targetModel: 'Tutorial' });
+    const averageRating = ratings.reduce((sum, r) => sum + r.stars, 0) / ratings.length;
 
     await Tutorial.findByIdAndUpdate(id, {
-      'stats.averageRating': newAverageRating,
-      'stats.totalRatings': newTotalRatings
+      'stats.averageRating': Math.round(averageRating * 10) / 10,
+      'stats.totalRatings': ratings.length
     });
 
     const response: ApiResponse = {
       success: true,
-      message: 'Tutorial rated successfully'
+      message: 'Tutorial rated successfully',
+      data: { rating, averageRating }
     };
 
     res.json(response);
@@ -397,20 +449,42 @@ export const rateTutorial = async (req: AuthenticatedRequest, res: Response) => 
  */
 export const getTutorialComments = async (req: Request, res: Response) => {
   try {
-    // Mock implementation - in real app would have Comment model
+    const { id } = req.params;
+    const { page = '1', limit = '20' } = req.query as any;
+
+    const pageNum = parseInt(page);
+    const limitNum = parseInt(limit);
+    const skip = (pageNum - 1) * limitNum;
+
+    const [comments, total] = await Promise.all([
+      Comment.find({ thread: id, threadModel: 'Tutorial' })
+        .populate('author', 'name avatar')
+        .sort({ createdAt: -1 })
+        .skip(skip)
+        .limit(limitNum)
+        .lean(),
+      Comment.countDocuments({ thread: id, threadModel: 'Tutorial' })
+    ]);
+
     const response: ApiResponse = {
       success: true,
-      message: 'Comments retrieved successfully',
-      data: []
+      message: 'Tutorial comments retrieved successfully',
+      data: comments,
+      pagination: {
+        page: pageNum,
+        limit: limitNum,
+        total,
+        pages: Math.ceil(total / limitNum)
+      }
     };
 
     res.json(response);
 
   } catch (error) {
-    logger.error('Get comments error:', error);
+    logger.error('Get tutorial comments error:', error);
     const response: ApiResponse = {
       success: false,
-      message: 'Failed to retrieve comments',
+      message: 'Failed to retrieve tutorial comments',
       error: 'Internal server error'
     };
     res.status(500).json(response);
@@ -423,16 +497,51 @@ export const getTutorialComments = async (req: Request, res: Response) => {
  */
 export const addTutorialComment = async (req: AuthenticatedRequest, res: Response) => {
   try {
-    // Mock implementation - in real app would create Comment document
+    const { id } = req.params;
+    const { content, parentReply } = req.body;
+
+    const tutorial = await Tutorial.findById(id);
+    if (!tutorial) {
+      const response: ApiResponse = {
+        success: false,
+        message: 'Tutorial not found'
+      };
+      return res.status(404).json(response);
+    }
+
+    const comment = new Comment({
+      thread: id,
+      threadModel: 'Tutorial',
+      author: req.userId,
+      content,
+      parentReply: parentReply || undefined
+    });
+
+    await comment.save();
+    await comment.populate('author', 'name avatar');
+
+    // Create notification for tutorial author
+    if (tutorial.author.toString() !== req.userId) {
+      await createNotification(
+        tutorial.author.toString(),
+        'comment',
+        'New Comment',
+        `Someone commented on your tutorial "${tutorial.title}"`,
+        { tutorialId: id, commentId: comment._id },
+        `/tutorials/${id}`
+      );
+    }
+
     const response: ApiResponse = {
       success: true,
-      message: 'Comment added successfully'
+      message: 'Comment added successfully',
+      data: comment
     };
 
-    res.json(response);
+    res.status(201).json(response);
 
   } catch (error) {
-    logger.error('Add comment error:', error);
+    logger.error('Add tutorial comment error:', error);
     const response: ApiResponse = {
       success: false,
       message: 'Failed to add comment',

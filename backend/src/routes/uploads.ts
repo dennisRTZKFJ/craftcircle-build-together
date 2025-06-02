@@ -18,14 +18,47 @@ const router = express.Router();
 
 // Configure multer for file uploads
 const upload = multer({
-  dest: 'uploads/',
+  dest: 'uploads/temp/',
   limits: {
-    fileSize: parseInt(process.env.UPLOAD_MAX_SIZE || '10485760') // 10MB
+    fileSize: parseInt(process.env.UPLOAD_MAX_SIZE || '10485760') // 10MB default
+  },
+  fileFilter: (req, file, cb) => {
+    // Basic file type validation
+    const allowedTypes = [
+      'image/jpeg', 'image/png', 'image/gif', 'image/webp',
+      'video/mp4', 'video/webm', 'video/ogg'
+    ];
+    
+    if (allowedTypes.includes(file.mimetype)) {
+      cb(null, true);
+    } else {
+      cb(new Error('Invalid file type'), false);
+    }
   }
 });
 
-router.post('/image', [authenticateToken(), upload.single('image')], uploadImage);
-router.post('/video', [authenticateToken(), upload.single('video')], uploadVideo);
+/**
+ * POST /api/uploads/image
+ * Upload image file
+ */
+router.post('/image', [
+  authenticateToken(),
+  upload.single('image')
+], uploadImage);
+
+/**
+ * POST /api/uploads/video
+ * Upload video file
+ */
+router.post('/video', [
+  authenticateToken(),
+  upload.single('video')
+], uploadVideo);
+
+/**
+ * DELETE /api/uploads/:filename
+ * Delete uploaded file
+ */
 router.delete('/:filename', authenticateToken(), deleteFile);
 
 export default router;
