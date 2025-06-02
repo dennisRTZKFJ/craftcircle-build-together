@@ -3,11 +3,11 @@
  * Video Controller
  * 
  * Handles video content management for tutorials and projects.
+ * Manages video uploads, metadata, and statistics.
  */
 
 import { Request, Response } from 'express';
 import Video from '@/models/Video';
-import ViewPost from '@/models/ViewPost';
 import { ApiResponse, AuthenticatedRequest } from '@/types';
 import { logger } from '@/utils/logger';
 
@@ -22,7 +22,8 @@ export const getVideos = async (req: Request, res: Response) => {
       limit = '12',
       uploader,
       project,
-      tutorial
+      tutorial,
+      sort = 'recent'
     } = req.query as any;
 
     const pageNum = parseInt(page);
@@ -44,12 +45,27 @@ export const getVideos = async (req: Request, res: Response) => {
       filter.associatedTutorial = tutorial;
     }
 
+    // Build sort options
+    let sortOptions: any = {};
+    switch (sort) {
+      case 'popular':
+        sortOptions = { views: -1, likes: -1 };
+        break;
+      case 'liked':
+        sortOptions = { likes: -1 };
+        break;
+      case 'recent':
+      default:
+        sortOptions = { uploadDate: -1 };
+        break;
+    }
+
     const [videos, total] = await Promise.all([
       Video.find(filter)
         .populate('uploader', 'name avatar')
         .populate('associatedProject', 'title')
         .populate('associatedTutorial', 'title')
-        .sort({ uploadDate: -1 })
+        .sort(sortOptions)
         .skip(skip)
         .limit(limitNum)
         .lean(),
@@ -90,7 +106,7 @@ export const getVideoById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const video = await Video.findById(id)
-      .populate('uploader', 'name avatar bio')
+      .populate('uploader', 'name avatar role')
       .populate('associatedProject', 'title description')
       .populate('associatedTutorial', 'title description')
       .lean();
@@ -109,13 +125,13 @@ export const getVideoById = async (req: Request, res: Response) => {
     const response: ApiResponse = {
       success: true,
       message: 'Video retrieved successfully',
-      data: video
+      data: { ...video, views: video.views + 1 }
     };
 
     res.json(response);
 
   } catch (error) {
-    logger.error('Get video error:', error);
+    logger.error('Get video by ID error:', error);
     const response: ApiResponse = {
       success: false,
       message: 'Failed to retrieve video',
@@ -134,11 +150,14 @@ export const uploadVideo = async (req: AuthenticatedRequest, res: Response) => {
     const videoData = {
       ...req.body,
       uploader: req.userId,
-      uploadDate: new Date()
+      uploadDate: new Date(),
+      views: 0,
+      likes: 0
     };
 
     const video = new Video(videoData);
     await video.save();
+
     await video.populate('uploader', 'name avatar');
 
     const response: ApiResponse = {
@@ -169,7 +188,7 @@ export const updateVideo = async (req: AuthenticatedRequest, res: Response) => {
     const { id } = req.params;
 
     const video = await Video.findOneAndUpdate(
-      { _id: id, uploader: req.userId }, // Ensure user can only update their own videos
+      { _id: id, uploader: req.userId },
       { ...req.body, updatedAt: new Date() },
       { new: true }
     ).populate('uploader', 'name avatar');
@@ -177,7 +196,7 @@ export const updateVideo = async (req: AuthenticatedRequest, res: Response) => {
     if (!video) {
       const response: ApiResponse = {
         success: false,
-        message: 'Video not found or unauthorized'
+        message: 'Video not found or access denied'
       };
       return res.status(404).json(response);
     }
@@ -211,13 +230,13 @@ export const deleteVideo = async (req: AuthenticatedRequest, res: Response) => {
 
     const video = await Video.findOneAndDelete({
       _id: id,
-      uploader: req.userId // Ensure user can only delete their own videos
+      uploader: req.userId
     });
 
     if (!video) {
       const response: ApiResponse = {
         success: false,
-        message: 'Video not found or unauthorized'
+        message: 'Video not found or access denied'
       };
       return res.status(404).json(response);
     }
@@ -248,8 +267,16 @@ export const likeVideo = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id } = req.params;
 
-    // In a production app, you'd track who liked what to prevent double-liking
-    // For now, just increment the counter
+    const video = await Video.findById(id);
+    if (!video) {
+      const response: ApiResponse = {
+        success: false,
+        message: 'Video not found'
+      };
+      return res.status(404).json(response);
+    }
+
+    // Simple like increment (in real app, would track who liked)
     await Video.findByIdAndUpdate(id, { $inc: { likes: 1 } });
 
     const response: ApiResponse = {
@@ -271,44 +298,32 @@ export const likeVideo = async (req: AuthenticatedRequest, res: Response) => {
 };
 
 /**
- * Get video statistics (creator/admin only)
+ * Get video statistics
  * GET /api/videos/:id/stats
  */
 export const getVideoStats = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id } = req.params;
 
-    const video = await Video.findById(id);
+    const video = await Video.findOne({
+      _id: id,
+      uploader: req.userId
+    }).lean();
+
     if (!video) {
       const response: ApiResponse = {
         success: false,
-        message: 'Video not found'
+        message: 'Video not found or access denied'
       };
       return res.status(404).json(response);
     }
 
-    // Get detailed analytics (mock implementation)
     const stats = {
-      totalViews: video.views,
-      totalLikes: video.likes,
-      engagementRate: video.views > 0 ? (video.likes / video.views * 100).toFixed(2) : 0,
-      averageWatchTime: Math.floor(video.duration * 0.7), // Mock average watch time
-      demographics: {
-        // Mock demographic data
-        ageGroups: {
-          '18-24': 30,
-          '25-34': 45,
-          '35-44': 20,
-          '45+': 5
-        },
-        countries: {
-          'US': 40,
-          'UK': 20,
-          'CA': 15,
-          'AU': 10,
-          'Other': 15
-        }
-      }
+      views: video.views,
+      likes: video.likes,
+      duration: video.duration,
+      uploadDate: video.uploadDate,
+      engagementRate: video.views > 0 ? ((video.likes / video.views) * 100).toFixed(2) : 0
     };
 
     const response: ApiResponse = {

@@ -3,16 +3,18 @@
  * Community Controller
  * 
  * Handles forum posts, discussions, and community interactions.
+ * Manages the social aspects of the DIY community platform.
  */
 
 import { Request, Response } from 'express';
 import CommunityPost from '@/models/CommunityPost';
 import Comment from '@/models/Comment';
-import { ApiResponse, AuthenticatedRequest, SearchQuery } from '@/types';
+import ViewPost from '@/models/ViewPost';
+import { ApiResponse, AuthenticatedRequest } from '@/types';
 import { logger } from '@/utils/logger';
 
 /**
- * Get all forum posts with pagination and filtering
+ * Get forum posts with pagination and filtering
  * GET /api/community/posts
  */
 export const getForumPosts = async (req: Request, res: Response) => {
@@ -21,10 +23,9 @@ export const getForumPosts = async (req: Request, res: Response) => {
       page = '1',
       limit = '10',
       category,
-      q,
-      sort = 'createdAt',
-      order = 'desc'
-    } = req.query as SearchQuery;
+      status = 'open',
+      sort = 'recent'
+    } = req.query as any;
 
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
@@ -36,23 +37,31 @@ export const getForumPosts = async (req: Request, res: Response) => {
     if (category) {
       filter.category = category;
     }
-
-    if (q) {
-      filter.$or = [
-        { title: { $regex: q, $options: 'i' } },
-        { content: { $regex: q, $options: 'i' } }
-      ];
+    
+    if (status && status !== 'all') {
+      filter.status = status;
     }
 
-    // Build sort
-    const sortObj: any = {};
-    sortObj[sort] = order === 'asc' ? 1 : -1;
+    // Build sort options
+    let sortOptions: any = {};
+    switch (sort) {
+      case 'popular':
+        sortOptions = { 'stats.likes': -1, 'stats.views': -1 };
+        break;
+      case 'active':
+        sortOptions = { 'stats.lastActivity': -1 };
+        break;
+      case 'recent':
+      default:
+        sortOptions = { createdAt: -1 };
+        break;
+    }
 
-    // Get posts with pagination
     const [posts, total] = await Promise.all([
       CommunityPost.find(filter)
-        .populate('author', 'name avatar')
-        .sort(sortObj)
+        .populate('author', 'name avatar role')
+        .populate('solutionReply')
+        .sort(sortOptions)
         .skip(skip)
         .limit(limitNum)
         .lean(),
@@ -61,7 +70,7 @@ export const getForumPosts = async (req: Request, res: Response) => {
 
     const response: ApiResponse = {
       success: true,
-      message: 'Posts retrieved successfully',
+      message: 'Forum posts retrieved successfully',
       data: posts,
       pagination: {
         page: pageNum,
@@ -77,7 +86,7 @@ export const getForumPosts = async (req: Request, res: Response) => {
     logger.error('Get forum posts error:', error);
     const response: ApiResponse = {
       success: false,
-      message: 'Failed to retrieve posts',
+      message: 'Failed to retrieve forum posts',
       error: 'Internal server error'
     };
     res.status(500).json(response);
@@ -91,9 +100,12 @@ export const getForumPosts = async (req: Request, res: Response) => {
 export const getPostById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+    const userId = (req as any).userId; // From optional auth
 
+    // Get post with author details
     const post = await CommunityPost.findById(id)
-      .populate('author', 'name avatar bio')
+      .populate('author', 'name avatar role')
+      .populate('solutionReply')
       .lean();
 
     if (!post) {
@@ -108,37 +120,50 @@ export const getPostById = async (req: Request, res: Response) => {
     const comments = await Comment.find({ 
       thread: id, 
       threadModel: 'CommunityPost',
-      parentReply: { $exists: false } // Only top-level comments
+      parentReply: { $exists: false } // Top-level comments only
     })
-      .populate('author', 'name avatar')
+      .populate('author', 'name avatar role')
+      .populate({
+        path: 'replies',
+        populate: {
+          path: 'author',
+          select: 'name avatar role'
+        }
+      })
       .sort({ createdAt: -1 })
       .lean();
 
-    // Get replies for each comment
-    for (let comment of comments) {
-      const replies = await Comment.find({ parentReply: comment._id })
-        .populate('author', 'name avatar')
-        .sort({ createdAt: 1 })
-        .lean();
-      (comment as any).replies = replies;
-    }
+    // Increment view count if user is authenticated
+    if (userId) {
+      await CommunityPost.findByIdAndUpdate(id, {
+        $inc: { 'stats.views': 1 },
+        'stats.lastActivity': new Date()
+      });
 
-    // Increment view count
-    await CommunityPost.findByIdAndUpdate(id, { 
-      $inc: { 'stats.views': 1 },
-      'stats.lastActivity': new Date()
-    });
+      // Track user view
+      await ViewPost.findOneAndUpdate(
+        { user: userId, post: id },
+        { 
+          user: userId, 
+          post: id, 
+          viewDate: new Date(),
+          ipAddress: req.ip,
+          deviceType: req.get('User-Agent')
+        },
+        { upsert: true, new: true }
+      );
+    }
 
     const response: ApiResponse = {
       success: true,
       message: 'Post retrieved successfully',
-      data: { ...post, comments }
+      data: { post, comments }
     };
 
     res.json(response);
 
   } catch (error) {
-    logger.error('Get post error:', error);
+    logger.error('Get post by ID error:', error);
     const response: ApiResponse = {
       success: false,
       message: 'Failed to retrieve post',
@@ -156,12 +181,20 @@ export const createPost = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const postData = {
       ...req.body,
-      author: req.userId
+      author: req.userId,
+      stats: {
+        views: 0,
+        replies: 0,
+        likes: 0,
+        lastActivity: new Date()
+      }
     };
 
     const post = new CommunityPost(postData);
     await post.save();
-    await post.populate('author', 'name avatar');
+
+    // Populate author details for response
+    await post.populate('author', 'name avatar role');
 
     const response: ApiResponse = {
       success: true,
@@ -191,7 +224,7 @@ export const addComment = async (req: AuthenticatedRequest, res: Response) => {
     const { id } = req.params;
     const { content, parentReply } = req.body;
 
-    // Check if post exists
+    // Verify post exists
     const post = await CommunityPost.findById(id);
     if (!post) {
       const response: ApiResponse = {
@@ -201,6 +234,7 @@ export const addComment = async (req: AuthenticatedRequest, res: Response) => {
       return res.status(404).json(response);
     }
 
+    // Create comment
     const comment = new Comment({
       thread: id,
       threadModel: 'CommunityPost',
@@ -210,10 +244,10 @@ export const addComment = async (req: AuthenticatedRequest, res: Response) => {
     });
 
     await comment.save();
-    await comment.populate('author', 'name avatar');
+    await comment.populate('author', 'name avatar role');
 
     // Update post stats
-    await CommunityPost.findByIdAndUpdate(id, { 
+    await CommunityPost.findByIdAndUpdate(id, {
       $inc: { 'stats.replies': 1 },
       'stats.lastActivity': new Date()
     });
@@ -224,7 +258,7 @@ export const addComment = async (req: AuthenticatedRequest, res: Response) => {
       data: comment
     };
 
-    res.json(response);
+    res.status(201).json(response);
 
   } catch (error) {
     logger.error('Add comment error:', error);
@@ -238,16 +272,25 @@ export const addComment = async (req: AuthenticatedRequest, res: Response) => {
 };
 
 /**
- * Like/unlike a post
+ * Like/unlike post
  * POST /api/community/posts/:id/like
  */
 export const likePost = async (req: AuthenticatedRequest, res: Response) => {
   try {
     const { id } = req.params;
 
-    // In a real app, you'd track which users liked what to prevent double-liking
-    // For now, just increment the counter
-    await CommunityPost.findByIdAndUpdate(id, { 
+    const post = await CommunityPost.findById(id);
+    if (!post) {
+      const response: ApiResponse = {
+        success: false,
+        message: 'Post not found'
+      };
+      return res.status(404).json(response);
+    }
+
+    // Toggle like logic would go here
+    // For simplicity, just increment likes
+    await CommunityPost.findByIdAndUpdate(id, {
       $inc: { 'stats.likes': 1 },
       'stats.lastActivity': new Date()
     });

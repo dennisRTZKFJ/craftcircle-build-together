@@ -3,16 +3,17 @@
  * Challenge Controller
  * 
  * Handles DIY challenges, submissions, and voting.
+ * Manages the competitive aspects of the DIY community.
  */
 
 import { Request, Response } from 'express';
 import Challenge from '@/models/Challenge';
 import ChallengeParticipant from '@/models/ChallengeParticipant';
-import { ApiResponse, AuthenticatedRequest, SearchQuery } from '@/types';
+import { ApiResponse, AuthenticatedRequest } from '@/types';
 import { logger } from '@/utils/logger';
 
 /**
- * Get all challenges with filtering
+ * Get all challenges with filtering and pagination
  * GET /api/challenges
  */
 export const getChallenges = async (req: Request, res: Response) => {
@@ -22,9 +23,8 @@ export const getChallenges = async (req: Request, res: Response) => {
       limit = '10',
       status,
       category,
-      difficulty,
-      q
-    } = req.query as SearchQuery;
+      difficulty
+    } = req.query as any;
 
     const pageNum = parseInt(page);
     const limitNum = parseInt(limit);
@@ -45,17 +45,11 @@ export const getChallenges = async (req: Request, res: Response) => {
       filter.difficulty = difficulty;
     }
 
-    if (q) {
-      filter.$or = [
-        { title: { $regex: q, $options: 'i' } },
-        { description: { $regex: q, $options: 'i' } }
-      ];
-    }
-
     const [challenges, total] = await Promise.all([
       Challenge.find(filter)
         .populate('creator', 'name avatar')
-        .sort({ startDate: -1 })
+        .populate('judges', 'name avatar')
+        .sort({ createdAt: -1 })
         .skip(skip)
         .limit(limitNum)
         .lean(),
@@ -88,7 +82,7 @@ export const getChallenges = async (req: Request, res: Response) => {
 };
 
 /**
- * Get single challenge by ID
+ * Get single challenge by ID with submissions
  * GET /api/challenges/:id
  */
 export const getChallengeById = async (req: Request, res: Response) => {
@@ -96,8 +90,8 @@ export const getChallengeById = async (req: Request, res: Response) => {
     const { id } = req.params;
 
     const challenge = await Challenge.findById(id)
-      .populate('creator', 'name avatar')
-      .populate('judges', 'name avatar')
+      .populate('creator', 'name avatar role')
+      .populate('judges', 'name avatar role')
       .lean();
 
     if (!challenge) {
@@ -108,22 +102,25 @@ export const getChallengeById = async (req: Request, res: Response) => {
       return res.status(404).json(response);
     }
 
-    // Get participants/submissions
-    const participants = await ChallengeParticipant.find({ challenge: id })
-      .populate('user', 'name avatar')
-      .sort({ submittedAt: -1 })
+    // Get submissions for this challenge
+    const submissions = await ChallengeParticipant.find({ 
+      challenge: id,
+      title: { $exists: true } // Only get actual submissions, not just registrations
+    })
+      .populate('user', 'name avatar role')
+      .sort({ votes: -1, submittedAt: -1 })
       .lean();
 
     const response: ApiResponse = {
       success: true,
       message: 'Challenge retrieved successfully',
-      data: { ...challenge, participants }
+      data: { challenge, submissions }
     };
 
     res.json(response);
 
   } catch (error) {
-    logger.error('Get challenge error:', error);
+    logger.error('Get challenge by ID error:', error);
     const response: ApiResponse = {
       success: false,
       message: 'Failed to retrieve challenge',
@@ -141,12 +138,18 @@ export const createChallenge = async (req: AuthenticatedRequest, res: Response) 
   try {
     const challengeData = {
       ...req.body,
-      creator: req.userId
+      creator: req.userId,
+      stats: {
+        participants: 0,
+        submissions: 0,
+        totalVotes: 0
+      }
     };
 
     const challenge = new Challenge(challengeData);
     await challenge.save();
-    await challenge.populate('creator', 'name avatar');
+
+    await challenge.populate('creator', 'name avatar role');
 
     const response: ApiResponse = {
       success: true,
@@ -175,7 +178,7 @@ export const submitToChallenge = async (req: AuthenticatedRequest, res: Response
   try {
     const { id } = req.params;
 
-    // Check if challenge exists and is active
+    // Verify challenge exists and is active
     const challenge = await Challenge.findById(id);
     if (!challenge) {
       const response: ApiResponse = {
@@ -188,55 +191,50 @@ export const submitToChallenge = async (req: AuthenticatedRequest, res: Response
     if (challenge.status !== 'active') {
       const response: ApiResponse = {
         success: false,
-        message: 'Challenge is not active for submissions'
+        message: 'Challenge is not accepting submissions'
       };
       return res.status(400).json(response);
     }
 
-    // Check if user already participated
-    const existingParticipant = await ChallengeParticipant.findOne({
+    // Check if user is already registered
+    let participant = await ChallengeParticipant.findOne({
       challenge: id,
       user: req.userId
     });
 
-    if (existingParticipant) {
-      // Update existing submission
-      Object.assign(existingParticipant, req.body, { submittedAt: new Date() });
-      await existingParticipant.save();
-      await existingParticipant.populate('user', 'name avatar');
-
-      const response: ApiResponse = {
-        success: true,
-        message: 'Submission updated successfully',
-        data: existingParticipant
-      };
-
-      return res.json(response);
+    if (!participant) {
+      // Register user for challenge first
+      participant = new ChallengeParticipant({
+        challenge: id,
+        user: req.userId,
+        registrationDate: new Date()
+      });
     }
 
-    // Create new submission
-    const submission = new ChallengeParticipant({
-      challenge: id,
-      user: req.userId,
+    // Add submission data
+    Object.assign(participant, {
       ...req.body,
-      submittedAt: new Date()
+      submittedAt: new Date(),
+      votes: 0
     });
 
-    await submission.save();
-    await submission.populate('user', 'name avatar');
+    await participant.save();
 
     // Update challenge stats
     await Challenge.findByIdAndUpdate(id, {
-      $inc: { 'stats.participants': 1, 'stats.submissions': 1 }
+      $inc: { 
+        'stats.submissions': participant.submittedAt ? 1 : 0,
+        'stats.participants': participant.registrationDate ? 1 : 0
+      }
     });
 
     const response: ApiResponse = {
       success: true,
       message: 'Submission created successfully',
-      data: submission
+      data: participant
     };
 
-    res.json(response);
+    res.status(201).json(response);
 
   } catch (error) {
     logger.error('Submit to challenge error:', error);
@@ -257,9 +255,23 @@ export const voteOnSubmission = async (req: AuthenticatedRequest, res: Response)
   try {
     const { id } = req.params;
 
-    // In a real app, you'd track who voted to prevent double voting
+    const submission = await ChallengeParticipant.findById(id);
+    if (!submission) {
+      const response: ApiResponse = {
+        success: false,
+        message: 'Submission not found'
+      };
+      return res.status(404).json(response);
+    }
+
+    // Simple vote increment (in real app, would track who voted)
     await ChallengeParticipant.findByIdAndUpdate(id, {
       $inc: { votes: 1 }
+    });
+
+    // Update challenge total votes
+    await Challenge.findByIdAndUpdate(submission.challenge, {
+      $inc: { 'stats.totalVotes': 1 }
     });
 
     const response: ApiResponse = {

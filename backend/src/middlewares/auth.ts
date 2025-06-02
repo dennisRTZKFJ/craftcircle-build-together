@@ -2,178 +2,191 @@
 /**
  * Authentication Middleware
  * 
- * Provides middleware functions for:
- * - JWT token validation
- * - Role-based access control
- * - User authentication verification
+ * Handles JWT token verification, role-based access control,
+ * and ownership verification for protected routes.
  */
 
-import { Response, NextFunction } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import User from '@/models/User';
 import { AuthenticatedRequest, ApiResponse } from '@/types';
 import { logger } from '@/utils/logger';
 
 /**
- * Authenticate JWT Token Middleware
- * 
- * Verifies JWT token from Authorization header and attaches user to request.
- * Can be used as either required authentication or optional authentication.
- * 
- * @param required - Whether authentication is required (default: true)
+ * Interface for JWT payload
+ */
+interface JWTPayload {
+  userId: string;
+  email: string;
+  role: string;
+  iat: number;
+  exp: number;
+}
+
+/**
+ * Authenticate JWT token middleware
+ * Verifies the JWT token and attaches user info to request
  */
 export const authenticateToken = (required: boolean = true) => {
-  return async (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const authHeader = req.headers.authorization;
       const token = authHeader && authHeader.split(' ')[1]; // Bearer TOKEN
-      
+
       if (!token) {
-        if (required) {
-          const response: ApiResponse = {
-            success: false,
-            message: 'Access token is required'
-          };
-          return res.status(401).json(response);
+        if (!required) {
+          return next(); // Continue without authentication for optional auth
         }
-        return next(); // Optional authentication, continue without user
+        
+        const response: ApiResponse = {
+          success: false,
+          message: 'Access token required'
+        };
+        return res.status(401).json(response);
       }
-      
-      // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET!) as any;
-      
-      // Get user from database
-      const user = await User.findById(decoded.userId);
+
+      // Verify JWT token
+      const decoded = jwt.verify(
+        token, 
+        process.env.JWT_SECRET || 'fallback-secret'
+      ) as JWTPayload;
+
+      // Attach user info to request
+      (req as AuthenticatedRequest).userId = decoded.userId;
+      (req as AuthenticatedRequest).userRole = decoded.role;
+      (req as AuthenticatedRequest).userEmail = decoded.email;
+
+      // Verify user still exists and is active
+      const user = await User.findById(decoded.userId).select('isActive role');
       if (!user || !user.isActive) {
         const response: ApiResponse = {
           success: false,
-          message: 'Invalid or expired token'
+          message: 'User account not found or inactive'
         };
         return res.status(401).json(response);
       }
-      
-      // Attach user to request
-      req.user = user;
-      req.userId = user._id.toString();
-      
+
       next();
-      
+
     } catch (error) {
-      logger.error('Token authentication error:', error);
+      logger.error('Authentication error:', error);
       
-      if (required) {
+      if (error instanceof jwt.JsonWebTokenError) {
         const response: ApiResponse = {
           success: false,
-          message: 'Invalid or expired token'
+          message: 'Invalid access token'
         };
         return res.status(401).json(response);
       }
-      
-      next(); // Optional authentication, continue without user
+
+      if (error instanceof jwt.TokenExpiredError) {
+        const response: ApiResponse = {
+          success: false,
+          message: 'Access token expired'
+        };
+        return res.status(401).json(response);
+      }
+
+      const response: ApiResponse = {
+        success: false,
+        message: 'Authentication failed'
+      };
+      res.status(500).json(response);
     }
   };
 };
 
 /**
- * Role-based Access Control Middleware
- * 
- * Restricts access based on user roles.
- * Must be used after authenticateToken middleware.
- * 
- * @param allowedRoles - Array of roles that are allowed access
+ * Optional authentication middleware
+ * Attempts to authenticate but doesn't fail if no token provided
+ */
+export const optionalAuth = authenticateToken(false);
+
+/**
+ * Role-based access control middleware
+ * Restricts access based on user roles
  */
 export const requireRole = (...allowedRoles: string[]) => {
-  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-    if (!req.user) {
-      const response: ApiResponse = {
-        success: false,
-        message: 'Authentication required'
-      };
-      return res.status(401).json(response);
-    }
-    
-    if (!allowedRoles.includes(req.user.role)) {
+  return (req: Request, res: Response, next: NextFunction) => {
+    const userRole = (req as AuthenticatedRequest).userRole;
+
+    if (!userRole || !allowedRoles.includes(userRole)) {
       const response: ApiResponse = {
         success: false,
         message: 'Insufficient permissions'
       };
       return res.status(403).json(response);
     }
-    
+
     next();
   };
 };
 
 /**
- * Resource Owner or Admin Middleware
- * 
- * Allows access if user is the owner of the resource or has admin role.
- * Must be used after authenticateToken middleware.
- * 
- * @param getResourceOwnerId - Function to extract owner ID from request
+ * Ownership verification middleware
+ * Ensures user can only access their own resources
  */
-export const requireOwnershipOrAdmin = (
-  getResourceOwnerId: (req: AuthenticatedRequest) => string | undefined
-) => {
-  return (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
-    if (!req.user) {
+export const requireOwnershipOrAdmin = (getResourceUserId: (req: Request) => string) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const authReq = req as AuthenticatedRequest;
+      const resourceUserId = getResourceUserId(req);
+      
+      // Admin can access any resource
+      if (authReq.userRole === 'admin') {
+        return next();
+      }
+
+      // Check if user owns the resource
+      if (authReq.userId !== resourceUserId) {
+        const response: ApiResponse = {
+          success: false,
+          message: 'Access denied - you can only access your own resources'
+        };
+        return res.status(403).json(response);
+      }
+
+      next();
+
+    } catch (error) {
+      logger.error('Ownership verification error:', error);
       const response: ApiResponse = {
         success: false,
-        message: 'Authentication required'
+        message: 'Access verification failed'
       };
-      return res.status(401).json(response);
+      res.status(500).json(response);
     }
-    
-    const resourceOwnerId = getResourceOwnerId(req);
-    const isOwner = resourceOwnerId === req.userId;
-    const isAdmin = req.user.role === 'admin';
-    
-    if (!isOwner && !isAdmin) {
-      const response: ApiResponse = {
-        success: false,
-        message: 'Access denied. You can only access your own resources.'
-      };
-      return res.status(403).json(response);
-    }
-    
-    next();
   };
 };
 
 /**
- * Optional Authentication Middleware
- * 
- * Attempts to authenticate user but doesn't require it.
- * Useful for endpoints that behave differently for authenticated vs anonymous users.
+ * Rate limiting middleware for sensitive operations
  */
-export const optionalAuth = authenticateToken(false);
+export const rateLimitSensitive = () => {
+  const attempts = new Map<string, { count: number; resetTime: number }>();
+  
+  return (req: Request, res: Response, next: NextFunction) => {
+    const identifier = req.ip + (req as AuthenticatedRequest).userId;
+    const now = Date.now();
+    const windowMs = 15 * 60 * 1000; // 15 minutes
+    const maxAttempts = 5;
 
-/**
- * Admin Only Middleware
- * 
- * Shorthand for requiring admin role.
- */
-export const adminOnly = [
-  authenticateToken(),
-  requireRole('admin')
-];
+    const userAttempts = attempts.get(identifier);
+    
+    if (!userAttempts || now > userAttempts.resetTime) {
+      attempts.set(identifier, { count: 1, resetTime: now + windowMs });
+      return next();
+    }
 
-/**
- * Creator or Admin Middleware
- * 
- * Shorthand for requiring creator or admin role.
- */
-export const creatorOrAdmin = [
-  authenticateToken(),
-  requireRole('creator', 'admin')
-];
+    if (userAttempts.count >= maxAttempts) {
+      const response: ApiResponse = {
+        success: false,
+        message: 'Too many attempts. Please try again later.'
+      };
+      return res.status(429).json(response);
+    }
 
-/**
- * Partner or Admin Middleware
- * 
- * Shorthand for requiring partner or admin role.
- */
-export const partnerOrAdmin = [
-  authenticateToken(),
-  requireRole('partner', 'admin')
-];
+    userAttempts.count++;
+    next();
+  };
+};
