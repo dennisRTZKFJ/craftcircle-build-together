@@ -131,8 +131,8 @@ export interface IProject extends Document {
   description: string;
   user: Types.ObjectId;
   tutorial?: Types.ObjectId;
-  status: 'planning' | 'in_progress' | 'completed' | 'on_hold';
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  status: 'COMPLETED' | 'PLANNED' | 'IN_PROGRESS' | 'ABANDONED';
+  difficulty: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
   category: string;
   tags: string[];
   images: string[];
@@ -178,7 +178,7 @@ export interface IChallenge extends Document {
   title: string;
   description: string;
   category: string;
-  difficulty: 'beginner' | 'intermediate' | 'advanced';
+  difficulty: 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
   duration: number; // in days
   thumbnail: string;
   images: string[];
@@ -206,19 +206,22 @@ export interface IChallengeSubmission extends Document {
   _id: Types.ObjectId;
   challenge: Types.ObjectId;
   user: Types.ObjectId;
-  title: string;
-  description: string;
+  registrationDate: Date;
+  region?: string;
+  winner: boolean;
+  title?: string;
+  description?: string;
   images: string[];
   videoUrl?: string;
   materials: IMaterial[];
-  timeSpent: number; // in hours
-  difficulty: number; // 1-5 scale
+  timeSpent?: number; // in hours
+  difficulty?: number; // 1-5 scale
   isPublic: boolean;
   votes: number;
   comments: Types.ObjectId[];
   rank?: number;
   prize?: string;
-  submittedAt: Date;
+  submittedAt?: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -243,6 +246,7 @@ export interface IForumThread extends Document {
     likes: number;
     lastActivity: Date;
   };
+  imageUrl?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -250,6 +254,7 @@ export interface IForumThread extends Document {
 export interface IForumReply extends Document {
   _id: Types.ObjectId;
   thread: Types.ObjectId;
+  threadModel: string;
   author: Types.ObjectId;
   content: string;
   parentReply?: Types.ObjectId; // for nested replies
@@ -257,6 +262,119 @@ export interface IForumReply extends Document {
   isModerated: boolean;
   likes: number;
   dislikes: number;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+/**
+ * New UML-based Types
+ */
+export interface ISubscription extends Document {
+  _id: Types.ObjectId;
+  user: Types.ObjectId;
+  type: 'FREE' | 'YEARLY';
+  startDate: Date;
+  endDate?: Date;
+  isActive: boolean;
+  price: number;
+  nextPaymentDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ITransaction extends Document {
+  _id: Types.ObjectId;
+  user: Types.ObjectId;
+  transactionId: string;
+  transactionDate: Date;
+  totalPrice: number;
+  transactionType: 'SUBSCRIPTION' | 'PURCHASE';
+  status: 'PENDING' | 'COMPLETED' | 'FAILED' | 'CANCELLED';
+  paymentMethod: string;
+  description: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IPaymentInformation extends Document {
+  _id: Types.ObjectId;
+  user: Types.ObjectId;
+  addedDate: Date;
+  stripeId: string;
+  automaticPaymentMethod: boolean;
+  paymentMethod: string;
+  statusFromStripe: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface ISavedProject extends Document {
+  _id: Types.ObjectId;
+  user: Types.ObjectId;
+  project: Types.ObjectId;
+  savedDate: Date;
+  progress: 'COMPLETED' | 'PLANNED' | 'IN_PROGRESS' | 'ABANDONED';
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IVideo extends Document {
+  _id: Types.ObjectId;
+  title: string;
+  url: string;
+  uploadDate: Date;
+  description: string;
+  thumbnail: string;
+  duration: number; // in seconds
+  views: number;
+  likes: number;
+  associatedProject?: Types.ObjectId;
+  associatedTutorial?: Types.ObjectId;
+  uploader: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IInstructionStep extends Document {
+  _id: Types.ObjectId;
+  tutorial: Types.ObjectId;
+  stepNumber: number;
+  title: string;
+  description: string;
+  tip?: string;
+  imageUrl?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IViewPost extends Document {
+  _id: Types.ObjectId;
+  user: Types.ObjectId;
+  post: Types.ObjectId;
+  viewDate: Date;
+  sessionDuration?: number; // in seconds
+  deviceType?: string;
+  ipAddress?: string;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface IContentCreator extends Document {
+  _id: Types.ObjectId;
+  user: Types.ObjectId;
+  creatorRating: number;
+  bio?: string;
+  monthlyEarning: number;
+  totalEarning: number;
+  verificationStatus: 'PENDING' | 'VERIFIED' | 'REJECTED';
+  socialLinks: {
+    youtube?: string;
+    instagram?: string;
+    tiktok?: string;
+    website?: string;
+  };
+  specialties: string[];
+  joinedDate: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -335,6 +453,8 @@ export interface SearchQuery extends PaginationQuery {
   difficulty?: string;
   tags?: string;
   author?: string;
+  status?: string;
+  type?: string;
 }
 
 /**
@@ -370,3 +490,36 @@ export interface ValidationError {
   message: string;
   value?: any;
 }
+
+/**
+ * Badge Types (from UML)
+ */
+export type BadgeType = 
+  | 'BEGINNER'
+  | 'UPCYCLING_FAN'
+  | 'DESIGN_TALENT'
+  | 'WOOD_EXPERT'
+  | 'CHALLENGE_WINNER'
+  | 'PRO_CRAFTSMAN'
+  | 'INNOVATOR'
+  | 'SUSTAINABILITY_CHAMPION';
+
+export type SkillLevel = 'BEGINNER' | 'INTERMEDIATE' | 'ADVANCED';
+
+export type ProjectCategory = 
+  | 'FURNITURE_BUILDING'
+  | 'DECORATION'
+  | 'RENOVATION'
+  | 'KIDS_FURNITURE'
+  | 'OUTDOOR'
+  | 'ORGANISATION'
+  | 'UPCYCLING'
+  | 'ART';
+
+export type PostType = 'PUBLISHED' | 'COMMENTED' | 'POSTED' | 'PARTICIPATED';
+
+export type Progress = 'COMPLETED' | 'PLANNED' | 'IN_PROGRESS' | 'ABANDONED';
+
+export type SubscriptionType = 'FREE' | 'YEARLY';
+
+export type TransactionType = 'SUBSCRIPTION' | 'PURCHASE';

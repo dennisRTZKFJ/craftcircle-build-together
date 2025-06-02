@@ -1,34 +1,22 @@
+
 /**
  * CraftCircle Backend Server
  * 
- * This is the main entry point for the CraftCircle API server.
- * It sets up Express.js with all necessary middleware, routes, and database connections.
- * 
- * Features:
- * - RESTful API endpoints for all CraftCircle features
- * - JWT-based authentication
- * - MongoDB database integration
- * - File upload handling
- * - Rate limiting and security
- * - Comprehensive error handling
- * - Development and production configurations
+ * Main Express.js server setup with MongoDB connection,
+ * middleware configuration, and route registration.
  */
 
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import morgan from 'morgan';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
-import dotenv from 'dotenv';
-import path from 'path';
-
-import { connectDatabase } from '@/config/database';
-import { seedDatabase } from '@/config/seedData';
-import { errorHandler, notFoundHandler } from '@/middlewares/errorHandler';
+import morgan from 'morgan';
+import { connectDB, seedDatabase } from '@/config/database';
+import { errorHandler } from '@/middlewares/errorHandler';
 import { logger } from '@/utils/logger';
 
-// Import all route modules
+// Import routes
 import authRoutes from '@/routes/auth';
 import userRoutes from '@/routes/users';
 import tutorialRoutes from '@/routes/tutorials';
@@ -41,116 +29,75 @@ import analyticsRoutes from '@/routes/analytics';
 import subscriptionRoutes from '@/routes/subscriptions';
 import notificationRoutes from '@/routes/notifications';
 import uploadRoutes from '@/routes/uploads';
-
-// Load environment variables
-dotenv.config();
+import transactionRoutes from '@/routes/transactions';
+import paymentRoutes from '@/routes/payments';
+import videoRoutes from '@/routes/videos';
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 
 /**
- * Security Middleware Configuration
- * 
- * Sets up essential security headers and protections:
- * - Helmet for security headers
- * - CORS for cross-origin requests
- * - Rate limiting to prevent abuse
+ * Security Middleware
  */
-
-// Security headers
 app.use(helmet({
   crossOriginResourcePolicy: { policy: "cross-origin" }
 }));
 
-// CORS configuration
-app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:8081',
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
-}));
-
-// Rate limiting
+/**
+ * Rate Limiting
+ */
 const limiter = rateLimit({
-  windowMs: parseInt(process.env.RATE_LIMIT_WINDOW_MS || '900000'), // 15 minutes
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || '100'), // limit each IP to 100 requests per windowMs
-  message: {
-    error: 'Too many requests from this IP, please try again later.'
-  },
-  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
-  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+  message: 'Too many requests from this IP, please try again later.',
+  standardHeaders: true,
+  legacyHeaders: false,
 });
-
 app.use('/api/', limiter);
 
 /**
- * General Middleware Setup
- * 
- * Configures Express.js middleware for:
- * - Request/response compression
- * - JSON/URL parsing
- * - Request logging
- * - Static file serving
+ * CORS Configuration
  */
+app.use(cors({
+  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'x-api-key']
+}));
 
-// Compression middleware
-app.use(compression());
-
-// Body parsing middleware
+/**
+ * Body Parsing Middleware
+ */
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
-// Logging middleware
+/**
+ * Compression Middleware
+ */
+app.use(compression());
+
+/**
+ * Logging Middleware
+ */
 if (process.env.NODE_ENV === 'development') {
-  app.use(morgan('dev'));
-} else {
   app.use(morgan('combined'));
 }
 
-// Static file serving for uploads
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
-
 /**
- * API Routes Configuration
- * 
- * All API endpoints are prefixed with /api and organized by feature:
- * 
- * Authentication & Users:
- * - /api/auth/* - Login, register, password reset
- * - /api/users/* - User profiles, settings, preferences
- * 
- * Content Management:
- * - /api/tutorials/* - Tutorial CRUD operations
- * - /api/projects/* - User projects and project management
- * - /api/challenges/* - DIY challenges and submissions
- * 
- * Community Features:
- * - /api/community/* - Forum posts, comments, interactions
- * - /api/notifications/* - User notifications
- * 
- * Business Features:
- * - /api/partners/* - Partner dashboard and analytics
- * - /api/subscriptions/* - Premium subscriptions and payments
- * - /api/analytics/* - Creator analytics and insights
- * 
- * Administration:
- * - /api/admin/* - Admin dashboard and moderation tools
- * 
- * File Management:
- * - /api/uploads/* - File upload handling
+ * Health Check Endpoint
  */
-
-// Health check endpoint
-app.get('/api/health', (req, res) => {
+app.get('/health', (req, res) => {
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
-    uptime: process.uptime(),
-    environment: process.env.NODE_ENV || 'development'
+    environment: process.env.NODE_ENV || 'development',
+    version: process.env.npm_package_version || '1.0.0'
   });
 });
 
-// API Routes
+/**
+ * API Routes Registration
+ */
 app.use('/api/auth', authRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/tutorials', tutorialRoutes);
@@ -163,75 +110,100 @@ app.use('/api/analytics', analyticsRoutes);
 app.use('/api/subscriptions', subscriptionRoutes);
 app.use('/api/notifications', notificationRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/transactions', transactionRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/videos', videoRoutes);
 
 /**
- * Error Handling
- * 
- * Centralized error handling for:
- * - 404 Not Found errors
- * - Application errors
- * - Database errors
- * - Validation errors
+ * 404 Handler for undefined routes
  */
+app.use('*', (req, res) => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.originalUrl} not found`,
+    error: 'Not Found'
+  });
+});
 
-// 404 handler for undefined routes
-app.use(notFoundHandler);
-
-// Global error handler
+/**
+ * Global Error Handler
+ */
 app.use(errorHandler);
 
 /**
- * Server Startup with Database Seeding
+ * Database Connection and Server Startup
  */
-async function startServer() {
+const startServer = async () => {
   try {
     // Connect to MongoDB
-    await connectDatabase();
-    logger.info('Database connected successfully');
+    await connectDB();
+    logger.info('Connected to MongoDB successfully');
 
-    // Seed database with dummy data (only if empty)
-    if (process.env.NODE_ENV === 'development') {
+    // Seed database with dummy data if in development
+    if (process.env.NODE_ENV === 'development' && process.env.SEED_DATABASE === 'true') {
       await seedDatabase();
+      logger.info('Database seeded with dummy data');
     }
 
-    // Start the server
-    const server = app.listen(PORT, () => {
-      logger.info(`CraftCircle API Server running on port ${PORT}`);
-      logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
-      logger.info(`Health check: http://localhost:${PORT}/api/health`);
-      
-      if (process.env.NODE_ENV === 'development') {
-        logger.info('\n=== DUMMY USER CREDENTIALS ===');
-        logger.info('Regular User: user@example.com / password123');
-        logger.info('Creator: creator@example.com / password123');
-        logger.info('Partner: partner@example.com / password123');
-        logger.info('Admin: admin@example.com / password123');
-        logger.info('===============================\n');
-      }
-    });
+    // Start server
+    app.listen(PORT, () => {
+      logger.info(`
+🚀 CraftCircle Backend Server Started Successfully!
 
-    // Graceful shutdown handling
-    process.on('SIGTERM', () => {
-      logger.info('SIGTERM received, shutting down gracefully');
-      server.close(() => {
-        logger.info('Process terminated');
-        process.exit(0);
-      });
-    });
+📱 Environment: ${process.env.NODE_ENV || 'development'}
+🌐 Server running on: http://localhost:${PORT}
+📊 Health check: http://localhost:${PORT}/health
+📚 API Base URL: http://localhost:${PORT}/api
 
-    process.on('SIGINT', () => {
-      logger.info('SIGINT received, shutting down gracefully');
-      server.close(() => {
-        logger.info('Process terminated');
-        process.exit(0);
-      });
+🔗 Available Endpoints:
+   • Authentication: /api/auth
+   • Users: /api/users  
+   • Tutorials: /api/tutorials
+   • Projects: /api/projects
+   • Challenges: /api/challenges
+   • Community: /api/community
+   • Partners: /api/partners
+   • Admin: /api/admin
+   • Analytics: /api/analytics
+   • Subscriptions: /api/subscriptions
+   • Notifications: /api/notifications
+   • Uploads: /api/uploads
+   • Transactions: /api/transactions
+   • Payments: /api/payments
+   • Videos: /api/videos
+
+💡 Ready to handle requests!
+      `);
     });
 
   } catch (error) {
     logger.error('Failed to start server:', error);
     process.exit(1);
   }
-}
+};
+
+// Handle unhandled promise rejections
+process.on('unhandledRejection', (err: Error) => {
+  logger.error('Unhandled Promise Rejection:', err);
+  process.exit(1);
+});
+
+// Handle uncaught exceptions
+process.on('uncaughtException', (err: Error) => {
+  logger.error('Uncaught Exception:', err);
+  process.exit(1);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+  logger.info('SIGTERM received. Shutting down gracefully...');
+  process.exit(0);
+});
+
+process.on('SIGINT', () => {
+  logger.info('SIGINT received. Shutting down gracefully...');
+  process.exit(0);
+});
 
 // Start the server
 startServer();
