@@ -1,4 +1,3 @@
-
 /**
  * CraftCircle Backend Server
  * 
@@ -25,6 +24,7 @@ import dotenv from 'dotenv';
 import path from 'path';
 
 import { connectDatabase } from '@/config/database';
+import { seedDatabase } from '@/config/seedData';
 import { errorHandler, notFoundHandler } from '@/middlewares/errorHandler';
 import { logger } from '@/utils/logger';
 
@@ -181,23 +181,33 @@ app.use(notFoundHandler);
 app.use(errorHandler);
 
 /**
- * Server Startup
- * 
- * Connects to MongoDB and starts the Express server.
- * Includes graceful shutdown handling for production.
+ * Server Startup with Database Seeding
  */
-
 async function startServer() {
   try {
     // Connect to MongoDB
     await connectDatabase();
     logger.info('Database connected successfully');
 
+    // Seed database with dummy data (only if empty)
+    if (process.env.NODE_ENV === 'development') {
+      await seedDatabase();
+    }
+
     // Start the server
     const server = app.listen(PORT, () => {
       logger.info(`CraftCircle API Server running on port ${PORT}`);
       logger.info(`Environment: ${process.env.NODE_ENV || 'development'}`);
       logger.info(`Health check: http://localhost:${PORT}/api/health`);
+      
+      if (process.env.NODE_ENV === 'development') {
+        logger.info('\n=== DUMMY USER CREDENTIALS ===');
+        logger.info('Regular User: user@example.com / password123');
+        logger.info('Creator: creator@example.com / password123');
+        logger.info('Partner: partner@example.com / password123');
+        logger.info('Admin: admin@example.com / password123');
+        logger.info('===============================\n');
+      }
     });
 
     // Graceful shutdown handling
