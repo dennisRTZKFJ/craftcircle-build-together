@@ -8,11 +8,11 @@
 
 import { Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '@/models/User';
-import Subscription from '@/models/Subscription';
-import { ApiResponse, AuthenticatedRequest } from '@/types';
-import { logger } from '@/utils/logger';
-import { sendEmail } from '@/services/emailService';
+import User from '../models/User';
+import Subscription from '../models/Subscription';
+import { ApiResponse, AuthenticatedRequest } from '../types';
+import { logger } from '../utils/logger';
+import { sendEmail } from '../services/emailService';
 import { createNotification } from './notificationController';
 
 /**

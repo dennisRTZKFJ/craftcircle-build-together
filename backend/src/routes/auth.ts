@@ -20,9 +20,9 @@ import {
   resetPassword,
   updatePassword,
   verifyEmail
-} from '@/controllers/authController';
-import { validateRequest } from '@/middlewares/validation';
-import { authenticateToken } from '@/middlewares/auth';
+} from '../controllers/authController';
+import { validateRequest } from '../middlewares/validation';
+import { authenticateToken } from '../middlewares/auth';
 
 const router = express.Router();
 
