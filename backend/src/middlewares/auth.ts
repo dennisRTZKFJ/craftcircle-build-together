@@ -8,9 +8,9 @@
 
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import User from '@/models/User';
-import { AuthenticatedRequest, ApiResponse } from '@/types';
-import { logger } from '@/utils/logger';
+import User from '../models/User';
+import { AuthenticatedRequest, ApiResponse } from '../types';
+import { logger } from '../utils/logger';
 
 /**
  * Interface for JWT payload

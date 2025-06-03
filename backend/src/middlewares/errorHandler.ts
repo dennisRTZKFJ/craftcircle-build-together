@@ -8,8 +8,8 @@
 
 import { Request, Response, NextFunction } from 'express';
 import { Error as MongooseError } from 'mongoose';
-import { ApiResponse } from '@/types';
-import { logger } from '@/utils/logger';
+import { ApiResponse } from '../types';
+import { logger } from '../utils/logger';
 
 /**
  * Not Found Handler
@@ -156,12 +156,14 @@ export const asyncHandler = (fn: Function) => {
  */
 export class AppError extends Error {
   statusCode: number;
-  details?: string;
+  details?: string | undefined;
   
-  constructor(message: string, statusCode: number = 500, details?: string) {
+  constructor(message: string, statusCode: number = 500, details?: string | undefined) {
     super(message);
     this.statusCode = statusCode;
-    this.details = details;
+    if (details !== undefined) {
+      this.details = details;
+    }
     this.name = 'AppError';
     
     Error.captureStackTrace(this, this.constructor);
