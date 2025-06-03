@@ -1,4 +1,3 @@
-
 /**
  * Database Configuration
  * 
@@ -7,7 +6,7 @@
  */
 
 import mongoose from 'mongoose';
-import { logger } from '@/utils/logger';
+import { logger } from '../utils/logger';
 
 /**
  * Connect to MongoDB Database
