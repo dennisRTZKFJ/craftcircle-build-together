@@ -12,7 +12,7 @@ import helmet from 'helmet';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
-import { connectDB, seedDatabase } from '@/config/database';
+import { connectDatabase } from '@/config/database';
 import { errorHandler } from '@/middlewares/errorHandler';
 import { logger } from '@/utils/logger';
 
@@ -136,14 +136,8 @@ app.use(errorHandler);
 const startServer = async () => {
   try {
     // Connect to MongoDB
-    await connectDB();
+    await connectDatabase();
     logger.info('Connected to MongoDB successfully');
-
-    // Seed database with dummy data if in development
-    if (process.env.NODE_ENV === 'development' && process.env.SEED_DATABASE === 'true') {
-      await seedDatabase();
-      logger.info('Database seeded with dummy data');
-    }
 
     // Start server
     app.listen(PORT, () => {
