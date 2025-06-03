@@ -1,4 +1,3 @@
-
 /**
  * CraftCircle Backend Server
  * 
@@ -12,26 +11,26 @@ import helmet from 'helmet';
 import compression from 'compression';
 import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
-import { connectDatabase } from '@/config/database';
-import { errorHandler } from '@/middlewares/errorHandler';
-import { logger } from '@/utils/logger';
+import { connectDatabase } from './config/database';
+import { errorHandler } from './middlewares/errorHandler';
+import { logger } from './utils/logger';
 
 // Import routes
-import authRoutes from '@/routes/auth';
-import userRoutes from '@/routes/users';
-import tutorialRoutes from '@/routes/tutorials';
-import projectRoutes from '@/routes/projects';
-import challengeRoutes from '@/routes/challenges';
-import communityRoutes from '@/routes/community';
-import partnerRoutes from '@/routes/partners';
-import adminRoutes from '@/routes/admin';
-import analyticsRoutes from '@/routes/analytics';
-import subscriptionRoutes from '@/routes/subscriptions';
-import notificationRoutes from '@/routes/notifications';
-import uploadRoutes from '@/routes/uploads';
-import transactionRoutes from '@/routes/transactions';
-import paymentRoutes from '@/routes/payments';
-import videoRoutes from '@/routes/videos';
+import authRoutes from './routes/auth';
+import userRoutes from './routes/users';
+import tutorialRoutes from './routes/tutorials';
+import projectRoutes from './routes/projects';
+import challengeRoutes from './routes/challenges';
+import communityRoutes from './routes/community';
+import partnerRoutes from './routes/partners';
+import adminRoutes from './routes/admin';
+import analyticsRoutes from './routes/analytics';
+import subscriptionRoutes from './routes/subscriptions';
+import notificationRoutes from './routes/notifications';
+import uploadRoutes from './routes/uploads';
+import transactionRoutes from './routes/transactions';
+import paymentRoutes from './routes/payments';
+import videoRoutes from './routes/videos';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
