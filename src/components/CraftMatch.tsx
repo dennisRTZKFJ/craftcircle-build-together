@@ -60,8 +60,8 @@ const CraftMatch = () => {
       <div className="grid-cols-craftmatch">
         {recommendedProjects.map((project) => (
           <Card key={project.id} className="card-flex-col-h-full">
-            <div className="relative h-48 overflow-hidden">
-              <div className="absolute top-3 right-3 z-10">
+            <div className="relative h-48 card-overflow-hidden">
+              <div className="absolute-top-right">
                 <Badge className="badge-craft-wood">
                   {project.match}% Match
                 </Badge>
@@ -74,11 +74,7 @@ const CraftMatch = () => {
             </div>
             <CardHeader className="p-4 pb-2">
               <div className="flex-between mb-1">
-                <Badge variant="outline" className={`
-                  ${project.difficulty === "Anfänger" ? "badge-green" : ""}
-                  ${project.difficulty === "Mittel" ? "badge-amber" : ""}
-                  ${project.difficulty === "Fortgeschritten" ? "badge-red" : ""}
-                `}>
+                <Badge variant="outline" className={project.difficulty === "Anfänger" ? "badge-difficulty-beginner" : project.difficulty === "Mittel" ? "badge-difficulty-medium" : "badge-difficulty-advanced"}>
                   {project.difficulty}
                 </Badge>
                 <span className="small-muted-text flex-items-center">

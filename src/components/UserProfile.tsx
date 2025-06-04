@@ -121,20 +121,20 @@ const UserProfile = () => {
       <Card>
         <div className="h-40 bg-gradient-to-r from-craft-wood/20 to-craft-light-green/20"></div>
         <div className="px-6 -mt-12 pb-6">
-          <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div className="flex-col-md-row-gap-6-items-start">
             <Avatar className="h-24 w-24 border-4 border-background">
               <AvatarImage src={userData.avatar} alt={userData.name} />
               <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
             </Avatar>
             
             <div className="flex-1 pt-12 md:pt-0">
-              <div className="flex flex-col md:flex-row md:items-center flex-between gap-4">
+              <div className="flex-col-md-row-md-center-between-gap-4">
                 <div>
                   <h1 className="header-lg">{userData.name}</h1>
-                  <p className="muted-text">{userData.username}</p>
+                  <p className="text-muted">{userData.username}</p>
                 </div>
                 
-                <div className="flex gap-2">
+                <div className="flex-row-gap-2">
                   <Button variant="outline" onClick={handleMessage}>
                     <MessageCircle className="icon-margin-right h-4 w-4" />
                     Nachricht
@@ -143,21 +143,21 @@ const UserProfile = () => {
                 </div>
               </div>
               
-              <p className="mt-4">{userData.bio}</p>
+              <p className="mt-4-util">{userData.bio}</p>
               
-              <div className="flex-wrap-gap-2 mt-4 text-sm">
+              <div className="flex-wrap-gap-2-mt-4-text-sm">
                 <div className="flex-align-center-gap-3">
-                  <MapPin className="icon-margin-right h-4 w-4 muted-text" />
+                  <MapPin className="icon-text-muted" />
                   <span>{userData.location}</span>
                 </div>
                 <div className="flex-align-center-gap-3">
-                  <Link className="icon-margin-right h-4 w-4 muted-text" />
+                  <Link className="icon-text-muted" />
                   <a href={`https://${userData.website}`} className="text-craft-wood hover:underline">
                     {userData.website}
                   </a>
                 </div>
                 <div className="flex-align-center-gap-3">
-                  <Calendar className="icon-margin-right h-4 w-4 muted-text" />
+                  <Calendar className="icon-text-muted" />
                   <span>Mitglied seit {userData.joinedDate}</span>
                 </div>
               </div>
@@ -174,7 +174,7 @@ const UserProfile = () => {
                 ))}
               </div>
               
-              <div className="flex flex-wrap gap-6 mt-6">
+              <div className="flex-wrap-gap-6-mt-6">
                 <div className="text-center">
                   <div className="font-bold">{userData.tutorials}</div>
                   <div className="small-muted-text">Tutorials</div>
@@ -206,14 +206,14 @@ const UserProfile = () => {
         </TabsList>
         
         <TabsContent value="tutorials" className="flex-col-gap-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid-cols-1-3-gap-6">
             {userTutorials.map((tutorial) => (
-              <Card key={tutorial.id} className="overflow-hidden">
+              <Card key={tutorial.id} className="card-overflow-hidden">
                 <div className="relative h-48">
                   <img 
                     src={tutorial.image} 
                     alt={tutorial.title} 
-                    className="img-cover"
+                    className="img-object-cover"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
                     <Badge className="badge-craft-wood">
@@ -225,19 +225,19 @@ const UserProfile = () => {
                   <h3 className="header-sub hover:text-craft-wood cursor-pointer">
                     {tutorial.title}
                   </h3>
-                  <div className="flex-between mt-2">
-                    <div className="flex-align-center-gap-3 text-sm muted-text">
-                      <Star className="icon-margin-right h-4 w-4 text-amber-500" />
+                  <div className="flex-between mt-2-util">
+                    <div className="flex-align-center-gap-3-text-sm-muted">
+                      <Star className="icon-margin-right h-4 w-4 icon-amber-500" />
                       <span>{tutorial.likes} Likes</span>
                     </div>
-                    <div className="flex-align-center-gap-3 text-sm muted-text">
+                    <div className="flex-align-center-gap-3-text-sm-muted">
                       <MessageCircle className="icon-margin-right h-4 w-4" />
                       <span>{tutorial.comments} Kommentare</span>
                     </div>
                   </div>
                 </CardContent>
                 <CardFooter className="border-t pt-3">
-                  <Button variant="outline" size="sm" className="w-full">Tutorial ansehen</Button>
+                  <Button variant="outline" size="sm" className="btn-full-width">Tutorial ansehen</Button>
                 </CardFooter>
               </Card>
             ))}

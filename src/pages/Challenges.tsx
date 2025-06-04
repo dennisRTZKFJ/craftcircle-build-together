@@ -106,36 +106,36 @@ const Challenges = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid-cols-1-3-gap-8">
             <div className="lg:col-span-2">
-              <Card className="overflow-hidden">
-                <div className="h-64 overflow-hidden relative">
+              <Card className="card-overflow-hidden">
+                <div className="h-64 card-overflow-hidden relative">
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent z-10"></div>
                   <img 
                     src={currentChallenge.image} 
                     alt={currentChallenge.title}
-                    className="img-cover"
+                    className="img-object-cover"
                   />
-                  <div className="absolute bottom-4 left-4 z-20">
-                    <Badge className="badge-craft-wood mb-2">Current Challenge</Badge>
-                    <h2 className="header-lg text-white">{currentChallenge.title}</h2>
+                  <div className="absolute-bottom-left-z-20">
+                    <Badge className="badge-craft-wood mb-2-util">Current Challenge</Badge>
+                    <h2 className="header-lg-white">{currentChallenge.title}</h2>
                   </div>
                 </div>
                 
                 <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center flex-between flex-align-center-gap-4 section-space">
+                  <div className="flex-responsive-header-layout section-space">
                     <div>
-                      <p className="muted-text mb-1">Period</p>
+                      <p className="muted-text mb-1-util">Period</p>
                       <p className="font-medium">{currentChallenge.startDate} - {currentChallenge.endDate}</p>
                     </div>
                     <div>
-                      <p className="muted-text mb-1">Participants</p>
+                      <p className="muted-text mb-1-util">Participants</p>
                       <p className="font-medium">{currentChallenge.participants} Makers</p>
                     </div>
                     <div>
-                      <p className="muted-text mb-1">Prize</p>
-                      <p className="font-medium flex items-center">
-                        <Trophy className="h-4 w-4 icon-margin-right text-craft-wood" />
+                      <p className="muted-text mb-1-util">Prize</p>
+                      <p className="font-medium flex-items-center">
+                        <Trophy className="h-4 w-4 icon-margin-right icon-craft-wood" />
                         {currentChallenge.prize}
                       </p>
                     </div>
@@ -146,36 +146,36 @@ const Challenges = () => {
                     <p>{currentChallenge.description}</p>
                   </div>
                   
-                  <div className="flex gap-4">
+                  <div className="flex flex-row-gap-4">
                     <Button>Participate</Button>
                     <Button variant="outline">All Details</Button>
                   </div>
                 </CardContent>
               </Card>
               
-              <div className="mt-8">
+              <div className="mt-8-util">
                 <div className="flex-between section-space">
                   <h2 className="header-lg">Current Submissions</h2>
                   <Button variant="outline" size="sm">View All</Button>
                 </div>
                 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div className="grid-cols-1-2-gap-6">
                   {submissions.map((submission) => (
-                    <Card key={submission.id} className="overflow-hidden">
-                      <div className="h-48 overflow-hidden">
+                    <Card key={submission.id} className="card-overflow-hidden">
+                      <div className="h-48 card-overflow-hidden">
                         <img 
                           src={submission.projectImage} 
                           alt={submission.projectTitle}
-                          className="img-cover hover:scale-105 transition-transform duration-300"
+                          className="img-object-cover img-hover-scale"
                         />
                       </div>
                       <CardHeader className="p-4 pb-2">
-                        <div className="flex-align-center-gap-3 mb-2">
+                        <div className="flex-align-center-gap-3 mb-2-util">
                           <div className="avatar-sm">
                             <img 
                               src={submission.userImage}
                               alt={submission.user}
-                              className="img-cover"
+                              className="img-object-cover"
                             />
                           </div>
                           <div>
@@ -189,18 +189,18 @@ const Challenges = () => {
                         <p className="small-muted-text">{submission.description}</p>
                       </CardContent>
                       <CardFooter className="p-4 pt-2 flex-between">
-                        <div className="flex gap-4">
-                          <div className="flex items-center">
-                            <svg className="w-4 h-4 text-craft-wood icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
+                        <div className="flex flex-row-gap-4">
+                          <div className="flex-items-center">
+                            <svg className="h-4 w-4 icon-craft-wood icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
                             </svg>
-                            <span className="ml-1 text-sm">{submission.likes}</span>
+                            <span className="text-sm-ml-1">{submission.likes}</span>
                           </div>
-                          <div className="flex items-center">
-                            <svg className="w-4 h-4 text-muted-foreground icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
+                          <div className="flex-items-center">
+                            <svg className="h-4 w-4 icon-muted-foreground icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
                               <path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clipRule="evenodd"></path>
                             </svg>
-                            <span className="ml-1 text-sm">{submission.comments}</span>
+                            <span className="text-sm-ml-1">{submission.comments}</span>
                           </div>
                         </div>
                         <Button variant="ghost" size="sm">
@@ -222,22 +222,22 @@ const Challenges = () => {
                 <CardContent className="space-y-6">
                   {pastChallenges.map((challenge) => (
                     <div key={challenge.id} className="border-b pb-6 last:border-0">
-                      <div className="aspect-[16/9] overflow-hidden rounded-md mb-3">
+                      <div className="aspect-[16/9] card-overflow-hidden rounded-md mb-3-util">
                         <img 
                           src={challenge.projectImage} 
                           alt={challenge.title}
-                          className="img-cover"
+                          className="img-object-cover"
                         />
                       </div>
                       <h3 className="header-card-title">{challenge.title}</h3>
                       <p className="small-muted-text section-space">{challenge.description}</p>
                       <div className="flex-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full overflow-hidden">
+                        <div className="flex-align-center-gap-2">
+                          <div className="avatar-xs">
                             <img 
                               src={challenge.winnerImage} 
                               alt={challenge.winner}
-                              className="img-cover"
+                              className="img-object-cover"
                             />
                           </div>
                           <div className="text-sm">
@@ -248,17 +248,11 @@ const Challenges = () => {
                           {challenge.participants} participants
                         </Badge>
                       </div>
-                      <div className="flex-align-center-gap-3 small-muted-text mt-2">
-                        <svg className="w-4 h-4 icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
-                        </svg>
-                        <span>{challenge.likes} Likes</span>
-                      </div>
                     </div>
                   ))}
                 </CardContent>
-                <CardFooter>
-                  <Button variant="outline" className="w-full">View All Past Challenges</Button>
+                <CardFooter className="p-6 pt-0">
+                  <Button variant="outline" className="btn-full-width">View All Past Challenges</Button>
                 </CardFooter>
               </Card>
 
