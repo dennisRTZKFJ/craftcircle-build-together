@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -41,18 +40,18 @@ const TutorialPlaylist = () => {
   ];
   
   return (
-    <div className="container py-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div className="container section-y-space-lg">
+      <div className="flex flex-col md:flex-row flex-between items-start md:items-center gap-4 mb-8">
         <div>
-          <h2 className="text-3xl font-bold mb-2">Tutorial-Playlisten</h2>
-          <p className="text-muted-foreground max-w-xl">
+          <h2 className="header-xl">Tutorial-Playlisten</h2>
+          <p className="muted-text max-w-xl">
             Erstelle und entdecke Sammlungen von Tutorials, die perfekt zusammenpassen.
             Plane deine nächsten Projekte oder teile deine Favoriten mit der Community.
           </p>
         </div>
         <Button 
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="flex items-center gap-2"
+          className="flex-align-center-gap-3"
         >
           <PlusCircle className="h-4 w-4" />
           Playlist erstellen
@@ -67,7 +66,7 @@ const TutorialPlaylist = () => {
               Sammle deine Lieblings-Tutorials in einer Playlist und teile sie mit anderen.
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex-col-gap-8">
             <div>
               <label htmlFor="playlist-name" className="text-sm font-medium mb-1 block">
                 Playlist-Name
@@ -92,18 +91,18 @@ const TutorialPlaylist = () => {
                 {popularTutorials.map((tutorial) => (
                   <div 
                     key={tutorial.id} 
-                    className="border rounded-md p-2 flex items-center gap-2 cursor-pointer hover:bg-muted transition-colors"
+                    className="border rounded-md p-2 flex-align-center-gap-3 cursor-pointer hover:bg-muted transition-colors"
                   >
                     <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0">
                       <img 
                         src={tutorial.image} 
                         alt={tutorial.title}
-                        className="w-full h-full object-cover"
+                        className="img-cover"
                       />
                     </div>
                     <div className="text-sm truncate">{tutorial.title}</div>
                     <div className="ml-auto">
-                      <PlusCircle className="h-4 w-4 text-muted-foreground hover:text-primary transition-colors" />
+                      <PlusCircle className="h-4 w-4 muted-text hover:text-primary transition-colors" />
                     </div>
                   </div>
                 ))}
@@ -129,28 +128,28 @@ const TutorialPlaylist = () => {
                   <img 
                     src={tutorial.image} 
                     alt={tutorial.title}
-                    className="w-full h-full object-cover"
+                    className="img-cover"
                   />
                 </div>
               ))}
               {playlist.tutorials.length > 3 && (
-                <div className="bg-craft-wood/80 flex items-center justify-center text-white font-medium">
+                <div className="bg-craft-wood/80 flex-center text-white font-medium">
                   +{playlist.tutorials.length - 3} mehr
                 </div>
               )}
               {playlist.tutorials.length <= 2 && (
-                <div className="bg-muted flex items-center justify-center">
-                  <PlusCircle className="h-6 w-6 text-muted-foreground" />
+                <div className="bg-muted flex-center">
+                  <PlusCircle className="h-6 w-6 muted-text" />
                 </div>
               )}
             </div>
             <CardHeader className="p-4 pb-2">
-              <div className="flex items-center justify-between">
+              <div className="flex-between">
                 <Badge variant="outline" className="bg-craft-wood/10">
-                  <BookOpen className="h-3 w-3 mr-1" /> {playlist.tutorials.length} Tutorials
+                  <BookOpen className="h-3 w-3 icon-margin-right" /> {playlist.tutorials.length} Tutorials
                 </Badge>
-                <div className="flex items-center text-xs text-muted-foreground">
-                  <User className="h-3 w-3 mr-1" /> {playlist.creator}
+                <div className="flex-align-center-gap-3 text-xs muted-text">
+                  <User className="h-3 w-3 icon-margin-right" /> {playlist.creator}
                 </div>
               </div>
               <CardTitle className="mt-2">{playlist.name}</CardTitle>
@@ -158,22 +157,22 @@ const TutorialPlaylist = () => {
             <CardContent className="p-4 pt-0">
               <div className="space-y-2">
                 {playlist.tutorials.slice(0, 2).map((tutorial) => (
-                  <div key={tutorial.id} className="flex items-center gap-2">
+                  <div key={tutorial.id} className="flex-align-center-gap-3">
                     <div className="w-8 h-8 rounded overflow-hidden flex-shrink-0">
                       <img 
                         src={tutorial.image} 
                         alt={tutorial.title}
-                        className="w-full h-full object-cover"
+                        className="img-cover"
                       />
                     </div>
                     <div className="text-sm truncate flex-1">{tutorial.title}</div>
-                    <div className="text-xs text-muted-foreground whitespace-nowrap">
-                      <Clock className="h-3 w-3 inline mr-1" /> {tutorial.duration}
+                    <div className="text-xs muted-text whitespace-nowrap">
+                      <Clock className="h-3 w-3 inline icon-margin-right" /> {tutorial.duration}
                     </div>
                   </div>
                 ))}
                 {playlist.tutorials.length > 2 && (
-                  <button className="text-sm text-craft-wood flex items-center">
+                  <button className="text-sm text-craft-wood flex-align-center-gap-3">
                     Alle anzeigen
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </button>
@@ -181,7 +180,7 @@ const TutorialPlaylist = () => {
               </div>
             </CardContent>
             <Separator />
-            <CardFooter className="p-4 flex justify-between">
+            <CardFooter className="flex-between">
               <Button variant="outline" size="sm">
                 <Star className="h-4 w-4 mr-2" />
                 Speichern

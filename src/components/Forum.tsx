@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -89,16 +88,16 @@ const Forum = () => {
   };
   
   return (
-    <div className="space-y-8">
-      <div className="flex flex-col md:flex-row gap-4 md:items-center justify-between">
+    <div className="flex-col-gap-8">
+      <div className="flex flex-col md:flex-row flex-between md:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Community-Forum</h2>
-          <p className="text-muted-foreground">Diskutiere mit anderen DIY-Begeisterten</p>
+          <h2 className="header-lg">Community-Forum</h2>
+          <p className="muted-text">Diskutiere mit anderen DIY-Begeisterten</p>
         </div>
         
         <div className="flex flex-col sm:flex-row gap-3">
           <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+            <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 muted-text" />
             <Input
               placeholder="Suchen..."
               className="pl-9 w-full sm:w-[250px]"
@@ -121,13 +120,13 @@ const Forum = () => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mt-6">
           <div className="md:col-span-3">
             <TabsContent value="latest" className="m-0">
-              <div className="space-y-4">
+              <div className="flex-col-gap-8">
                 {forumThreads.map((thread) => (
                   <Card key={thread.id}>
                     <CardHeader className="pb-2">
-                      <div className="flex items-start justify-between">
+                      <div className="flex items-start flex-between">
                         <div className="flex-1">
-                          <CardTitle className="text-xl hover:text-craft-wood cursor-pointer">
+                          <CardTitle className="header-md-lg hover:text-craft-wood cursor-pointer">
                             {thread.title}
                           </CardTitle>
                           <div className="flex flex-wrap gap-1 mt-2">
@@ -144,20 +143,20 @@ const Forum = () => {
                     </CardHeader>
                     <CardContent className="pt-0 pb-3">
                       <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                        <div className="flex items-center">
-                          <User className="h-4 w-4 mr-1 text-muted-foreground" />
+                        <div className="flex-align-center-gap-3">
+                          <User className="h-4 w-4 icon-margin-right muted-text" />
                           <span>{thread.author.name}</span>
                         </div>
-                        <div className="flex items-center">
-                          <MessageCircle className="h-4 w-4 mr-1 text-muted-foreground" />
+                        <div className="flex-align-center-gap-3">
+                          <MessageCircle className="h-4 w-4 icon-margin-right muted-text" />
                           <span>{thread.replies} Antworten</span>
                         </div>
-                        <div className="flex items-center">
-                          <Users className="h-4 w-4 mr-1 text-muted-foreground" />
+                        <div className="flex-align-center-gap-3">
+                          <Users className="h-4 w-4 icon-margin-right muted-text" />
                           <span>{thread.views} Aufrufe</span>
                         </div>
-                        <div className="flex items-center">
-                          <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
+                        <div className="flex-align-center-gap-3">
+                          <Calendar className="h-4 w-4 icon-margin-right muted-text" />
                           <span>Letzte Aktivität {thread.lastActivity}</span>
                         </div>
                       </div>
@@ -170,7 +169,7 @@ const Forum = () => {
                   </Card>
                 ))}
                 
-                <div className="flex justify-center">
+                <div className="flex-center">
                   <Button variant="outline">Weitere Threads laden</Button>
                 </div>
               </div>
@@ -178,7 +177,7 @@ const Forum = () => {
             
             <TabsContent value="popular" className="m-0">
               <Card className="p-6 text-center">
-                <p className="text-muted-foreground">
+                <p className="muted-text">
                   Hier werden die beliebtesten Threads angezeigt. Dieser Bereich ist in Entwicklung.
                 </p>
               </Card>
@@ -186,7 +185,7 @@ const Forum = () => {
             
             <TabsContent value="unanswered" className="m-0">
               <Card className="p-6 text-center">
-                <p className="text-muted-foreground">
+                <p className="muted-text">
                   Hier werden unbeantwortete Threads angezeigt. Dieser Bereich ist in Entwicklung.
                 </p>
               </Card>
@@ -194,14 +193,14 @@ const Forum = () => {
             
             <TabsContent value="solved" className="m-0">
               <Card className="p-6 text-center">
-                <p className="text-muted-foreground">
+                <p className="muted-text">
                   Hier werden gelöste Threads angezeigt. Dieser Bereich ist in Entwicklung.
                 </p>
               </Card>
             </TabsContent>
           </div>
           
-          <div className="space-y-6">
+          <div className="flex-col-gap-8">
             <Card>
               <CardHeader>
                 <CardTitle>Forum-Kategorien</CardTitle>
@@ -210,12 +209,12 @@ const Forum = () => {
                 {forumCategories.map((category) => (
                   <div 
                     key={category.id}
-                    className="flex justify-between items-center p-2 hover:bg-muted rounded-md cursor-pointer transition-colors"
+                    className="flex-between p-2 hover:bg-muted rounded-md cursor-pointer transition-colors"
                   >
                     <Badge variant="outline" className={category.color}>
                       {category.name}
                     </Badge>
-                    <span className="text-sm text-muted-foreground">{category.count} Threads</span>
+                    <span className="small-muted-text">{category.count} Threads</span>
                   </div>
                 ))}
                 <Button variant="outline" className="w-full mt-2">Alle Kategorien</Button>
@@ -246,13 +245,11 @@ const Forum = () => {
               <CardHeader>
                 <CardTitle>Community-Regeln</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-2 text-sm">
-                <p>• Bleib freundlich und respektvoll</p>
-                <p>• Keine Werbung oder Spam</p>
-                <p>• Halte dich am Thema</p>
-                <p>• Teile dein Wissen</p>
-                <p>• Gib ausführliches Feedback</p>
-                <Button variant="link" className="p-0">Vollständige Regeln lesen</Button>
+              <CardContent className="space-y-2 small-muted-text">
+                <p className="muted-text">• Bleib freundlich und respektvoll</p>
+                <p className="muted-text">• Keine Werbung oder Spam</p>
+                <p className="muted-text">• Teile hilfreiche und relevante Inhalte</p>
+                <p className="muted-text">• Sei konstruktiv in deinem Feedback</p>
               </CardContent>
             </Card>
           </div>

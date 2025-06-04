@@ -33,10 +33,10 @@ const PartnerDashboard = () => {
   
   return (
     <div className="container py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
+      <div className="flex flex-col md:flex-row justify-between items-start gap-4 section-space">
         <div>
-          <h1 className="text-3xl font-bold">Partner Dashboard</h1>
-          <p className="text-muted-foreground">Produktdaten, Insights und Kampagnenmanagement</p>
+          <h1 className="header-xl">Partner Dashboard</h1>
+          <p className="muted-text">Produktdaten, Insights und Kampagnenmanagement</p>
         </div>
         
         <Button onClick={handleContactSupport} className="flex items-center gap-2">
@@ -56,7 +56,7 @@ const PartnerDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">2406</div>
-            <p className="text-muted-foreground text-sm">Auf Affiliate-Links</p>
+            <p className="small-muted-text">Auf Affiliate-Links</p>
           </CardContent>
         </Card>
         
@@ -69,7 +69,7 @@ const PartnerDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">128</div>
-            <p className="text-muted-foreground text-sm">Über Affiliate-Links</p>
+            <p className="small-muted-text">Über Affiliate-Links</p>
           </CardContent>
         </Card>
         
@@ -82,7 +82,7 @@ const PartnerDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">€4.328</div>
-            <p className="text-muted-foreground text-sm">Diesen Monat</p>
+            <p className="small-muted-text">Diesen Monat</p>
           </CardContent>
         </Card>
         
@@ -95,7 +95,7 @@ const PartnerDashboard = () => {
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">NRW</div>
-            <p className="text-muted-foreground text-sm">Meiste Verkäufe</p>
+            <p className="small-muted-text">Meiste Verkäufe</p>
           </CardContent>
         </Card>
       </div>
@@ -248,13 +248,11 @@ const PartnerDashboard = () => {
                       {i === 1 
                         ? "Starter-Sets sind aktuell sehr gefragt bei Anfängern" 
                         : i === 2 
-                          ? "Gartenmöbel-Tutorials haben überdurchschnittliche Engagement-Raten"
-                          : "Werkzeug-Bundles mit Grundausstattung könnten gut performen"}
+                        ? "Optimal für saisonale Angebote im Frühling/Sommer" 
+                        : "Bündelung beliebter Werkzeuge für bessere Margen"}
                     </p>
                   </div>
-                  <Button variant="outline" size="sm" className="ml-auto whitespace-nowrap">
-                    Umsetzen
-                  </Button>
+                  <Button variant="outline" size="sm">Details</Button>
                 </div>
               ))}
             </CardContent>

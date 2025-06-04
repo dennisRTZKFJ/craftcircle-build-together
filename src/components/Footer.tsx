@@ -1,10 +1,9 @@
-
 import React from 'react';
 
 const Footer = () => {
   return (
     <footer className="bg-muted py-12">
-      <div className="container px-4 md:px-6">
+      <div className="container container-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
             <a href="/" className="flex items-center gap-2 mb-4">
@@ -15,7 +14,7 @@ const Footer = () => {
               />
               <span className="font-playfair text-xl font-bold">CraftCircle</span>
             </a>
-            <p className="text-muted-foreground mb-4">
+            <p className="muted-text mb-4">
               Where your ideas take shape. Your creative workshop online for DIY furniture projects.
             </p>
             <div className="flex gap-4">
@@ -43,7 +42,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-bold text-lg mb-4">Discover</h3>
+            <h3 className="header-sub">Discover</h3>
             <ul className="space-y-3">
               <li><a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">Projects</a></li>
               <li><a href="#community" className="text-muted-foreground hover:text-foreground transition-colors">Community</a></li>
@@ -54,7 +53,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-bold text-lg mb-4">Support</h3>
+            <h3 className="header-sub">Support</h3>
             <ul className="space-y-3">
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Help Center</a></li>
               <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
@@ -65,7 +64,7 @@ const Footer = () => {
           </div>
           
           <div>
-            <h3 className="font-bold text-lg mb-4">Newsletter</h3>
+            <h3 className="header-sub">Newsletter</h3>
             <p className="text-muted-foreground mb-4">
               Receive creative DIY inspiration and project tips directly in your inbox.
             </p>

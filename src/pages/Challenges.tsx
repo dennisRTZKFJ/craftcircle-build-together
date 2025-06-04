@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -96,12 +95,12 @@ const submissions = [
 
 const Challenges = () => {
   return (
-    <div className="min-h-screen py-12">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col gap-8">
+    <div className="min-h-screen section-y-space-lg">
+      <div className="container container-padding">
+        <div className="flex-col-gap-8">
           <div>
-            <h1 className="text-3xl font-bold mb-4">CraftChallenges</h1>
-            <p className="text-muted-foreground mb-6">
+            <h1 className="header-xl">CraftChallenges</h1>
+            <p className="muted-text section-space">
               Build. Share. Win. In our weekly DIY challenges, you can showcase your skills and get
               recognition from the community.
             </p>
@@ -115,35 +114,35 @@ const Challenges = () => {
                   <img 
                     src={currentChallenge.image} 
                     alt={currentChallenge.title}
-                    className="w-full h-full object-cover"
+                    className="img-cover"
                   />
                   <div className="absolute bottom-4 left-4 z-20">
                     <Badge className="bg-craft-wood text-white border-none mb-2">Current Challenge</Badge>
-                    <h2 className="text-2xl font-bold text-white">{currentChallenge.title}</h2>
+                    <h2 className="header-lg text-white">{currentChallenge.title}</h2>
                   </div>
                 </div>
                 
                 <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                  <div className="flex flex-col md:flex-row md:items-center flex-between gap-4 section-space">
                     <div>
-                      <p className="text-muted-foreground mb-1">Period</p>
+                      <p className="muted-text mb-1">Period</p>
                       <p className="font-medium">{currentChallenge.startDate} - {currentChallenge.endDate}</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground mb-1">Participants</p>
+                      <p className="muted-text mb-1">Participants</p>
                       <p className="font-medium">{currentChallenge.participants} Makers</p>
                     </div>
                     <div>
-                      <p className="text-muted-foreground mb-1">Prize</p>
+                      <p className="muted-text mb-1">Prize</p>
                       <p className="font-medium flex items-center">
-                        <Trophy className="h-4 w-4 mr-2 text-craft-wood" />
+                        <Trophy className="h-4 w-4 icon-margin-right text-craft-wood" />
                         {currentChallenge.prize}
                       </p>
                     </div>
                   </div>
                   
-                  <div className="mb-6">
-                    <h3 className="text-xl font-bold mb-2">The Challenge</h3>
+                  <div className="section-space">
+                    <h3 className="header-md">The Challenge</h3>
                     <p>{currentChallenge.description}</p>
                   </div>
                   
@@ -155,8 +154,8 @@ const Challenges = () => {
               </Card>
               
               <div className="mt-8">
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-bold">Current Submissions</h2>
+                <div className="flex-between section-space">
+                  <h2 className="header-lg">Current Submissions</h2>
                   <Button variant="outline" size="sm">View All</Button>
                 </div>
                 
@@ -167,39 +166,39 @@ const Challenges = () => {
                         <img 
                           src={submission.projectImage} 
                           alt={submission.projectTitle}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                          className="img-cover hover:scale-105 transition-transform duration-300"
                         />
                       </div>
                       <CardHeader className="p-4 pb-2">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="w-8 h-8 rounded-full overflow-hidden">
+                        <div className="flex-align-center-gap-3 mb-2">
+                          <div className="avatar-sm">
                             <img 
                               src={submission.userImage}
                               alt={submission.user}
-                              className="w-full h-full object-cover"
+                              className="img-cover"
                             />
                           </div>
                           <div>
                             <p className="font-medium">{submission.user}</p>
-                            <p className="text-xs text-muted-foreground">{submission.date}</p>
+                            <p className="small-muted-text">{submission.date}</p>
                           </div>
                         </div>
                         <CardTitle className="text-lg">{submission.projectTitle}</CardTitle>
                       </CardHeader>
                       <CardContent className="p-4 pt-0">
-                        <p className="text-sm text-muted-foreground">{submission.description}</p>
+                        <p className="small-muted-text">{submission.description}</p>
                       </CardContent>
-                      <CardFooter className="p-4 pt-2 flex items-center justify-between">
+                      <CardFooter className="p-4 pt-2 flex-between">
                         <div className="flex gap-4">
                           <div className="flex items-center">
-                            <svg className="w-4 h-4 text-craft-wood" fill="currentColor" viewBox="0 0 20 20">
+                            <svg className="w-4 h-4 text-craft-wood icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
                             </svg>
                             <span className="ml-1 text-sm">{submission.likes}</span>
                           </div>
                           <div className="flex items-center">
-                            <svg className="w-4 h-4 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20">
-                              <path d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm14 1H4v8.5h12V6zm-6 7a1 1 0 100-2 1 1 0 000 2z"></path>
+                            <svg className="w-4 h-4 text-muted-foreground icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
+                              <path fillRule="evenodd" d="M18 13V5a2 2 0 00-2-2H4a2 2 0 00-2 2v8a2 2 0 002 2h3l3 3 3-3h3a2 2 0 002-2zM5 7a1 1 0 011-1h8a1 1 0 110 2H6a1 1 0 01-1-1zm1 3a1 1 0 100 2h3a1 1 0 100-2H6z" clipRule="evenodd"></path>
                             </svg>
                             <span className="ml-1 text-sm">{submission.comments}</span>
                           </div>
@@ -227,18 +226,18 @@ const Challenges = () => {
                         <img 
                           src={challenge.projectImage} 
                           alt={challenge.title}
-                          className="w-full h-full object-cover"
+                          className="img-cover"
                         />
                       </div>
-                      <h3 className="font-bold mb-2">{challenge.title}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{challenge.description}</p>
-                      <div className="flex justify-between items-center">
+                      <h3 className="header-card-title">{challenge.title}</h3>
+                      <p className="small-muted-text section-space">{challenge.description}</p>
+                      <div className="flex-between">
                         <div className="flex items-center gap-2">
                           <div className="w-6 h-6 rounded-full overflow-hidden">
                             <img 
                               src={challenge.winnerImage} 
                               alt={challenge.winner}
-                              className="w-full h-full object-cover"
+                              className="img-cover"
                             />
                           </div>
                           <div className="text-sm">
@@ -249,57 +248,30 @@ const Challenges = () => {
                           {challenge.participants} participants
                         </Badge>
                       </div>
+                      <div className="flex-align-center-gap-3 small-muted-text mt-2">
+                        <svg className="w-4 h-4 icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
+                          <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
+                        </svg>
+                        <span>{challenge.likes} Likes</span>
+                      </div>
                     </div>
                   ))}
                 </CardContent>
                 <CardFooter>
-                  <Button variant="outline" className="w-full">
-                    View All Past Challenges
-                  </Button>
+                  <Button variant="outline" className="w-full">View All Past Challenges</Button>
                 </CardFooter>
               </Card>
-              
-              <div className="mt-8">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Challenge Rewards</CardTitle>
-                    <CardDescription>What you can win by participating</CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <Trophy className="h-10 w-10 text-amber-500" />
-                      <div>
-                        <h4 className="font-medium">Material Vouchers</h4>
-                        <p className="text-sm text-muted-foreground">Gift cards from our partners for your next projects</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <svg className="h-10 w-10 text-craft-wood" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"></path>
-                        <path d="M15 8h-3v4H8v3h7z"></path>
-                      </svg>
-                      <div>
-                        <h4 className="font-medium">Featured Projects</h4>
-                        <p className="text-sm text-muted-foreground">Your project showcased on our homepage and social media</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3">
-                      <svg className="h-10 w-10 text-craft-wood" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"></path>
-                      </svg>
-                      <div>
-                        <h4 className="font-medium">Community Recognition</h4>
-                        <p className="text-sm text-muted-foreground">Gain followers and reputation in the DIY community</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                  <CardFooter>
-                    <Button className="w-full">
-                      Join This Week's Challenge
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </div>
+
+              <Card className="mt-8 p-6">
+                <CardTitle className="header-md mb-4">Challenge Rules</CardTitle>
+                <ul className="list-disc list-inside space-y-2 small-muted-text">
+                  <li>Only one submission per challenge.</li>
+                  <li>Projects must be original and not previously published.</li>
+                  <li>Use at least 80% recycled or upcycled materials.</li>
+                  <li>Projects must be safe and functional.</li>
+                  <li>The community votes on the winners.</li>
+                </ul>
+              </Card>
             </div>
           </div>
         </div>

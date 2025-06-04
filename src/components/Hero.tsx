@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Star, Users, Clock } from 'lucide-react';
@@ -38,7 +37,7 @@ const Hero = () => {
               </span> pieces with your hands
             </h1>
             
-            <p className="text-lg md:text-xl text-muted-foreground max-w-[600px]">
+            <p className="text-lg md:text-xl muted-text max-w-[600px]">
               Discover step-by-step guides for impressive furniture pieces
               that give your home a personal touch – no prior knowledge needed.
             </p>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,7 +14,7 @@ interface StatsCardProps {
 const StatsCard = ({ title, icon, value, trend, description }: StatsCardProps) => (
   <Card>
     <CardHeader className="pb-2">
-      <CardTitle className="text-lg flex items-center gap-2">
+      <CardTitle className="flex-align-center-gap-2 text-lg">
         {icon}
         {title}
       </CardTitle>
@@ -26,7 +25,7 @@ const StatsCard = ({ title, icon, value, trend, description }: StatsCardProps) =
         <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
           {trend}
         </Badge>
-        <span className="text-muted-foreground ml-2">{description}</span>
+        <span className="muted-text ml-2">{description}</span>
       </div>
     </CardContent>
   </Card>

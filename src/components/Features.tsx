@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { CheckCircle } from 'lucide-react';
 
@@ -32,10 +31,10 @@ const features = [
 const Features = () => {
   return (
     <section id="features" className="py-24 bg-muted/50">
-      <div className="container px-4 md:px-6">
+      <div className="container container-padding">
         <div className="text-center max-w-[800px] mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">Design Your Own Space</h2>
-          <p className="text-muted-foreground text-lg">
+          <h2 className="header-xxl">Design Your Own Space</h2>
+          <p className="large-muted-text">
             At CraftCircle, you'll find everything you need to realize your DIY furniture projects - no matter what level you're at.
           </p>
         </div>
@@ -44,15 +43,15 @@ const Features = () => {
           {features.map((feature, index) => (
             <div 
               key={index} 
-              className="bg-background rounded-lg p-6 shadow-sm border border-border hover:shadow-md transition-all hover:-translate-y-1 duration-300"
+              className="card-hover-effect"
             >
               <div className="text-4xl mb-4">{feature.icon}</div>
-              <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-              <p className="text-muted-foreground mb-6">{feature.description}</p>
+              <h3 className="header-md-card-title">{feature.title}</h3>
+              <p className="muted-text mb-6">{feature.description}</p>
               
               <ul className="space-y-2">
                 {feature.benefits.map((benefit, i) => (
-                  <li key={i} className="flex items-center gap-2">
+                  <li key={i} className="flex-align-center-gap-2">
                     <CheckCircle className="h-5 w-5 text-craft-teal" />
                     <span>{benefit}</span>
                   </li>

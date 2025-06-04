@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
@@ -27,21 +26,21 @@ const testimonials = [
 const CommunitySection = () => {
   return (
     <section id="community" className="py-24 bg-craft-wood/5">
-      <div className="container px-4 md:px-6">
+      <div className="container container-padding">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Made for you – by people like you.</h2>
-            <p className="text-lg text-muted-foreground mb-6">
+            <h2 className="header-xxl-spacing">Made for you – by people like you.</h2>
+            <p className="large-muted-text-spacing">
               Find personalized recommendations, discover new favorite ideas and get inspired by real DIY pros. Or become a creator yourself and earn money with your projects.
             </p>
             <div className="space-y-6 mt-8">
               {testimonials.map((testimonial, index) => (
                 <div key={index} className="flex gap-4 items-start">
-                  <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+                  <div className="testimonial-avatar">
                     <img 
                       src={testimonial.image}
                       alt={testimonial.author}
-                      className="w-full h-full object-cover"
+                      className="img-cover"
                     />
                   </div>
                   <div>
@@ -69,20 +68,20 @@ const CommunitySection = () => {
               </div>
               <div className="grid grid-cols-2 gap-4">
                 <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-3xl font-bold text-craft-dark-wood">10k+</p>
-                  <p className="text-sm text-muted-foreground">Active Members</p>
+                  <p className="statistic-value">10k+</p>
+                  <p className="small-muted-text">Active Members</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-3xl font-bold text-craft-dark-wood">5k+</p>
-                  <p className="text-sm text-muted-foreground">DIY Projects</p>
+                  <p className="statistic-value">5k+</p>
+                  <p className="small-muted-text">DIY Projects</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-3xl font-bold text-craft-dark-wood">98%</p>
-                  <p className="text-sm text-muted-foreground">Positive Reviews</p>
+                  <p className="statistic-value">98%</p>
+                  <p className="small-muted-text">Positive Reviews</p>
                 </div>
                 <div className="p-4 bg-muted rounded-lg text-center">
-                  <p className="text-3xl font-bold text-craft-dark-wood">24/7</p>
-                  <p className="text-sm text-muted-foreground">Community Support</p>
+                  <p className="statistic-value">24/7</p>
+                  <p className="small-muted-text">Community Support</p>
                 </div>
               </div>
               <div className="mt-6 p-4 bg-craft-light-green/10 rounded-lg">

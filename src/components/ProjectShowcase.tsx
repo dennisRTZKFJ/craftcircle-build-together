@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Badge } from "@/components/ui/badge";
 import { Button } from '@/components/ui/button';
@@ -51,8 +50,8 @@ const ProjectShowcase = () => {
       <div className="container px-4 md:px-6">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">Popular Projects</h2>
-            <p className="text-muted-foreground max-w-[600px]">
+            <h2 className="header-xl">Popular Projects</h2>
+            <p className="muted-text max-w-[600px]">
               Discover our best-rated DIY furniture projects, created by beginners and experts alike.
             </p>
           </div>
@@ -78,15 +77,15 @@ const ProjectShowcase = () => {
                 />
               </div>
               <div className="p-4">
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex-between mb-2">
                   <Badge variant="outline" className={categoryColors[project.category as keyof typeof categoryColors]}>
                     {project.category}
                   </Badge>
-                  <span className="text-sm text-muted-foreground">{project.duration}</span>
+                  <span className="text-sm muted-text">{project.duration}</span>
                 </div>
                 <h3 className="font-bold text-lg mb-1">{project.title}</h3>
-                <p className="text-sm text-muted-foreground mb-3">By {project.author}</p>
-                <div className="flex items-center justify-between">
+                <p className="text-sm muted-text mb-3">By {project.author}</p>
+                <div className="flex-between">
                   <div className="flex items-center">
                     <svg className="w-4 h-4 text-craft-wood" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>

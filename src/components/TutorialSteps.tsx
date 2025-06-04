@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import { Alert, AlertDescription } from "@/components/ui/alert";
@@ -20,11 +19,11 @@ const TutorialSteps = ({ steps }: TutorialStepsProps) => {
     <div className="space-y-12">
       {steps.map((step, index) => (
         <div key={index} className="relative">
-          <div className="flex items-center gap-4 mb-4">
-            <div className="bg-craft-wood text-white rounded-full w-10 h-10 flex items-center justify-center font-bold flex-shrink-0">
+          <div className="flex-align-center-gap-3 mb-4">
+            <div className="bg-craft-wood text-white w-10 h-10 rounded-full-center font-bold flex-shrink-0">
               {index + 1}
             </div>
-            <h3 className="text-xl font-bold">{step.title}</h3>
+            <h3 className="header-md">{step.title}</h3>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
@@ -33,7 +32,7 @@ const TutorialSteps = ({ steps }: TutorialStepsProps) => {
                 <img 
                   src={step.image} 
                   alt={`Step ${index + 1}: ${step.title}`} 
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                 />
               </AspectRatio>
             </div>

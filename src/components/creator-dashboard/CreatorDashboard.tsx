@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -165,18 +164,18 @@ const CreatorDashboard = () => {
   };
   
   return (
-    <div className="container py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-8">
+    <div className="dashboard-container">
+      <div className="dashboard-header-layout">
         <div>
-          <h1 className="text-3xl font-bold">Creator Dashboard</h1>
-          <p className="text-muted-foreground">Manage your tutorials, earnings and community</p>
+          <h1 className="header-xl">Creator Dashboard</h1>
+          <p className="muted-text">Manage your tutorials, earnings and community</p>
         </div>
         
-        <div className="flex flex-wrap gap-3">
+        <div className="dashboard-button-group">
           <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="flex items-center gap-2">
-                <Upload className="h-4 w-4" />
+              <Button className="flex-align-center-gap-2">
+                <Upload className="h-4 w-4 icon-margin-right" />
                 <span>Upload Tutorial</span>
               </Button>
             </DialogTrigger>
@@ -188,8 +187,8 @@ const CreatorDashboard = () => {
             </DialogContent>
           </Dialog>
           
-          <Button variant="outline" className="flex items-center gap-2" onClick={handleSupportRequest}>
-            <HelpCircle className="h-4 w-4" />
+          <Button variant="outline" className="flex-align-center-gap-2" onClick={handleSupportRequest}>
+            <HelpCircle className="h-4 w-4 icon-margin-right" />
             <span>Creator Support</span>
           </Button>
         </div>
@@ -199,50 +198,44 @@ const CreatorDashboard = () => {
       <StatsOverview analytics={analytics} />
       
       {/* Main Content */}
-      <Tabs defaultValue="tutorials" className="w-full">
-        <TabsList className="grid grid-cols-4 max-w-2xl mb-8">
-          <TabsTrigger value="tutorials">
-            <FileText className="h-4 w-4 mr-2" />
-            Tutorials
+      <Tabs defaultValue="overview" className="mt-8">
+        <TabsList className="grid w-full grid-cols-5 h-12 rounded-md">
+          <TabsTrigger value="overview" className="flex-align-center-gap-2">
+            <TrendingUp className="h-4 w-4" />
+            <span>Overview</span>
           </TabsTrigger>
-          <TabsTrigger value="analytics">
-            <TrendingUp className="h-4 w-4 mr-2" />
-            Analytics
+          <TabsTrigger value="tutorials" className="flex-align-center-gap-2">
+            <FileText className="h-4 w-4" />
+            <span>Tutorials</span>
           </TabsTrigger>
-          <TabsTrigger value="earnings">
-            <DollarSign className="h-4 w-4 mr-2" />
-            Earnings
+          <TabsTrigger value="earnings" className="flex-align-center-gap-2">
+            <DollarSign className="h-4 w-4" />
+            <span>Earnings</span>
           </TabsTrigger>
-          <TabsTrigger value="feedback">
-            <MessageCircle className="h-4 w-4 mr-2" />
-            Feedback
+          <TabsTrigger value="feedback" className="flex-align-center-gap-2">
+            <MessageCircle className="h-4 w-4" />
+            <span>Feedback</span>
+          </TabsTrigger>
+          <TabsTrigger value="analytics" className="flex-align-center-gap-2">
+            <TrendingUp className="h-4 w-4" />
+            <span>Analytics</span>
           </TabsTrigger>
         </TabsList>
         
-        {/* Tutorials Tab */}
+        <TabsContent value="overview">
+          <StatsOverview analytics={analytics} />
+        </TabsContent>
         <TabsContent value="tutorials">
-          <TutorialsTab 
-            tutorials={tutorials} 
-            handleEditTutorial={handleEditTutorial} 
-          />
+          <TutorialsTab tutorials={tutorials} handleEditTutorial={handleEditTutorial} />
         </TabsContent>
-        
-        {/* Analytics Tab */}
-        <TabsContent value="analytics">
-          <AnalyticsTab tutorials={tutorials} />
-        </TabsContent>
-        
-        {/* Earnings Tab */}
         <TabsContent value="earnings">
           <EarningsTab monthlyEarnings={monthlyEarnings} />
         </TabsContent>
-        
-        {/* Feedback Tab */}
         <TabsContent value="feedback">
-          <FeedbackTab 
-            topComments={topComments} 
-            handleSupportRequest={handleSupportRequest}
-          />
+          <FeedbackTab topComments={topComments} handleSupportRequest={handleSupportRequest} />
+        </TabsContent>
+        <TabsContent value="analytics">
+          <AnalyticsTab tutorials={tutorials} />
         </TabsContent>
       </Tabs>
     </div>

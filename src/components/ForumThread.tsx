@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card';
@@ -135,10 +134,10 @@ const ForumThread = () => {
   };
   
   return (
-    <div className="space-y-6">
-      <div className="flex items-center gap-2">
+    <div className="flex-col-gap-8">
+      <div className="flex-align-center-gap-3">
         <Button variant="ghost" size="sm">
-          <ArrowLeft className="h-4 w-4 mr-1" />
+          <ArrowLeft className="h-4 w-4 icon-margin-right" />
           Zurück zum Forum
         </Button>
         <Separator orientation="vertical" className="h-6" />
@@ -159,8 +158,8 @@ const ForumThread = () => {
               </Avatar>
             </div>
             <div className="space-y-1 flex-1">
-              <div className="flex flex-wrap items-center gap-2 mb-2">
-                <h1 className="text-2xl font-bold">{threadData.title}</h1>
+              <div className="flex flex-wrap flex-align-center-gap-3 mb-2">
+                <h1 className="header-lg">{threadData.title}</h1>
                 {threadData.solved && (
                   <Badge className="bg-green-100 text-green-800 border-green-200">
                     Gelöst
@@ -168,16 +167,16 @@ const ForumThread = () => {
                 )}
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                <div className="flex md:hidden items-center gap-2">
+                <div className="flex md:hidden flex-align-center-gap-3">
                   <Avatar className="h-5 w-5">
                     <AvatarImage src={threadData.author.avatar} alt={threadData.author.name} />
                     <AvatarFallback>{threadData.author.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <span className="font-medium">{threadData.author.name}</span>
                 </div>
-                <div className="text-muted-foreground">{threadData.createdAt}</div>
-                <div className="text-muted-foreground">{threadData.views} Aufrufe</div>
-                <div className="text-muted-foreground">{repliesData.length} Antworten</div>
+                <div className="muted-text">{threadData.createdAt}</div>
+                <div className="muted-text">{threadData.views} Aufrufe</div>
+                <div className="muted-text">{repliesData.length} Antworten</div>
               </div>
             </div>
           </div>
@@ -190,7 +189,7 @@ const ForumThread = () => {
                 <Badge variant="outline" className="mt-1">
                   {threadData.author.level}
                 </Badge>
-                <div className="text-xs text-muted-foreground mt-3">
+                <div className="small-muted-text mt-3">
                   <div>Mitglied seit {threadData.author.joinDate}</div>
                   <div>{threadData.author.posts} Beiträge</div>
                 </div>
@@ -199,12 +198,12 @@ const ForumThread = () => {
             <div className="flex-1">
               <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{__html: threadData.content}}></div>
               
-              <div className="flex items-center justify-between mt-6 pt-4 border-t">
-                <div className="flex items-center gap-2">
+              <div className="flex-between mt-6 pt-4 border-t">
+                <div className="flex-align-center-gap-3">
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="flex gap-1 items-center text-muted-foreground"
+                    className="flex-align-center-gap-3 muted-text"
                     onClick={() => handleLike(threadData.id)}
                   >
                     <ThumbsUp className="h-4 w-4" />
@@ -213,7 +212,7 @@ const ForumThread = () => {
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-muted-foreground"
+                    className="muted-text"
                     onClick={() => handleDislike(threadData.id)}
                   >
                     <ThumbsDown className="h-4 w-4" />
@@ -222,7 +221,7 @@ const ForumThread = () => {
                 <Button 
                   variant="ghost" 
                   size="sm" 
-                  className="text-muted-foreground"
+                  className="muted-text"
                   onClick={() => handleReport(threadData.id)}
                 >
                   <Flag className="h-4 w-4 mr-1" />
@@ -234,8 +233,8 @@ const ForumThread = () => {
         </CardContent>
       </Card>
       
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-bold">{repliesData.length} Antworten</h2>
+      <div className="flex-between">
+        <h2 className="header-md">{repliesData.length} Antworten</h2>
         <Button variant="outline" size="sm">
           <MessageCircle className="h-4 w-4 mr-1" />
           Abonnieren
@@ -248,56 +247,35 @@ const ForumThread = () => {
             <div className="md:flex gap-6">
               <div className="hidden md:block w-40 flex-shrink-0">
                 <div className="text-center">
-                  <Avatar className="h-12 w-12 mx-auto">
-                    <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
-                    <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <h3 className="font-medium mt-2">{reply.author.name}</h3>
-                  <div className="flex flex-col items-center gap-1 mt-1">
-                    <Badge variant="outline" className={
-                      reply.author.level === 'Profi' ? 'bg-amber-100 text-amber-800 border-amber-200' :
-                      reply.author.level === 'Fortgeschritten' ? 'bg-blue-100 text-blue-800 border-blue-200' :
-                      'bg-green-100 text-green-800 border-green-200'
-                    }>
-                      {reply.author.level}
-                    </Badge>
-                    {reply.author.isModerator && (
-                      <Badge>Moderator</Badge>
-                    )}
-                  </div>
-                  <div className="text-xs text-muted-foreground mt-3">
+                  <h3 className="font-medium">{reply.author.name}</h3>
+                  <Badge variant="outline" className="mt-1">
+                    {reply.author.level}
+                  </Badge>
+                  <div className="text-xs muted-text mt-3">
                     <div>Mitglied seit {reply.author.joinDate}</div>
                     <div>{reply.author.posts} Beiträge</div>
                   </div>
                 </div>
               </div>
               <div className="flex-1">
-                <div className="flex md:hidden items-center gap-2 mb-4">
-                  <Avatar className="h-8 w-8">
-                    <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
-                    <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <div>
-                    <div className="font-medium">{reply.author.name}</div>
-                    <div className="flex items-center gap-2">
-                      <Badge variant="outline" className="text-xs py-0 h-5">{reply.author.level}</Badge>
-                      {reply.author.isModerator && <Badge className="text-xs py-0 h-5">Moderator</Badge>}
-                    </div>
+                <div className="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm mb-4 md:hidden">
+                  <div className="flex-align-center-gap-3">
+                    <Avatar className="h-5 w-5">
+                      <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
+                      <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
+                    </Avatar>
+                    <span className="font-medium">{reply.author.name}</span>
                   </div>
+                  <div className="muted-text">{reply.createdAt}</div>
                 </div>
-                
-                <div className="text-sm text-muted-foreground mb-3">
-                  {reply.createdAt}
-                </div>
-                
                 <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{__html: reply.content}}></div>
                 
-                <div className="flex items-center justify-between mt-6 pt-4 border-t">
-                  <div className="flex items-center gap-2">
+                <div className="flex-between mt-6 pt-4 border-t">
+                  <div className="flex-align-center-gap-3">
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      className="flex gap-1 items-center text-muted-foreground"
+                      className="flex-align-center-gap-3 muted-text"
                       onClick={() => handleLike(reply.id)}
                     >
                       <ThumbsUp className="h-4 w-4" />
@@ -306,27 +284,27 @@ const ForumThread = () => {
                     <Button 
                       variant="ghost" 
                       size="sm" 
-                      className="text-muted-foreground"
+                      className="muted-text"
                       onClick={() => handleDislike(reply.id)}
                     >
                       <ThumbsDown className="h-4 w-4" />
                     </Button>
-                    {index === 0 && (
+                    {reply.author.isModerator && (
                       <Button 
                         variant="ghost" 
-                        size="sm"
-                        className="text-craft-wood ml-2"
+                        size="sm" 
+                        className="flex-align-center-gap-3 text-craft-wood"
                         onClick={() => handleMarkAsSolution(reply.id)}
                       >
-                        <Award className="h-4 w-4 mr-1" />
-                        Als Lösung markieren
+                        <Award className="h-4 w-4" />
+                        Lösung
                       </Button>
                     )}
                   </div>
                   <Button 
                     variant="ghost" 
                     size="sm" 
-                    className="text-muted-foreground"
+                    className="muted-text"
                     onClick={() => handleReport(reply.id)}
                   >
                     <Flag className="h-4 w-4 mr-1" />
@@ -340,20 +318,19 @@ const ForumThread = () => {
       ))}
       
       <Card>
-        <CardHeader className="pb-3">
-          <h3 className="font-semibold">Deine Antwort</h3>
+        <CardHeader>
+          <h2 className="header-md">Deine Antwort</h2>
         </CardHeader>
         <CardContent>
-          <Textarea 
-            placeholder="Schreibe deine Antwort hier..." 
-            className="min-h-[150px] resize-y"
+          <Textarea
+            placeholder="Schreibe deine Antwort hier..."
             value={replyContent}
             onChange={(e) => setReplyContent(e.target.value)}
+            className="min-h-[120px]"
           />
         </CardContent>
-        <CardFooter className="flex justify-between border-t pt-4">
-          <Button variant="outline">Abbrechen</Button>
-          <Button onClick={handleSubmitReply}>Antwort senden</Button>
+        <CardFooter className="flex justify-end">
+          <Button onClick={handleSubmitReply} disabled={!replyContent.trim()}>Antwort senden</Button>
         </CardFooter>
       </Card>
     </div>

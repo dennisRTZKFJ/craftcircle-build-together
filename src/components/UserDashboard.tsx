@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -235,10 +234,10 @@ const UserDashboard = () => {
   
   return (
     <div className="container py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start gap-6 mb-8">
+      <div className="flex flex-col md:flex-row flex-between items-start gap-6 mb-8">
         <div>
-          <h1 className="text-3xl font-bold">My Workshop</h1>
-          <p className="text-muted-foreground">Welcome back to your personal DIY hub</p>
+          <h1 className="header-xl">My Workshop</h1>
+          <p className="muted-text">Welcome back to your personal DIY hub</p>
         </div>
         
         <div className="flex flex-wrap gap-3">
@@ -256,7 +255,7 @@ const UserDashboard = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle className="flex items-center gap-2 text-craft-wood">
+                <DialogTitle className="flex-align-center-gap-3 text-craft-wood">
                   <Crown className="h-5 w-5" />
                   DIY Premium
                 </DialogTitle>
@@ -265,55 +264,55 @@ const UserDashboard = () => {
                 </DialogDescription>
               </DialogHeader>
               
-              <div className="grid gap-4 py-4">
+              <div className="flex-col-gap-8">
                 <div className="flex flex-col gap-3">
-                  <div className="flex items-start gap-2">
+                  <div className="flex-align-center-gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
                       <h4 className="font-medium">Unlimited Projects</h4>
-                      <p className="text-sm text-muted-foreground">Create and manage as many projects as you want</p>
+                      <p className="small-muted-text">Create and manage as many projects as you want</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-2">
+                  <div className="flex-align-center-gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
                       <h4 className="font-medium">AI Project Assistant</h4>
-                      <p className="text-sm text-muted-foreground">Get personalized suggestions and guidance for your projects</p>
+                      <p className="small-muted-text">Get personalized suggestions and guidance for your projects</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-2">
+                  <div className="flex-align-center-gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
                       <h4 className="font-medium">Exclusive Tutorials</h4>
-                      <p className="text-sm text-muted-foreground">Access to premium content from top creators</p>
+                      <p className="small-muted-text">Access to premium content from top creators</p>
                     </div>
                   </div>
                   
-                  <div className="flex items-start gap-2">
+                  <div className="flex-align-center-gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
                     <div>
                       <h4 className="font-medium">Priority Support</h4>
-                      <p className="text-sm text-muted-foreground">Get faster responses to your questions and issues</p>
+                      <p className="small-muted-text">Get faster responses to your questions and issues</p>
                     </div>
                   </div>
                 </div>
                 
-                <div className="bg-muted p-4 rounded-lg">
-                  <div className="flex justify-between items-center mb-2">
+                <div className="bg-muted rounded-lg p-3">
+                  <div className="flex-between mb-2">
                     <div className="text-sm">Monthly Price</div>
                     <div className="text-lg font-bold">$9.99</div>
                   </div>
-                  <div className="text-xs text-muted-foreground">Cancel anytime. 14-day money-back guarantee.</div>
+                  <div className="text-xs muted-text">Cancel anytime. 14-day money-back guarantee.</div>
                 </div>
               </div>
               
@@ -335,7 +334,7 @@ const UserDashboard = () => {
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <Card className="md:col-span-2">
           <CardHeader className="pb-3">
-            <div className="flex justify-between items-start">
+            <div className="flex-between items-start">
               <div>
                 <CardTitle>Welcome to your Workshop</CardTitle>
                 <CardDescription>Your personal DIY space</CardDescription>
@@ -346,11 +345,11 @@ const UserDashboard = () => {
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
+            <div className="flex-col-gap-8">
               <div>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex-between mb-2">
                   <div className="text-sm font-medium">Your progress this week</div>
-                  <div className="text-sm text-muted-foreground">{weeklyProgress} of {weeklyGoal} projects</div>
+                  <div className="text-sm muted-text">{weeklyProgress} of {weeklyGoal} projects</div>
                 </div>
                 <Progress value={weeklyProgress / weeklyGoal * 100} className="h-2" />
               </div>
@@ -370,31 +369,31 @@ const UserDashboard = () => {
           </CardContent>
           <CardFooter className="border-t pt-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-craft-wood/10 flex items-center justify-center">
+              <div className="flex-align-center-gap-3">
+                <div className="h-10 w-10 rounded-full bg-craft-wood/10 flex-center">
                   <CheckCircle className="h-5 w-5 text-craft-wood" />
                 </div>
                 <div>
                   <div className="text-xl font-bold">3</div>
-                  <div className="text-xs text-muted-foreground">Completed Projects</div>
+                  <div className="text-xs muted-text">Completed Projects</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-amber-100 flex items-center justify-center">
+              <div className="flex-align-center-gap-3">
+                <div className="h-10 w-10 rounded-full bg-amber-100 flex-center">
                   <Clock className="h-5 w-5 text-amber-600" />
                 </div>
                 <div>
                   <div className="text-xl font-bold">2</div>
-                  <div className="text-xs text-muted-foreground">Active Projects</div>
+                  <div className="text-xs muted-text">Active Projects</div>
                 </div>
               </div>
-              <div className="flex items-center gap-3">
-                <div className="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+              <div className="flex-align-center-gap-3">
+                <div className="h-10 w-10 rounded-full bg-blue-100 flex-center">
                   <Award className="h-5 w-5 text-blue-600" />
                 </div>
                 <div>
                   <div className="text-xl font-bold">3</div>
-                  <div className="text-xs text-muted-foreground">Earned Badges</div>
+                  <div className="text-xs muted-text">Earned Badges</div>
                 </div>
               </div>
             </div>
@@ -406,14 +405,14 @@ const UserDashboard = () => {
             <CardTitle>What Should I Build Next?</CardTitle>
             <CardDescription>AI Project Recommendations for You</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-4">
+          <CardContent className="flex-col-gap-8">
             <div className="relative h-36 rounded-md overflow-hidden">
               <img 
                 src={aiRecommendations[0].image} 
                 alt={aiRecommendations[0].title}
-                className="w-full h-full object-cover"
+                className="img-cover"
               />
-              <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <div className="absolute inset-0 bg-black/30 flex-center">
                 <div className="text-center text-white p-4">
                   <Brain className="h-6 w-6 mx-auto mb-2" />
                   <div className="font-medium text-sm">{aiRecommendations[0].title}</div>
@@ -432,24 +431,24 @@ const UserDashboard = () => {
       <Tabs defaultValue="projects" className="w-full">
         <TabsList className="grid grid-cols-5 max-w-3xl mb-8">
           <TabsTrigger value="projects">
-            <FileText className="h-4 w-4 mr-2" /> Project History
+            <FileText className="h-4 w-4 icon-margin-right" /> Project History
           </TabsTrigger>
           <TabsTrigger value="comments">
-            <MessageCircle className="h-4 w-4 mr-2" /> Comments
+            <MessageCircle className="h-4 w-4 icon-margin-right" /> Comments
           </TabsTrigger>
           <TabsTrigger value="materials">
-            <Package className="h-4 w-4 mr-2" /> Material Lists
+            <Package className="h-4 w-4 icon-margin-right" /> Material Lists
           </TabsTrigger>
           <TabsTrigger value="ideas">
-            <Brain className="h-4 w-4 mr-2" /> AI Recommendations
+            <Brain className="h-4 w-4 icon-margin-right" /> AI Recommendations
           </TabsTrigger>
           <TabsTrigger value="achievements">
-            <Award className="h-4 w-4 mr-2" /> Achievements
+            <Award className="h-4 w-4 icon-margin-right" /> Achievements
           </TabsTrigger>
         </TabsList>
         
         {/* Projects Tab */}
-        <TabsContent value="projects" className="space-y-6">
+        <TabsContent value="projects" className="flex-col-gap-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {projects.map((project) => (
               <Card key={project.id} className={`overflow-hidden ${project.status === 'abandoned' ? 'opacity-70' : ''}`}>
@@ -457,7 +456,7 @@ const UserDashboard = () => {
                   <img 
                     src={project.image} 
                     alt={project.name}
-                    className="w-full h-full object-cover"
+                    className="img-cover"
                   />
                   <div className="absolute top-3 right-3">
                     <Badge className={
@@ -474,17 +473,17 @@ const UserDashboard = () => {
                 </div>
                 <CardContent className="p-4">
                   <h3 className="font-bold">{project.name}</h3>
-                  <div className="text-sm text-muted-foreground mt-1">Due: {project.date}</div>
+                  <div className="small-muted-text mt-1">Due: {project.date}</div>
                   
                   <div className="mt-4">
-                    <div className="flex justify-between text-sm mb-1">
+                    <div className="flex-between text-sm mb-1">
                       <span>Progress</span>
                       <span>{project.progress}%</span>
                     </div>
                     <Progress value={project.progress} className="h-1.5" />
                   </div>
                 </CardContent>
-                <CardFooter className="flex justify-between p-4 pt-0">
+                <CardFooter className="flex-between p-4 pt-0">
                   <Button variant="ghost" size="sm">Details</Button>
                   {project.status !== 'completed' && project.status !== 'abandoned' && (
                     <Button size="sm">Continue</Button>
@@ -495,11 +494,11 @@ const UserDashboard = () => {
             
             <Card className="border-dashed flex flex-col items-center justify-center h-[258px]">
               <div className="text-center p-4">
-                <div className="h-10 w-10 rounded-full bg-muted flex items-center justify-center mx-auto mb-2">
+                <div className="h-10 w-10 rounded-full bg-muted flex-center">
                   <FileText className="h-5 w-5" />
                 </div>
                 <h3 className="font-medium">New Project</h3>
-                <p className="text-sm text-muted-foreground mt-1">
+                <p className="small-muted-text mt-1">
                   Start a new DIY adventure
                 </p>
                 <Button className="mt-4" onClick={startProject}>Create Project</Button>
@@ -507,7 +506,7 @@ const UserDashboard = () => {
             </Card>
           </div>
           
-          <div className="flex justify-center">
+          <div className="flex-center">
             <Button variant="outline" onClick={viewAllProjects}>
               View All Projects
             </Button>
@@ -515,15 +514,15 @@ const UserDashboard = () => {
         </TabsContent>
         
         {/* Comments Tab */}
-        <TabsContent value="comments" className="space-y-6">
+        <TabsContent value="comments" className="flex-col-gap-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {comments.map((comment) => (
               <Card key={comment.id}>
                 <CardHeader className="pb-2">
-                  <div className="flex justify-between">
+                  <div className="flex-between">
                     <CardTitle className="text-base">"{comment.tutorial}"</CardTitle>
-                    <div className="flex items-center text-muted-foreground text-sm">
-                      <Calendar className="h-4 w-4 mr-1" />
+                    <div className="flex-align-center-gap-3 muted-text">
+                      <Calendar className="h-4 w-4 icon-margin-right" />
                       {comment.date}
                     </div>
                   </div>
@@ -532,9 +531,9 @@ const UserDashboard = () => {
                   <p className="text-sm">{comment.content}</p>
                 </CardContent>
                 <CardFooter className="border-t pt-3">
-                  <div className="flex justify-between w-full items-center">
-                    <div className="flex items-center">
-                      <Heart className="h-4 w-4 mr-1 text-craft-wood" />
+                  <div className="flex-between w-full items-center">
+                    <div className="flex-align-center-gap-3">
+                      <Heart className="h-4 w-4 text-craft-wood" />
                       <span className="text-sm">{comment.likes} Likes</span>
                     </div>
                     <Button variant="ghost" size="sm">Go to Tutorial</Button>
@@ -543,10 +542,10 @@ const UserDashboard = () => {
               </Card>
             ))}
             
-            <Card className="flex flex-col items-center justify-center h-[180px]">
+            <Card className="flex flex-col flex-center h-[180px]">
               <div className="text-center p-8">
-                <MessageCircle className="h-8 w-8 mx-auto mb-4 text-muted-foreground" />
-                <p className="text-muted-foreground">
+                <MessageCircle className="h-8 w-8 mx-auto mb-4 muted-text" />
+                <p className="muted-text">
                   Share your experiences and thoughts with the community
                 </p>
                 <Button variant="outline" className="mt-4">Browse Tutorials</Button>
@@ -556,7 +555,7 @@ const UserDashboard = () => {
         </TabsContent>
         
         {/* Materials Tab */}
-        <TabsContent value="materials" className="space-y-6">
+        <TabsContent value="materials" className="flex-col-gap-8">
           <Card>
             <CardHeader>
               <CardTitle>Your Material Lists</CardTitle>
@@ -596,7 +595,7 @@ const UserDashboard = () => {
                 </TableBody>
               </Table>
             </CardContent>
-            <CardFooter className="flex justify-between">
+            <CardFooter className="flex-between">
               <Button variant="outline">Create New List</Button>
               <Button>Order from Partner</Button>
             </CardFooter>
@@ -604,7 +603,7 @@ const UserDashboard = () => {
         </TabsContent>
         
         {/* Ideas Tab */}
-        <TabsContent value="ideas" className="space-y-6">
+        <TabsContent value="ideas" className="flex-col-gap-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {aiRecommendations.map((recommendation) => (
               <Card key={recommendation.id} className="overflow-hidden">
@@ -612,7 +611,7 @@ const UserDashboard = () => {
                   <img 
                     src={recommendation.image} 
                     alt={recommendation.title}
-                    className="w-full h-full object-cover"
+                    className="img-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex items-end">
                     <div className="p-4 text-white">
@@ -624,30 +623,30 @@ const UserDashboard = () => {
                   </div>
                 </div>
                 <CardContent className="p-4">
-                  <div className="flex items-center gap-2">
+                  <div className="flex-align-center-gap-3">
                     <Brain className="h-4 w-4 text-craft-wood" />
                     <div className="text-sm font-medium">AI Recommendation</div>
                   </div>
                   <div className="mt-3">
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm muted-text">
                       <span className="font-medium text-foreground">Tools needed:</span> {recommendation.tools}
                     </p>
                   </div>
                 </CardContent>
-                <CardFooter className="flex justify-between p-4 pt-0">
+                <CardFooter className="flex-between p-4 pt-0">
                   <Button variant="outline" size="sm">Find Tutorial</Button>
                   <Button size="sm">Start Project</Button>
                 </CardFooter>
               </Card>
             ))}
             
-            <Card className="flex flex-col items-center justify-center h-[338px]">
+            <Card className="flex flex-col flex-center h-[338px]">
               <div className="text-center p-8">
-                <div className="h-16 w-16 rounded-full bg-craft-wood/10 flex items-center justify-center mx-auto mb-4">
+                <div className="h-16 w-16 rounded-full bg-craft-wood/10 flex-center">
                   <Brain className="h-8 w-8 text-craft-wood" />
                 </div>
                 <h3 className="font-medium mb-2">Discover More Ideas</h3>
-                <p className="text-muted-foreground">
+                <p className="muted-text">
                   Tell the AI more about your interests and skills for better suggestions
                 </p>
                 <Button className="mt-4">Customize Interests</Button>
@@ -657,22 +656,22 @@ const UserDashboard = () => {
         </TabsContent>
         
         {/* Achievements Tab */}
-        <TabsContent value="achievements" className="space-y-6">
+        <TabsContent value="achievements" className="flex-col-gap-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {achievements.map((achievement) => (
               <Card key={achievement.id} className={`${!achievement.earned ? 'opacity-60' : ''}`}>
                 <CardContent className="p-6 text-center">
-                  <div className={`h-20 w-20 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                  <div className={`h-20 w-20 rounded-full flex-center mx-auto mb-4 ${
                     achievement.earned ? 'bg-craft-wood/10' : 'bg-muted'
                   }`}>
-                    <div className={`h-16 w-16 rounded-full flex items-center justify-center ${
-                      achievement.earned ? 'text-craft-wood' : 'text-muted-foreground'
+                    <div className={`h-16 w-16 rounded-full flex-center ${
+                      achievement.earned ? 'text-craft-wood' : 'muted-text'
                     }`}>
                       {achievement.icon}
                     </div>
                   </div>
                   <h3 className="font-bold text-lg mb-1">{achievement.name}</h3>
-                  <p className="text-sm text-muted-foreground">
+                  <p className="small-muted-text">
                     {achievement.description}
                   </p>
                   <div className="mt-4">
@@ -682,7 +681,7 @@ const UserDashboard = () => {
                       </Badge>
                     ) : (
                       <div>
-                        <div className="text-xs text-muted-foreground mb-1">
+                        <div className="text-xs muted-text mb-1">
                           {achievement.progress}% completed
                         </div>
                         <Progress value={achievement.progress} className="h-1" />

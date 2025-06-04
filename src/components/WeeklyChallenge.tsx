@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -19,11 +18,11 @@ const WeeklyChallenge = () => {
   };
 
   return (
-    <div className="py-24 bg-craft-wood/5">
+    <div className="section-y-space-xl bg-craft-wood/5">
       <div className="container">
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold mb-2">Weekly Challenge</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+        <div className="text-center section-space">
+          <h2 className="header-xl">Weekly Challenge</h2>
+          <p className="muted-text max-w-2xl mx-auto">
             Take on our weekly DIY challenge, share your result, and win prizes!
           </p>
         </div>
@@ -38,36 +37,36 @@ const WeeklyChallenge = () => {
               <img 
                 src={challengeData.image} 
                 alt={challengeData.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                className="img-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
           
             <div>
               <CardHeader>
-                <div className="flex items-center justify-between mb-2">
+                <div className="flex-between mb-2">
                   <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
                     {challengeData.difficulty}
                   </Badge>
                   <div className="flex gap-4">
-                    <span className="text-sm text-muted-foreground flex items-center">
-                      <Clock className="h-3 w-3 mr-1" /> {challengeData.duration}
+                    <span className="text-sm muted-text flex items-center">
+                      <Clock className="h-3 w-3 icon-margin-right" /> {challengeData.duration}
                     </span>
-                    <span className="text-sm text-muted-foreground flex items-center">
-                      <Users className="h-3 w-3 mr-1" /> {challengeData.participants} Participants
+                    <span className="text-sm muted-text flex items-center">
+                      <Users className="h-3 w-3 icon-margin-right" /> {challengeData.participants} Participants
                     </span>
                   </div>
                 </div>
-                <CardTitle className="text-2xl">{challengeData.title}</CardTitle>
+                <CardTitle className="header-lg">{challengeData.title}</CardTitle>
                 <CardDescription>
                   <div className="flex items-center text-craft-wood">
-                    <Calendar className="h-4 w-4 mr-1" />
+                    <Calendar className="h-4 w-4 icon-margin-right" />
                     Submission deadline: {challengeData.deadline}
                   </div>
                 </CardDescription>
               </CardHeader>
             
               <CardContent>
-                <p className="mb-6">{challengeData.description}</p>
+                <p className="section-space">{challengeData.description}</p>
               
                 <div className="space-y-2">
                   <div className="bg-muted rounded-lg p-3">
@@ -90,7 +89,7 @@ const WeeklyChallenge = () => {
                 </div>
               </CardContent>
             
-              <CardFooter className="flex justify-between">
+              <CardFooter className="flex-between">
                 <Button variant="outline">View Gallery</Button>
                 <Button asChild>
                   <Link to="/challenges/weekly">
