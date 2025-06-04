@@ -73,7 +73,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                   </TableCell>
                   <TableCell>
                     <Badge variant={tutorial.status === 'published' ? 'default' : 'outline'} className={
-                      tutorial.status === 'published' ? '' : 'bg-amber-100 text-amber-800 border-amber-200'
+                      tutorial.status === 'published' ? 'badge-green' : 'badge-amber'
                     }>
                       {tutorial.status === 'published' ? 'Published' : 'Draft'}
                     </Badge>
@@ -139,9 +139,9 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                   <div className="flex-between text-xs small-muted-text">
                     <div className="flex-align-center-gap-2">
                       {tutorial.status === 'published' ? (
-                        <Check className="h-3 w-3 icon-margin-right text-green-600" />
+                        <Check className="h-3 w-3 icon-margin-right muted-text" />
                       ) : (
-                        <Clock className="h-3 w-3 icon-margin-right text-amber-600" />
+                        <Clock className="h-3 w-3 icon-margin-right muted-text" />
                       )}
                       {tutorial.status === 'published' ? 'Published' : 'In Progress'}
                     </div>
@@ -166,10 +166,10 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                 .slice(0, 3)
                 .map((tutorial, index) => (
                   <div key={tutorial.id} className="flex-align-center-gap-3">
-                    <div className={`w-8 h-8 rounded-full flex-center ${
-                      index === 0 ? 'bg-amber-100 text-amber-800' :
-                      index === 1 ? 'bg-slate-100 text-slate-800' :
-                      'bg-craft-wood/10 text-craft-wood'
+                    <div className={`w-8 h-8 rounded-full-center ${
+                      index === 0 ? 'badge-amber' :
+                      index === 1 ? 'badge-gray' :
+                      'badge-craft-wood'
                     }`}>
                       {index + 1}
                     </div>
@@ -179,7 +179,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                         {tutorial.views.toLocaleString()} views • {tutorial.likes} likes
                       </div>
                     </div>
-                    <Star className="h-5 w-5 text-amber-500" />
+                    <Star className="h-5 w-5 muted-text" />
                   </div>
                 ))
               }

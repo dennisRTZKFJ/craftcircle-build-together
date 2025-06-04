@@ -145,7 +145,7 @@ const UserProfile = () => {
               
               <p className="mt-4">{userData.bio}</p>
               
-              <div className="flex flex-wrap gap-y-2 gap-x-6 mt-4 text-sm">
+              <div className="flex-wrap-gap-2 mt-4 text-sm">
                 <div className="flex-align-center-gap-3">
                   <MapPin className="icon-margin-right h-4 w-4 muted-text" />
                   <span>{userData.location}</span>
@@ -162,9 +162,13 @@ const UserProfile = () => {
                 </div>
               </div>
               
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex-wrap-gap-2 mt-4">
                 {userData.badges.map((badge) => (
-                  <Badge key={badge.id} variant="outline" className={badge.color}>
+                  <Badge key={badge.id} variant="outline" className={
+                    badge.name === "Early Adopter" ? "badge-blue" :
+                    badge.name === "Community Contributor" ? "badge-green" :
+                    badge.name === "Challenge Master" ? "badge-amber" : "badge-gray"
+                  }>
                     {badge.name}
                   </Badge>
                 ))}
@@ -212,7 +216,7 @@ const UserProfile = () => {
                     className="img-cover"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                    <Badge className="bg-craft-wood border-craft-wood">
+                    <Badge className="badge-craft-wood">
                       {tutorial.difficulty}
                     </Badge>
                   </div>
@@ -271,17 +275,17 @@ const UserProfile = () => {
                   </div>
                 )}
                 <div className={`flex-1 p-4 ${!activity.image ? 'w-full' : ''}`}>
-                  <div className="flex items-center">
+                  <div className="flex-items-center">
                     <Badge variant="outline" className={
                       activity.type === 'tutorial' 
-                        ? 'bg-amber-100 text-amber-800 border-amber-200'
+                        ? 'badge-amber'
                         : activity.type === 'project'
-                          ? 'bg-blue-100 text-blue-800 border-blue-200'
+                          ? 'badge-blue'
                           : activity.type === 'challenge'
-                            ? 'bg-green-100 text-green-800 border-green-200'
+                            ? 'badge-green'
                             : activity.type === 'forum'
-                              ? 'bg-purple-100 text-purple-800 border-purple-200'
-                              : 'bg-pink-100 text-pink-800 border-pink-200'
+                              ? 'badge-purple'
+                              : 'badge-pink'
                     }>
                       {activity.type === 'tutorial' ? 'Tutorial' : 
                        activity.type === 'project' ? 'Projekt' :

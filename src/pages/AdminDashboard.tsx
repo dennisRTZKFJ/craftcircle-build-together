@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -94,7 +93,7 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="text-3xl font-bold">{stats.totalUsers}</div>
               <div className="flex items-center text-sm">
-                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                <Badge variant="outline" className="badge-green">
                   {stats.userGrowth}
                 </Badge>
                 <span className="text-muted-foreground ml-2">im letzten Monat</span>
@@ -112,7 +111,7 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="text-3xl font-bold">{stats.activeCreators}</div>
               <div className="flex items-center text-sm">
-                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                <Badge variant="outline" className="badge-green">
                   {stats.creatorGrowth}
                 </Badge>
                 <span className="text-muted-foreground ml-2">im letzten Monat</span>
@@ -130,7 +129,7 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="text-3xl font-bold">{stats.totalTutorials}</div>
               <div className="flex items-center text-sm">
-                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                <Badge variant="outline" className="badge-green">
                   {stats.tutorialGrowth}
                 </Badge>
                 <span className="text-muted-foreground ml-2">im letzten Monat</span>
@@ -148,7 +147,7 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="text-3xl font-bold">{stats.totalTransactions}</div>
               <div className="flex items-center text-sm">
-                <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                <Badge variant="outline" className="badge-green">
                   {stats.transactionGrowth}
                 </Badge>
                 <span className="text-muted-foreground ml-2">im letzten Monat</span>
@@ -209,10 +208,10 @@ const AdminDashboard = () => {
                         <TableCell>
                           <Badge variant="outline" className={
                             user.type === 'Creator' 
-                              ? 'bg-amber-100 text-amber-800 border-amber-200'
+                              ? 'badge-amber'
                               : user.type === 'Partner'
-                                ? 'bg-blue-100 text-blue-800 border-blue-200'
-                                : 'bg-green-100 text-green-800 border-green-200'
+                                ? 'badge-blue'
+                                : 'badge-green'
                           }>
                             {user.type}
                           </Badge>

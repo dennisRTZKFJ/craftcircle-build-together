@@ -150,9 +150,9 @@ const ForumThread = () => {
       
       <Card>
         <CardHeader>
-          <div className="flex items-start gap-4">
+          <div className="flex-items-start-gap-4">
             <div className="hidden md:block">
-              <Avatar className="h-10 w-10">
+              <Avatar className="avatar-md">
                 <AvatarImage src={threadData.author.avatar} alt={threadData.author.name} />
                 <AvatarFallback>{threadData.author.name.charAt(0)}</AvatarFallback>
               </Avatar>
@@ -161,14 +161,14 @@ const ForumThread = () => {
               <div className="flex flex-wrap flex-align-center-gap-3 mb-2">
                 <h1 className="header-lg">{threadData.title}</h1>
                 {threadData.solved && (
-                  <Badge className="bg-green-100 text-green-800 border-green-200">
+                  <Badge className="badge-green">
                     Gelöst
                   </Badge>
                 )}
               </div>
               <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
                 <div className="flex md:hidden flex-align-center-gap-3">
-                  <Avatar className="h-5 w-5">
+                  <Avatar className="avatar-sm">
                     <AvatarImage src={threadData.author.avatar} alt={threadData.author.name} />
                     <AvatarFallback>{threadData.author.name.charAt(0)}</AvatarFallback>
                   </Avatar>
@@ -224,7 +224,7 @@ const ForumThread = () => {
                   className="muted-text"
                   onClick={() => handleReport(threadData.id)}
                 >
-                  <Flag className="h-4 w-4 mr-1" />
+                  <Flag className="h-4 w-4 icon-margin-right" />
                   Melden
                 </Button>
               </div>
@@ -236,7 +236,7 @@ const ForumThread = () => {
       <div className="flex-between">
         <h2 className="header-md">{repliesData.length} Antworten</h2>
         <Button variant="outline" size="sm">
-          <MessageCircle className="h-4 w-4 mr-1" />
+          <MessageCircle className="h-4 w-4 icon-margin-right" />
           Abonnieren
         </Button>
       </div>
@@ -251,26 +251,37 @@ const ForumThread = () => {
                   <Badge variant="outline" className="mt-1">
                     {reply.author.level}
                   </Badge>
-                  <div className="text-xs muted-text mt-3">
+                  <div className="small-muted-text mt-3">
                     <div>Mitglied seit {reply.author.joinDate}</div>
                     <div>{reply.author.posts} Beiträge</div>
                   </div>
                 </div>
               </div>
               <div className="flex-1">
-                <div className="flex items-center flex-wrap gap-x-4 gap-y-1 text-sm mb-4 md:hidden">
-                  <div className="flex-align-center-gap-3">
-                    <Avatar className="h-5 w-5">
-                      <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
-                      <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
-                    </Avatar>
-                    <span className="font-medium">{reply.author.name}</span>
+                <div className="flex-items-start-gap-4 mb-4">
+                  <Avatar className="avatar-sm md:hidden">
+                    <AvatarImage src={reply.author.avatar} alt={reply.author.name} />
+                    <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
+                  </Avatar>
+                  <div>
+                    <div className="flex-align-center-gap-3 mb-1">
+                      <span className="font-medium">{reply.author.name}</span>
+                      {reply.author.isModerator && (
+                        <Badge className="badge-blue">Moderator</Badge>
+                      )}
+                      <span className="small-muted-text ml-auto">{reply.createdAt}</span>
+                      {reply.author.id === threadData.author.id && (
+                        <Badge className="badge-craft-wood">Author</Badge>
+                      )}
+                    </div>
+                    <p className="small-muted-text">
+                      {reply.author.level}, Mitglied seit {reply.author.joinDate}
+                    </p>
                   </div>
-                  <div className="muted-text">{reply.createdAt}</div>
                 </div>
-                <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{__html: reply.content}}></div>
+                <div className="prose prose-sm max-w-none mb-4" dangerouslySetInnerHTML={{__html: reply.content}}></div>
                 
-                <div className="flex-between mt-6 pt-4 border-t">
+                <div className="flex-between pt-4 border-t">
                   <div className="flex-align-center-gap-3">
                     <Button 
                       variant="ghost" 
@@ -289,15 +300,15 @@ const ForumThread = () => {
                     >
                       <ThumbsDown className="h-4 w-4" />
                     </Button>
-                    {reply.author.isModerator && (
+                    {reply.author.id === threadData.author.id && !threadData.solved && (
                       <Button 
-                        variant="ghost" 
+                        variant="outline" 
                         size="sm" 
-                        className="flex-align-center-gap-3 text-craft-wood"
+                        className="flex-align-center-gap-3 ml-auto"
                         onClick={() => handleMarkAsSolution(reply.id)}
                       >
                         <Award className="h-4 w-4" />
-                        Lösung
+                        Lösung markieren
                       </Button>
                     )}
                   </div>
@@ -307,31 +318,33 @@ const ForumThread = () => {
                     className="muted-text"
                     onClick={() => handleReport(reply.id)}
                   >
-                    <Flag className="h-4 w-4 mr-1" />
+                    <Flag className="h-4 w-4 icon-margin-right" />
                     Melden
                   </Button>
                 </div>
               </div>
             </div>
           </CardContent>
+          <CardFooter className="p-4 flex-end">
+            {/* Optionally add actions like Reply to a specific comment */}
+          </CardFooter>
         </Card>
       ))}
-      
+
       <Card>
         <CardHeader>
-          <h2 className="header-md">Deine Antwort</h2>
+          <h2 className="header-md">Eigene Antwort schreiben</h2>
         </CardHeader>
         <CardContent>
-          <Textarea
-            placeholder="Schreibe deine Antwort hier..."
+          <Textarea 
+            placeholder="Deine Antwort..." 
+            className="mb-4"
             value={replyContent}
             onChange={(e) => setReplyContent(e.target.value)}
-            className="min-h-[120px]"
+            rows={6}
           />
+          <Button onClick={handleSubmitReply} disabled={!replyContent.trim()}>Antwort absenden</Button>
         </CardContent>
-        <CardFooter className="flex justify-end">
-          <Button onClick={handleSubmitReply} disabled={!replyContent.trim()}>Antwort senden</Button>
-        </CardFooter>
       </Card>
     </div>
   );

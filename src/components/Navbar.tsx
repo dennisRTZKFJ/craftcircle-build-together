@@ -67,7 +67,7 @@ const Navbar = () => {
         isScrolled ? 'bg-background/95 backdrop-blur-lg shadow-sm' : 'bg-transparent'
       }`}
     >
-      <div className="container flex h-16 items-center container-padding">
+      <div className="container flex-align-center-gap-3 h-16 container-padding">
         <div className="flex-align-center-gap-3 md:space-x-4">
           <Link to="/" className="flex-align-center-gap-3">
             <img 
@@ -105,7 +105,7 @@ const Navbar = () => {
             className="hidden md:flex"
             onClick={() => setSearchOpen(true)}
           >
-            <Search className="h-4 w-4 mr-2" />
+            <Search className="h-4 w-4 icon-margin-right" />
             Search
           </Button>
 

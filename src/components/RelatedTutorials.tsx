@@ -60,10 +60,10 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
                 <div className="flex-align-center-gap-3 mt-1">
                   <Badge variant="outline" className={
                     tutorial.category === "Beginner" 
-                      ? "bg-green-100 text-green-800 border-green-200" 
+                      ? "badge-green" 
                       : tutorial.category === "Intermediate"
-                      ? "bg-amber-100 text-amber-800 border-amber-200"
-                      : "bg-red-100 text-red-800 border-red-200"
+                      ? "badge-amber"
+                      : "badge-red"
                   }>
                     {tutorial.category}
                   </Badge>

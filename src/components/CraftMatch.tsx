@@ -75,9 +75,9 @@ const CraftMatch = () => {
             <CardHeader className="p-4 pb-2">
               <div className="flex-between mb-1">
                 <Badge variant="outline" className={`
-                  ${project.difficulty === "Anfänger" ? "badge-difficulty-beginner" : ""}
-                  ${project.difficulty === "Mittel" ? "badge-difficulty-medium" : ""}
-                  ${project.difficulty === "Fortgeschritten" ? "badge-difficulty-advanced" : ""}
+                  ${project.difficulty === "Anfänger" ? "badge-green" : ""}
+                  ${project.difficulty === "Mittel" ? "badge-amber" : ""}
+                  ${project.difficulty === "Fortgeschritten" ? "badge-red" : ""}
                 `}>
                   {project.difficulty}
                 </Badge>

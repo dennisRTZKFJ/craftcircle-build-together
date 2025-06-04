@@ -32,7 +32,7 @@ const MaterialList = ({ materials, tools, price }: MaterialListProps) => {
           {materials.map((material, index) => (
             <Card key={index} className="overflow-hidden">
               <CardContent className="p-4">
-                <div className="flex flex-between items-start">
+                <div className="flex-between items-start">
                   <div>
                     <h3 className="header-md-lg">{material.name}</h3>
                     <p className="small-muted-text mb-2">{material.amount}</p>
@@ -63,7 +63,7 @@ const MaterialList = ({ materials, tools, price }: MaterialListProps) => {
       
       <div>
         <h2 className="header-md">Benötigte Werkzeuge</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
+        <div className="grid-cols-1-sm-2-md-3-gap-3">
           {tools.map((tool, index) => (
             <Badge key={index} variant="secondary" className="py-2 px-3 justify-start">
               {tool}

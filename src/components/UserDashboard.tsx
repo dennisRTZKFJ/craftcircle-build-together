@@ -460,10 +460,10 @@ const UserDashboard = () => {
                   />
                   <div className="absolute top-3 right-3">
                     <Badge className={
-                      project.status === 'completed' ? 'bg-green-100 text-green-800 border-green-200' :
-                      project.status === 'in-progress' ? 'bg-blue-100 text-blue-800 border-blue-200' :
-                      project.status === 'planned' ? 'bg-amber-100 text-amber-800 border-amber-200' :
-                      'bg-red-100 text-red-800 border-red-200'
+                      project.status === 'completed' ? 'badge-green' :
+                      project.status === 'in-progress' ? 'badge-blue' :
+                      project.status === 'planned' ? 'badge-amber' :
+                      'badge-red'
                     }>
                       {project.status === 'completed' ? 'Completed' :
                        project.status === 'in-progress' ? 'In Progress' :
@@ -580,8 +580,8 @@ const UserDashboard = () => {
                       <TableCell>{list.items} items</TableCell>
                       <TableCell>
                         <Badge variant="outline" className={list.purchased ? 
-                          'bg-green-100 text-green-800 border-green-200' : 
-                          'bg-amber-100 text-amber-800 border-amber-200'}>
+                          'badge-green' : 
+                          'badge-amber'}>
                           {list.purchased ? 'Purchased' : 'Saved'}
                         </Badge>
                       </TableCell>
@@ -676,7 +676,7 @@ const UserDashboard = () => {
                   </p>
                   <div className="mt-4">
                     {achievement.earned ? (
-                      <Badge className="bg-green-100 text-green-800 border-green-200">
+                      <Badge className="badge-green">
                         Earned on {achievement.date}
                       </Badge>
                     ) : (

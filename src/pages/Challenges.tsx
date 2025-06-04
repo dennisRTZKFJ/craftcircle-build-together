@@ -117,13 +117,13 @@ const Challenges = () => {
                     className="img-cover"
                   />
                   <div className="absolute bottom-4 left-4 z-20">
-                    <Badge className="bg-craft-wood text-white border-none mb-2">Current Challenge</Badge>
+                    <Badge className="badge-craft-wood mb-2">Current Challenge</Badge>
                     <h2 className="header-lg text-white">{currentChallenge.title}</h2>
                   </div>
                 </div>
                 
                 <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center flex-between gap-4 section-space">
+                  <div className="flex flex-col md:flex-row md:items-center flex-between flex-align-center-gap-4 section-space">
                     <div>
                       <p className="muted-text mb-1">Period</p>
                       <p className="font-medium">{currentChallenge.startDate} - {currentChallenge.endDate}</p>

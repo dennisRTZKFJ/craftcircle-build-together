@@ -33,23 +33,23 @@ const PartnerDashboard = () => {
   
   return (
     <div className="container py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start gap-4 section-space">
+      <div className="dashboard-header-layout section-space">
         <div>
           <h1 className="header-xl">Partner Dashboard</h1>
           <p className="muted-text">Produktdaten, Insights und Kampagnenmanagement</p>
         </div>
         
-        <Button onClick={handleContactSupport} className="flex items-center gap-2">
+        <Button onClick={handleContactSupport} className="flex-align-center-gap-2">
           <HelpCircle className="h-4 w-4" />
           <span>Support kontaktieren</span>
         </Button>
       </div>
       
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid-cols-1-4 mb-8">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <Link className="h-5 w-5 text-craft-wood" />
               Clicks
             </CardTitle>
@@ -62,7 +62,7 @@ const PartnerDashboard = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <Store className="h-5 w-5 text-craft-wood" />
               Verkäufe
             </CardTitle>
@@ -75,7 +75,7 @@ const PartnerDashboard = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <DollarSign className="h-5 w-5 text-craft-wood" />
               Umsatz
             </CardTitle>
@@ -88,7 +88,7 @@ const PartnerDashboard = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <MapPin className="h-5 w-5 text-craft-wood" />
               Top-Region
             </CardTitle>
@@ -141,7 +141,7 @@ const PartnerDashboard = () => {
                         )}
                       </TableCell>
                       <TableCell className="hidden md:table-cell">
-                        <div className="flex gap-1 flex-wrap">
+                        <div className="flex-wrap-gap-1">
                           {product.regions.map((region) => (
                             <Badge key={region} variant="outline">{region}</Badge>
                           ))}
@@ -207,7 +207,7 @@ const PartnerDashboard = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center py-6">
-                  <UploadCloud className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <UploadCloud className="h-12 w-12 mx-auto muted-text mb-4" />
                   <p className="mb-4">Starten Sie eine neue Kampagnenanfrage</p>
                   <Button>Kampagne erstellen</Button>
                 </div>
@@ -238,7 +238,7 @@ const PartnerDashboard = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center gap-4 p-4 border rounded-md">
+                <div key={i} className="flex-align-center-gap-4 p-4 border rounded-md">
                   <Brain className="h-8 w-8 text-craft-wood" />
                   <div>
                     <h4 className="font-medium">

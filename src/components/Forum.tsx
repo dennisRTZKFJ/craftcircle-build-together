@@ -124,18 +124,30 @@ const Forum = () => {
                 {forumThreads.map((thread) => (
                   <Card key={thread.id}>
                     <CardHeader className="pb-2">
-                      <div className="flex items-start flex-between">
+                      <div className="flex-between items-start">
                         <div className="flex-1">
                           <CardTitle className="header-md-lg hover:text-craft-wood cursor-pointer">
                             {thread.title}
                           </CardTitle>
                           <div className="flex flex-wrap gap-1 mt-2">
                             {thread.categories.map((category, i) => (
-                              <Badge key={i} variant="outline" className="bg-muted">{category}</Badge>
+                              <Badge 
+                                key={i} 
+                                variant="outline" 
+                                className={
+                                  category === 'Werkzeuge' ? 'badge-blue' :
+                                  category === 'Möbelbau' ? 'badge-green' :
+                                  category === 'Upcycling' ? 'badge-purple' :
+                                  category === 'Anfängerfragen' ? 'badge-pink' :
+                                  'badge-amber'
+                                }
+                              >
+                                {category}
+                              </Badge>
                             ))}
                           </div>
                         </div>
-                        <Avatar className="h-10 w-10">
+                        <Avatar className="avatar-md">
                           <AvatarImage src={thread.author.avatar} alt={thread.author.name} />
                           <AvatarFallback>{thread.author.name.charAt(0)}</AvatarFallback>
                         </Avatar>
@@ -211,7 +223,7 @@ const Forum = () => {
                     key={category.id}
                     className="flex-between p-2 hover:bg-muted rounded-md cursor-pointer transition-colors"
                   >
-                    <Badge variant="outline" className={category.color}>
+                    <Badge variant="outline" className={category.color.includes('amber') ? 'badge-amber' : category.color.includes('green') ? 'badge-green' : category.color.includes('blue') ? 'badge-blue' : category.color.includes('purple') ? 'badge-purple' : 'badge-pink'}>
                       {category.name}
                     </Badge>
                     <span className="small-muted-text">{category.count} Threads</span>

@@ -48,14 +48,14 @@ const ProjectShowcase = () => {
   return (
     <section id="projects" className="py-24 bg-craft-wood/5">
       <div className="container px-4 md:px-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
+        <div className="flex-between md:items-center flex-col md:flex-row gap-6 mb-12">
           <div>
             <h2 className="header-xl">Popular Projects</h2>
             <p className="muted-text max-w-[600px]">
               Discover our best-rated DIY furniture projects, created by beginners and experts alike.
             </p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex-gap-2">
             <Button variant="outline" size="sm">All</Button>
             <Button variant="outline" size="sm" className="text-green-800">Beginner</Button>
             <Button variant="outline" size="sm" className="text-amber-800">Intermediate</Button>
@@ -63,7 +63,7 @@ const ProjectShowcase = () => {
           </div>
         </div>
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid-cols-1-4">
           {projects.map((project, index) => (
             <div 
               key={index} 
@@ -73,20 +73,24 @@ const ProjectShowcase = () => {
                 <img 
                   src={project.image} 
                   alt={project.title}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="img-cover image-hover-scale"
                 />
               </div>
               <div className="p-4">
                 <div className="flex-between mb-2">
-                  <Badge variant="outline" className={categoryColors[project.category as keyof typeof categoryColors]}>
+                  <Badge variant="outline" className={
+                    project.category === "Beginner" ? "badge-green" :
+                    project.category === "Intermediate" ? "badge-amber" :
+                    "badge-red"
+                  }>
                     {project.category}
                   </Badge>
                   <span className="text-sm muted-text">{project.duration}</span>
                 </div>
-                <h3 className="font-bold text-lg mb-1">{project.title}</h3>
-                <p className="text-sm muted-text mb-3">By {project.author}</p>
+                <h3 className="project-title">{project.title}</h3>
+                <p className="small-muted-text-mb-3">By {project.author}</p>
                 <div className="flex-between">
-                  <div className="flex items-center">
+                  <div className="flex-align-center-gap-2">
                     <svg className="w-4 h-4 text-craft-wood" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
                     </svg>
@@ -94,7 +98,7 @@ const ProjectShowcase = () => {
                   </div>
                   <Button variant="ghost" size="sm" className="text-xs">
                     Instructions
-                    <ArrowRight className="ml-1 h-3 w-3" />
+                    <ArrowRight className="icon-margin-right h-3 w-3" />
                   </Button>
                 </div>
               </div>

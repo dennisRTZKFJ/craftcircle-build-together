@@ -35,7 +35,7 @@ const CommunitySection = () => {
             </p>
             <div className="space-y-6 mt-8">
               {testimonials.map((testimonial, index) => (
-                <div key={index} className="flex gap-4 items-start">
+                <div key={index} className="flex-items-start-gap-4">
                   <div className="testimonial-avatar">
                     <img 
                       src={testimonial.image}
@@ -62,24 +62,24 @@ const CommunitySection = () => {
           <div className="relative">
             <div className="absolute inset-0 -z-10 bg-craft-wood/10 rounded-2xl -rotate-2"></div>
             <div className="absolute inset-0 -z-10 bg-craft-light-green/10 rounded-2xl rotate-2"></div>
-            <div className="bg-background rounded-xl overflow-hidden shadow-lg p-6">
+            <div className="card-stat">
               <div className="pb-5 border-b border-border mb-5">
                 <h3 className="font-bold text-xl">Community Stats</h3>
               </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className="p-4 bg-muted rounded-lg text-center">
+              <div className="grid-2-col-gap-4">
+                <div className="stat-box-muted">
                   <p className="statistic-value">10k+</p>
                   <p className="small-muted-text">Active Members</p>
                 </div>
-                <div className="p-4 bg-muted rounded-lg text-center">
+                <div className="stat-box-muted">
                   <p className="statistic-value">5k+</p>
                   <p className="small-muted-text">DIY Projects</p>
                 </div>
-                <div className="p-4 bg-muted rounded-lg text-center">
+                <div className="stat-box-muted">
                   <p className="statistic-value">98%</p>
                   <p className="small-muted-text">Positive Reviews</p>
                 </div>
-                <div className="p-4 bg-muted rounded-lg text-center">
+                <div className="stat-box-muted">
                   <p className="statistic-value">24/7</p>
                   <p className="small-muted-text">Community Support</p>
                 </div>

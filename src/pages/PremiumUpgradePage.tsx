@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -75,7 +74,7 @@ const PremiumUpgradePage = () => {
                 <div className="flex justify-between items-center">
                   <CardTitle>Monthly Plan</CardTitle>
                   {selectedPlan === 'monthly' && (
-                    <div className="h-6 w-6 bg-craft-wood text-white rounded-full flex items-center justify-center">
+                    <div className="h-6 w-6 badge-craft-wood rounded-full flex-center">
                       <Check className="h-4 w-4" />
                     </div>
                   )}
@@ -90,8 +89,8 @@ const PremiumUpgradePage = () => {
                 
                 <ul className="space-y-3">
                   {plans.monthly.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
-                      <Package className="h-4 w-4 mr-2 text-craft-wood" />
+                    <li key={index} className="flex-items-center">
+                      <Package className="h-4 w-4 icon-margin-right text-craft-wood" />
                       <span>{feature}</span>
                     </li>
                   ))}
@@ -105,12 +104,12 @@ const PremiumUpgradePage = () => {
             >
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center gap-2">
+                  <div className="flex-align-center-gap-2">
                     <CardTitle>Yearly Plan</CardTitle>
-                    <span className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Save 16%</span>
+                    <span className="badge-green text-xs px-2 py-1 rounded-full">Save 16%</span>
                   </div>
                   {selectedPlan === 'yearly' && (
-                    <div className="h-6 w-6 bg-craft-wood text-white rounded-full flex items-center justify-center">
+                    <div className="h-6 w-6 badge-craft-wood rounded-full flex-center">
                       <Check className="h-4 w-4" />
                     </div>
                   )}
@@ -125,11 +124,11 @@ const PremiumUpgradePage = () => {
                 
                 <ul className="space-y-3">
                   {plans.yearly.features.map((feature, index) => (
-                    <li key={index} className="flex items-center">
+                    <li key={index} className="flex-items-center">
                       {index < 4 ? (
-                        <Package className="h-4 w-4 mr-2 text-craft-wood" />
+                        <Package className="h-4 w-4 icon-margin-right text-craft-wood" />
                       ) : (
-                        <Star className="h-4 w-4 mr-2 text-amber-500" />
+                        <Star className="h-4 w-4 icon-margin-right text-amber-500" />
                       )}
                       <span>{feature}</span>
                     </li>

@@ -36,7 +36,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
         <CardContent className="space-y-6">
           {topComments.map((comment) => (
             <div key={comment.id} className="border-b pb-4 last:border-0 last:pb-0">
-              <div className="flex items-start gap-3">
+              <div className="flex-align-center-gap-3 items-start">
                 <Avatar className="avatar-md">
                   <AvatarImage src={comment.user.avatar} alt={comment.user.name} />
                   <AvatarFallback>{comment.user.name.charAt(0)}</AvatarFallback>
@@ -79,7 +79,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
             <div className="space-y-4">
               <div className="space-y-2">
                 <h4 className="font-medium">Project Requirements</h4>
-                <p className="small-muted-text">
+                <p className="small-muted_text">
                   Some users would like more details on the required tools and materials at the beginning of tutorials.
                 </p>
                 <div className="flex-between">
@@ -92,7 +92,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
               <Separator />
               <div className="space-y-2">
                 <h4 className="font-medium">Alternative Materials</h4>
-                <p className="small-muted-text">
+                <p className="small-muted_text">
                   Several beginners ask for less expensive alternatives to the high-quality materials.
                 </p>
                 <div className="flex-between">
@@ -105,7 +105,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
               <Separator />
               <div className="space-y-2">
                 <h4 className="font-medium">Video Length</h4>
-                <p className="small-muted-text">
+                <p className="small-muted_text">
                   Some users would prefer more compact tutorials with fewer repetitions.
                 </p>
                 <div className="flex-between">
@@ -131,7 +131,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
           </CardHeader>
           <CardContent>
             <div className="flex-align-center-gap-2 p-4 bg-muted rounded-lg mb-4">
-              <Calendar className="h-10 w-10 text-craft-wood" />
+              <Calendar className="h-10 w-10 muted-text" />
               <div>
                 <h4 className="font-medium">Creator Office Hours</h4>
                 <p className="small-muted-text">
@@ -147,7 +147,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
               <h4 className="font-medium">Tutorial Quality Score</h4>
               <div className="flex-align-center-gap-2">
                 <div className="text-2xl font-bold">87/100</div>
-                <Badge className="bg-green-100 text-green-800 border-green-200">
+                <Badge className="badge-green">
                   Very good
                 </Badge>
               </div>
@@ -159,13 +159,13 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
                 <h5 className="text-sm font-medium">Room for improvement:</h5>
                 <ul className="space-y-1 text-sm">
                   <li className="flex-align-center-gap-2">
-                    <div className="h-5 w-5 flex-shrink-0 rounded-full bg-amber-100 flex-center">
+                    <div className="h-5 w-5 flex-shrink-0 rounded-full-center bg-amber-100">
                       <span className="text-amber-800 text-xs">!</span>
                     </div>
                     <span>More close-ups during detailed work steps</span>
                   </li>
                   <li className="flex-align-center-gap-2">
-                    <div className="h-5 w-5 flex-shrink-0 rounded-full bg-amber-100 flex-center">
+                    <div className="h-5 w-5 flex-shrink-0 rounded-full-center bg-amber-100">
                       <span className="text-amber-800 text-xs">!</span>
                     </div>
                     <span>More detailed material specifications with alternatives</span>

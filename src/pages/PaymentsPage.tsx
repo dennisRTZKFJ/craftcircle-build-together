@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -65,7 +64,7 @@ const PaymentsPage = () => {
                 <div>
                   <div className="text-sm text-muted-foreground">Status</div>
                   <div className="flex items-center mt-1">
-                    <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                    <Badge variant="outline" className="badge-green">
                       {subscriptionStatus === 'active' ? 'Active' : 'Inactive'}
                     </Badge>
                   </div>
@@ -163,7 +162,7 @@ const PaymentsPage = () => {
                 >
                   <div className="flex items-center">
                     <div className={`h-10 w-10 rounded-full flex items-center justify-center ${
-                      transaction.type === 'payment' ? 'bg-amber-100' : 'bg-green-100'
+                      transaction.type === 'payment' ? 'badge-amber' : 'badge-green'
                     }`}>
                       {transaction.type === 'payment' ? (
                         <CreditCard className={`h-5 w-5 text-amber-800`} />

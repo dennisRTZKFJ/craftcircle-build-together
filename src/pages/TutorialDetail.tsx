@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -284,21 +283,21 @@ const TutorialDetail = () => {
           <div className="lg:col-span-2 space-y-8">
             {/* Tutorial header */}
             <div>
-              <div className="flex items-center gap-2 mb-2">
+              <div className="flex-align-center-gap-2 mb-2">
                 <Badge variant="outline" className={
                   tutorial.category === "Beginner" 
-                    ? "bg-green-100 text-green-800 border-green-200" 
+                    ? "badge-green" 
                     : tutorial.category === "Intermediate"
-                    ? "bg-amber-100 text-amber-800 border-amber-200"
-                    : "bg-red-100 text-red-800 border-red-200"
+                    ? "badge-amber"
+                    : "badge-red"
                 }>
                   {tutorial.category}
                 </Badge>
-                <div className="text-sm text-muted-foreground flex items-center">
-                  <Clock className="h-3 w-3 mr-1" /> {tutorial.duration}
+                <div className="text-sm text-muted-foreground flex-items-center">
+                  <Clock className="h-3 w-3 icon-margin-right" /> {tutorial.duration}
                 </div>
-                <div className="flex items-center ml-auto">
-                  <div className="flex items-center text-amber-500">
+                <div className="flex-items-center ml-auto">
+                  <div className="flex-items-center text-amber-500">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <Star 
                         key={star} 
@@ -313,8 +312,8 @@ const TutorialDetail = () => {
 
               <h1 className="text-3xl md:text-4xl font-bold mb-4">{tutorial.title}</h1>
               
-              <div className="flex items-center gap-4 mb-6">
-                <div className="flex items-center">
+              <div className="flex-align-center-gap-4 mb-6">
+                <div className="flex-items-center">
                   <Avatar className="h-10 w-10 border">
                     <AvatarImage src={tutorial.author.avatar} alt={tutorial.author.name} />
                     <AvatarFallback>{tutorial.author.name.substring(0, 2)}</AvatarFallback>
@@ -334,7 +333,7 @@ const TutorialDetail = () => {
                   <img 
                     src={tutorial.image} 
                     alt={tutorial.title} 
-                    className="w-full h-full object-cover"
+                    className="img-cover"
                   />
                 </AspectRatio>
               </div>
@@ -343,7 +342,7 @@ const TutorialDetail = () => {
                 {tutorial.longDescription}
               </p>
               
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex-wrap-gap-2 mb-6">
                 <Button onClick={handleSaveTutorial} variant={saved ? "default" : "outline"} className="gap-2">
                   {saved ? <BookmarkCheck className="h-4 w-4" /> : <Bookmark className="h-4 w-4" />}
                   {saved ? "Saved" : "Save"}
@@ -356,8 +355,8 @@ const TutorialDetail = () => {
                   <Share2 className="h-4 w-4" />
                   Share
                 </Button>
-                <div className="ml-auto flex items-center">
-                  <span className="mr-2 text-sm">Rate:</span>
+                <div className="ml-auto flex-items-center">
+                  <span className="icon-margin-right text-sm">Rate:</span>
                   <div className="flex">
                     {[1, 2, 3, 4, 5].map((star) => (
                       <button
@@ -407,7 +406,7 @@ const TutorialDetail = () => {
                   </AspectRatio>
                 </div>
                 <div className="mt-4 p-4 bg-muted rounded-lg">
-                  <div className="flex items-start gap-3">
+                  <div className="flex-items-start-gap-3">
                     <Info className="h-5 w-5 text-craft-wood flex-shrink-0 mt-0.5" />
                     <p className="text-sm">
                       If the video cannot be loaded, please refresh the page or 
@@ -453,12 +452,12 @@ const TutorialDetail = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
-                  <h3 className="font-medium mb-2 flex items-center">
-                    <List className="h-4 w-4 mr-2 text-craft-wood" /> Materials
+                  <h3 className="font-medium mb-2 flex-items-center">
+                    <List className="h-4 w-4 icon-margin-right text-craft-wood" /> Materials
                   </h3>
                   <ul className="space-y-1.5">
                     {tutorial.materials.slice(0, 3).map((material, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm">
+                      <li key={index} className="flex-items-start-gap-2 text-sm">
                         <span className="text-craft-wood">•</span>
                         <span>{material.amount} {material.name}</span>
                       </li>
@@ -474,12 +473,12 @@ const TutorialDetail = () => {
                 </div>
                 
                 <div>
-                  <h3 className="font-medium mb-2 flex items-center">
-                    <Hammer className="h-4 w-4 mr-2 text-craft-wood" /> Tools
+                  <h3 className="font-medium mb-2 flex-items-center">
+                    <Hammer className="h-4 w-4 icon-margin-right text-craft-wood" /> Tools
                   </h3>
                   <ul className="space-y-1.5">
                     {tutorial.tools.slice(0, 3).map((tool, index) => (
-                      <li key={index} className="flex items-start gap-2 text-sm">
+                      <li key={index} className="flex-items-start-gap-2 text-sm">
                         <span className="text-craft-wood">•</span>
                         <span>{tool}</span>
                       </li>

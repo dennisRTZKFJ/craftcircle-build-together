@@ -23,7 +23,7 @@ const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-craft-wood/10 border border-craft-wood/20 text-craft-dark-wood text-sm mb-2">
+            <div className="badge-hero-feature">
               <Star className="h-4 w-4 text-craft-wood" fill="currentColor" />
               <span>Unleash Creativity</span>
             </div>
@@ -57,19 +57,19 @@ const Hero = () => {
             </div>
             
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6 border-t border-border">
-              <div className="flex items-center gap-2">
+              <div className="flex-align-center-gap-2">
                 <Users className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
                   <strong className="text-foreground">10,000+</strong> DIY enthusiasts
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex-align-center-gap-2">
                 <Star className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
                   <strong className="text-foreground">4.8/5</strong> satisfaction
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex-align-center-gap-2">
                 <Clock className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
                   <strong className="text-foreground">150+</strong> projects
@@ -93,7 +93,7 @@ const Hero = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7" 
                   alt="Handcrafted wooden bowl" 
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                 />
               </motion.div>
               <motion.div 
@@ -103,7 +103,7 @@ const Hero = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1558274235-9b315bae9b7a" 
                   alt="Tools" 
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                 />
               </motion.div>
               <motion.div 
@@ -113,7 +113,7 @@ const Hero = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1540103711724-ebf833bde8d1" 
                   alt="Finished furniture piece" 
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                 />
               </motion.div>
               <motion.div 
@@ -123,7 +123,7 @@ const Hero = () => {
                 <img 
                   src="https://images.unsplash.com/photo-1581612222497-018b5accd0c4" 
                   alt="DIY Workshop" 
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                 />
               </motion.div>
             </div>

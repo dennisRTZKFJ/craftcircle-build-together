@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -197,10 +196,10 @@ const ProjectsPage = () => {
                         )}
                         <div className="flex items-center mt-1">
                           <Badge variant="outline" className={
-                            project.status === 'completed' ? 'bg-green-100 text-green-800 border-green-200' :
-                            project.status === 'in-progress' ? 'bg-blue-100 text-blue-800 border-blue-200' :
-                            project.status === 'planned' ? 'bg-amber-100 text-amber-800 border-amber-200' :
-                            'bg-red-100 text-red-800 border-red-200'
+                            project.status === 'completed' ? 'badge-green' :
+                            project.status === 'in-progress' ? 'badge-blue' :
+                            project.status === 'planned' ? 'badge-amber' :
+                            'badge-red'
                           }>
                             {project.status === 'completed' ? 'Completed' :
                              project.status === 'in-progress' ? 'In Progress' : 

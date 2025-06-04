@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -256,10 +255,10 @@ const Marketplace = () => {
                     </div>
                     <CardHeader className="p-4 pb-0">
                       <div className="flex justify-between items-start">
-                        <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">
+                        <Badge variant="outline" className="badge-blue">
                           {material.category}
                         </Badge>
-                        <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                        <Badge variant="outline" className="badge-amber">
                           {material.store}
                         </Badge>
                       </div>
@@ -316,10 +315,10 @@ const Marketplace = () => {
                     </div>
                     <CardHeader className="p-4 pb-0">
                       <div className="flex justify-between">
-                        <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-200">
+                        <Badge variant="outline" className="badge-purple">
                           Werkzeug-Set
                         </Badge>
-                        <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                        <Badge variant="outline" className="badge-amber">
                           {kit.store}
                         </Badge>
                       </div>
@@ -390,10 +389,10 @@ const Marketplace = () => {
                     </div>
                     <CardHeader className="p-4 pb-0">
                       <div className="flex justify-between">
-                        <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                        <Badge variant="outline" className="badge-green">
                           Tutorial-Paket
                         </Badge>
-                        <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                        <Badge variant="outline" className="badge-amber">
                           {pkg.store}
                         </Badge>
                       </div>
