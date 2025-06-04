@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -41,15 +40,15 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
   return (
     <Card>
       <CardContent className="p-4">
-        <h3 className="font-bold mb-4">You might also like</h3>
-        <div className="space-y-4">
+        <h3 className="header-md">You might also like</h3>
+        <div className="flex-col-gap-8">
           {relatedTutorials.map((tutorial) => (
-            <div key={tutorial.id} className="flex items-start gap-3">
+            <div key={tutorial.id} className="flex-align-center-gap-3">
               <Link to={`/tutorials/${tutorial.id}`} className="w-20 h-20 rounded overflow-hidden flex-shrink-0">
                 <img 
                   src={tutorial.image} 
                   alt={tutorial.title}
-                  className="w-full h-full object-cover"
+                  className="img-cover"
                 />
               </Link>
               
@@ -58,18 +57,18 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
                   <h4 className="font-medium text-sm line-clamp-2">{tutorial.title}</h4>
                 </Link>
                 
-                <div className="flex gap-2 mt-1">
+                <div className="flex-align-center-gap-3 mt-1">
                   <Badge variant="outline" className={
                     tutorial.category === "Beginner" 
-                      ? "bg-green-100 text-green-800 border-green-200" 
+                      ? "badge-green" 
                       : tutorial.category === "Intermediate"
-                      ? "bg-amber-100 text-amber-800 border-amber-200"
-                      : "bg-red-100 text-red-800 border-red-200"
+                      ? "badge-amber"
+                      : "badge-red"
                   }>
                     {tutorial.category}
                   </Badge>
-                  <div className="text-xs text-muted-foreground flex items-center">
-                    <Clock className="h-3 w-3 mr-1" /> {tutorial.duration}
+                  <div className="text-xs muted-text flex-align-center-gap-3">
+                    <Clock className="h-3 w-3 icon-margin-right" /> {tutorial.duration}
                   </div>
                 </div>
               </div>

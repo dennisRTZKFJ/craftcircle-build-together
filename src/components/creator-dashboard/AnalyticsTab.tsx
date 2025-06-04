@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter 
@@ -26,17 +25,17 @@ interface AnalyticsTabProps {
 const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid-cols-1-md-2-gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Viewer Numbers</CardTitle>
             <CardDescription>View count development over time</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
+            <div className="flex-center-h-300-bg-muted-rounded">
               <div className="text-center p-4">
-                <TrendingUp className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
-                <p className="text-muted-foreground">
+                <TrendingUp className="h-12 w-12 mx-auto mb-4 muted-text" />
+                <p className="muted-text">
                   Your views history will be displayed here
                 </p>
               </div>
@@ -50,10 +49,10 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
             <CardDescription>Comparison of your tutorials</CardDescription>
           </CardHeader>
           <CardContent className="p-6">
-            <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
+            <div className="flex-center-h-300-bg-muted-rounded">
               <div className="text-center p-4">
-                <TrendingUp className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
-                <p className="text-muted-foreground">
+                <TrendingUp className="h-12 w-12 mx-auto mb-4 muted-text" />
+                <p className="muted-text">
                   Performance comparison of your tutorials will be shown here
                 </p>
               </div>
@@ -95,7 +94,7 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
                         {Math.round(10 + Math.random() * 15)}%
                       </TableCell>
                       <TableCell className="text-right">
-                        {Math.round(3 + Math.random() * 7)}m {Math.round(Math.random() * 59)}s
+                        {Math.round(3 + Math.random() * 59)}m {Math.round(Math.random() * 59)}s
                       </TableCell>
                     </TableRow>
                   ))
@@ -103,7 +102,7 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
               </TableBody>
             </Table>
           </CardContent>
-          <CardFooter className="flex justify-between">
+          <CardFooter className="flex-between">
             <div>
               <Button variant="outline">
                 Export Performance Report
@@ -111,7 +110,7 @@ const AnalyticsTab = ({ tutorials }: AnalyticsTabProps) => {
             </div>
             <div>
               <Button variant="outline">
-                Show More Metrics <ChevronDown className="ml-2 h-4 w-4" />
+                Show More Metrics <ChevronDown className="icon-margin-left h-4 w-4" />
               </Button>
             </div>
           </CardFooter>

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -169,19 +168,18 @@ const Community = () => {
       <Navbar />
       <div className="min-h-screen py-12">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col gap-8">
+          <div className="flex-col-gap-8">
             <div>
-              <h1 className="text-3xl font-bold mb-4">DIY Community</h1>
-              <p className="text-muted-foreground mb-6">
+              <h1 className="header-xl">DIY Community</h1>
+              <p className="muted-text section-space">
                 Discover talented DIY enthusiasts, share your projects, and connect with like-minded people.
                 In our community, you'll find inspiration, feedback, and support for your furniture building projects.
               </p>
             </div>
-
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
               <div className="lg:col-span-2">
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-                  <h2 className="text-2xl font-bold">Community Feed</h2>
+                  <h2 className="header-lg">Community Feed</h2>
                   <div className="flex gap-2">
                     <Button variant="outline" size="sm">
                       <Search className="h-4 w-4 mr-2" />
@@ -190,15 +188,13 @@ const Community = () => {
                     <Button size="sm">Create Post</Button>
                   </div>
                 </div>
-                
                 <Tabs defaultValue="alle">
-                  <TabsList className="mb-6">
+                  <TabsList className="section-space">
                     <TabsTrigger value="alle">All</TabsTrigger>
                     <TabsTrigger value="projekte">Projects</TabsTrigger>
                     <TabsTrigger value="fragen">Questions</TabsTrigger>
                     <TabsTrigger value="tutorials">Tutorials</TabsTrigger>
                   </TabsList>
-                  
                   <TabsContent value="alle" className="space-y-6">
                     {recentActivity.map((activity) => (
                       <Card key={activity.id}>
@@ -210,22 +206,20 @@ const Community = () => {
                             </Avatar>
                             <div>
                               <div className="font-medium">{activity.user.name}</div>
-                              <div className="text-sm text-muted-foreground">{activity.user.username}</div>
+                              <div className="text-sm muted-text">{activity.user.username}</div>
                               <div className="text-sm mt-1">
                                 {activity.content}
                               </div>
-                              <div className="text-xs text-muted-foreground mt-1">{activity.time}</div>
+                              <div className="text-xs muted-text mt-1">{activity.time}</div>
                             </div>
                           </div>
                         </CardHeader>
-                        
                         <CardContent className="p-4 pt-3">
                           {activity.type === 'comment' && (
                             <div className="bg-muted p-3 rounded-md text-sm mt-2">
                               "{activity.text}"
                             </div>
                           )}
-                          
                           {(activity.type === 'tutorial' || activity.type === 'challenge') && activity.image && (
                             <div className="mt-2 rounded-md overflow-hidden h-48">
                               <img 
@@ -236,7 +230,6 @@ const Community = () => {
                             </div>
                           )}
                         </CardContent>
-                        
                         <CardFooter className="p-4 pt-0 flex justify-between">
                           <div className="flex gap-4">
                             <div className="flex items-center">
@@ -252,54 +245,64 @@ const Community = () => {
                               <span className="text-sm">{activity.comments}</span>
                             </div>
                           </div>
-                          <div>
-                            {activity.type !== 'follow' ? (
-                              <Button size="sm" variant="outline">View</Button>
-                            ) : (
-                              <Button size="sm" variant="outline">Profile</Button>
-                            )}
-                          </div>
                         </CardFooter>
                       </Card>
                     ))}
-                  </TabsContent>
-                  
-                  <TabsContent value="projekte">
                     <div className="text-center p-12 border rounded-lg">
-                      <h3 className="text-xl font-medium mb-2">Loading projects...</h3>
-                      <p className="text-muted-foreground">
-                        The latest projects from the community will be displayed here soon.
+                      <h3 className="header-md">Loading projects...</h3>
+                      <p className="muted-text">
+                        No projects to display at the moment. Check back later!
+                      </p>
+                    </div>
+                    <div className="text-center p-12 border rounded-lg">
+                      <h3 className="header-md">Loading questions...</h3>
+                      <p className="muted-text">
+                        No questions to display at the moment. Be the first to ask!
+                      </p>
+                    </div>
+                    <div className="text-center p-12 border rounded-lg">
+                      <h3 className="header-md">Loading tutorials...</h3>
+                      <p className="muted-text">
+                        No tutorials to display at the moment. Check back later!
                       </p>
                     </div>
                   </TabsContent>
-                  
-                  <TabsContent value="fragen">
+                  <TabsContent value="projekte" className="space-y-6">
+                    {/* Projects Content */}
                     <div className="text-center p-12 border rounded-lg">
-                      <h3 className="text-xl font-medium mb-2">Loading questions...</h3>
-                      <p className="text-muted-foreground">
-                        The latest questions from the community will be displayed here soon.
+                      <h3 className="header-md">Loading projects...</h3>
+                      <p className="muted-text">
+                        No projects to display at the moment. Check back later!
                       </p>
                     </div>
                   </TabsContent>
-                  
-                  <TabsContent value="tutorials">
+                  <TabsContent value="fragen" className="space-y-6">
+                    {/* Questions Content */}
                     <div className="text-center p-12 border rounded-lg">
-                      <h3 className="text-xl font-medium mb-2">Loading tutorials...</h3>
-                      <p className="text-muted-foreground">
-                        The latest tutorials from the community will be displayed here soon.
+                      <h3 className="header-md">Loading questions...</h3>
+                      <p className="muted-text">
+                        No questions to display at the moment. Be the first to ask!
+                      </p>
+                    </div>
+                  </TabsContent>
+                  <TabsContent value="tutorials" className="space-y-6">
+                    {/* Tutorials Content */}
+                    <div className="text-center p-12 border rounded-lg">
+                      <h3 className="header-md">Loading tutorials...</h3>
+                      <p className="muted-text">
+                        No tutorials to display at the moment. Check back later!
                       </p>
                     </div>
                   </TabsContent>
                 </Tabs>
               </div>
-              
-              <div>
+              <div className="lg:col-span-1">
                 <Card>
                   <CardHeader>
                     <CardTitle>Featured Creators</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    {featuredCreators.slice(0, 3).map((creator) => (
+                    {featuredCreators.map((creator) => (
                       <div key={creator.id} className="flex gap-3 p-3 hover:bg-muted rounded-lg transition-colors">
                         <Avatar className="h-10 w-10">
                           <AvatarImage src={creator.avatar} alt={creator.name} />
@@ -308,11 +311,9 @@ const Community = () => {
                         <div>
                           <div className="font-medium flex items-center">
                             {creator.name}
-                            {creator.badges.includes("Top Creator") && (
-                              <Award className="h-3 w-3 ml-1 text-craft-wood" />
-                            )}
+                            {creator.featured && <Award className="h-3 w-3 ml-1 text-craft-wood" />}
                           </div>
-                          <div className="text-sm text-muted-foreground">{creator.username}</div>
+                          <div className="text-sm muted-text">{creator.username}</div>
                           <div className="flex gap-3 mt-1">
                             <div className="text-xs">{creator.tutorials} Tutorials</div>
                             <div className="text-xs">{creator.followers} Followers</div>
@@ -320,70 +321,47 @@ const Community = () => {
                         </div>
                       </div>
                     ))}
-                  </CardContent>
-                  <CardFooter>
                     <Button variant="outline" className="w-full">Discover All Creators</Button>
-                  </CardFooter>
+                  </CardContent>
                 </Card>
-                
                 <Card className="mt-6">
                   <CardHeader>
-                    <CardTitle>Your Profile</CardTitle>
+                    <CardTitle>Join the Community</CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <div className="flex justify-center mb-4">
+                    <div className="flex justify-center section-space">
                       <Avatar className="h-24 w-24">
-                        <AvatarFallback>JD</AvatarFallback>
+                        <AvatarImage src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=128&h=128&q=80" alt="Community Avatar" />
+                        <AvatarFallback>CC</AvatarFallback>
                       </Avatar>
                     </div>
-                    <h3 className="text-xl font-medium mb-2">Sign In or Register</h3>
-                    <p className="text-muted-foreground mb-6">
-                      Join our DIY community and share your projects with the world.
+                    <h3 className="header-md">Sign In or Register</h3>
+                    <p className="muted-text section-space">
+                      Become a part of our growing community and share your passion for DIY furniture.
                     </p>
                     <div className="flex flex-col gap-2">
-                      <Button asChild>
-                        <a href="/login">Sign In</a>
-                      </Button>
-                      <Button variant="outline" asChild>
-                        <a href="/register">Register</a>
-                      </Button>
+                      <Button onClick={() => alert('Navigating to Login')}>Sign In</Button>
+                      <Button variant="outline" onClick={() => alert('Navigating to Register')}>Register Now</Button>
                     </div>
                   </CardContent>
                 </Card>
-                
                 <Card className="mt-6">
                   <CardHeader>
-                    <CardTitle>Community Badges</CardTitle>
+                    <CardTitle>Popular Tags</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-2">
                     <div className="flex flex-wrap gap-2">
-                      <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
-                        Beginner
-                      </Badge>
-                      <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">
-                        Upcycling Fan
-                      </Badge>
-                      <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-200">
-                        Design Talent
-                      </Badge>
-                      <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
-                        Wood Expert
-                      </Badge>
-                      <Badge variant="outline" className="bg-red-100 text-red-800 border-red-200">
-                        Challenge Winner
-                      </Badge>
-                      <Badge variant="outline" className="bg-pink-100 text-pink-800 border-pink-200">
-                        Pro Craftsman
-                      </Badge>
-                      <Badge variant="outline" className="bg-indigo-100 text-indigo-800 border-indigo-200">
-                        Innovator
-                      </Badge>
-                      <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-200">
-                        Sustainability Champion
-                      </Badge>
+                      <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">Woodworking</Badge>
+                      <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">Upcycling</Badge>
+                      <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-200">Small Spaces</Badge>
+                      <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">Outdoor</Badge>
+                      <Badge variant="outline" className="bg-red-100 text-red-800 border-red-200">Beginner Friendly</Badge>
+                      <Badge variant="outline" className="bg-pink-100 text-pink-800 border-pink-200">Modern Design</Badge>
+                      <Badge variant="outline" className="bg-indigo-100 text-indigo-800 border-indigo-200">Rustic</Badge>
+                      <Badge variant="outline" className="bg-emerald-100 text-emerald-800 border-emerald-200">Storage</Badge>
                     </div>
-                    <p className="text-xs text-muted-foreground mt-2">
-                      Badges are awarded for special achievements and contributions in the community.
+                    <p className="text-xs muted-text mt-2">
+                      Explore more topics in our forum!
                     </p>
                   </CardContent>
                 </Card>

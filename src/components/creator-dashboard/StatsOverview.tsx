@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -15,18 +14,18 @@ interface StatsCardProps {
 const StatsCard = ({ title, icon, value, trend, description }: StatsCardProps) => (
   <Card>
     <CardHeader className="pb-2">
-      <CardTitle className="text-lg flex items-center gap-2">
+      <CardTitle className="flex-align-center-gap-2 text-lg">
         {icon}
         {title}
       </CardTitle>
     </CardHeader>
     <CardContent>
       <div className="text-3xl font-bold">{value}</div>
-      <div className="flex items-center text-sm">
-        <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+      <div className="flex-align-center-gap-2 text-sm">
+        <Badge variant="outline" className="badge-green">
           {trend}
         </Badge>
-        <span className="text-muted-foreground ml-2">{description}</span>
+        <span className="muted-text">{description}</span>
       </div>
     </CardContent>
   </Card>
@@ -61,7 +60,7 @@ interface StatsOverviewProps {
 
 const StatsOverview = ({ analytics }: StatsOverviewProps) => {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+    <div className="stats-overview-grid">
       <StatsCard
         title="Views"
         icon={<Eye className="h-5 w-5 text-craft-wood" />}

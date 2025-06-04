@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -14,34 +13,34 @@ const TutorialSuccessPage = () => {
       <div className="container py-16 max-w-2xl mx-auto">
         <Card className="border-green-100 bg-green-50/30">
           <CardHeader className="text-center pb-2">
-            <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+            <div className="mx-auto w-16 h-16 badge-green rounded-full-center mb-4">
               <CheckCircle className="h-10 w-10 text-green-600" />
             </div>
-            <h1 className="text-2xl font-bold text-green-800">Tutorial Successfully Published!</h1>
+            <h1 className="header-lg text-green-800">Tutorial Successfully Published!</h1>
           </CardHeader>
           <CardContent className="text-center pb-6">
-            <p className="text-muted-foreground">
+            <p className="muted-text">
               Your tutorial has been submitted and is now being reviewed by our team.
               Once approved, it will be available to the CraftCircle community.
             </p>
             
-            <div className="mt-8 space-y-4 bg-white p-6 rounded-lg">
+            <div className="mt-8 space-y-4 rounded-card">
               <h2 className="font-semibold">What happens next?</h2>
               <ul className="space-y-2 text-sm text-left">
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 flex-shrink-0 mt-0.5">1</div>
+                <li className="flex-items-start-gap-2">
+                  <div className="h-5 w-5 rounded-full flex-center badge-amber flex-shrink-0 mt-0.5">1</div>
                   <span>Our team will review your tutorial for clarity and completeness</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 flex-shrink-0 mt-0.5">2</div>
+                <li className="flex-items-start-gap-2">
+                  <div className="h-5 w-5 rounded-full flex-center badge-amber flex-shrink-0 mt-0.5">2</div>
                   <span>You may receive feedback or suggestions for improvement</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 flex-shrink-0 mt-0.5">3</div>
+                <li className="flex-items-start-gap-2">
+                  <div className="h-5 w-5 rounded-full flex-center badge-amber flex-shrink-0 mt-0.5">3</div>
                   <span>Once approved, your tutorial will be published to the community</span>
                 </li>
-                <li className="flex items-start gap-2">
-                  <div className="h-5 w-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 flex-shrink-0 mt-0.5">4</div>
+                <li className="flex-items-start-gap-2">
+                  <div className="h-5 w-5 rounded-full flex-center badge-amber flex-shrink-0 mt-0.5">4</div>
                   <span>You'll start earning from views and engagement on your tutorial</span>
                 </li>
               </ul>

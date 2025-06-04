@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter 
@@ -26,10 +25,10 @@ const EarningsTab = ({ monthlyEarnings }: EarningsTabProps) => {
           <CardDescription>Your earnings from tutorials and affiliate links</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="h-[300px] flex items-center justify-center bg-muted/40 rounded-md">
+          <div className="flex-center-h-300-bg-muted-rounded">
             <div className="text-center p-4">
-              <DollarSign className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
-              <p className="text-muted-foreground">
+              <DollarSign className="h-12 w-12 mx-auto mb-4 muted-text" />
+              <p className="muted-text">
                 Your earnings development will be shown here
               </p>
             </div>
@@ -37,7 +36,7 @@ const EarningsTab = ({ monthlyEarnings }: EarningsTabProps) => {
         </CardContent>
       </Card>
       
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid-cols-1-md-3-gap-6">
         <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle>Monthly Earnings</CardTitle>
@@ -91,11 +90,11 @@ const EarningsTab = ({ monthlyEarnings }: EarningsTabProps) => {
             </Table>
           </CardContent>
           <CardFooter className="border-t">
-            <div className="flex justify-between w-full items-center">
+            <div className="flex-between-full-items-center">
               <Button variant="outline" size="sm">
                 Export Earnings
               </Button>
-              <div className="text-sm text-muted-foreground">
+              <div className="small-muted-text">
                 Next payout: 06/01/2025
               </div>
             </div>
@@ -110,33 +109,33 @@ const EarningsTab = ({ monthlyEarnings }: EarningsTabProps) => {
           <CardContent>
             <div className="space-y-4">
               <div>
-                <div className="flex items-center justify-between text-sm mb-1">
+                <div className="flex-between-text-sm-mb-1">
                   <span>Tutorial Sales</span>
                   <span>60%</span>
                 </div>
                 <Progress value={60} className="h-2" />
               </div>
               <div>
-                <div className="flex items-center justify-between text-sm mb-1">
+                <div className="flex-between-text-sm-mb-1">
                   <span>Affiliate Commissions</span>
                   <span>25%</span>
                 </div>
                 <Progress value={25} className="h-2" />
               </div>
               <div>
-                <div className="flex items-center justify-between text-sm mb-1">
+                <div className="flex-between-text-sm-mb-1">
                   <span>Premium Memberships</span>
                   <span>15%</span>
                 </div>
                 <Progress value={15} className="h-2" />
               </div>
               
-              <div className="bg-muted/40 rounded-lg p-4 mt-6">
-                <h4 className="font-medium flex items-center gap-2">
-                  <AlertCircle className="h-4 w-4 text-craft-wood" />
+              <div className="card-tip">
+                <h4 className="font-medium flex-align-center-gap-2">
+                  <AlertCircle className="h-4 w-4 icon-margin-right text-craft-wood" />
                   Optimization Tip
                 </h4>
-                <p className="text-sm mt-2 text-muted-foreground">
+                <p className="small-muted-text mt-2">
                   Your affiliate earnings could be increased through more targeted material recommendations in your tutorials.
                 </p>
                 <Button variant="outline" size="sm" className="mt-4">

@@ -33,69 +33,69 @@ const PartnerDashboard = () => {
   
   return (
     <div className="container py-8">
-      <div className="flex flex-col md:flex-row justify-between items-start gap-4 mb-6">
+      <div className="dashboard-header-layout section-space">
         <div>
-          <h1 className="text-3xl font-bold">Partner Dashboard</h1>
-          <p className="text-muted-foreground">Produktdaten, Insights und Kampagnenmanagement</p>
+          <h1 className="header-xl">Partner Dashboard</h1>
+          <p className="muted-text">Produktdaten, Insights und Kampagnenmanagement</p>
         </div>
         
-        <Button onClick={handleContactSupport} className="flex items-center gap-2">
+        <Button onClick={handleContactSupport} className="flex-align-center-gap-2">
           <HelpCircle className="h-4 w-4" />
           <span>Support kontaktieren</span>
         </Button>
       </div>
       
       {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div className="grid-cols-1-4 mb-8">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <Link className="h-5 w-5 text-craft-wood" />
               Clicks
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">2406</div>
-            <p className="text-muted-foreground text-sm">Auf Affiliate-Links</p>
+            <p className="small-muted-text">Auf Affiliate-Links</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <Store className="h-5 w-5 text-craft-wood" />
               Verkäufe
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">128</div>
-            <p className="text-muted-foreground text-sm">Über Affiliate-Links</p>
+            <p className="small-muted-text">Über Affiliate-Links</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <DollarSign className="h-5 w-5 text-craft-wood" />
               Umsatz
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">€4.328</div>
-            <p className="text-muted-foreground text-sm">Diesen Monat</p>
+            <p className="small-muted-text">Diesen Monat</p>
           </CardContent>
         </Card>
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="text-lg flex items-center gap-2">
+            <CardTitle className="flex-align-center-gap-2 text-lg">
               <MapPin className="h-5 w-5 text-craft-wood" />
               Top-Region
             </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-3xl font-bold">NRW</div>
-            <p className="text-muted-foreground text-sm">Meiste Verkäufe</p>
+            <p className="small-muted-text">Meiste Verkäufe</p>
           </CardContent>
         </Card>
       </div>
@@ -141,7 +141,7 @@ const PartnerDashboard = () => {
                         )}
                       </TableCell>
                       <TableCell className="hidden md:table-cell">
-                        <div className="flex gap-1 flex-wrap">
+                        <div className="flex-wrap-gap-1">
                           {product.regions.map((region) => (
                             <Badge key={region} variant="outline">{region}</Badge>
                           ))}
@@ -207,7 +207,7 @@ const PartnerDashboard = () => {
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="text-center py-6">
-                  <UploadCloud className="h-12 w-12 mx-auto text-muted-foreground mb-4" />
+                  <UploadCloud className="h-12 w-12 mx-auto muted-text mb-4" />
                   <p className="mb-4">Starten Sie eine neue Kampagnenanfrage</p>
                   <Button>Kampagne erstellen</Button>
                 </div>
@@ -238,7 +238,7 @@ const PartnerDashboard = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="flex items-center gap-4 p-4 border rounded-md">
+                <div key={i} className="flex-align-center-gap-4 p-4 border rounded-md">
                   <Brain className="h-8 w-8 text-craft-wood" />
                   <div>
                     <h4 className="font-medium">
@@ -248,13 +248,11 @@ const PartnerDashboard = () => {
                       {i === 1 
                         ? "Starter-Sets sind aktuell sehr gefragt bei Anfängern" 
                         : i === 2 
-                          ? "Gartenmöbel-Tutorials haben überdurchschnittliche Engagement-Raten"
-                          : "Werkzeug-Bundles mit Grundausstattung könnten gut performen"}
+                        ? "Optimal für saisonale Angebote im Frühling/Sommer" 
+                        : "Bündelung beliebter Werkzeuge für bessere Margen"}
                     </p>
                   </div>
-                  <Button variant="outline" size="sm" className="ml-auto whitespace-nowrap">
-                    Umsetzen
-                  </Button>
+                  <Button variant="outline" size="sm">Details</Button>
                 </div>
               ))}
             </CardContent>

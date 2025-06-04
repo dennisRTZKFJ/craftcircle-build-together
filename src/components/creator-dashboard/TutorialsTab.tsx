@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter 
@@ -61,12 +60,12 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
               {tutorials.map((tutorial) => (
                 <TableRow key={tutorial.id}>
                   <TableCell>
-                    <div className="flex items-center gap-3">
+                    <div className="flex-align-center-gap-3">
                       <div className="w-12 h-12 rounded overflow-hidden hidden sm:block">
                         <img 
                           src={tutorial.image} 
                           alt={tutorial.title} 
-                          className="w-full h-full object-cover"
+                          className="img-cover"
                         />
                       </div>
                       <div className="font-medium max-w-[200px] truncate">{tutorial.title}</div>
@@ -74,7 +73,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                   </TableCell>
                   <TableCell>
                     <Badge variant={tutorial.status === 'published' ? 'default' : 'outline'} className={
-                      tutorial.status === 'published' ? '' : 'bg-amber-100 text-amber-800 border-amber-200'
+                      tutorial.status === 'published' ? 'badge-green' : 'badge-amber'
                     }>
                       {tutorial.status === 'published' ? 'Published' : 'Draft'}
                     </Badge>
@@ -99,17 +98,17 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
             </TableBody>
           </Table>
         </CardContent>
-        <CardFooter className="flex justify-between">
-          <div className="text-sm text-muted-foreground">
+        <CardFooter className="flex-between">
+          <div className="small-muted-text">
             Showing {tutorials.length} of {tutorials.length} tutorials
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex-align-center-gap-2">
             <Button variant="outline" size="sm">
               Generate Tutorial Ideas
             </Button>
             <Link to="/creator-dashboard/upload">
               <Button size="sm">
-                <Upload className="h-4 w-4 mr-2" />
+                <Upload className="h-4 w-4 icon-margin-right" />
                 New Tutorial
               </Button>
             </Link>
@@ -127,9 +126,9 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
             <div className="space-y-4">
               {tutorials.map((tutorial) => (
                 <div key={tutorial.id} className="space-y-2">
-                  <div className="flex justify-between">
+                  <div className="flex-between">
                     <div className="font-medium truncate">{tutorial.title}</div>
-                    <div className="text-muted-foreground text-sm">
+                    <div className="small-muted-text">
                       {tutorial.status === 'published' ? '100%' : '60%'}
                     </div>
                   </div>
@@ -137,12 +136,12 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                     value={tutorial.status === 'published' ? 100 : 60} 
                     className="h-2" 
                   />
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <div className="flex items-center">
+                  <div className="flex-between text-xs small-muted-text">
+                    <div className="flex-align-center-gap-2">
                       {tutorial.status === 'published' ? (
-                        <Check className="h-3 w-3 mr-1 text-green-600" />
+                        <Check className="h-3 w-3 icon-margin-right muted-text" />
                       ) : (
-                        <Clock className="h-3 w-3 mr-1 text-amber-600" />
+                        <Clock className="h-3 w-3 icon-margin-right muted-text" />
                       )}
                       {tutorial.status === 'published' ? 'Published' : 'In Progress'}
                     </div>
@@ -166,21 +165,21 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                 .sort((a, b) => b.likes - a.likes)
                 .slice(0, 3)
                 .map((tutorial, index) => (
-                  <div key={tutorial.id} className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
-                      index === 0 ? 'bg-amber-100 text-amber-800' :
-                      index === 1 ? 'bg-slate-100 text-slate-800' :
-                      'bg-craft-wood/10 text-craft-wood'
+                  <div key={tutorial.id} className="flex-align-center-gap-3">
+                    <div className={`w-8 h-8 rounded-full-center ${
+                      index === 0 ? 'badge-amber' :
+                      index === 1 ? 'badge-gray' :
+                      'badge-craft-wood'
                     }`}>
                       {index + 1}
                     </div>
                     <div className="flex-1 truncate">
                       <div className="font-medium truncate">{tutorial.title}</div>
-                      <div className="text-sm text-muted-foreground">
+                      <div className="small-muted-text">
                         {tutorial.views.toLocaleString()} views • {tutorial.likes} likes
                       </div>
                     </div>
-                    <Star className="h-5 w-5 text-amber-500" />
+                    <Star className="h-5 w-5 muted-text" />
                   </div>
                 ))
               }

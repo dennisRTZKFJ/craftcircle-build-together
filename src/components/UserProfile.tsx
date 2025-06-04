@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
@@ -118,75 +117,79 @@ const UserProfile = () => {
   };
   
   return (
-    <div className="space-y-6">
+    <div className="flex-col-gap-8">
       <Card>
         <div className="h-40 bg-gradient-to-r from-craft-wood/20 to-craft-light-green/20"></div>
         <div className="px-6 -mt-12 pb-6">
-          <div className="flex flex-col md:flex-row gap-6 items-start">
+          <div className="flex-col-md-row-gap-6-items-start">
             <Avatar className="h-24 w-24 border-4 border-background">
               <AvatarImage src={userData.avatar} alt={userData.name} />
               <AvatarFallback>{userData.name.charAt(0)}</AvatarFallback>
             </Avatar>
             
             <div className="flex-1 pt-12 md:pt-0">
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+              <div className="flex-col-md-row-md-center-between-gap-4">
                 <div>
-                  <h1 className="text-2xl font-bold">{userData.name}</h1>
-                  <p className="text-muted-foreground">{userData.username}</p>
+                  <h1 className="header-lg">{userData.name}</h1>
+                  <p className="text-muted">{userData.username}</p>
                 </div>
                 
-                <div className="flex gap-2">
+                <div className="flex-row-gap-2">
                   <Button variant="outline" onClick={handleMessage}>
-                    <MessageCircle className="mr-2 h-4 w-4" />
+                    <MessageCircle className="icon-margin-right h-4 w-4" />
                     Nachricht
                   </Button>
                   <Button onClick={handleFollow}>Folgen</Button>
                 </div>
               </div>
               
-              <p className="mt-4">{userData.bio}</p>
+              <p className="mt-4-util">{userData.bio}</p>
               
-              <div className="flex flex-wrap gap-y-2 gap-x-6 mt-4 text-sm">
-                <div className="flex items-center">
-                  <MapPin className="h-4 w-4 mr-1 text-muted-foreground" />
+              <div className="flex-wrap-gap-2-mt-4-text-sm">
+                <div className="flex-align-center-gap-3">
+                  <MapPin className="icon-text-muted" />
                   <span>{userData.location}</span>
                 </div>
-                <div className="flex items-center">
-                  <Link className="h-4 w-4 mr-1 text-muted-foreground" />
+                <div className="flex-align-center-gap-3">
+                  <Link className="icon-text-muted" />
                   <a href={`https://${userData.website}`} className="text-craft-wood hover:underline">
                     {userData.website}
                   </a>
                 </div>
-                <div className="flex items-center">
-                  <Calendar className="h-4 w-4 mr-1 text-muted-foreground" />
+                <div className="flex-align-center-gap-3">
+                  <Calendar className="icon-text-muted" />
                   <span>Mitglied seit {userData.joinedDate}</span>
                 </div>
               </div>
               
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex-wrap-gap-2 mt-4">
                 {userData.badges.map((badge) => (
-                  <Badge key={badge.id} variant="outline" className={badge.color}>
+                  <Badge key={badge.id} variant="outline" className={
+                    badge.name === "Early Adopter" ? "badge-blue" :
+                    badge.name === "Community Contributor" ? "badge-green" :
+                    badge.name === "Challenge Master" ? "badge-amber" : "badge-gray"
+                  }>
                     {badge.name}
                   </Badge>
                 ))}
               </div>
               
-              <div className="flex flex-wrap gap-6 mt-6">
+              <div className="flex-wrap-gap-6-mt-6">
                 <div className="text-center">
                   <div className="font-bold">{userData.tutorials}</div>
-                  <div className="text-sm text-muted-foreground">Tutorials</div>
+                  <div className="small-muted-text">Tutorials</div>
                 </div>
                 <div className="text-center">
                   <div className="font-bold">{userData.projects}</div>
-                  <div className="text-sm text-muted-foreground">Projekte</div>
+                  <div className="small-muted-text">Projekte</div>
                 </div>
                 <div className="text-center">
                   <div className="font-bold">{userData.followers}</div>
-                  <div className="text-sm text-muted-foreground">Follower</div>
+                  <div className="small-muted-text">Follower</div>
                 </div>
                 <div className="text-center">
                   <div className="font-bold">{userData.following}</div>
-                  <div className="text-sm text-muted-foreground">Folgt</div>
+                  <div className="small-muted-text">Folgt</div>
                 </div>
               </div>
             </div>
@@ -195,51 +198,51 @@ const UserProfile = () => {
       </Card>
       
       <Tabs defaultValue="tutorials">
-        <TabsList className="mb-6">
+        <TabsList className="section-space">
           <TabsTrigger value="tutorials">Tutorials</TabsTrigger>
           <TabsTrigger value="projects">Projekte</TabsTrigger>
           <TabsTrigger value="activity">Aktivität</TabsTrigger>
           <TabsTrigger value="stats">Statistiken</TabsTrigger>
         </TabsList>
         
-        <TabsContent value="tutorials" className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <TabsContent value="tutorials" className="flex-col-gap-8">
+          <div className="grid-cols-1-3-gap-6">
             {userTutorials.map((tutorial) => (
-              <Card key={tutorial.id} className="overflow-hidden">
+              <Card key={tutorial.id} className="card-overflow-hidden">
                 <div className="relative h-48">
                   <img 
                     src={tutorial.image} 
                     alt={tutorial.title} 
-                    className="w-full h-full object-cover"
+                    className="img-object-cover"
                   />
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
-                    <Badge className="bg-craft-wood border-craft-wood">
+                    <Badge className="badge-craft-wood">
                       {tutorial.difficulty}
                     </Badge>
                   </div>
                 </div>
                 <CardContent className="pt-4">
-                  <h3 className="font-bold text-lg hover:text-craft-wood cursor-pointer">
+                  <h3 className="header-sub hover:text-craft-wood cursor-pointer">
                     {tutorial.title}
                   </h3>
-                  <div className="flex items-center justify-between mt-2">
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <Star className="h-4 w-4 mr-1 text-amber-500" />
+                  <div className="flex-between mt-2-util">
+                    <div className="flex-align-center-gap-3-text-sm-muted">
+                      <Star className="icon-margin-right h-4 w-4 icon-amber-500" />
                       <span>{tutorial.likes} Likes</span>
                     </div>
-                    <div className="flex items-center text-sm text-muted-foreground">
-                      <MessageCircle className="h-4 w-4 mr-1" />
+                    <div className="flex-align-center-gap-3-text-sm-muted">
+                      <MessageCircle className="icon-margin-right h-4 w-4" />
                       <span>{tutorial.comments} Kommentare</span>
                     </div>
                   </div>
                 </CardContent>
                 <CardFooter className="border-t pt-3">
-                  <Button variant="outline" size="sm" className="w-full">Tutorial ansehen</Button>
+                  <Button variant="outline" size="sm" className="btn-full-width">Tutorial ansehen</Button>
                 </CardFooter>
               </Card>
             ))}
           </div>
-          <div className="flex justify-center">
+          <div className="flex-center">
             <Button variant="outline">Alle Tutorials anzeigen</Button>
           </div>
         </TabsContent>
@@ -267,29 +270,29 @@ const UserProfile = () => {
                     <img 
                       src={activity.image} 
                       alt={activity.title} 
-                      className="w-full h-full object-cover min-h-[100px]"
+                      className="img-cover min-h-[100px]"
                     />
                   </div>
                 )}
                 <div className={`flex-1 p-4 ${!activity.image ? 'w-full' : ''}`}>
-                  <div className="flex items-center">
+                  <div className="flex-items-center">
                     <Badge variant="outline" className={
                       activity.type === 'tutorial' 
-                        ? 'bg-amber-100 text-amber-800 border-amber-200'
+                        ? 'badge-amber'
                         : activity.type === 'project'
-                          ? 'bg-blue-100 text-blue-800 border-blue-200'
+                          ? 'badge-blue'
                           : activity.type === 'challenge'
-                            ? 'bg-green-100 text-green-800 border-green-200'
+                            ? 'badge-green'
                             : activity.type === 'forum'
-                              ? 'bg-purple-100 text-purple-800 border-purple-200'
-                              : 'bg-pink-100 text-pink-800 border-pink-200'
+                              ? 'badge-purple'
+                              : 'badge-pink'
                     }>
                       {activity.type === 'tutorial' ? 'Tutorial' : 
                        activity.type === 'project' ? 'Projekt' :
                        activity.type === 'challenge' ? 'Challenge' :
                        activity.type === 'forum' ? 'Forum' : 'Kommentar'}
                     </Badge>
-                    <span className="text-sm text-muted-foreground ml-2">{activity.date}</span>
+                    <span className="small-muted-text ml-2">{activity.date}</span>
                   </div>
                   <h3 className="font-medium mt-2">{activity.title}</h3>
                 </div>
@@ -305,28 +308,28 @@ const UserProfile = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex-align-center-gap-3">
                   <Award className="h-5 w-5 text-craft-wood" />
                   Community-Beteiligung
                 </CardTitle>
                 <CardDescription>Statistiken zur Aktivität</CardDescription>
               </CardHeader>
               <CardContent>
-                <dl className="space-y-4">
+                <dl className="flex-col-gap-8">
                   <div>
-                    <dt className="text-sm text-muted-foreground">Abgeschlossene Projekte</dt>
+                    <dt className="small-muted-text">Abgeschlossene Projekte</dt>
                     <dd className="text-2xl font-bold">{userData.stats.projectsCompleted}</dd>
                   </div>
                   <div>
-                    <dt className="text-sm text-muted-foreground">Erstellte Tutorials</dt>
+                    <dt className="small-muted-text">Erstellte Tutorials</dt>
                     <dd className="text-2xl font-bold">{userData.stats.tutorialsCreated}</dd>
                   </div>
                   <div>
-                    <dt className="text-sm text-muted-foreground">Erhaltene Kommentare</dt>
+                    <dt className="small-muted-text">Erhaltene Kommentare</dt>
                     <dd className="text-2xl font-bold">{userData.stats.commentsReceived}</dd>
                   </div>
                   <div>
-                    <dt className="text-sm text-muted-foreground">Gewonnene Challenges</dt>
+                    <dt className="small-muted-text">Gewonnene Challenges</dt>
                     <dd className="text-2xl font-bold">{userData.stats.challengesWon}</dd>
                   </div>
                 </dl>
@@ -335,7 +338,7 @@ const UserProfile = () => {
             
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
+                <CardTitle className="flex-align-center-gap-3">
                   <User className="h-5 w-5 text-craft-wood" />
                   Community-Rang
                 </CardTitle>
@@ -347,7 +350,7 @@ const UserProfile = () => {
                     <div className="absolute inset-0 flex items-center justify-center">
                       <div className="text-center">
                         <div className="text-4xl font-bold">Gold</div>
-                        <div className="text-muted-foreground">Level</div>
+                        <div className="muted-text">Level</div>
                       </div>
                     </div>
                     <svg className="w-40 h-40" viewBox="0 0 100 100">
@@ -376,8 +379,8 @@ const UserProfile = () => {
                     <p className="text-sm">
                       <span className="font-medium">{userData.name}</span> ist seit {userData.stats.communitySince} Mitglied der CraftCircle Community
                     </p>
-                    <p className="mt-2 text-sm text-muted-foreground">
-                      Nur noch 150 Engagement-Punkte bis zum Platin-Level!
+                    <p className="mt-2 text-sm muted-text">
+                      Only noch 150 Engagement-Punkte bis zum Platin-Level!
                     </p>
                   </div>
                 </div>

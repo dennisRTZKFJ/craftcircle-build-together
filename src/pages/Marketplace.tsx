@@ -1,10 +1,9 @@
-
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
-import { Search, Filter, ShoppingCart } from 'lucide-react';
+import { Search, Filter, ShoppingCart, Star } from 'lucide-react';
 
 // Mock data for materials
 const materials = [
@@ -198,19 +197,19 @@ const Marketplace = () => {
   };
 
   return (
-    <div className="min-h-screen py-12">
-      <div className="container px-4 md:px-6">
-        <div className="flex flex-col gap-8">
+    <div className="min-h-screen py-12-util">
+      <div className="container px-4-md-6-util">
+        <div className="flex-col-gap-8">
           <div>
-            <h1 className="text-3xl font-bold mb-4">Material-Marktplatz</h1>
-            <p className="text-muted-foreground mb-6">
+            <h1 className="text-header-3xl mb-4-util">Material-Marktplatz</h1>
+            <p className="text-muted mb-6-util">
               Finde alle Materialien, die du für deine DIY-Projekte benötigst. Von Holz über Metallteile bis hin zu Werkzeugen und Farben – alles an einem Ort.
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4 mb-6-util">
             <div className="relative flex-1">
-              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
+              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted h-4 w-4" />
               <input
                 type="text"
                 placeholder="Suche nach Materialien, Werkzeugen..."
@@ -219,7 +218,7 @@ const Marketplace = () => {
                 onChange={(e) => setSearchTerm(e.target.value)}
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-row-gap-2">
               <Button variant="outline">
                 <Filter className="h-4 w-4 mr-2" />
                 Filter
@@ -227,7 +226,7 @@ const Marketplace = () => {
               <Button variant="outline" className="relative">
                 <ShoppingCart className="h-4 w-4" />
                 {cartItems > 0 && (
-                  <span className="absolute -top-2 -right-2 bg-craft-wood text-white rounded-full text-xs w-5 h-5 flex items-center justify-center">
+                  <span className="absolute -top-2 -right-2 bg-craft-wood text-white rounded-full text-xs w-5 h-5 flex-center-both">
                     {cartItems}
                   </span>
                 )}
@@ -236,7 +235,7 @@ const Marketplace = () => {
           </div>
 
           <Tabs defaultValue="materialien">
-            <TabsList className="mb-6">
+            <TabsList className="mb-6-util">
               <TabsTrigger value="materialien">Materialien</TabsTrigger>
               <TabsTrigger value="werkzeug-sets">Werkzeug-Sets</TabsTrigger>
               <TabsTrigger value="tutorial-pakete">Tutorial-Pakete</TabsTrigger>
@@ -244,227 +243,169 @@ const Marketplace = () => {
             </TabsList>
             
             <TabsContent value="materialien">
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid-cols-1-4-gap-6">
                 {materials.map((material) => (
-                  <Card key={material.id} className="overflow-hidden">
-                    <div className="h-48 overflow-hidden">
+                  <Card key={material.id} className="card-overflow-hidden">
+                    <div className="h-48 card-overflow-hidden">
                       <img 
                         src={material.image} 
                         alt={material.name}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className="img-object-cover img-hover-scale"
                       />
                     </div>
                     <CardHeader className="p-4 pb-0">
-                      <div className="flex justify-between items-start">
-                        <Badge variant="outline" className="bg-blue-100 text-blue-800 border-blue-200">
+                      <div className="flex-between-center items-start">
+                        <Badge variant="outline" className="badge-blue">
                           {material.category}
                         </Badge>
-                        <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                        <Badge variant="outline" className="badge-amber">
                           {material.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-lg mt-2">{material.name}</CardTitle>
+                      <CardTitle className="text-lg mt-2-util">{material.name}</CardTitle>
                       <CardDescription className="line-clamp-2">
                         {material.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="p-4 pt-2">
-                      <div className="flex items-center gap-2 mb-1">
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <svg 
-                              key={i} 
-                              className={`w-4 h-4 ${i < Math.floor(material.rating) ? 'text-amber-500' : 'text-gray-300'}`} 
-                              fill="currentColor" 
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
-                            </svg>
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground">({material.reviews})</span>
+                    <CardContent className="p-4 pt-0">
+                      <div className="flex-between-center text-header-lg mb-4-util">
+                        <span>€{material.price.toFixed(2)}</span>
+                        <Button size="sm" onClick={addToCart}>In den Warenkorb</Button>
                       </div>
-                      <div className="text-xl font-bold text-craft-dark-wood mt-2">
-                        {material.price.toFixed(2)} €
+                      <div className="flex-align-center-gap-2 text-sm text-muted">
+                        <Star className="h-4 w-4 icon-amber-500" />
+                        <span>{material.rating} ({material.reviews} Bewertungen)</span>
                       </div>
                     </CardContent>
-                    <CardFooter className="p-4 pt-0 flex justify-between">
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={material.affiliateLink} target="_blank" rel="noopener noreferrer">
-                          Mehr Info
-                        </a>
-                      </Button>
-                      <Button size="sm" onClick={addToCart}>
-                        In den Warenkorb
-                      </Button>
-                    </CardFooter>
                   </Card>
                 ))}
               </div>
             </TabsContent>
             
             <TabsContent value="werkzeug-sets">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid-cols-1-4-gap-6">
                 {toolKits.map((kit) => (
-                  <Card key={kit.id} className="overflow-hidden">
-                    <div className="h-48 overflow-hidden">
+                  <Card key={kit.id} className="card-overflow-hidden">
+                    <div className="h-48 card-overflow-hidden">
                       <img 
                         src={kit.image} 
                         alt={kit.name}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className="img-object-cover img-hover-scale"
                       />
                     </div>
                     <CardHeader className="p-4 pb-0">
-                      <div className="flex justify-between">
-                        <Badge variant="outline" className="bg-purple-100 text-purple-800 border-purple-200">
+                      <div className="flex-between-center items-start">
+                        <Badge variant="outline" className="badge-green">
                           Werkzeug-Set
                         </Badge>
-                        <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                        <Badge variant="outline" className="badge-amber">
                           {kit.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-xl mt-2">{kit.name}</CardTitle>
-                      <CardDescription className="line-clamp-2 mt-1">
+                      <CardTitle className="text-lg mt-2-util">{kit.name}</CardTitle>
+                      <CardDescription className="line-clamp-2">
                         {kit.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="p-4 pt-2">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <svg 
-                              key={i} 
-                              className={`w-4 h-4 ${i < Math.floor(kit.rating) ? 'text-amber-500' : 'text-gray-300'}`} 
-                              fill="currentColor" 
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
-                            </svg>
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground">({kit.reviews})</span>
+                    <CardContent className="p-4 pt-0">
+                      <div className="flex-between-center text-header-lg mb-4-util">
+                        <span>€{kit.price.toFixed(2)}</span>
+                        <Button size="sm" onClick={addToCart}>In den Warenkorb</Button>
                       </div>
-                      
-                      <div className="text-xs text-muted-foreground mb-2">Enthält:</div>
-                      <div className="flex flex-wrap gap-1 mb-3">
+                      <div className="text-sm text-muted mb-2-util">Enthält:</div>
+                      <ul className="text-sm list-disc pl-5">
                         {kit.items.map((item, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="outline" 
-                            className="bg-gray-100 text-gray-800 text-xs"
-                          >
-                            {item}
-                          </Badge>
+                          <li key={index}>{item}</li>
                         ))}
-                      </div>
-                      
-                      <div className="text-2xl font-bold text-craft-dark-wood mt-3">
-                        {kit.price.toFixed(2)} €
-                      </div>
+                      </ul>
                     </CardContent>
-                    <CardFooter className="p-4 pt-0 flex justify-between">
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={kit.affiliateLink} target="_blank" rel="noopener noreferrer">
-                          Mehr Info
-                        </a>
-                      </Button>
-                      <Button size="sm" onClick={addToCart}>
-                        In den Warenkorb
-                      </Button>
-                    </CardFooter>
                   </Card>
                 ))}
               </div>
             </TabsContent>
             
             <TabsContent value="tutorial-pakete">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="grid-cols-1-4-gap-6">
                 {tutorialPackages.map((pkg) => (
-                  <Card key={pkg.id} className="overflow-hidden">
-                    <div className="h-48 overflow-hidden">
+                  <Card key={pkg.id} className="card-overflow-hidden">
+                    <div className="h-48 card-overflow-hidden">
                       <img 
                         src={pkg.image} 
                         alt={pkg.name}
-                        className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                        className="img-object-cover img-hover-scale"
                       />
                     </div>
                     <CardHeader className="p-4 pb-0">
-                      <div className="flex justify-between">
-                        <Badge variant="outline" className="bg-green-100 text-green-800 border-green-200">
+                      <div className="flex-between-center">
+                        <Badge variant="outline" className="badge-green">
                           Tutorial-Paket
                         </Badge>
-                        <Badge variant="outline" className="bg-amber-100 text-amber-800 border-amber-200">
+                        <Badge variant="outline" className="badge-amber">
                           {pkg.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-xl mt-2">{pkg.name}</CardTitle>
-                      <CardDescription className="text-sm mt-1">
+                      <CardTitle className="text-xl mt-2-util">{pkg.name}</CardTitle>
+                      <CardDescription className="text-sm mt-1-util">
                         Für Tutorial: <span className="font-medium">{pkg.tutorial}</span>
                       </CardDescription>
-                      <CardDescription className="line-clamp-2 mt-1">
+                      <CardDescription className="line-clamp-2 mt-1-util">
                         {pkg.description}
                       </CardDescription>
                     </CardHeader>
-                    <CardContent className="p-4 pt-2">
-                      <div className="flex items-center gap-2 mb-3">
-                        <div className="flex">
-                          {[...Array(5)].map((_, i) => (
-                            <svg 
-                              key={i} 
-                              className={`w-4 h-4 ${i < Math.floor(pkg.rating) ? 'text-amber-500' : 'text-gray-300'}`} 
-                              fill="currentColor" 
-                              viewBox="0 0 20 20"
-                            >
-                              <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
-                            </svg>
-                          ))}
-                        </div>
-                        <span className="text-sm text-muted-foreground">({pkg.reviews})</span>
+                    <CardContent className="p-4 pt-0">
+                      <div className="flex-between-center text-header-lg mb-4-util">
+                        <span>€{pkg.price.toFixed(2)}</span>
+                        <Button size="sm" onClick={addToCart}>In den Warenkorb</Button>
                       </div>
-                      
-                      <div className="text-xs text-muted-foreground mb-2">Enthält:</div>
-                      <div className="flex flex-wrap gap-1 mb-3">
+                      <div className="text-sm text-muted mb-2-util">Enthaltene Materialien:</div>
+                      <ul className="text-sm list-disc pl-5">
                         {pkg.items.map((item, index) => (
-                          <Badge 
-                            key={index} 
-                            variant="outline" 
-                            className="bg-gray-100 text-gray-800 text-xs"
-                          >
-                            {item}
-                          </Badge>
+                          <li key={index}>{item}</li>
                         ))}
-                      </div>
-                      
-                      <div className="flex justify-between items-center mt-3">
-                        <div className="text-2xl font-bold text-craft-dark-wood">
-                          {pkg.price.toFixed(2)} €
-                        </div>
-                        <Button variant="outline" size="sm">
-                          Tutorial ansehen
-                        </Button>
-                      </div>
+                      </ul>
                     </CardContent>
-                    <CardFooter className="p-4 pt-0 flex justify-between">
-                      <Button variant="outline" size="sm" asChild>
-                        <a href={pkg.affiliateLink} target="_blank" rel="noopener noreferrer">
-                          Mehr Info
-                        </a>
-                      </Button>
-                      <Button size="sm" onClick={addToCart}>
-                        In den Warenkorb
-                      </Button>
-                    </CardFooter>
                   </Card>
                 ))}
               </div>
             </TabsContent>
             
             <TabsContent value="angebote">
-              <div className="text-center p-12 border rounded-lg">
-                <h3 className="text-xl font-medium mb-2">Aktuelle Angebote werden geladen...</h3>
-                <p className="text-muted-foreground">
-                  Hier werden bald aktuelle Sonderangebote und Rabatte angezeigt.
-                </p>
+              <div className="grid-cols-1-4-gap-6">
+                {materials.filter(m => m.price < 20).map((material) => (
+                  <Card key={material.id} className="card-overflow-hidden">
+                    <div className="h-48 card-overflow-hidden">
+                      <img 
+                        src={material.image} 
+                        alt={material.name}
+                        className="img-object-cover img-hover-scale"
+                      />
+                    </div>
+                    <CardHeader className="p-4 pb-0">
+                      <div className="flex-between-center items-start">
+                        <Badge variant="outline" className="badge-blue">
+                          {material.category}
+                        </Badge>
+                        <Badge variant="outline" className="badge-amber">
+                          {material.store}
+                        </Badge>
+                      </div>
+                      <CardTitle className="text-lg mt-2-util">{material.name}</CardTitle>
+                      <CardDescription className="line-clamp-2">
+                        {material.description}
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-4 pt-0">
+                      <div className="flex-between-center text-header-lg mb-4-util">
+                        <span>€{material.price.toFixed(2)}</span>
+                        <Button size="sm" onClick={addToCart}>In den Warenkorb</Button>
+                      </div>
+                      <div className="flex-align-center-gap-2 text-sm text-muted">
+                        <Star className="h-4 w-4 icon-amber-500" />
+                        <span>{material.rating} ({material.reviews} Bewertungen)</span>
+                      </div>
+                    </CardContent>
+                  </Card>
+                ))}
               </div>
             </TabsContent>
           </Tabs>

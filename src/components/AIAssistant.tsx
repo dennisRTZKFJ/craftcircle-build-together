@@ -7,9 +7,9 @@ import { motion } from 'framer-motion';
 
 const AIAssistant = () => {
   return (
-    <section className="py-24 bg-craft-wood/5">
-      <div className="container px-4 md:px-6">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+    <section className="section-bg-craft">
+      <div className="container-padding">
+        <div className="grid-cols-lg-2-gap-12-center">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -18,29 +18,29 @@ const AIAssistant = () => {
             className="order-2 lg:order-1"
           >
             <div className="relative">
-              <Card className="bg-background border-2 border-craft-wood shadow-lg">
+              <Card className="card-craft-shadow">
                 <CardHeader>
-                  <div className="flex items-center gap-2">
+                  <div className="flex-align-center-gap-2">
                     <Bot className="h-6 w-6 text-craft-wood" />
                     <CardTitle>CraftAssist</CardTitle>
-                    <Badge variant="outline" className="ml-auto bg-green-100 text-green-800 border-green-200">
+                    <Badge variant="outline" className="ml-auto badge-active">
                       Active
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="bg-muted p-4 rounded-lg mb-4">
+                  <div className="chat-bubble-muted">
                     <p className="text-sm">I'm new to woodworking and don't have many tools. What's a good first project?</p>
                   </div>
                   
-                  <div className="bg-craft-wood/10 p-4 rounded-lg">
-                    <div className="flex items-start gap-2">
+                  <div className="chat-bubble-craft-wood">
+                    <div className="flex-items-start-gap-2">
                       <Bot className="h-5 w-5 text-craft-wood mt-1" />
                       <div>
                         <p className="text-sm mb-3">
                           Based on your experience level, I recommend starting with a simple floating shelf. It requires minimal tools and materials:
                         </p>
-                        <ul className="text-sm list-disc pl-5 space-y-1 mb-3">
+                        <ul className="text-sm list-disc-spaced">
                           <li>You'll only need a drill, measuring tape, and level</li>
                           <li>It can be completed in under 2 hours</li>
                           <li>Total cost is approximately $25-35</li>
@@ -72,49 +72,49 @@ const AIAssistant = () => {
             viewport={{ once: true }}
             className="order-1 lg:order-2"
           >
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">Your Building Assistant. Powered by AI.</h2>
-            <p className="text-lg text-muted-foreground mb-8">
+            <h2 className="header-xxl-spacing">Your Building Assistant. Powered by AI.</h2>
+            <p className="large-muted-text-mb-8">
               Our AI helps you find the perfect projects for your skill level and provides instant answers when you get stuck.
             </p>
             
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-              <div className="flex items-start gap-3">
-                <div className="bg-craft-wood/10 p-2 rounded-full">
+            <div className="grid-cols-sm-2-gap-4-mb-8">
+              <div className="flex-items-start-gap-3">
+                <div className="icon-bg-rounded">
                   <Wrench className="h-5 w-5 text-craft-wood" />
                 </div>
                 <div>
-                  <h3 className="font-bold mb-1">Tool Recommendations</h3>
-                  <p className="text-sm text-muted-foreground">Get personalized tool suggestions based on your existing toolkit and budget.</p>
+                  <h3 className="feature-title">Tool Recommendations</h3>
+                  <p className="small-muted-text">Get personalized tool suggestions based on your existing toolkit and budget.</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <div className="bg-craft-wood/10 p-2 rounded-full">
+              <div className="flex-items-start-gap-3">
+                <div className="icon-bg-rounded">
                   <PenTool className="h-5 w-5 text-craft-wood" />
                 </div>
                 <div>
-                  <h3 className="font-bold mb-1">Custom Project Plans</h3>
-                  <p className="text-sm text-muted-foreground">Adapt existing plans to your specific space and material constraints.</p>
+                  <h3 className="feature-title">Custom Project Plans</h3>
+                  <p className="small-muted-text">Adapt existing plans to your specific space and material constraints.</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <div className="bg-craft-wood/10 p-2 rounded-full">
+              <div className="flex-items-start-gap-3">
+                <div className="icon-bg-rounded">
                   <Hammer className="h-5 w-5 text-craft-wood" />
                 </div>
                 <div>
-                  <h3 className="font-bold mb-1">Technique Guidance</h3>
-                  <p className="text-sm text-muted-foreground">Step-by-step instructions for specific woodworking techniques with visual aids.</p>
+                  <h3 className="feature-title">Technique Guidance</h3>
+                  <p className="small-muted-text">Step-by-step instructions for specific woodworking techniques with visual aids.</p>
                 </div>
               </div>
               
-              <div className="flex items-start gap-3">
-                <div className="bg-craft-wood/10 p-2 rounded-full">
+              <div className="flex-items-start-gap-3">
+                <div className="icon-bg-rounded">
                   <Lightbulb className="h-5 w-5 text-craft-wood" />
                 </div>
                 <div>
-                  <h3 className="font-bold mb-1">Creative Ideas</h3>
-                  <p className="text-sm text-muted-foreground">Inspiration for custom touches and creative solutions to common building challenges.</p>
+                  <h3 className="feature-title">Creative Ideas</h3>
+                  <p className="small-muted-text">Inspiration for custom touches and creative solutions to common building challenges.</p>
                 </div>
               </div>
             </div>

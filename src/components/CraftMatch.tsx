@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -41,49 +40,45 @@ const CraftMatch = () => {
   ];
 
   return (
-    <div className="container py-12">
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
+    <div className="section-container-padding-y">
+      <div className="craftmatch-header-layout">
         <div>
-          <h2 className="text-3xl font-bold mb-2">CraftMatch</h2>
-          <p className="text-muted-foreground max-w-xl">
+          <h2 className="header-xl-mb-2">CraftMatch</h2>
+          <p className="muted-text max-w-xl">
             Basierend auf deinem Skill-Level, deinen Werkzeugen und deinen bisherigen Projekten 
             haben wir diese Projekte für dich ausgewählt.
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="text-muted-foreground">Filter:</span>
+        <div className="flex-align-center-gap-2">
+          <span className="muted-text">Filter:</span>
           <Badge variant="outline" className="cursor-pointer">Alles</Badge>
           <Badge variant="outline" className="cursor-pointer">Anfänger</Badge>
           <Badge variant="outline" className="cursor-pointer">Unter 3h</Badge>
         </div>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid-cols-craftmatch">
         {recommendedProjects.map((project) => (
-          <Card key={project.id} className="overflow-hidden flex flex-col h-full">
-            <div className="relative h-48 overflow-hidden">
-              <div className="absolute top-3 right-3 z-10">
-                <Badge className="bg-craft-wood border-none">
+          <Card key={project.id} className="card-flex-col-h-full">
+            <div className="relative h-48 card-overflow-hidden">
+              <div className="absolute-top-right">
+                <Badge className="badge-craft-wood">
                   {project.match}% Match
                 </Badge>
               </div>
               <img 
                 src={project.image} 
                 alt={project.title}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                className="img-cover image-hover-scale"
               />
             </div>
             <CardHeader className="p-4 pb-2">
-              <div className="flex items-center justify-between mb-1">
-                <Badge variant="outline" className={`
-                  ${project.difficulty === "Anfänger" ? "bg-green-100 text-green-800 border-green-200" : ""}
-                  ${project.difficulty === "Mittel" ? "bg-amber-100 text-amber-800 border-amber-200" : ""}
-                  ${project.difficulty === "Fortgeschritten" ? "bg-red-100 text-red-800 border-red-200" : ""}
-                `}>
+              <div className="flex-between mb-1">
+                <Badge variant="outline" className={project.difficulty === "Anfänger" ? "badge-difficulty-beginner" : project.difficulty === "Mittel" ? "badge-difficulty-medium" : "badge-difficulty-advanced"}>
                   {project.difficulty}
                 </Badge>
-                <span className="text-sm text-muted-foreground flex items-center">
-                  <Clock className="h-3 w-3 mr-1" /> {project.duration}
+                <span className="small-muted-text flex-items-center">
+                  <Clock className="h-3 w-3 icon-margin-right" /> {project.duration}
                 </span>
               </div>
               <CardTitle className="text-lg">{project.title}</CardTitle>
@@ -94,20 +89,20 @@ const CraftMatch = () => {
             <CardContent className="p-4 pt-0 flex-grow">
               <div className="space-y-3">
                 <div>
-                  <h4 className="text-sm font-medium mb-1 flex items-center">
-                    <Hammer className="h-4 w-4 mr-1 text-craft-wood" /> Benötigte Werkzeuge
+                  <h4 className="small-muted-text flex-items-center feature-title">
+                    <Hammer className="h-4 w-4 icon-margin-right text-craft-wood" /> Benötigte Werkzeuge
                   </h4>
-                  <div className="flex flex-wrap gap-1">
+                  <div className="flex-wrap-gap-1">
                     {project.tools.map((tool, i) => (
                       <Badge key={i} variant="secondary" className="text-xs">
-                        <CheckCircle className="h-3 w-3 mr-1 text-green-500" /> {tool}
+                        <CheckCircle className="h-3 w-3 icon-margin-right text-green-500" /> {tool}
                       </Badge>
                     ))}
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium mb-1">Materialien</h4>
-                  <div className="flex flex-wrap gap-1">
+                  <h4 className="small-muted-text feature-title">Materialien</h4>
+                  <div className="flex-wrap-gap-1">
                     {project.materials.map((material, i) => (
                       <Badge key={i} variant="outline" className="text-xs">
                         {material}

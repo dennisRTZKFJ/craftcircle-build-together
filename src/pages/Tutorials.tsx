@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Badge } from "@/components/ui/badge";
@@ -166,16 +165,14 @@ const Tutorials = () => {
       <Navbar />
       <div className="min-h-screen py-12">
         <div className="container px-4 md:px-6">
-          <div className="flex flex-col gap-8">
+          <div className="flex-col-gap-8">
             <div>
-              <h1 className="text-3xl font-bold mb-4">DIY Furniture Tutorials</h1>
-              <p className="text-muted-foreground mb-6">
+              <h1 className="header-xl">DIY Furniture Tutorials</h1>
+              <p className="muted-text section-space">
                 Discover step-by-step guides for your next DIY furniture projects, 
                 from simple beginner projects to sophisticated design pieces.
               </p>
             </div>
-
-            {/* Search bar */}
             <div className="relative">
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
@@ -194,7 +191,6 @@ const Tutorials = () => {
                 </button>
               )}
             </div>
-
             <Tabs defaultValue="alle" className="w-full">
               <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
                 <TabsList>
@@ -203,7 +199,6 @@ const Tutorials = () => {
                   <TabsTrigger value="neu">Newest</TabsTrigger>
                   <TabsTrigger value="featured">Featured</TabsTrigger>
                 </TabsList>
-                
                 <div className="flex gap-2">
                   <Button 
                     variant="outline" 
@@ -216,21 +211,18 @@ const Tutorials = () => {
                   </Button>
                 </div>
               </div>
-
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
-                {/* Mobile filter overlay */}
                 <div className={`
                   fixed inset-0 bg-background z-40 md:hidden transform transition-transform duration-300
                   ${isFilterOpen ? 'translate-x-0' : 'translate-x-full'}
                 `}>
                   <div className="h-full overflow-y-auto p-6">
-                    <div className="flex justify-between items-center mb-6">
-                      <h3 className="text-xl font-bold">Filter</h3>
+                    <div className="flex-between section-space">
+                      <h3 className="header-md">Filter</h3>
                       <Button variant="ghost" size="sm" onClick={toggleFilter}>
                         <X className="h-5 w-5" />
                       </Button>
                     </div>
-                    
                     <div className="space-y-6">
                       <div>
                         <h3 className="font-medium mb-2">Difficulty Level</h3>
@@ -253,78 +245,53 @@ const Tutorials = () => {
                           ))}
                         </div>
                       </div>
-                      
                       <div>
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex-between mb-2">
                           <h3 className="font-medium">Duration</h3>
-                          <span className="text-sm text-muted-foreground">
-                            <Clock className="h-3 w-3 inline mr-1" /> 
-                            Max. {maxDuration} hours
+                          <span className="text-sm muted-text">
+                            <Clock className="h-3 w-3 inline mr-1" /> {maxDuration} hours
                           </span>
                         </div>
-                        <Slider 
-                          defaultValue={[maxDuration]} 
-                          max={12} 
+                        <Slider
+                          value={[maxDuration]}
+                          onValueChange={(val) => setMaxDuration(val[0])}
+                          max={20}
                           step={1}
-                          onValueChange={(value) => setMaxDuration(value[0])} 
+                          className="w-[60%]"
                         />
                       </div>
-                      
                       <div>
-                        <div className="flex items-center justify-between mb-2">
+                        <div className="flex-between mb-2">
                           <h3 className="font-medium">Material Cost</h3>
-                          <span className="text-sm text-muted-foreground">
-                            <DollarSign className="h-3 w-3 inline mr-1" /> 
-                            Up to ${maxPrice}
+                          <span className="text-sm muted-text">
+                            <DollarSign className="h-3 w-3 inline mr-1" /> ${maxPrice}
                           </span>
                         </div>
-                        <Slider 
-                          defaultValue={[maxPrice]} 
-                          max={500} 
+                        <Slider
+                          value={[maxPrice]}
+                          onValueChange={(val) => setMaxPrice(val[0])}
+                          max={500}
                           step={10}
-                          onValueChange={(value) => setMaxPrice(value[0])} 
+                          className="w-[60%]"
                         />
                       </div>
-                      
-                      <Button 
-                        variant="outline" 
-                        className="w-full mt-4"
-                        onClick={() => {
-                          setDifficulty(["Beginner", "Intermediate", "Advanced"]);
-                          setMaxDuration(10);
-                          setMaxPrice(300);
-                        }}
-                      >
-                        Reset Filters
-                      </Button>
-                      
-                      <Button className="w-full" onClick={toggleFilter}>
-                        Show Results ({filteredTutorials.length})
-                      </Button>
+                      <Button className="w-full mt-4" onClick={toggleFilter}>Apply Filters</Button>
                     </div>
                   </div>
                 </div>
-
-                {/* Desktop filters */}
                 <Card className="col-span-1 md:col-span-3 lg:col-span-1 h-fit hidden md:block">
                   <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle>Filters</CardTitle>
+                    <div className="flex-between">
+                      <h3 className="header-md">Filter</h3>
                       <Button 
                         variant="ghost" 
-                        size="sm"
+                        size="sm" 
+                        onClick={toggleFilter}
                         className="h-8 w-8 p-0 rounded-full"
-                        onClick={() => {
-                          setDifficulty(["Beginner", "Intermediate", "Advanced"]);
-                          setMaxDuration(10);
-                          setMaxPrice(300);
-                          setSearchQuery("");
-                        }}
                       >
                         <SlidersHorizontal className="h-4 w-4" />
                       </Button>
                     </div>
-                    <CardDescription>Find the perfect project for you</CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-6">
                     <div>
@@ -348,134 +315,76 @@ const Tutorials = () => {
                         ))}
                       </div>
                     </div>
-                    
                     <div>
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex-between mb-2">
                         <h3 className="font-medium">Duration</h3>
-                        <span className="text-sm text-muted-foreground">
-                          <Clock className="h-3 w-3 inline mr-1" /> 
-                          Max. {maxDuration} hours
+                        <span className="text-sm muted-text">
+                          <Clock className="h-3 w-3 inline mr-1" /> {maxDuration} hours
                         </span>
                       </div>
-                      <Slider 
-                        defaultValue={[maxDuration]} 
-                        max={12} 
+                      <Slider
+                        value={[maxDuration]}
+                        onValueChange={(val) => setMaxDuration(val[0])}
+                        max={20}
                         step={1}
-                        onValueChange={(value) => setMaxDuration(value[0])} 
+                        className="w-[60%]"
                       />
                     </div>
-                    
                     <div>
-                      <div className="flex items-center justify-between mb-2">
+                      <div className="flex-between mb-2">
                         <h3 className="font-medium">Material Cost</h3>
-                        <span className="text-sm text-muted-foreground">
-                          <DollarSign className="h-3 w-3 inline mr-1" /> 
-                          Up to ${maxPrice}
+                        <span className="text-sm muted-text">
+                          <DollarSign className="h-3 w-3 inline mr-1" /> ${maxPrice}
                         </span>
                       </div>
-                      <Slider 
-                        defaultValue={[maxPrice]} 
-                        max={500} 
+                      <Slider
+                        value={[maxPrice]}
+                        onValueChange={(val) => setMaxPrice(val[0])}
+                        max={500}
                         step={10}
-                        onValueChange={(value) => setMaxPrice(value[0])} 
+                        className="w-[60%]"
                       />
                     </div>
+                    <Button className="w-full" onClick={toggleFilter}>Apply Filters</Button>
                   </CardContent>
-                  <CardFooter>
-                    <Button variant="outline" size="sm" className="w-full" onClick={() => {
-                      setDifficulty(["Beginner", "Intermediate", "Advanced"]);
-                      setMaxDuration(10);
-                      setMaxPrice(300);
-                    }}>
-                      Reset Filters
-                    </Button>
-                  </CardFooter>
                 </Card>
-                
-                <TabsContent value="alle" className="col-span-1 md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 m-0">
-                  {filteredTutorials.length > 0 ? filteredTutorials.map(tutorial => (
+                {/* Tutorial List */}
+                <div className="lg:col-span-3 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {filteredTutorials.map((tutorial) => (
                     <Card 
                       key={tutorial.id} 
-                      className="overflow-hidden cursor-pointer hover:shadow-md transition-shadow"
+                      className="flex flex-col h-full cursor-pointer hover:shadow-lg transition-shadow duration-200"
                       onClick={() => handleTutorialClick(tutorial.id)}
                     >
-                      <div className="h-48 overflow-hidden">
-                        <img 
-                          src={tutorial.image} 
-                          alt={tutorial.title}
-                          className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <CardHeader className="p-4 pb-0">
-                        <div className="flex items-center justify-between mb-2">
-                          <Badge variant="outline" className={categoryColors[tutorial.category as keyof typeof categoryColors]}>
-                            {tutorial.category}
-                          </Badge>
-                          <span className="text-sm text-muted-foreground flex items-center">
-                            <Clock className="h-3 w-3 mr-1" /> {tutorial.duration}
-                          </span>
+                      <img 
+                        src={tutorial.image} 
+                        alt={tutorial.title} 
+                        className="w-full h-48 object-cover rounded-t-lg"
+                      />
+                      <CardContent className="p-4 flex-grow">
+                        <Badge variant="outline" className={categoryColors[tutorial.category as keyof typeof categoryColors]}>
+                          {tutorial.category}
+                        </Badge>
+                        <div className="flex items-center text-sm text-muted-foreground mt-2">
+                          <Clock className="h-3 w-3 mr-1" /> {tutorial.duration}
                         </div>
                         <CardTitle className="text-lg mb-1">{tutorial.title}</CardTitle>
-                        <CardDescription className="line-clamp-2">
+                        <CardDescription className="text-sm text-muted-foreground line-clamp-2">
                           {tutorial.description}
                         </CardDescription>
-                      </CardHeader>
-                      <CardContent className="p-4 pt-2">
-                        <div className="flex items-center justify-between">
-                          <div className="text-sm">
-                            By <span className="font-medium">{tutorial.author}</span>
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {tutorial.price}
-                          </div>
-                        </div>
                       </CardContent>
-                      <CardFooter className="p-4 pt-0 flex justify-between">
+                      <CardFooter className="p-4 pt-0 flex justify-between items-center">
+                        <div className="text-sm muted-text">
+                          By <span className="font-medium">{tutorial.author}</span>
+                        </div>
                         <div className="flex items-center">
-                          <Star className="w-4 h-4 text-craft-wood fill-craft-wood mr-1" />
+                          <Star className="h-4 w-4 text-amber-500 mr-1" />
                           <span className="text-sm">{tutorial.likes}</span>
                         </div>
-                        <Button size="sm">View Tutorial</Button>
                       </CardFooter>
                     </Card>
-                  )) : (
-                    <div className="col-span-3 flex flex-col items-center justify-center p-12 text-center">
-                      <h3 className="text-xl font-medium mb-2">No matching tutorials found</h3>
-                      <p className="text-muted-foreground mb-4">
-                        Try adjusting your filter settings to see more results.
-                      </p>
-                      <Button 
-                        variant="outline"
-                        onClick={() => {
-                          setDifficulty(["Beginner", "Intermediate", "Advanced"]);
-                          setMaxDuration(10);
-                          setMaxPrice(300);
-                          setSearchQuery("");
-                        }}
-                      >
-                        Reset All Filters
-                      </Button>
-                    </div>
-                  )}
-                </TabsContent>
-                
-                <TabsContent value="beliebt" className="col-span-1 md:col-span-3">
-                  <div className="text-center p-8">
-                    <h3 className="text-xl font-medium">Loading popular tutorials...</h3>
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="neu" className="col-span-1 md:col-span-3">
-                  <div className="text-center p-8">
-                    <h3 className="text-xl font-medium">Loading newest tutorials...</h3>
-                  </div>
-                </TabsContent>
-                
-                <TabsContent value="featured" className="col-span-1 md:col-span-3">
-                  <div className="text-center p-8">
-                    <h3 className="text-xl font-medium">Loading featured tutorials...</h3>
-                  </div>
-                </TabsContent>
+                  ))}
+                </div>
               </div>
             </Tabs>
           </div>

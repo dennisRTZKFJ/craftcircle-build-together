@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -56,10 +55,10 @@ const UpdatePaymentMethodPage = () => {
     <div className="min-h-screen">
       <Navbar />
       <div className="container py-8">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex-between section-space">
           <div>
-            <h1 className="text-3xl font-bold">Update Payment Method</h1>
-            <p className="text-muted-foreground">Choose how you want to pay for your subscription</p>
+            <h1 className="header-xl">Update Payment Method</h1>
+            <p className="muted-text">Choose how you want to pay for your subscription</p>
           </div>
           <Button variant="outline" onClick={() => navigate('/account/payments')}>
             <ArrowLeft className="mr-2 h-4 w-4" />
@@ -68,19 +67,18 @@ const UpdatePaymentMethodPage = () => {
         </div>
 
         <div className="max-w-3xl mx-auto">
-          <Card>
+          <Card className="rounded-card">
             <CardHeader>
               <CardTitle>Choose Payment Method</CardTitle>
               <CardDescription>Select your preferred payment method</CardDescription>
             </CardHeader>
             <CardContent>
               <RadioGroup value={paymentMethod} onValueChange={setPaymentMethod} className="space-y-6">
-                <div className={`border p-4 rounded-lg ${paymentMethod === 'credit-card' ? 'border-primary' : 'border-border'}`}>
-                  <div className="flex items-start space-x-3">
+                <div className={`border p-4 rounded-lg ${paymentMethod === 'credit-card' ? 'border-primary' : 'border-border'}`}> 
+                  <div className="flex items-start gap-3">
                     <RadioGroupItem value="credit-card" id="credit-card" />
                     <div className="flex flex-col">
-                      <Label htmlFor="credit-card" className="text-base font-medium mb-2">Credit or Debit Card</Label>
-                      
+                      <Label htmlFor="credit-card" className="header-base mb-2">Credit or Debit Card</Label>
                       {paymentMethod === 'credit-card' && (
                         <form className="space-y-4">
                           <div className="grid grid-cols-1 gap-4">
@@ -93,7 +91,6 @@ const UpdatePaymentMethodPage = () => {
                                 onChange={(e) => setCardInfo({...cardInfo, cardNumber: e.target.value})}
                               />
                             </div>
-                            
                             <div>
                               <Label htmlFor="cardHolder">Cardholder Name</Label>
                               <Input 
@@ -103,7 +100,6 @@ const UpdatePaymentMethodPage = () => {
                                 onChange={(e) => setCardInfo({...cardInfo, cardHolder: e.target.value})}
                               />
                             </div>
-                            
                             <div className="grid grid-cols-2 gap-4">
                               <div>
                                 <Label htmlFor="expiryDate">Expiry Date</Label>
@@ -131,14 +127,12 @@ const UpdatePaymentMethodPage = () => {
                     </div>
                   </div>
                 </div>
-
-                <div className={`border p-4 rounded-lg ${paymentMethod === 'stripe' ? 'border-primary' : 'border-border'}`}>
-                  <div className="flex items-start space-x-3">
+                <div className={`border p-4 rounded-lg ${paymentMethod === 'stripe' ? 'border-primary' : 'border-border'}`}> 
+                  <div className="flex items-start gap-3">
                     <RadioGroupItem value="stripe" id="stripe" />
                     <div className="flex flex-col">
-                      <Label htmlFor="stripe" className="text-base font-medium">Connect Stripe Account</Label>
-                      <p className="text-sm text-muted-foreground">Use your existing Stripe account for payments</p>
-                      
+                      <Label htmlFor="stripe" className="header-base">Connect Stripe Account</Label>
+                      <p className="text-sm muted-text">Use your existing Stripe account for payments</p>
                       {paymentMethod === 'stripe' && (
                         <Button className="mt-4" onClick={handleStripeConnect} disabled={loading}>
                           {loading ? "Connecting..." : "Connect Stripe"}

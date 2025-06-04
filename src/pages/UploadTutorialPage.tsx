@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -29,15 +28,15 @@ const UploadTutorialPage = () => {
     <div className="min-h-screen">
       <Navbar />
       <div className="container py-8">
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-3xl font-bold">Upload Tutorial</h1>
+        <div className="flex-between section-space">
+          <h1 className="header-xl">Upload Tutorial</h1>
           <Link to="/creator-dashboard">
             <Button variant="outline">Back to Creator Dashboard</Button>
           </Link>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Card>
+          <Card className="rounded-card">
             <CardHeader>
               <CardTitle>Create a New Tutorial</CardTitle>
             </CardHeader>
@@ -113,7 +112,7 @@ const UploadTutorialPage = () => {
                   <Input id="thumbnail" type="file" accept="image/*" required />
                 </div>
                 
-                <div className="pt-4 flex justify-end space-x-2">
+                <div className="pt-4 flex justify-end gap-2">
                   <Button type="button" variant="outline">Save as Draft</Button>
                   <Button type="submit">Publish Tutorial</Button>
                 </div>
