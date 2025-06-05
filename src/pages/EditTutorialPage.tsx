@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -218,7 +217,7 @@ const EditTutorialPage = () => {
                         
                         <div className="space-y-2">
                           <Label>Step Image</Label>
-                          <div className="border-2 border-dashed rounded-md p-6 text-center border-muted-foreground/25">
+                          <div className="dashed-border-center-p6">
                             <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
                             <div className="mt-2">
                               <Button variant="secondary" size="sm" type="button">Upload Image</Button>
@@ -242,15 +241,15 @@ const EditTutorialPage = () => {
                   <div className="space-y-6">
                     <div className="space-y-2">
                       <Label>Tutorial Thumbnail</Label>
-                      <div className="flex flex-col md:flex-row gap-6">
-                        <div className="border rounded-md overflow-hidden w-full md:w-1/3">
+                      <div className="flex-col-md-row-gap6">
+                        <div className="card-border-md-overflow-w-third">
                           <img
                             src={tutorial.image}
                             alt="Current thumbnail"
                             className="w-full h-40 object-cover"
                           />
                         </div>
-                        <div className="border-2 border-dashed rounded-md p-6 text-center border-muted-foreground/25 w-full md:w-2/3">
+                        <div className="dashed-border-center-p6 w-full md:w-2/3">
                           <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
                           <div className="mt-2">
                             <Button variant="secondary" size="sm" type="button">Replace Image</Button>
@@ -262,7 +261,7 @@ const EditTutorialPage = () => {
                     
                     <div className="space-y-2">
                       <Label>Additional Images</Label>
-                      <div className="border-2 border-dashed rounded-md p-6 text-center border-muted-foreground/25">
+                      <div className="dashed-border-center-p6">
                         <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
                         <div className="mt-2">
                           <Button variant="secondary" size="sm" type="button">Upload Images</Button>
@@ -273,7 +272,7 @@ const EditTutorialPage = () => {
                     
                     <div className="space-y-2">
                       <Label>Video Tutorial (Optional)</Label>
-                      <div className="border-2 border-dashed rounded-md p-6 text-center border-muted-foreground/25">
+                      <div className="dashed-border-center-p6">
                         <FileText className="h-8 w-8 mx-auto text-muted-foreground" />
                         <div className="mt-2">
                           <Button variant="secondary" size="sm" type="button">Add Video Link</Button>

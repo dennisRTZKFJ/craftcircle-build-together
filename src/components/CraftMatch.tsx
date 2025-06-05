@@ -49,7 +49,7 @@ const CraftMatch = () => {
             haben wir diese Projekte für dich ausgewählt.
           </p>
         </div>
-        <div className="flex-align-center-gap-2">
+        <div className="flex items-center gap-2">
           <span className="muted-text">Filter:</span>
           <Badge variant="outline" className="cursor-pointer">Alles</Badge>
           <Badge variant="outline" className="cursor-pointer">Anfänger</Badge>

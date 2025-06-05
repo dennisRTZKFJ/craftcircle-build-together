@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -42,13 +41,11 @@ const Onboarding = () => {
       <Navbar />
       <div className="flex-1 container py-8 max-w-5xl">
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold mb-2">Welcome to CraftCircle!</h1>
+          <h2 className="text-2xl font-bold mb-2">Welcome to CraftCircle!</h2>
           <p className="text-muted-foreground">Let's personalize your experience</p>
-          
-          <div className="flex items-center justify-center gap-2 mt-6">
+          <div className="flex-center-gap2-mt6">
+            <div className="h-2 w-16 rounded-full bg-craft-wood/30"></div>
             <div className="h-2 w-16 rounded-full bg-craft-wood"></div>
-            <div className="h-2 w-16 rounded-full bg-craft-wood/30"></div>
-            <div className="h-2 w-16 rounded-full bg-craft-wood/30"></div>
           </div>
         </div>
 

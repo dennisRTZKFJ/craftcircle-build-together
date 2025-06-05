@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -6,7 +5,7 @@ import UserDashboard from '@/components/UserDashboard';
 import Footer from '@/components/Footer';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
-import { HelpCircle, User } from 'lucide-react';
+import { HelpCircle, User, Settings } from 'lucide-react';
 import { useToast } from "@/components/ui/use-toast";
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -46,9 +45,9 @@ const Dashboard = () => {
           </TabsList>
         </Tabs>
         
-        <div className="flex gap-2 mt-2 md:mt-0">
+        <div className="flex-gap2-mt2-md0">
           <Link to="/account">
-            <Button variant="outline" size="sm" className="flex items-center gap-1">
+            <Button variant="outline" size="sm" className="flex-center-gap1">
               <User className="h-4 w-4" />
               <span>My Account</span>
             </Button>
@@ -57,7 +56,7 @@ const Dashboard = () => {
           <Button 
             variant="outline" 
             size="sm" 
-            className="flex items-center gap-1"
+            className="flex-center-gap1"
             onClick={handleSupportClick}
           >
             <HelpCircle className="h-4 w-4" />

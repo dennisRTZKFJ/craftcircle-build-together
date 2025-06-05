@@ -131,7 +131,7 @@ const EarningsTab = ({ monthlyEarnings }: EarningsTabProps) => {
               </div>
               
               <div className="card-tip">
-                <h4 className="font-medium flex-align-center-gap-2">
+                <h4 className="font-medium flex items-center gap-2">
                   <AlertCircle className="h-4 w-4 icon-margin-right text-craft-wood" />
                   Optimization Tip
                 </h4>

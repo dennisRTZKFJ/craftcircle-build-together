@@ -39,7 +39,7 @@ const PartnerDashboard = () => {
           <p className="muted-text">Produktdaten, Insights und Kampagnenmanagement</p>
         </div>
         
-        <Button onClick={handleContactSupport} className="flex-align-center-gap-2">
+        <Button onClick={handleContactSupport} className="flex items-center gap-2">
           <HelpCircle className="h-4 w-4" />
           <span>Support kontaktieren</span>
         </Button>
@@ -49,7 +49,7 @@ const PartnerDashboard = () => {
       <div className="grid-cols-1-4 mb-8">
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex-align-center-gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <Link className="h-5 w-5 text-craft-wood" />
               Clicks
             </CardTitle>
@@ -62,7 +62,7 @@ const PartnerDashboard = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex-align-center-gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <Store className="h-5 w-5 text-craft-wood" />
               Verkäufe
             </CardTitle>
@@ -75,7 +75,7 @@ const PartnerDashboard = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex-align-center-gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <DollarSign className="h-5 w-5 text-craft-wood" />
               Umsatz
             </CardTitle>
@@ -88,7 +88,7 @@ const PartnerDashboard = () => {
         
         <Card>
           <CardHeader className="pb-2">
-            <CardTitle className="flex-align-center-gap-2 text-lg">
+            <CardTitle className="flex items-center gap-2 text-lg">
               <MapPin className="h-5 w-5 text-craft-wood" />
               Top-Region
             </CardTitle>

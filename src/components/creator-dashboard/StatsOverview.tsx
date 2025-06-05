@@ -14,14 +14,14 @@ interface StatsCardProps {
 const StatsCard = ({ title, icon, value, trend, description }: StatsCardProps) => (
   <Card>
     <CardHeader className="pb-2">
-      <CardTitle className="flex-align-center-gap-2 text-lg">
+      <CardTitle className="flex items-center gap-2 text-lg">
         {icon}
         {title}
       </CardTitle>
     </CardHeader>
     <CardContent>
       <div className="text-3xl font-bold">{value}</div>
-      <div className="flex-align-center-gap-2 text-sm">
+      <div className="flex items-center gap-2 text-sm">
         <Badge variant="outline" className="badge-green">
           {trend}
         </Badge>

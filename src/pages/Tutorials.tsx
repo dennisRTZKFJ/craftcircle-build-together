@@ -20,7 +20,8 @@ import {
   Search,
   SlidersHorizontal,
   X,
-  Star
+  Star,
+  Info
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -177,22 +178,19 @@ const Tutorials = () => {
               <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
               <Input
                 type="search"
-                placeholder="Search for projects, materials, or authors..."
+                placeholder="Search tutorials..."
                 className="pl-10 pr-10"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
               />
-              {searchQuery && (
-                <button 
-                  className="absolute right-3 top-3 text-muted-foreground hover:text-foreground transition-colors"
-                  onClick={() => setSearchQuery("")}
-                >
-                  <X className="h-4 w-4" />
-                </button>
-              )}
+              <Button
+                variant="ghost"
+                onClick={() => setSearchQuery("")}
+                className="icon-pos-top-right-hover"
+              >
+                <X className="h-4 w-4" />
+              </Button>
             </div>
             <Tabs defaultValue="alle" className="w-full">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+              <div className="flex-col-md-row-between-start-md-center-gap4-mb6">
                 <TabsList>
                   <TabsTrigger value="alle">All Tutorials</TabsTrigger>
                   <TabsTrigger value="beliebt">Popular</TabsTrigger>
@@ -353,7 +351,7 @@ const Tutorials = () => {
                   {filteredTutorials.map((tutorial) => (
                     <Card 
                       key={tutorial.id} 
-                      className="flex flex-col h-full cursor-pointer hover:shadow-lg transition-shadow duration-200"
+                      className="flex-col-h-full-shadow-hover"
                       onClick={() => handleTutorialClick(tutorial.id)}
                     >
                       <img 
@@ -365,7 +363,7 @@ const Tutorials = () => {
                         <Badge variant="outline" className={categoryColors[tutorial.category as keyof typeof categoryColors]}>
                           {tutorial.category}
                         </Badge>
-                        <div className="flex items-center text-sm text-muted-foreground mt-2">
+                        <div className="flex-center-text-sm-muted-mt2">
                           <Clock className="h-3 w-3 mr-1" /> {tutorial.duration}
                         </div>
                         <CardTitle className="text-lg mb-1">{tutorial.title}</CardTitle>

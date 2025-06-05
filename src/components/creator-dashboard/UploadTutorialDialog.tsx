@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -49,12 +48,12 @@ const UploadTutorialDialog = ({ onClose, onUpload }: UploadTutorialDialogProps) 
           <Label htmlFor="description">Short Description</Label>
           <Input id="description" placeholder="A short description of your tutorial..." />
         </div>
-        <div className="grid gap-2">
-          <Label>Thumbnail Image</Label>
-          <div className="border-2 border-dashed rounded-md p-6 text-center border-muted-foreground/25">
+        <div className="space-y-2">
+          <Label>Tutorial Thumbnail</Label>
+          <div className="dashed-border-center-p6">
             <Upload className="h-8 w-8 mx-auto text-muted-foreground" />
             <div className="mt-2">
-              <Button variant="secondary" size="sm">Choose Image</Button>
+              <Button variant="secondary" size="sm">Upload Image</Button>
             </div>
             <p className="text-xs text-muted-foreground mt-2">PNG, JPG or WEBP, max. 4MB</p>
           </div>

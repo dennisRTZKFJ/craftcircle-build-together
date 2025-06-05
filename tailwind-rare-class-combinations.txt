@@ -1,0 +1,199 @@
+1. grid grid-cols-1 md:grid-cols-2 gap-8
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .grid-cols-1-md-2-gap-8) in index.css
+
+2. absolute inset-0 -z-10 bg-craft-wood/10 rounded-2xl -rotate-2
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-wood-rotate) in index.css
+
+3. flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6 border-t border-border
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-row-gap-6-border-t) in index.css
+
+4. mt-6 p-4 bg-craft-light-green/10 rounded-lg
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .mt-6-p-4-bg-craft-light-green) in index.css
+
+5. flex-between section-space
+   - Used: 1x
+   - Suggestion: Already abstracted, use as is
+
+6. relative h-full grid grid-cols-2 grid-rows-3 gap-4 p-4
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .relative-h-full-grid-cols-2-rows-3-gap-4) in index.css
+
+7. bg-craft-wood/20 rounded-lg overflow-hidden hover-lift col-span-1 row-span-2
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-wood-col-span-row-span) in index.css
+
+8. bg-craft-light-green/20 rounded-lg overflow-hidden hover-lift row-span-1
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-light-green-row-span) in index.css
+
+9. bg-craft-light-green/20 rounded-lg overflow-hidden row-span-2 hover-lift
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-light-green-row-span-2) in index.css
+
+10. bg-craft-teal/20 rounded-lg overflow-hidden hover-lift col-span-2 row-span-1
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-teal-col-span-2-row-span-1) in index.css
+
+11. flex flex-col sm:flex-row gap-4 pt-4
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-row-gap-4-pt-4) in index.css
+
+12. flex flex-col sm:flex-row items-start sm:items-center gap-6 pt-6 border-t border-border
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-row-gap-6-border-t) in index.css
+
+13. absolute inset-0 bg-gradient-to-br from-craft-wood/20 to-craft-light-green/20 rounded-lg
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-gradient-craft-wood-green) in index.css
+
+14. absolute top-0 left-1/3 w-[600px] h-[600px] -translate-x-1/2 -translate-y-1/3 rounded-full bg-craft-light-green/20 blur-3xl animate-pulse
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-light-green-pulse) in index.css
+
+15. absolute bottom-0 right-0 w-[500px] h-[500px] -translate-y-1/4 translate-x-1/4 rounded-full bg-craft-light-wood/30 blur-3xl animate-pulse
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-craft-light-wood-pulse) in index.css
+
+16. absolute inset-0 bg-[url('https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd')] opacity-5 mix-blend-overlay bg-repeat
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .bg-woodgrain-overlay) in index.css
+
+17. flex flex-col gap-3
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-3) in index.css
+
+18. flex-align-center-gap-3 text-craft-wood
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-align-center-gap-3-craft-wood) in index.css
+
+19. flex flex-wrap gap-2 mt-4
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-wrap-gap-2-mt-4) in index.css
+
+20. flex flex-col gap-2
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-2) in index.css
+
+21. flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-reverse-sm-row-end-space-x-2
+
+22. flex flex-col space-y-2 text-center sm:text-left
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-space-y-2-center-sm-left
+
+23. flex flex-col space-y-1.5 p-6
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-space-y-1-5-p-6) in index.css
+
+24. flex items-center p-6 pt-0
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-items-center-p-6-pt-0) in index.css
+
+25. flex items-center gap-3
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-align-center-gap-3
+
+26. flex items-center gap-2
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-align-center-gap-2
+
+27. flex flex-col gap-8
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-gap-8
+
+28. flex flex-col gap-4
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-gap-4
+
+29. flex flex-col md:flex-row justify-between items-start gap-4 mb-8
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-md-row-justify-between-gap-4-mb-8) in index.css
+
+30. flex flex-col md:flex-row flex-between items-start md:items-center gap-4 mb-8
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-md-row-flex-between-gap-4-mb-8) in index.css
+
+31. flex flex-col md:flex-row md:items-center justify-between flex-align-center-gap-4
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-responsive-header-layout
+
+32. flex flex-col md:flex-row gap-6 items-start
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-md-row-gap-6-items-start
+
+33. flex flex-col md:flex-row md:items-center justify-between gap-4
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-md-row-md-center-between-gap-4
+
+34. flex flex-row gap-4
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-row-gap-4
+
+35. flex flex-row gap-2
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-row-gap-2
+
+36. flex flex-row-reverse gap-2
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-row-reverse-gap-2) in index.css
+
+37. flex flex-wrap gap-1
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-wrap-gap-1
+
+38. flex flex-wrap gap-2
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-wrap-gap-2
+
+39. flex flex-wrap gap-6 mt-6
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-wrap-gap-6-mt-6
+
+40. flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-reverse-sm-row-end-space-x-2
+
+41. flex flex-col space-y-2 text-center sm:text-left
+   - Used: 1x
+   - Suggestion: Already abstracted as .flex-col-space-y-2-center-sm-left
+
+42. flex flex-col gap-2 p-2
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-2-p-2) in index.css
+
+43. flex flex-col gap-2 p-4
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-2-p-4) in index.css
+
+44. flex flex-col gap-2 p-6
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-2-p-6) in index.css
+
+45. flex flex-col gap-2 p-8
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-2-p-8) in index.css
+
+46. flex flex-col gap-4 p-4
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-4-p-4) in index.css
+
+47. flex flex-col gap-4 p-6
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-4-p-6) in index.css
+
+48. flex flex-col gap-4 p-8
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-4-p-8) in index.css
+
+49. flex flex-col gap-6 p-4
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-6-p-4) in index.css
+
+50. flex flex-col gap-6 p-6
+   - Used: 1x
+   - Suggestion: Create a utility class (e.g., .flex-col-gap-6-p-6) in index.css 

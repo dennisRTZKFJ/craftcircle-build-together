@@ -104,7 +104,7 @@ const PremiumUpgradePage = () => {
             >
               <CardHeader>
                 <div className="flex justify-between items-center">
-                  <div className="flex-align-center-gap-2">
+                  <div className="flex items-center gap-2">
                     <CardTitle>Yearly Plan</CardTitle>
                     <span className="badge-green text-xs px-2 py-1 rounded-full">Save 16%</span>
                   </div>

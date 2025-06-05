@@ -35,7 +35,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
         </CardHeader>
         <CardContent className="space-y-6">
           {topComments.map((comment) => (
-            <div key={comment.id} className="border-b pb-4 last:border-0 last:pb-0">
+            <div key={comment.id} className="border-b-pb4-last-no-border">
               <div className="flex-align-center-gap-3 items-start">
                 <Avatar className="avatar-md">
                   <AvatarImage src={comment.user.avatar} alt={comment.user.name} />
@@ -48,8 +48,8 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
                   </div>
                   <div className="small-muted-text">{comment.tutorial}</div>
                   <div className="mt-2">{comment.comment}</div>
-                  <div className="flex-align-center-gap-2 mt-3">
-                    <div className="flex-align-center-gap-2">
+                  <div className="flex items-center gap-2 mt-3">
+                    <div className="flex items-center gap-2">
                       <Heart className="h-4 w-4 icon-margin-right text-craft-wood" />
                       <span className="text-sm">{comment.likes}</span>
                     </div>
@@ -130,7 +130,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
             <CardDescription>Improve your tutorial quality</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex-align-center-gap-2 p-4 bg-muted rounded-lg mb-4">
+            <div className="flex items-center gap-2 p-4 bg-muted rounded-lg mb-4">
               <Calendar className="h-10 w-10 muted-text" />
               <div>
                 <h4 className="font-medium">Creator Office Hours</h4>
@@ -145,7 +145,7 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
             
             <div className="space-y-4 mt-6">
               <h4 className="font-medium">Tutorial Quality Score</h4>
-              <div className="flex-align-center-gap-2">
+              <div className="flex items-center gap-2">
                 <div className="text-2xl font-bold">87/100</div>
                 <Badge className="badge-green">
                   Very good
@@ -158,13 +158,13 @@ const FeedbackTab = ({ topComments, handleSupportRequest }: FeedbackTabProps) =>
               <div className="space-y-2 mt-4">
                 <h5 className="text-sm font-medium">Room for improvement:</h5>
                 <ul className="space-y-1 text-sm">
-                  <li className="flex-align-center-gap-2">
+                  <li className="flex items-center gap-2">
                     <div className="h-5 w-5 flex-shrink-0 rounded-full-center bg-amber-100">
                       <span className="text-amber-800 text-xs">!</span>
                     </div>
                     <span>More close-ups during detailed work steps</span>
                   </li>
-                  <li className="flex-align-center-gap-2">
+                  <li className="flex items-center gap-2">
                     <div className="h-5 w-5 flex-shrink-0 rounded-full-center bg-amber-100">
                       <span className="text-amber-800 text-xs">!</span>
                     </div>

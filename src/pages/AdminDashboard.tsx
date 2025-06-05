@@ -9,7 +9,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Input } from '@/components/ui/input';
 import { 
   Users, MessageCircle, Award, Flag, Calendar, User, Search,
-  ArrowUpRight, TrendingUp, TrendingDown, Star
+  ArrowUpRight, TrendingUp, TrendingDown, Star, ArrowDownRight
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -58,7 +58,7 @@ const AdminDashboard = () => {
     <div className="min-h-screen flex flex-col">
       <Navbar />
       <div className="flex-1 container py-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
+        <div className="flex-wrap-between-center-gap4-mb8">
           <div>
             <h1 className="text-3xl font-bold">Admin Dashboard</h1>
             <p className="text-muted-foreground">Übersicht und Verwaltung der CraftCircle-Plattform</p>
@@ -66,14 +66,11 @@ const AdminDashboard = () => {
           
           <div className="flex items-center gap-3">
             <div className="relative">
-              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
-              <Input 
-                type="search"
-                placeholder="Suchen..."
-                className="pl-8 w-[250px]"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
+              <Input
+                placeholder="Search users, tutorials, or projects..."
+                className="pl-10 pr-4"
               />
+              <Search className="icon-pos-top-left-muted" />
             </div>
             <Button>
               Export
@@ -92,7 +89,7 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{stats.totalUsers}</div>
-              <div className="flex items-center text-sm">
+              <div className="flex-center-text-sm">
                 <Badge variant="outline" className="badge-green">
                   {stats.userGrowth}
                 </Badge>
@@ -110,7 +107,7 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{stats.activeCreators}</div>
-              <div className="flex items-center text-sm">
+              <div className="flex-center-text-sm">
                 <Badge variant="outline" className="badge-green">
                   {stats.creatorGrowth}
                 </Badge>
@@ -128,7 +125,7 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{stats.totalTutorials}</div>
-              <div className="flex items-center text-sm">
+              <div className="flex-center-text-sm">
                 <Badge variant="outline" className="badge-green">
                   {stats.tutorialGrowth}
                 </Badge>
@@ -146,7 +143,7 @@ const AdminDashboard = () => {
             </CardHeader>
             <CardContent>
               <div className="text-3xl font-bold">{stats.totalTransactions}</div>
-              <div className="flex items-center text-sm">
+              <div className="flex-center-text-sm">
                 <Badge variant="outline" className="badge-green">
                   {stats.transactionGrowth}
                 </Badge>
@@ -288,7 +285,7 @@ const AdminDashboard = () => {
                 <CardDescription>Management aller Inhaltstypen der Plattform</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex items-center justify-center p-12">
+                <div className="flex-center-p12">
                   <div className="text-center">
                     <MessageCircle className="h-12 w-12 mx-auto mb-4 text-craft-wood" />
                     <h3 className="text-lg font-medium mb-2">Inhaltsmanagement</h3>

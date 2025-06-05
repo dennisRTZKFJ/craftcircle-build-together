@@ -7,6 +7,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Award, Search } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 // Mock data for community members
 const featuredCreators = [
@@ -231,7 +234,7 @@ const Community = () => {
                           )}
                         </CardContent>
                         <CardFooter className="p-4 pt-0 flex justify-between">
-                          <div className="flex gap-4">
+                          <div className="flex-gap4">
                             <div className="flex items-center">
                               <svg className="w-4 h-4 text-craft-wood mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path d="M2 10.5a1.5 1.5 0 113 0v6a1.5 1.5 0 01-3 0v-6zM6 10.333v5.43a2 2 0 001.106 1.79l.05.025A4 4 0 008.943 18h5.416a2 2 0 001.962-1.608l1.2-6A2 2 0 0015.56 8H12V4a2 2 0 00-2-2 1 1 0 00-1 1v.667a4 4 0 01-.8 2.4L6.8 7.933a4 4 0 00-.8 2.4z"></path>
@@ -303,7 +306,7 @@ const Community = () => {
                   </CardHeader>
                   <CardContent className="space-y-4">
                     {featuredCreators.map((creator) => (
-                      <div key={creator.id} className="flex gap-3 p-3 hover:bg-muted rounded-lg transition-colors">
+                      <div key={creator.id} className="flex-gap3-p3-hover-muted-rounded">
                         <Avatar className="h-10 w-10">
                           <AvatarImage src={creator.avatar} alt={creator.name} />
                           <AvatarFallback>{creator.name.charAt(0)}</AvatarFallback>
@@ -339,7 +342,7 @@ const Community = () => {
                     <p className="muted-text section-space">
                       Become a part of our growing community and share your passion for DIY furniture.
                     </p>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex-col-gap-2">
                       <Button onClick={() => alert('Navigating to Login')}>Sign In</Button>
                       <Button variant="outline" onClick={() => alert('Navigating to Register')}>Register Now</Button>
                     </div>

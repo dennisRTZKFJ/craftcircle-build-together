@@ -5,8 +5,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/components/ui/use-toast';
-import { Calendar, CreditCard, Download, Tag } from 'lucide-react';
+import { Calendar, CreditCard, Download, Tag, Banknote } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableRow } from '@/components/ui/table';
 
 const PaymentsPage = () => {
   const { toast } = useToast();
@@ -183,6 +184,36 @@ const PaymentsPage = () => {
                 </div>
               ))}
             </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Payment Methods</CardTitle>
+            <CardDescription>Manage your saved payment methods</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="flex-between-py3-border-b">
+              <div className="flex items-center gap-3">
+                <CreditCard className="h-5 w-5 text-muted-foreground" />
+                <div>
+                  <div className="font-medium">Visa **** 1234</div>
+                  <div className="text-sm text-muted-foreground">Expires 12/26</div>
+                </div>
+              </div>
+              <Button variant="outline" size="sm">Remove</Button>
+            </div>
+            <div className="flex-between-py3-border-b">
+              <div className="flex items-center gap-3">
+                <Banknote className="h-5 w-5 text-muted-foreground" />
+                <div>
+                  <div className="font-medium">PayPal</div>
+                  <div className="text-sm text-muted-foreground">johndoe@example.com</div>
+                </div>
+              </div>
+              <Button variant="outline" size="sm">Remove</Button>
+            </div>
+            <Button className="w-full">Add New Payment Method</Button>
           </CardContent>
         </Card>
       </div>

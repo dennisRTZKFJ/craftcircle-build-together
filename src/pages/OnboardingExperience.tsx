@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
@@ -7,6 +6,7 @@ import { Label } from '@/components/ui/label';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import { CardContent } from '@/components/ui/card';
 
 const OnboardingExperience = () => {
   const navigate = useNavigate();
@@ -28,7 +28,7 @@ const OnboardingExperience = () => {
           <h1 className="text-3xl font-bold mb-2">Welcome to CraftCircle!</h1>
           <p className="text-muted-foreground">Let's personalize your experience</p>
           
-          <div className="flex items-center justify-center gap-2 mt-6">
+          <div className="flex-center-gap2-mt6">
             <div className="h-2 w-16 rounded-full bg-craft-wood/30"></div>
             <div className="h-2 w-16 rounded-full bg-craft-wood"></div>
             <div className="h-2 w-16 rounded-full bg-craft-wood/30"></div>
@@ -74,6 +74,14 @@ const OnboardingExperience = () => {
               Next
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
+          </div>
+        </div>
+
+        <div className="mt-8 text-center">
+          <p className="mt-4 mb-6 text-muted-foreground max-w-md mx-auto">Learn more about how CraftCircle protects your privacy and data.</p>
+          <div className="flex-center-gap2-mt6">
+            <Button>Review Privacy Policy</Button>
+            <Button variant="outline">Learn More</Button>
           </div>
         </div>
       </div>

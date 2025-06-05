@@ -20,7 +20,7 @@ const AIAssistant = () => {
             <div className="relative">
               <Card className="card-craft-shadow">
                 <CardHeader>
-                  <div className="flex-align-center-gap-2">
+                  <div className="flex items-center gap-2">
                     <Bot className="h-6 w-6 text-craft-wood" />
                     <CardTitle>CraftAssist</CardTitle>
                     <Badge variant="outline" className="ml-auto badge-active">
@@ -60,7 +60,7 @@ const AIAssistant = () => {
                 </CardFooter>
               </Card>
 
-              <div className="absolute -bottom-8 -left-8 w-16 h-16 rounded-full bg-craft-light-green/30 blur-2xl"></div>
+              <div className="bg-craft-light-green-blur-blob-bl"></div>
               <div className="absolute -top-8 -right-8 w-16 h-16 rounded-full bg-craft-wood/30 blur-2xl"></div>
             </div>
           </motion.div>

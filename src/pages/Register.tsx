@@ -1,4 +1,3 @@
-
 /**
  * Registration Page
  * 
@@ -210,7 +209,7 @@ const Register = () => {
               </div>
               
               {/* Terms acceptance */}
-              <div className="flex items-center space-x-2">
+              <div className="flex-center-space-x2">
                 <Checkbox 
                   id="terms" 
                   checked={agreedToTerms}
@@ -255,7 +254,7 @@ const Register = () => {
           </CardContent>
           
           {/* Footer with login link */}
-          <CardFooter className="flex flex-col space-y-4">
+          <CardFooter className="flex-col-space-y4">
             <div className="text-sm text-center text-muted-foreground">
               Already have an account?{' '}
               <Link to="/login" className="text-craft-wood hover:underline">

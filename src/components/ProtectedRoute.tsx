@@ -1,8 +1,8 @@
-
 import React, { useEffect } from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Spinner } from '@/components/ui/spinner';
+import { Loader2 } from 'lucide-react';
 
 interface ProtectedRouteProps {
   requiredRole?: 'diy' | 'creator' | 'partner' | 'admin';
@@ -26,8 +26,8 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ requiredRole }) 
   // Show loading state while checking authentication
   if (loading) {
     return (
-      <div className="flex h-screen items-center justify-center">
-        <Spinner className="h-8 w-8" />
+      <div className="flex-screen-center">
+        <Loader2 className="h-8 w-8 animate-spin" />
       </div>
     );
   }

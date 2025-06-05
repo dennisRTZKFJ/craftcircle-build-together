@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Calendar, Trophy, Users, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Trophy, Users, Clock, ArrowRight, CheckCircle2 } from 'lucide-react';
 
 const WeeklyChallenge = () => {
   // This would normally come from an API, using mock data for now
@@ -58,7 +58,7 @@ const WeeklyChallenge = () => {
                 </div>
                 <CardTitle className="header-lg">{challengeData.title}</CardTitle>
                 <CardDescription>
-                  <div className="flex items-center text-craft-wood">
+                  <div className="flex-center-text-craft-wood">
                     <Calendar className="h-4 w-4 icon-margin-right" />
                     Submission deadline: {challengeData.deadline}
                   </div>
@@ -72,15 +72,15 @@ const WeeklyChallenge = () => {
                   <div className="bg-muted rounded-lg p-3">
                     <h4 className="font-medium mb-1">Prizes:</h4>
                     <ul className="text-sm space-y-1">
-                      <li className="flex items-baseline gap-2">
+                      <li className="flex-baseline-gap2">
                         <span className="text-craft-wood">•</span>
                         <span>$50 gift certificate</span>
                       </li>
-                      <li className="flex items-baseline gap-2">
+                      <li className="flex-baseline-gap2">
                         <span className="text-craft-wood">•</span>
                         <span>Featured spot on the CraftCircle homepage</span>
                       </li>
-                      <li className="flex items-baseline gap-2">
+                      <li className="flex-baseline-gap2">
                         <span className="text-craft-wood">•</span>
                         <span>Exclusive "Challenge Master" badge</span>
                       </li>

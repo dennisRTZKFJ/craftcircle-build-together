@@ -4,11 +4,37 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, User, Mail, MessageCircle, Award, MapPin, Link, Star } from 'lucide-react';
+import { Calendar, User, Mail, MessageCircle, Award, MapPin, Link, Star, TrendingUp } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 
+interface UserData {
+  id: string;
+  name: string;
+  username: string;
+  avatar: string;
+  bio: string;
+  location: string;
+  website: string;
+  joinedDate: string;
+  following: number;
+  followers: number;
+  tutorials: number;
+  projects: number;
+  badges: { id: string; name: string; color: string; }[];
+  stats: {
+    projectsCompleted: number;
+    tutorialsCreated: number;
+    commentsReceived: number;
+    communitySince: string;
+    challengesWon: number;
+    tutorialViews: number;
+    likesReceived: number;
+    projectsShared: number;
+  };
+}
+
 // Mock user data
-const userData = {
+const userData: UserData = {
   id: 'user1',
   name: 'Thomas Weber',
   username: '@thomasbuilds',
@@ -31,7 +57,10 @@ const userData = {
     tutorialsCreated: 18,
     commentsReceived: 342,
     communitySince: '1 Jahr, 3 Monate',
-    challengesWon: 2
+    challengesWon: 2,
+    tutorialViews: 75000,
+    likesReceived: 1250,
+    projectsShared: 25,
   }
 };
 
@@ -143,20 +172,20 @@ const UserProfile = () => {
                 </div>
               </div>
               
-              <p className="mt-4-util">{userData.bio}</p>
+              <p className="mt-4">{userData.bio}</p>
               
               <div className="flex-wrap-gap-2-mt-4-text-sm">
-                <div className="flex-align-center-gap-3">
+                <div className="flex items-center gap-3">
                   <MapPin className="icon-text-muted" />
                   <span>{userData.location}</span>
                 </div>
-                <div className="flex-align-center-gap-3">
+                <div className="flex items-center gap-3">
                   <Link className="icon-text-muted" />
                   <a href={`https://${userData.website}`} className="text-craft-wood hover:underline">
                     {userData.website}
                   </a>
                 </div>
-                <div className="flex-align-center-gap-3">
+                <div className="flex items-center gap-3">
                   <Calendar className="icon-text-muted" />
                   <span>Mitglied seit {userData.joinedDate}</span>
                 </div>
@@ -215,7 +244,7 @@ const UserProfile = () => {
                     alt={tutorial.title} 
                     className="img-object-cover"
                   />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3">
+                  <div className="gradient-bottom-black-p3">
                     <Badge className="badge-craft-wood">
                       {tutorial.difficulty}
                     </Badge>
@@ -226,11 +255,11 @@ const UserProfile = () => {
                     {tutorial.title}
                   </h3>
                   <div className="flex-between mt-2-util">
-                    <div className="flex-align-center-gap-3-text-sm-muted">
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
                       <Star className="icon-margin-right h-4 w-4 icon-amber-500" />
                       <span>{tutorial.likes} Likes</span>
                     </div>
-                    <div className="flex-align-center-gap-3-text-sm-muted">
+                    <div className="flex items-center gap-3 text-sm text-muted-foreground">
                       <MessageCircle className="icon-margin-right h-4 w-4" />
                       <span>{tutorial.comments} Kommentare</span>
                     </div>
@@ -308,7 +337,7 @@ const UserProfile = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Card>
               <CardHeader>
-                <CardTitle className="flex-align-center-gap-3">
+                <CardTitle className="flex items-center gap-3">
                   <Award className="h-5 w-5 text-craft-wood" />
                   Community-Beteiligung
                 </CardTitle>
@@ -338,52 +367,27 @@ const UserProfile = () => {
             
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle className="flex-align-center-gap-3">
-                  <User className="h-5 w-5 text-craft-wood" />
-                  Community-Rang
+                <CardTitle className="flex items-center gap-3">
+                  <TrendingUp className="h-5 w-5 text-craft-wood" />
+                  Performance-Übersicht
                 </CardTitle>
-                <CardDescription>Fortschritt und Engagement</CardDescription>
+                <CardDescription>Deine Reichweite und Beliebtheit</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="flex flex-col items-center justify-center h-full py-8">
-                  <div className="relative w-40 h-40">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="text-center">
-                        <div className="text-4xl font-bold">Gold</div>
-                        <div className="muted-text">Level</div>
-                      </div>
-                    </div>
-                    <svg className="w-40 h-40" viewBox="0 0 100 100">
-                      <circle 
-                        cx="50" 
-                        cy="50" 
-                        r="45" 
-                        fill="none" 
-                        stroke="#e2e8f0" 
-                        strokeWidth="8" 
-                      />
-                      <circle 
-                        cx="50" 
-                        cy="50" 
-                        r="45" 
-                        fill="none" 
-                        stroke="#d4a22c" 
-                        strokeWidth="8" 
-                        strokeDasharray="283" 
-                        strokeDashoffset="70" 
-                        transform="rotate(-90 50 50)" 
-                      />
-                    </svg>
+                <dl className="flex-col-gap-8">
+                  <div>
+                    <dt className="small-muted-text">Views deiner Tutorials</dt>
+                    <dd className="text-2xl font-bold">{userData.stats.tutorialViews.toLocaleString()}</dd>
                   </div>
-                  <div className="mt-6 text-center">
-                    <p className="text-sm">
-                      <span className="font-medium">{userData.name}</span> ist seit {userData.stats.communitySince} Mitglied der CraftCircle Community
-                    </p>
-                    <p className="mt-2 text-sm muted-text">
-                      Only noch 150 Engagement-Punkte bis zum Platin-Level!
-                    </p>
+                  <div>
+                    <dt className="small-muted-text">Likes erhalten</dt>
+                    <dd className="text-2xl font-bold">{userData.stats.likesReceived}</dd>
                   </div>
-                </div>
+                  <div>
+                    <dt className="small-muted-text">Geteilte Projekte</dt>
+                    <dd className="text-2xl font-bold">{userData.stats.projectsShared}</dd>
+                  </div>
+                </dl>
               </CardContent>
             </Card>
           </div>

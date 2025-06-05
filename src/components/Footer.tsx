@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -6,7 +7,7 @@ const Footer = () => {
       <div className="container container-padding">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <a href="/" className="flex items-center gap-2 mb-4">
+            <a href="/" className="flex-center-gap2-mb4">
               <img 
                 src="/lovable-uploads/338c44ac-7396-43e0-9592-632f2df54ad9.png" 
                 alt="CraftCircle Logo" 
@@ -88,10 +89,10 @@ const Footer = () => {
           <div className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} CraftCircle. All rights reserved.
           </div>
-          <div className="flex gap-6 text-sm">
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Terms & Conditions</a>
-            <a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Imprint</a>
+          <div className="flex-gap6-text-sm">
+            <Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link>
+            <Link to="/contact" className="hover:underline">Contact Us</Link>
           </div>
         </div>
       </div>

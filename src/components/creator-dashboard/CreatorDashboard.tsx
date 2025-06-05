@@ -174,7 +174,7 @@ const CreatorDashboard = () => {
         <div className="dashboard-button-group">
           <Dialog open={uploadDialogOpen} onOpenChange={setUploadDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="flex-align-center-gap-2">
+              <Button className="flex items-center gap-2">
                 <Upload className="h-4 w-4 icon-margin-right" />
                 <span>Upload Tutorial</span>
               </Button>
@@ -187,7 +187,7 @@ const CreatorDashboard = () => {
             </DialogContent>
           </Dialog>
           
-          <Button variant="outline" className="flex-align-center-gap-2" onClick={handleSupportRequest}>
+          <Button variant="outline" className="flex items-center gap-2" onClick={handleSupportRequest}>
             <HelpCircle className="h-4 w-4 icon-margin-right" />
             <span>Creator Support</span>
           </Button>
@@ -200,23 +200,23 @@ const CreatorDashboard = () => {
       {/* Main Content */}
       <Tabs defaultValue="overview" className="mt-8">
         <TabsList className="grid w-full grid-cols-5 h-12 rounded-md">
-          <TabsTrigger value="overview" className="flex-align-center-gap-2">
+          <TabsTrigger value="overview" className="flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
             <span>Overview</span>
           </TabsTrigger>
-          <TabsTrigger value="tutorials" className="flex-align-center-gap-2">
+          <TabsTrigger value="tutorials" className="flex items-center gap-2">
             <FileText className="h-4 w-4" />
             <span>Tutorials</span>
           </TabsTrigger>
-          <TabsTrigger value="earnings" className="flex-align-center-gap-2">
+          <TabsTrigger value="earnings" className="flex items-center gap-2">
             <DollarSign className="h-4 w-4" />
             <span>Earnings</span>
           </TabsTrigger>
-          <TabsTrigger value="feedback" className="flex-align-center-gap-2">
+          <TabsTrigger value="feedback" className="flex items-center gap-2">
             <MessageCircle className="h-4 w-4" />
             <span>Feedback</span>
           </TabsTrigger>
-          <TabsTrigger value="analytics" className="flex-align-center-gap-2">
+          <TabsTrigger value="analytics" className="flex items-center gap-2">
             <TrendingUp className="h-4 w-4" />
             <span>Analytics</span>
           </TabsTrigger>

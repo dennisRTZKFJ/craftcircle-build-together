@@ -102,7 +102,7 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
           <div className="small-muted-text">
             Showing {tutorials.length} of {tutorials.length} tutorials
           </div>
-          <div className="flex-align-center-gap-2">
+          <div className="flex items-center gap-2">
             <Button variant="outline" size="sm">
               Generate Tutorial Ideas
             </Button>
@@ -136,17 +136,15 @@ const TutorialsTab = ({ tutorials, handleEditTutorial }: TutorialsTabProps) => {
                     value={tutorial.status === 'published' ? 100 : 60} 
                     className="h-2" 
                   />
-                  <div className="flex-between text-xs small-muted-text">
-                    <div className="flex-align-center-gap-2">
-                      {tutorial.status === 'published' ? (
-                        <Check className="h-3 w-3 icon-margin-right muted-text" />
-                      ) : (
-                        <Clock className="h-3 w-3 icon-margin-right muted-text" />
-                      )}
-                      {tutorial.status === 'published' ? 'Published' : 'In Progress'}
-                    </div>
-                    <div>{tutorial.date}</div>
+                  <div className="flex items-center gap-2">
+                    {tutorial.status === 'published' ? (
+                      <Check className="h-3 w-3 icon-margin-right muted-text" />
+                    ) : (
+                      <Clock className="h-3 w-3 icon-margin-right muted-text" />
+                    )}
+                    {tutorial.status === 'published' ? 'Published' : 'In Progress'}
                   </div>
+                  <div>{tutorial.date}</div>
                 </div>
               ))}
             </div>

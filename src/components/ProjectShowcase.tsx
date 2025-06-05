@@ -90,7 +90,7 @@ const ProjectShowcase = () => {
                 <h3 className="project-title">{project.title}</h3>
                 <p className="small-muted-text-mb-3">By {project.author}</p>
                 <div className="flex-between">
-                  <div className="flex-align-center-gap-2">
+                  <div className="flex items-center gap-2">
                     <svg className="w-4 h-4 text-craft-wood" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
                     </svg>

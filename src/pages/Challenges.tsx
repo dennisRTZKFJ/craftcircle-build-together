@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Trophy } from 'lucide-react';
+import { Trophy, BookOpen } from 'lucide-react';
 
 // Mock data for challenges
 const currentChallenge = {
@@ -146,7 +146,7 @@ const Challenges = () => {
                     <p>{currentChallenge.description}</p>
                   </div>
                   
-                  <div className="flex flex-row-gap-4">
+                  <div className="flex-row-gap4">
                     <Button>Participate</Button>
                     <Button variant="outline">All Details</Button>
                   </div>
@@ -170,7 +170,7 @@ const Challenges = () => {
                         />
                       </div>
                       <CardHeader className="p-4 pb-2">
-                        <div className="flex-align-center-gap-3 mb-2-util">
+                        <div className="flex items-center gap-3 mb-2-util">
                           <div className="avatar-sm">
                             <img 
                               src={submission.userImage}
@@ -189,7 +189,7 @@ const Challenges = () => {
                         <p className="small-muted-text">{submission.description}</p>
                       </CardContent>
                       <CardFooter className="p-4 pt-2 flex-between">
-                        <div className="flex flex-row-gap-4">
+                        <div className="flex-row-gap4">
                           <div className="flex-items-center">
                             <svg className="h-4 w-4 icon-craft-wood icon-margin-right" fill="currentColor" viewBox="0 0 20 20">
                               <path d="M10 15.27L16.18 19l-1.64-7.03L20 7.24l-7.19-.61L10 0 7.19 6.63 0 7.24l5.46 4.73L3.82 19z"></path>
@@ -222,17 +222,19 @@ const Challenges = () => {
                 <CardContent className="space-y-6">
                   {pastChallenges.map((challenge) => (
                     <div key={challenge.id} className="border-b pb-6 last:border-0">
-                      <div className="aspect-[16/9] card-overflow-hidden rounded-md mb-3-util">
-                        <img 
-                          src={challenge.projectImage} 
-                          alt={challenge.title}
-                          className="img-object-cover"
-                        />
+                      <div className="relative">
+                        <div className="card-aspect-16-9-rounded">
+                          <img 
+                            src={challenge.projectImage} 
+                            alt={challenge.title}
+                            className="img-object-cover"
+                          />
+                        </div>
                       </div>
                       <h3 className="header-card-title">{challenge.title}</h3>
                       <p className="small-muted-text section-space">{challenge.description}</p>
                       <div className="flex-between">
-                        <div className="flex-align-center-gap-2">
+                        <div className="flex items-center gap-2">
                           <div className="avatar-xs">
                             <img 
                               src={challenge.winnerImage} 

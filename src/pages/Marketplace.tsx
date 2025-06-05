@@ -197,28 +197,34 @@ const Marketplace = () => {
   };
 
   return (
-    <div className="min-h-screen py-12-util">
-      <div className="container px-4-md-6-util">
+    <div className="min-h-screen py-12">
+      <div className="container px-4 md:px-6">
         <div className="flex-col-gap-8">
           <div>
-            <h1 className="text-header-3xl mb-4-util">Material-Marktplatz</h1>
-            <p className="text-muted mb-6-util">
+            <h1 className="text-header-3xl mb-4">Material-Marktplatz</h1>
+            <p className="text-muted mb-6">
               Finde alle Materialien, die du für deine DIY-Projekte benötigst. Von Holz über Metallteile bis hin zu Werkzeugen und Farben – alles an einem Ort.
             </p>
           </div>
 
-          <div className="flex flex-col md:flex-row gap-4 mb-6-util">
-            <div className="relative flex-1">
-              <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted h-4 w-4" />
-              <input
-                type="text"
-                placeholder="Suche nach Materialien, Werkzeugen..."
-                className="pl-8 pr-4 py-2 rounded-md border w-full focus:outline-none focus:ring-2 focus:ring-craft-wood"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+          <div className="flex-col-md-row-gap4-mb6">
+            <div className="flex flex-col md:w-1/2">
+              <Card className="border-2 border-craft-wood/50">
+                <CardHeader>
+                  <div className="relative flex-1">
+                    <Search className="absolute left-2 top-1/2 transform -translate-y-1/2 text-muted h-4 w-4" />
+                    <input
+                      type="text"
+                      placeholder="Suche nach Materialien, Werkzeugen..."
+                      className="pl-8 pr-4 py-2 rounded-md border w-full focus:outline-none focus:ring-2 focus:ring-craft-wood"
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                </CardHeader>
+              </Card>
             </div>
-            <div className="flex flex-row-gap-2">
+            <div className="flex flex-row-gap2">
               <Button variant="outline">
                 <Filter className="h-4 w-4 mr-2" />
                 Filter
@@ -235,7 +241,7 @@ const Marketplace = () => {
           </div>
 
           <Tabs defaultValue="materialien">
-            <TabsList className="mb-6-util">
+            <TabsList className="mb-6">
               <TabsTrigger value="materialien">Materialien</TabsTrigger>
               <TabsTrigger value="werkzeug-sets">Werkzeug-Sets</TabsTrigger>
               <TabsTrigger value="tutorial-pakete">Tutorial-Pakete</TabsTrigger>
@@ -262,8 +268,8 @@ const Marketplace = () => {
                           {material.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-lg mt-2-util">{material.name}</CardTitle>
-                      <CardDescription className="line-clamp-2">
+                      <CardTitle className="text-lg mt-2">{material.name}</CardTitle>
+                      <CardDescription className="text-muted-foreground">
                         {material.description}
                       </CardDescription>
                     </CardHeader>
@@ -272,7 +278,7 @@ const Marketplace = () => {
                         <span>€{material.price.toFixed(2)}</span>
                         <Button size="sm" onClick={addToCart}>In den Warenkorb</Button>
                       </div>
-                      <div className="flex-align-center-gap-2 text-sm text-muted">
+                      <div className="flex items-center gap-2 text-sm text-muted">
                         <Star className="h-4 w-4 icon-amber-500" />
                         <span>{material.rating} ({material.reviews} Bewertungen)</span>
                       </div>
@@ -302,8 +308,8 @@ const Marketplace = () => {
                           {kit.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-lg mt-2-util">{kit.name}</CardTitle>
-                      <CardDescription className="line-clamp-2">
+                      <CardTitle className="text-lg mt-2">{kit.name}</CardTitle>
+                      <CardDescription className="text-muted-foreground">
                         {kit.description}
                       </CardDescription>
                     </CardHeader>
@@ -344,8 +350,8 @@ const Marketplace = () => {
                           {pkg.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-xl mt-2-util">{pkg.name}</CardTitle>
-                      <CardDescription className="text-sm mt-1-util">
+                      <CardTitle className="text-xl mt-2">{pkg.name}</CardTitle>
+                      <CardDescription className="text-muted-foreground">
                         Für Tutorial: <span className="font-medium">{pkg.tutorial}</span>
                       </CardDescription>
                       <CardDescription className="line-clamp-2 mt-1-util">
@@ -389,8 +395,8 @@ const Marketplace = () => {
                           {material.store}
                         </Badge>
                       </div>
-                      <CardTitle className="text-lg mt-2-util">{material.name}</CardTitle>
-                      <CardDescription className="line-clamp-2">
+                      <CardTitle className="text-lg mt-2">{material.name}</CardTitle>
+                      <CardDescription className="text-muted-foreground">
                         {material.description}
                       </CardDescription>
                     </CardHeader>
@@ -399,7 +405,7 @@ const Marketplace = () => {
                         <span>€{material.price.toFixed(2)}</span>
                         <Button size="sm" onClick={addToCart}>In den Warenkorb</Button>
                       </div>
-                      <div className="flex-align-center-gap-2 text-sm text-muted">
+                      <div className="flex items-center gap-2 text-sm text-muted">
                         <Star className="h-4 w-4 icon-amber-500" />
                         <span>{material.rating} ({material.reviews} Bewertungen)</span>
                       </div>

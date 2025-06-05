@@ -39,7 +39,7 @@ const Features = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid-cols-1-md-2-gap-8">
           {features.map((feature, index) => (
             <div 
               key={index} 
@@ -51,7 +51,7 @@ const Features = () => {
               
               <ul className="space-y-2">
                 {feature.benefits.map((benefit, i) => (
-                  <li key={i} className="flex-align-center-gap-2">
+                  <li key={i} className="flex items-center gap-2">
                     <CheckCircle className="h-5 w-5 text-craft-teal" />
                     <span>{benefit}</span>
                   </li>

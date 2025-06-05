@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -37,7 +36,7 @@ const SubscriptionPage = () => {
         <div className="max-w-3xl mx-auto">
           <Card>
             <CardHeader className="text-center">
-              <div className="flex items-center justify-center gap-2 text-craft-wood">
+              <div className="flex-center-gap2-craft-wood">
                 <Crown className="h-6 w-6" />
                 <CardTitle className="text-2xl">DIY Premium</CardTitle>
               </div>

@@ -43,7 +43,7 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
         <h3 className="header-md">You might also like</h3>
         <div className="flex-col-gap-8">
           {relatedTutorials.map((tutorial) => (
-            <div key={tutorial.id} className="flex-align-center-gap-3">
+            <div key={tutorial.id} className="flex items-center gap-3">
               <Link to={`/tutorials/${tutorial.id}`} className="w-20 h-20 rounded overflow-hidden flex-shrink-0">
                 <img 
                   src={tutorial.image} 
@@ -57,7 +57,7 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
                   <h4 className="font-medium text-sm line-clamp-2">{tutorial.title}</h4>
                 </Link>
                 
-                <div className="flex-align-center-gap-3 mt-1">
+                <div className="flex items-center gap-3 mt-1">
                   <Badge variant="outline" className={
                     tutorial.category === "Beginner" 
                       ? "badge-green" 
@@ -67,7 +67,7 @@ const RelatedTutorials = ({ currentId }: RelatedTutorialsProps) => {
                   }>
                     {tutorial.category}
                   </Badge>
-                  <div className="text-xs muted-text flex-align-center-gap-3">
+                  <div className="text-xs muted-text flex items-center gap-3">
                     <Clock className="h-3 w-3 icon-margin-right" /> {tutorial.duration}
                   </div>
                 </div>

@@ -1,4 +1,3 @@
-
 /**
  * Password Reset Page
  * 
@@ -143,7 +142,7 @@ const ResetPassword = () => {
               </form>
             )}
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
+          <CardFooter className="flex-col-space-y4">
             <div className="text-sm text-center text-muted-foreground">
               Remember your password?{' '}
               <Link to="/login" className="text-craft-wood hover:underline">

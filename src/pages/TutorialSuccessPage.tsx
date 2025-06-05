@@ -10,7 +10,7 @@ const TutorialSuccessPage = () => {
   return (
     <div className="min-h-screen">
       <Navbar />
-      <div className="container py-16 max-w-2xl mx-auto">
+      <div className="container-py16-max-w-2xl">
         <Card className="border-green-100 bg-green-50/30">
           <CardHeader className="text-center pb-2">
             <div className="mx-auto w-16 h-16 badge-green rounded-full-center mb-4">
@@ -46,7 +46,7 @@ const TutorialSuccessPage = () => {
               </ul>
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col sm:flex-row gap-3 justify-center">
+          <CardFooter className="flex-col-sm-row-gap3-center">
             <Link to="/creator-dashboard">
               <Button variant="outline" className="w-full sm:w-auto">
                 Go to Dashboard

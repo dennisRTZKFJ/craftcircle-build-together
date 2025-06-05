@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -13,6 +12,7 @@ import { useToast } from '@/components/ui/use-toast';
 import { Link } from 'react-router-dom';
 import { useTheme } from '@/contexts/ThemeContext';
 import { Moon, Sun, Monitor } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 const SettingsPage = () => {
   const { toast } = useToast();
@@ -75,7 +75,7 @@ const SettingsPage = () => {
                 
                 <div className="space-y-4">
                   <Label htmlFor="theme">Theme</Label>
-                  <div className="flex items-center space-x-4">
+                  <div className="flex-center-space-x4">
                     <Button 
                       variant={theme === 'light' ? 'default' : 'outline'} 
                       size="icon" 
@@ -244,7 +244,7 @@ const SettingsPage = () => {
                     
                     <div className="space-y-2">
                       <Label htmlFor="interests">Interests</Label>
-                      <div className="flex flex-wrap gap-2 mt-1">
+                      <div className="flex-wrap-gap2-mt1">
                         <Button variant="outline" size="sm" className="border-craft-wood">Woodworking</Button>
                         <Button variant="outline" size="sm">Furniture</Button>
                         <Button variant="outline" size="sm">Home Decor</Button>

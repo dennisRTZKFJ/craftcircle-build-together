@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
-import { BookOpen, PlusCircle, Share2, Clock, User, ChevronRight, Star } from 'lucide-react';
+import { BookOpen, PlusCircle, Share2, Clock, User, ChevronRight, Star, PlayCircle } from 'lucide-react';
+import { CommandList, CommandItem } from "@/components/ui/command";
 
 const TutorialPlaylist = () => {
   const [showCreateForm, setShowCreateForm] = useState(false);
@@ -41,17 +42,14 @@ const TutorialPlaylist = () => {
   
   return (
     <div className="container section-y-space-lg">
-      <div className="flex flex-col md:flex-row flex-between items-start md:items-center gap-4 mb-8">
+      <div className="flex-col-md-row-flex-between-gap-4-mb-8">
         <div>
-          <h2 className="header-xl">Tutorial-Playlisten</h2>
-          <p className="muted-text max-w-xl">
-            Erstelle und entdecke Sammlungen von Tutorials, die perfekt zusammenpassen.
-            Plane deine nächsten Projekte oder teile deine Favoriten mit der Community.
-          </p>
+          <h1 className="header-xl">DIY Workbench Project</h1>
+          <p className="muted-text">Detailed steps to build your own robust workbench</p>
         </div>
         <Button 
           onClick={() => setShowCreateForm(!showCreateForm)}
-          className="flex-align-center-gap-3"
+          className="flex items-center gap-3"
         >
           <PlusCircle className="h-4 w-4" />
           Playlist erstellen
@@ -91,7 +89,7 @@ const TutorialPlaylist = () => {
                 {popularTutorials.map((tutorial) => (
                   <div 
                     key={tutorial.id} 
-                    className="border rounded-md p-2 flex-align-center-gap-3 cursor-pointer hover:bg-muted transition-colors"
+                    className="border-card-hover-muted"
                   >
                     <div className="w-12 h-12 rounded overflow-hidden flex-shrink-0">
                       <img 
@@ -148,7 +146,7 @@ const TutorialPlaylist = () => {
                 <Badge variant="outline" className="bg-craft-wood/10">
                   <BookOpen className="h-3 w-3 icon-margin-right" /> {playlist.tutorials.length} Tutorials
                 </Badge>
-                <div className="flex-align-center-gap-3 text-xs muted-text">
+                <div className="flex items-center gap-3 text-xs muted-text">
                   <User className="h-3 w-3 icon-margin-right" /> {playlist.creator}
                 </div>
               </div>
@@ -157,7 +155,7 @@ const TutorialPlaylist = () => {
             <CardContent className="p-4 pt-0">
               <div className="space-y-2">
                 {playlist.tutorials.slice(0, 2).map((tutorial) => (
-                  <div key={tutorial.id} className="flex-align-center-gap-3">
+                  <div key={tutorial.id} className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded overflow-hidden flex-shrink-0">
                       <img 
                         src={tutorial.image} 
@@ -172,7 +170,7 @@ const TutorialPlaylist = () => {
                   </div>
                 ))}
                 {playlist.tutorials.length > 2 && (
-                  <button className="text-sm text-craft-wood flex-align-center-gap-3">
+                  <button className="text-sm text-craft-wood flex items-center gap-3">
                     Alle anzeigen
                     <ChevronRight className="h-4 w-4 ml-1" />
                   </button>

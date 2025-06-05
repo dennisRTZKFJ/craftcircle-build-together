@@ -22,12 +22,15 @@ import {
   ExternalLink,
   List,
   Hammer,
-  Info
+  Info,
+  Sparkles
 } from 'lucide-react';
 import TutorialSteps from '@/components/TutorialSteps';
 import MaterialList from '@/components/MaterialList';
 import CommentSection from '@/components/CommentSection';
 import RelatedTutorials from '@/components/RelatedTutorials';
+import { Label } from '@/components/ui/label';
+import { Input } from '@/components/ui/input';
 
 // Tutorial data - in a real app this would come from an API
 const tutorialsData = [
@@ -221,7 +224,7 @@ const TutorialDetail = () => {
     return (
       <>
         <Navbar />
-        <div className="container py-20 text-center">
+        <div className="container-py20-center">
           <h1 className="text-3xl font-bold mb-4">Tutorial not found</h1>
           <p className="mb-8">The requested tutorial could not be found.</p>
           <Button asChild>
@@ -283,7 +286,7 @@ const TutorialDetail = () => {
           <div className="lg:col-span-2 space-y-8">
             {/* Tutorial header */}
             <div>
-              <div className="flex-align-center-gap-2 mb-2">
+              <div className="flex items-center gap-2 mb-2">
                 <Badge variant="outline" className={
                   tutorial.category === "Beginner" 
                     ? "badge-green" 
@@ -494,7 +497,7 @@ const TutorialDetail = () => {
                 </div>
                 
                 <div className="pt-2">
-                  <div className="flex items-center justify-between text-sm">
+                  <div className="flex-between-text-sm">
                     <span>Estimated Cost:</span>
                     <span className="font-medium">{tutorial.price}</span>
                   </div>

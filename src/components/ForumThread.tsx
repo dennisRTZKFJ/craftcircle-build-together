@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { ThumbsUp, ThumbsDown, Flag, MessageCircle, Award, ArrowLeft } from 'lucide-react';
+import { ThumbsUp, ThumbsDown, Flag, MessageCircle, Award, ArrowLeft, Clock, Check } from 'lucide-react';
 import { useToast } from '@/components/ui/use-toast';
 import { Textarea } from '@/components/ui/textarea';
 
@@ -158,7 +158,7 @@ const ForumThread = () => {
               </Avatar>
             </div>
             <div className="space-y-1 flex-1">
-              <div className="flex flex-wrap flex-align-center-gap-3 mb-2">
+              <div className="flex-wrap-align-center-gap3-mb2">
                 <h1 className="header-lg">{threadData.title}</h1>
                 {threadData.solved && (
                   <Badge className="badge-green">
@@ -166,15 +166,11 @@ const ForumThread = () => {
                   </Badge>
                 )}
               </div>
-              <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                <div className="flex md:hidden flex-align-center-gap-3">
-                  <Avatar className="avatar-sm">
-                    <AvatarImage src={threadData.author.avatar} alt={threadData.author.name} />
-                    <AvatarFallback>{threadData.author.name.charAt(0)}</AvatarFallback>
-                  </Avatar>
-                  <span className="font-medium">{threadData.author.name}</span>
+              <div className="flex-wrap-gap-x4-y1-text-sm">
+                <div className="flex items-center gap-2">
+                  <Clock className="h-4 w-4 icon-muted-foreground" />
+                  <span>{threadData.createdAt}</span>
                 </div>
-                <div className="muted-text">{threadData.createdAt}</div>
                 <div className="muted-text">{threadData.views} Aufrufe</div>
                 <div className="muted-text">{repliesData.length} Antworten</div>
               </div>
@@ -264,7 +260,7 @@ const ForumThread = () => {
                     <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
                   </Avatar>
                   <div>
-                    <div className="flex-align-center-gap-3 mb-1">
+                    <div className="flex items-center gap-3 mb-1">
                       <span className="font-medium">{reply.author.name}</span>
                       {reply.author.isModerator && (
                         <Badge className="badge-blue">Moderator</Badge>
@@ -326,7 +322,11 @@ const ForumThread = () => {
             </div>
           </CardContent>
           <CardFooter className="p-4 flex-end">
-            {/* Optionally add actions like Reply to a specific comment */}
+            <div className="flex flex-col flex-grow">
+              <div className="flex-gap1">
+                <Badge variant="outline" className="bg-craft-wood/10">{reply.author.level}</Badge>
+              </div>
+            </div>
           </CardFooter>
         </Card>
       ))}

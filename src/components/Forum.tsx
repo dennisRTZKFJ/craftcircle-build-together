@@ -89,13 +89,13 @@ const Forum = () => {
   
   return (
     <div className="flex-col-gap-8">
-      <div className="flex flex-col md:flex-row flex-between md:items-center gap-4">
+      <div className="flex-col-md-row-between-center-gap4">
         <div>
           <h2 className="header-lg">Community-Forum</h2>
           <p className="muted-text">Diskutiere mit anderen DIY-Begeisterten</p>
         </div>
         
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex-col-sm-row-gap3">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 muted-text" />
             <Input
@@ -129,7 +129,7 @@ const Forum = () => {
                           <CardTitle className="header-md-lg hover:text-craft-wood cursor-pointer">
                             {thread.title}
                           </CardTitle>
-                          <div className="flex flex-wrap gap-1 mt-2">
+                          <div className="flex-wrap-gap1-mt2">
                             {thread.categories.map((category, i) => (
                               <Badge 
                                 key={i} 
@@ -154,7 +154,7 @@ const Forum = () => {
                       </div>
                     </CardHeader>
                     <CardContent className="pt-0 pb-3">
-                      <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                      <div className="flex-wrap-gap-x6-y2-text-sm">
                         <div className="flex-align-center-gap-3">
                           <User className="h-4 w-4 icon-margin-right muted-text" />
                           <span>{thread.author.name}</span>

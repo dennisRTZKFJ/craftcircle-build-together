@@ -1,4 +1,3 @@
-
 /**
  * Login Page
  * 
@@ -181,7 +180,7 @@ const Login = () => {
           </CardContent>
           
           {/* Footer with registration link */}
-          <CardFooter className="flex flex-col space-y-4">
+          <CardFooter className="flex-col-space-y4">
             <div className="text-sm text-center text-muted-foreground">
               Don't have an account?{' '}
               <Link to="/register" className="text-craft-wood hover:underline">

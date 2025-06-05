@@ -60,7 +60,7 @@ const CommunitySection = () => {
           </div>
           
           <div className="relative">
-            <div className="absolute inset-0 -z-10 bg-craft-wood/10 rounded-2xl -rotate-2"></div>
+            <div className="bg-craft-wood-rotate"></div>
             <div className="absolute inset-0 -z-10 bg-craft-light-green/10 rounded-2xl rotate-2"></div>
             <div className="card-stat">
               <div className="pb-5 border-b border-border mb-5">
@@ -84,7 +84,7 @@ const CommunitySection = () => {
                   <p className="small-muted-text">Community Support</p>
                 </div>
               </div>
-              <div className="mt-6 p-4 bg-craft-light-green/10 rounded-lg">
+              <div className="mt-6-p-4-bg-craft-light-green">
                 <p className="text-sm text-center">
                   "Together, our members have built over 5,000 individual pieces of furniture and saved more than 250,000 kg of CO₂ in the process!"
                 </p>

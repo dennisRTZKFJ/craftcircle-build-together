@@ -13,6 +13,8 @@ import {
   Award, Package, FileText, Star, Brain, Target, 
   ArrowRight, Crown, Check
 } from 'lucide-react';
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 
 const UserDashboard = () => {
   const { toast } = useToast();
@@ -234,13 +236,13 @@ const UserDashboard = () => {
   
   return (
     <div className="container py-8">
-      <div className="flex flex-col md:flex-row flex-between items-start gap-6 mb-8">
+      <div className="flex-col-md-row-justify-between-gap-4-mb-8">
         <div>
           <h1 className="header-xl">My Workshop</h1>
           <p className="muted-text">Welcome back to your personal DIY hub</p>
         </div>
         
-        <div className="flex flex-wrap gap-3">
+        <div className="flex-wrap-gap3">
           <Button onClick={startProject} className="whitespace-nowrap">
             <FileText className="mr-2 h-4 w-4" />
             Start New Project
@@ -255,7 +257,7 @@ const UserDashboard = () => {
             </DialogTrigger>
             <DialogContent className="sm:max-w-md">
               <DialogHeader>
-                <DialogTitle className="flex-align-center-gap-3 text-craft-wood">
+                <DialogTitle className="flex items-center gap-3 text-craft-wood">
                   <Crown className="h-5 w-5" />
                   DIY Premium
                 </DialogTitle>
@@ -265,8 +267,8 @@ const UserDashboard = () => {
               </DialogHeader>
               
               <div className="flex-col-gap-8">
-                <div className="flex flex-col gap-3">
-                  <div className="flex-align-center-gap-3">
+                <div className="flex-col-gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
@@ -276,7 +278,7 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   
-                  <div className="flex-align-center-gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
@@ -286,7 +288,7 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   
-                  <div className="flex-align-center-gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
@@ -296,7 +298,7 @@ const UserDashboard = () => {
                     </div>
                   </div>
                   
-                  <div className="flex-align-center-gap-3">
+                  <div className="flex items-center gap-3">
                     <div className="mt-0.5">
                       <Check className="h-4 w-4 text-craft-wood" />
                     </div>
@@ -316,7 +318,7 @@ const UserDashboard = () => {
                 </div>
               </div>
               
-              <DialogFooter className="flex flex-col sm:flex-row gap-2">
+              <DialogFooter className="flex-col-sm-row-gap2">
                 <Button variant="outline" onClick={() => setSubscriptionDialogOpen(false)}>
                   Decide Later
                 </Button>
@@ -354,7 +356,7 @@ const UserDashboard = () => {
                 <Progress value={weeklyProgress / weeklyGoal * 100} className="h-2" />
               </div>
               
-              <div className="flex flex-wrap gap-2 mt-4">
+              <div className="flex-wrap-gap-2-mt-4">
                 <Button variant="outline" size="sm" onClick={() => setGoal(1)} className={weeklyGoal === 1 ? "border-craft-wood" : ""}>
                   1 Project / Week
                 </Button>
@@ -369,7 +371,7 @@ const UserDashboard = () => {
           </CardContent>
           <CardFooter className="border-t pt-4">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
-              <div className="flex-align-center-gap-3">
+              <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-craft-wood/10 flex-center">
                   <CheckCircle className="h-5 w-5 text-craft-wood" />
                 </div>
@@ -378,7 +380,7 @@ const UserDashboard = () => {
                   <div className="text-xs muted-text">Completed Projects</div>
                 </div>
               </div>
-              <div className="flex-align-center-gap-3">
+              <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-amber-100 flex-center">
                   <Clock className="h-5 w-5 text-amber-600" />
                 </div>
@@ -387,7 +389,7 @@ const UserDashboard = () => {
                   <div className="text-xs muted-text">Active Projects</div>
                 </div>
               </div>
-              <div className="flex-align-center-gap-3">
+              <div className="flex items-center gap-3">
                 <div className="h-10 w-10 rounded-full bg-blue-100 flex-center">
                   <Award className="h-5 w-5 text-blue-600" />
                 </div>
@@ -412,7 +414,7 @@ const UserDashboard = () => {
                 alt={aiRecommendations[0].title}
                 className="img-cover"
               />
-              <div className="absolute inset-0 bg-black/30 flex-center">
+              <div className="overlay-black-center">
                 <div className="text-center text-white p-4">
                   <Brain className="h-6 w-6 mx-auto mb-2" />
                   <div className="font-medium text-sm">{aiRecommendations[0].title}</div>
@@ -542,7 +544,7 @@ const UserDashboard = () => {
               </Card>
             ))}
             
-            <Card className="flex flex-col flex-center h-[180px]">
+            <Card className="flex-col-center-h180">
               <div className="text-center p-8">
                 <MessageCircle className="h-8 w-8 mx-auto mb-4 muted-text" />
                 <p className="muted-text">
@@ -640,7 +642,7 @@ const UserDashboard = () => {
               </Card>
             ))}
             
-            <Card className="flex flex-col flex-center h-[338px]">
+            <Card className="flex-col-center-h338">
               <div className="text-center p-8">
                 <div className="h-16 w-16 rounded-full bg-craft-wood/10 flex-center">
                   <Brain className="h-8 w-8 text-craft-wood" />

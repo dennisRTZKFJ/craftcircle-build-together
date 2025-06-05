@@ -1,0 +1,224 @@
+1. absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-3
+   - Suggestion: Create a utility class (e.g., .gradient-bottom-black-p3)
+
+2. absolute -bottom-2 left-0 w-full
+   - Suggestion: Create a utility class (e.g., .absolute-bottom-w-full)
+
+3. absolute -bottom-8 -left-8 w-16 h-16 rounded-full bg-craft-light-green/30 blur-2xl
+   - Suggestion: Create a utility class (e.g., .bg-craft-light-green-blur-blob-bl)
+
+4. absolute inset-0 bg-black/30 flex-center
+   - Suggestion: Create a utility class (e.g., .overlay-black-center)
+
+5. absolute inset-0 flex items-center justify-center
+   - Suggestion: Create a utility class (e.g., .absolute-center-full)
+
+6. absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground
+   - Suggestion: Create a utility class (e.g., .icon-pos-top-left-muted)
+
+7. absolute right-3 top-3 text-muted-foreground hover:text-foreground transition-colors
+   - Suggestion: Create a utility class (e.g., .icon-pos-top-right-hover)
+
+8. absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground
+   - Suggestion: Create a utility class (e.g., .btn-close-base-accent)
+
+9. absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-secondary
+   - Suggestion: Create a utility class (e.g., .btn-close-base-secondary)
+
+10. animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent
+    - Suggestion: Create a utility class (e.g., .spinner-primary)
+
+11. aspect-[16/9] card-overflow-hidden rounded-md mb-3-util
+    - Suggestion: Create a utility class (e.g., .card-aspect-16-9-rounded)
+
+12. bg-amber-50 border border-amber-200 text-amber-800 rounded-md p-3 flex items-start
+    - Suggestion: Create a utility class (e.g., .alert-amber-info)
+
+13. block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent
+    - Suggestion: Create a utility class (e.g., .toggle-switch-base)
+
+14. border rounded-md overflow-hidden w-full md:w-1/3
+    - Suggestion: Create a utility class (e.g., .card-border-md-overflow-w-third)
+
+15. border rounded-md p-2 flex-align-center-gap-3 cursor-pointer hover:bg-muted transition-colors
+    - Suggestion: Create a utility class (e.g., .border-card-hover-muted)
+
+16. border-2 border-dashed rounded-md p-6 text-center border-muted-foreground/25
+    - Suggestion: Create a utility class (e.g., .dashed-border-center-p6)
+
+17. border-b pb-4 last:border-0 last:pb-0
+    - Suggestion: Create a utility class (e.g., .border-b-pb4-last-no-border)
+
+18. container py-16 max-w-2xl mx-auto
+    - Suggestion: Create a utility class (e.g., .container-py16-max-w-2xl)
+
+19. container py-20 text-center
+    - Suggestion: Create a utility class (e.g., .container-py20-center)
+
+20. flex flex-col flex-center h-[180px]
+    - Suggestion: Create a utility class (e.g., .flex-col-center-h180)
+
+21. flex flex-col flex-center h-[338px]
+    - Suggestion: Create a utility class (e.g., .flex-col-center-h338)
+
+22. flex flex-col h-full cursor-pointer hover:shadow-lg transition-shadow duration-200
+    - Suggestion: Create a utility class (e.g., .flex-col-h-full-shadow-hover)
+
+23. flex flex-col items-center justify-center h-full py-8
+    - Suggestion: Create a utility class (e.g., .flex-col-center-h-full-py8)
+
+24. flex flex-col md:flex-row flex-between md:items-center gap-4
+    - Suggestion: Create a utility class (e.g., .flex-col-md-row-between-center-gap4)
+
+25. flex flex-col md:flex-row gap-4 mb-6-util
+    - Suggestion: Create a utility class (e.g., .flex-col-md-row-gap4-mb6)
+
+26. flex flex-col md:flex-row gap-6
+    - Suggestion: Create a utility class (e.g., .flex-col-md-row-gap6)
+
+27. flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6
+    - Suggestion: Create a utility class (e.g., .flex-col-md-row-between-start-md-center-gap4-mb6)
+
+28. flex flex-col sm:flex-row gap-2
+    - Suggestion: Create a utility class (e.g., .flex-col-sm-row-gap2)
+
+29. flex flex-col sm:flex-row gap-3
+    - Suggestion: Create a utility class (e.g., .flex-col-sm-row-gap3)
+
+30. flex flex-col sm:flex-row gap-3 justify-center
+    - Suggestion: Create a utility class (e.g., .flex-col-sm-row-gap3-center)
+
+31. flex flex-col space-y-4
+    - Suggestion: Create a utility class (e.g., .flex-col-space-y4)
+
+32. flex flex-col space-y-6
+    - Suggestion: Create a utility class (e.g., .flex-col-space-y6)
+
+33. flex flex-row items-center justify-between
+    - Suggestion: Create a utility class (e.g., .flex-row-between-center)
+
+34. flex flex-row-gap-2
+    - Suggestion: Create a utility class (e.g., .flex-row-gap2)
+
+35. flex flex-row-gap-4
+    - Suggestion: Create a utility class (e.g., .flex-row-gap4)
+
+36. flex flex-wrap flex-align-center-gap-3 mb-2
+    - Suggestion: Create a utility class (e.g., .flex-wrap-align-center-gap3-mb2)
+
+37. flex flex-wrap gap-1 mt-2
+    - Suggestion: Create a utility class (e.g., .flex-wrap-gap1-mt2)
+
+38. flex flex-wrap gap-2 mt-1
+    - Suggestion: Create a utility class (e.g., .flex-wrap-gap2-mt1)
+
+39. flex flex-wrap gap-3
+    - Suggestion: Create a utility class (e.g., .flex-wrap-gap3)
+
+40. flex flex-wrap gap-x-4 gap-y-1 text-sm
+    - Suggestion: Create a utility class (e.g., .flex-wrap-gap-x4-y1-text-sm)
+
+41. flex flex-wrap gap-x-6 gap-y-2 text-sm
+    - Suggestion: Create a utility class (e.g., .flex-wrap-gap-x6-y2-text-sm)
+
+42. flex flex-wrap items-center justify-between gap-4 mb-8
+    - Suggestion: Create a utility class (e.g., .flex-wrap-between-center-gap4-mb8)
+
+43. flex gap-1
+    - Suggestion: Create a utility class (e.g., .flex-gap1)
+
+44. flex gap-2 mt-2 md:mt-0
+    - Suggestion: Create a utility class (e.g., .flex-gap2-mt2-md0)
+
+45. flex gap-2 w-full
+    - Suggestion: Create a utility class (e.g., .flex-gap2-w-full)
+
+46. flex gap-3 mt-1
+    - Suggestion: Create a utility class (e.g., .flex-gap3-mt1)
+
+47. flex gap-3 p-3 hover:bg-muted rounded-lg transition-colors
+    - Suggestion: Create a utility class (e.g., .flex-gap3-p3-hover-muted-rounded)
+
+48. flex gap-4
+    - Suggestion: Create a utility class (e.g., .flex-gap4)
+
+49. flex gap-6 text-sm
+    - Suggestion: Create a utility class (e.g., .flex-gap6-text-sm)
+
+50. flex h-full w-full flex-col
+    - Suggestion: Create a utility class (e.g., .flex-col-h-w-full)
+
+51. flex h-screen items-center justify-center
+    - Suggestion: Create a utility class (e.g., .flex-screen-center)
+
+52. flex items-baseline gap-2
+    - Suggestion: Create a utility class (e.g., .flex-baseline-gap2)
+
+53. flex items-center border-b px-3
+    - Suggestion: Create a utility class (e.g., .flex-center-border-b-px3)
+
+54. flex items-center gap-1
+    - Suggestion: Create a utility class (e.g., .flex-center-gap1)
+
+55. flex items-center gap-2 mb-4
+    - Suggestion: Create a utility class (e.g., .flex-center-gap2-mb4)
+
+56. flex items-center justify-between py-3 border-b last:border-0
+    - Suggestion: Create a utility class (e.g., .flex-between-py3-border-b)
+
+57. flex items-center justify-between text-sm
+    - Suggestion: Create a utility class (e.g., .flex-between-text-sm)
+
+58. flex items-center justify-center gap-2 mt-6
+    - Suggestion: Create a utility class (e.g., .flex-center-gap2-mt6)
+
+59. flex items-center justify-center gap-2 text-craft-wood
+    - Suggestion: Create a utility class (e.g., .flex-center-gap2-craft-wood)
+
+60. flex items-center justify-center p-12
+    - Suggestion: Create a utility class (e.g., .flex-center-p12)
+
+61. flex items-center mt-1
+    - Suggestion: Create a utility class (e.g., .flex-center-mt1)
+
+62. flex items-center space-x-2
+    - Suggestion: Create a utility class (e.g., .flex-center-space-x2)
+
+63. flex items-center space-x-4
+    - Suggestion: Create a utility class (e.g., .flex-center-space-x4)
+
+64. flex items-center text-craft-wood
+    - Suggestion: Create a utility class (e.g., .flex-center-text-craft-wood)
+
+65. flex items-center text-sm
+    - Suggestion: Create a utility class (e.g., .flex-center-text-sm)
+
+66. flex items-center text-sm text-muted-foreground mt-2
+    - Suggestion: Create a utility class (e.g., .flex-center-text-sm-muted-mt2)
+
+67. flex items-end mb-6
+    - Suggestion: Create a utility class (e.g., .flex-end-mb6)
+
+68. flex items-start gap-3
+    - Suggestion: Create a utility class (e.g., .flex-start-gap3)
+
+69. flex justify-between items-center mb-2
+    - Suggestion: Create a utility class (e.g., .flex-between-mb2)
+
+70. flex justify-between items-center mb-6
+    - Suggestion: Create a utility class (e.g., .flex-between-mb6)
+
+71. flex justify-center pb-8
+    - Suggestion: Create a utility class (e.g., .flex-center-pb8)
+
+72. flex justify-center py-8
+    - Suggestion: Create a utility class (e.g., .flex-center-py8)
+
+73. flex justify-center section-space
+    - Suggestion: Create a utility class (e.g., .flex-center-section-space)
+
+74. flex justify-end gap-2
+    - Suggestion: Create a utility class (e.g., .flex-end-gap2)
+
+75. flex md:hidden flex-align-center-gap-3
+    - Suggestion: Create a utility class (e.g., .flex-md-hidden-align-center-gap3) 

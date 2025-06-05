@@ -19,7 +19,7 @@ const TutorialSteps = ({ steps }: TutorialStepsProps) => {
     <div className="space-y-12">
       {steps.map((step, index) => (
         <div key={index} className="relative">
-          <div className="flex-align-center-gap-3 mb-4">
+          <div className="flex items-center gap-3 mb-4">
             <div className="bg-craft-wood text-white w-10 h-10 rounded-full-center font-bold flex-shrink-0">
               {index + 1}
             </div>

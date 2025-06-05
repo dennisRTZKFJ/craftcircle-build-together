@@ -161,7 +161,7 @@ const ProjectsPage = () => {
         </div>
 
         <Card>
-          <CardHeader className="flex flex-row items-center justify-between">
+          <CardHeader className="flex-row-between-center">
             <div>
               <CardTitle>Project List</CardTitle>
               <CardDescription>All your DIY projects in one place</CardDescription>
@@ -171,8 +171,8 @@ const ProjectsPage = () => {
           <CardContent>
             <div className="space-y-4">
               {loadingProjects ? (
-                <div className="flex justify-center py-8">
-                  <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent"></div>
+                <div className="flex flex-center py-8">
+                  <div className="spinner-primary"></div>
                 </div>
               ) : projects.length === 0 ? (
                 <div className="text-center py-8">
@@ -194,7 +194,7 @@ const ProjectsPage = () => {
                         {project.description && (
                           <p className="text-sm text-muted-foreground mt-1">{project.description}</p>
                         )}
-                        <div className="flex items-center mt-1">
+                        <div className="flex-center-mt1">
                           <Badge variant="outline" className={
                             project.status === 'completed' ? 'badge-green' :
                             project.status === 'in-progress' ? 'badge-blue' :

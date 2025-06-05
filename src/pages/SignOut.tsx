@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
@@ -58,42 +57,25 @@ const SignOut = () => {
       <Navbar />
       <div className="flex-1 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
-          <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl flex items-center gap-2">
-              <LogOut className="h-6 w-6 text-muted-foreground" />
-              <span>Sign Out</span>
-            </CardTitle>
-            <CardDescription>
-              Are you sure you want to sign out from CraftCircle?
-            </CardDescription>
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl font-bold">Sign Out</CardTitle>
+            <CardDescription>Are you sure you want to sign out?</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            <div className="bg-amber-50 border border-amber-200 text-amber-800 rounded-md p-3 flex items-start">
-              <AlertCircle className="h-5 w-5 mr-2 flex-shrink-0 text-amber-500" />
-              <div className="text-sm">
-                You will need to sign in again to access your projects and workshop materials.
+            <div className="flex-col-space-y4">
+              <p className="text-center text-muted-foreground">
+                Signing out will end your current session. You can always sign back in.
+              </p>
+              <div className="flex-gap2-w-full">
+                <Button variant="outline" className="w-full" onClick={handleCancel}>
+                  Cancel
+                </Button>
+                <Button className="w-full" onClick={handleSignOut}>
+                  Sign Out
+                </Button>
               </div>
             </div>
           </CardContent>
-          <CardFooter className="flex flex-col space-y-4">
-            <div className="flex gap-2 w-full">
-              <Button 
-                variant="outline" 
-                className="flex-1"
-                onClick={handleCancel}
-              >
-                Cancel
-              </Button>
-              <Button 
-                variant="destructive" 
-                className="flex-1"
-                onClick={handleSignOut}
-                disabled={isLoggingOut}
-              >
-                {isLoggingOut ? "Signing out..." : "Sign Out"}
-              </Button>
-            </div>
-          </CardFooter>
         </Card>
       </div>
       <Footer />
