@@ -69,7 +69,7 @@ const Hero = () => {
                   <strong className="text-foreground">4.8/5</strong> satisfaction
                 </span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex-align-center-gap-2">
                 <Clock className="h-5 w-5 text-craft-wood" />
                 <span className="text-sm">
                   <strong className="text-foreground">150+</strong> projects
