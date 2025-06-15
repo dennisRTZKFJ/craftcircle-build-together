@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -142,29 +143,31 @@ const UploadTutorialPage = () => {
               <form className="space-y-6" onSubmit={handleSubmit}>
                 {/* STEP 1: Basic Info */}
                 {activeTab === 0 && (
-                  <BasicInfoStep
-                    form={{
-                      title: form.title,
-                      category: form.category,
-                      difficulty: form.difficulty,
-                      duration: form.duration,
-                      description: form.description,
-                      availability: form.availability,
-                      price: form.price,
-                    }}
-                    categories={categories}
-                    difficulties={difficulties}
-                    onChange={handleBasicChange}
-                  />
-                  <div className="flex justify-end mt-7">
-                    <Button
-                      type="button"
-                      className="rounded-md px-7 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2"
-                      onClick={handleNext}
-                    >
-                      Next <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
-                    </Button>
-                  </div>
+                  <>
+                    <BasicInfoStep
+                      form={{
+                        title: form.title,
+                        category: form.category,
+                        difficulty: form.difficulty,
+                        duration: form.duration,
+                        description: form.description,
+                        availability: form.availability,
+                        price: form.price,
+                      }}
+                      categories={categories}
+                      difficulties={difficulties}
+                      onChange={handleBasicChange}
+                    />
+                    <div className="flex justify-end mt-7">
+                      <Button
+                        type="button"
+                        className="rounded-md px-7 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2"
+                        onClick={handleNext}
+                      >
+                        Next <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
+                      </Button>
+                    </div>
+                  </>
                 )}
 
                 {/* STEP 2: Material & Tools */}
