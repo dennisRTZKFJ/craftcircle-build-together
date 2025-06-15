@@ -2,49 +2,33 @@
 {
   "compilerOptions": {
     "target": "ES2020",
-    "lib": ["ES2020"],
     "module": "commonjs",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "allowJs": true,
+    "lib": ["ES2020"],
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
-    "moduleDetection": "force",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "removeComments": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitOverride": true,
-    "useDefineForClassFields": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "removeComments": false,
-    "noEmitOnError": true,
-    "preserveConstEnums": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "moduleResolution": "node",
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"],
-      "@/config/*": ["src/config/*"],
-      "@/controllers/*": ["src/controllers/*"],
-      "@/models/*": ["src/models/*"],
-      "@/routes/*": ["src/routes/*"],
-      "@/services/*": ["src/services/*"],
-      "@/middlewares/*": ["src/middlewares/*"],
-      "@/utils/*": ["src/utils/*"],
-      "@/types/*": ["src/types/*"]
-    }
+      "@/*": ["src/*"]
+    },
+    "allowSyntheticDefaultImports": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "src/**/*"
@@ -52,7 +36,6 @@
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.test.ts",
-    "**/*.spec.ts"
+    "**/*.test.ts"
   ]
 }
