@@ -1,4 +1,3 @@
-
 import { apiClient } from './api';
 import { AppConfig } from '@/config/app.config';
 
@@ -26,6 +25,16 @@ export interface Tutorial {
 
 export interface TutorialContent {
   sections: TutorialSection[];
+  category?: string;
+  difficulty?: string;
+  duration?: number;
+  availability?: string;
+  price?: string;
+  tools?: string[];
+  recommendations?: string;
+  estimatedCostLow?: string;
+  estimatedCostHigh?: string;
+  videoDescription?: string;
 }
 
 export interface TutorialSection {
