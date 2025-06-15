@@ -60,7 +60,13 @@ const App = () => (
               <Route path="/register" element={<Register />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/sign-out" element={<SignOut />} />
-              
+
+              {/* Make creator dashboard pages public for testing */}
+              <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
+              <Route path="/creator-dashboard/upload" element={<UploadTutorialPage />} />
+              <Route path="/creator-dashboard/upload/success" element={<TutorialSuccessPage />} />
+              <Route path="/creator-dashboard/edit/:id" element={<EditTutorialPage />} />
+
               {/* Protected routes - require authentication */}
               <Route element={<ProtectedRoute />}>
                 <Route path="/onboarding" element={<Onboarding />} />
@@ -76,25 +82,17 @@ const App = () => (
                 <Route path="/account/notifications" element={<NotificationsPage />} />
                 <Route path="/account/settings" element={<SettingsPage />} />
               </Route>
-              
-              {/* Creator routes */}
-              <Route element={<ProtectedRoute requiredRole="creator" />}>
-                <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
-                <Route path="/creator-dashboard/upload" element={<UploadTutorialPage />} />
-                <Route path="/creator-dashboard/upload/success" element={<TutorialSuccessPage />} />
-                <Route path="/creator-dashboard/edit/:id" element={<EditTutorialPage />} />
-              </Route>
-              
+
               {/* Partner routes */}
               <Route element={<ProtectedRoute requiredRole="partner" />}>
                 <Route path="/partner-dashboard" element={<PartnerDashboardPage />} />
               </Route>
-              
+
               {/* Admin routes */}
               <Route element={<ProtectedRoute requiredRole="admin" />}>
                 <Route path="/admin" element={<AdminDashboard />} />
               </Route>
-              
+
               {/* 404 - Not found */}
               <Route path="*" element={<NotFound />} />
             </Routes>
