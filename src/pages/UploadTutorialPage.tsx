@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -97,34 +96,35 @@ const UploadTutorialPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#f8f6f1] flex flex-col">
+    <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       <main className="flex-grow">
-        <div className="container max-w-2xl py-12 flex flex-col gap-8">
-          <div className="flex items-center justify-between mt-2 mb-6">
-            <h1 className="font-serif text-[2.35rem] font-bold text-[#23211a] leading-tight">
-              Upload Tutorial
+        <div className="container max-w-4xl mx-auto py-8 px-4">
+          <div className="flex items-center justify-between mb-8">
+            <h1 className="text-2xl font-serif font-semibold text-gray-900">
+              Create a New Tutorial
             </h1>
             <Link to="/creator-dashboard">
               <Button
                 variant="outline"
-                className="border border-[#ded7cd] bg-white rounded-lg text-[#17150a] px-6 py-2 hover:bg-[#f4f3ef] shadow-none text-base font-normal"
+                className="border border-gray-300 bg-white rounded-lg text-gray-700 px-4 py-2 hover:bg-gray-50 text-sm"
               >
                 Back to Creator Dashboard
               </Button>
             </Link>
           </div>
+          
           {/* FORM CARD */}
-          <div className="bg-white rounded-2xl border border-[#ede7df] shadow-none px-9 py-10 flex flex-col gap-0">
+          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
             {/* Tabs */}
-            <div className="flex gap-3 mb-7 border-b border-[#f2ede7] pb-4 -mx-2">
+            <div className="flex gap-1 mb-8 bg-gray-100 p-1 rounded-lg">
               {tabList.map((tab, idx) => (
                 <button
                   key={tab}
-                  className={`px-7 py-2 rounded-md font-semibold text-base transition 
+                  className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all
                     ${activeTab === idx
-                      ? "bg-[#fff] text-[#23211a] border border-[#ede7df] shadow-sm"
-                      : "bg-[#f6f3ec] text-[#c9baa3] border border-[#f6f3ec]"
+                      ? "bg-white text-gray-900 shadow-sm"
+                      : "text-gray-500 hover:text-gray-700"
                     }
                   `}
                   disabled={idx > activeTab}
@@ -134,6 +134,7 @@ const UploadTutorialPage = () => {
                 </button>
               ))}
             </div>
+            
             <form className="space-y-0" onSubmit={handleSubmit}>
               {/* STEP 1: Basic Info */}
               {activeTab === 0 && (
@@ -152,12 +153,13 @@ const UploadTutorialPage = () => {
                     difficulties={difficulties}
                     onChange={handleBasicChange}
                   />
+                  
                   {/* Button Row */}
-                  <div className="flex justify-between pt-9 mt-8 border-t border-[#f3efe8]">
+                  <div className="flex justify-between items-center pt-8 mt-8 border-t border-gray-100">
                     <Button
                       type="button"
                       variant="outline"
-                      className="rounded-md px-7 py-2 border border-[#e6e1db] mr-2 text-[#17150a] bg-[#fff]"
+                      className="rounded-lg px-6 py-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
                       onClick={handleCancel}
                     >
                       Cancel
@@ -165,19 +167,18 @@ const UploadTutorialPage = () => {
                     <div className="flex gap-3">
                       <Button
                         type="button"
+                        className="border border-teal-200 bg-teal-100 text-teal-700 rounded-lg px-6 py-2 hover:bg-teal-200 font-medium"
                         variant="outline"
-                        className="border border-[#c4d9b5] bg-[#e9efea] text-[#417147] rounded-md px-7 py-2 hover:bg-[#e8efe9] font-semibold"
-                        // onClick={} // Save as Draft handler optional
                       >
                         Save as Draft
                       </Button>
                       <Button
                         type="button"
-                        className="rounded-md px-9 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2 font-semibold"
+                        className="rounded-lg px-8 py-2 bg-orange-400 hover:bg-orange-500 text-white font-medium flex items-center gap-2"
                         onClick={handleNext}
                       >
                         Next
-                        <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
+                        <span className="text-lg">→</span>
                       </Button>
                     </div>
                   </div>
