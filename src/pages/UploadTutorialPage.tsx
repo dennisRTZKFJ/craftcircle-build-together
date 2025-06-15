@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -7,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Link, useNavigate } from "react-router-dom";
 import MaterialToolsStep, { MaterialToolsState } from "@/components/creator-dashboard/MaterialToolsStep";
 import BasicInfoStep from "@/components/creator-dashboard/BasicInfoStep";
+import InstructionsStep from "@/components/creator-dashboard/InstructionsStep";
 
 const tabList = [
   "Basic Information",
@@ -65,6 +65,10 @@ const UploadTutorialPage = () => {
     estimatedCostLow: "80",
     estimatedCostHigh: "120",
   });
+
+  const [instructionSteps, setInstructionSteps] = useState([
+    { title: "", description: "", tip: "", image: "" }
+  ]);
 
   const handleBasicChange = (field: keyof FormState, value: any) => {
     setForm((f) => ({ ...f, [field]: value }));
@@ -135,34 +139,31 @@ const UploadTutorialPage = () => {
                   </button>
                 ))}
               </div>
-
               <form className="space-y-6" onSubmit={handleSubmit}>
                 {/* STEP 1: Basic Info */}
                 {activeTab === 0 && (
-                  <div>
-                    <BasicInfoStep
-                      form={{
-                        title: form.title,
-                        category: form.category,
-                        difficulty: form.difficulty,
-                        duration: form.duration,
-                        description: form.description,
-                        availability: form.availability,
-                        price: form.price,
-                      }}
-                      categories={categories}
-                      difficulties={difficulties}
-                      onChange={handleBasicChange}
-                    />
-                    <div className="flex justify-end mt-7">
-                      <Button
-                        type="button"
-                        className="rounded-md px-7 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2"
-                        onClick={handleNext}
-                      >
-                        Next <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
-                      </Button>
-                    </div>
+                  <BasicInfoStep
+                    form={{
+                      title: form.title,
+                      category: form.category,
+                      difficulty: form.difficulty,
+                      duration: form.duration,
+                      description: form.description,
+                      availability: form.availability,
+                      price: form.price,
+                    }}
+                    categories={categories}
+                    difficulties={difficulties}
+                    onChange={handleBasicChange}
+                  />
+                  <div className="flex justify-end mt-7">
+                    <Button
+                      type="button"
+                      className="rounded-md px-7 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2"
+                      onClick={handleNext}
+                    >
+                      Next <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
+                    </Button>
                   </div>
                 )}
 
@@ -183,7 +184,18 @@ const UploadTutorialPage = () => {
                   />
                 )}
 
-                {/* Add components for STEP 3+ as needed */}
+                {/* STEP 3: Instructions */}
+                {activeTab === 2 && (
+                  <InstructionsStep
+                    steps={instructionSteps}
+                    onChange={setInstructionSteps}
+                    onBack={handleBack}
+                    onSaveDraft={() => {/* implement if needed */}}
+                    onNext={handleNext}
+                  />
+                )}
+
+                {/* Add Video step as needed */}
               </form>
             </CardContent>
           </Card>
