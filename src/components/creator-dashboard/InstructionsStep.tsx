@@ -2,6 +2,9 @@
 import React from "react";
 import ImageUploader from "./ImageUploader";
 import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 
 interface InstructionStep {
   title: string;
@@ -44,47 +47,57 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
     onChange([...steps, { ...emptyStep }]);
   };
 
-  // Layout styles to match reference
   return (
     <div className="space-y-8">
-      <div className="bg-[#fcfbf8] border border-[#ede7df] rounded p-6 space-y-7">
+      <div className="space-y-6">
         {steps.map((step, idx) => (
           <div
             key={idx}
-            className="border border-[#ede7df] rounded bg-white px-6 py-6 mb-4"
+            className="bg-gray-50 border border-gray-200 rounded-2xl p-8 space-y-6"
           >
-            <div className="mb-2">
-              <label className="block font-medium text-[#948268] mb-1">{`Step ${idx + 1}:`}</label>
-              <input
-                className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
-                placeholder={`e.g. Prepare the wood`}
+            <div>
+              <Label className="text-sm font-medium text-gray-900 mb-2 block">
+                Step {idx + 1}:
+              </Label>
+              <Input
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g. Prepare the wood"
                 type="text"
                 value={step.title}
                 onChange={e => setStepField(idx, "title", e.target.value)}
               />
             </div>
-            <div className="mb-2">
-              <label className="block font-medium text-[#948268] mb-1">Description:</label>
-              <input
-                className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
+
+            <div>
+              <Label className="text-sm font-medium text-gray-900 mb-2 block">
+                Description:
+              </Label>
+              <Textarea
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm resize-none"
                 placeholder="Description"
-                type="text"
+                rows={3}
                 value={step.description}
                 onChange={e => setStepField(idx, "description", e.target.value)}
               />
             </div>
-            <div className="mb-2">
-              <label className="block font-medium text-[#948268] mb-1">Tip:</label>
-              <input
-                className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
+
+            <div>
+              <Label className="text-sm font-medium text-gray-900 mb-2 block">
+                Tip:
+              </Label>
+              <Input
+                className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 placeholder="Tip"
                 type="text"
                 value={step.tip}
                 onChange={e => setStepField(idx, "tip", e.target.value)}
               />
             </div>
-            <div className="mb-2">
-              <label className="block font-medium text-[#948268] mb-1">Image:</label>
+
+            <div>
+              <Label className="text-sm font-medium text-gray-900 mb-2 block">
+                Image:
+              </Label>
               <ImageUploader
                 value={step.image}
                 onChange={img => setStepField(idx, "image", img)}
@@ -93,12 +106,12 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
           </div>
         ))}
 
-        {/* + Button mittig */}
-        <div className="flex justify-center mt-2">
+        {/* + Button centered */}
+        <div className="flex justify-center">
           <Button
             type="button"
             variant="outline"
-            className="rounded-full border p-0 w-9 h-9 text-xl flex items-center justify-center bg-white"
+            className="rounded-full border-2 border-gray-300 p-0 w-12 h-12 text-2xl flex items-center justify-center bg-white hover:bg-gray-50 text-gray-600"
             aria-label="Add Step"
             onClick={handleAddStep}
           >
@@ -106,12 +119,13 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
           </Button>
         </div>
       </div>
-      {/* Bottom bar mit Back, Save as Draft, Next */}
-      <div className="flex justify-between mt-4">
+
+      {/* Bottom navigation bar */}
+      <div className="flex justify-between items-center pt-8 mt-8 border-t border-gray-100">
         <Button
           type="button"
           variant="outline"
-          className="border border-[#e3e0da] rounded-md text-[#23211a] px-6 py-2 hover:bg-[#f4f3ef]"
+          className="rounded-lg px-6 py-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
           onClick={onBack}
         >
           ← Back
@@ -119,18 +133,19 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
         <div className="flex gap-3">
           <Button
             type="button"
+            className="border border-teal-200 bg-teal-100 text-teal-700 rounded-lg px-6 py-2 hover:bg-teal-200 font-medium"
             variant="outline"
-            className="border border-[#c4d9b5] bg-[#e9efea] text-[#417147] rounded-md px-6 py-2 hover:bg-[#e8efe9]"
             onClick={onSaveDraft}
           >
             Save as Draft
           </Button>
           <Button
             type="button"
-            className="rounded-md px-8 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2"
+            className="rounded-lg px-8 py-2 bg-orange-400 hover:bg-orange-500 text-white font-medium flex items-center gap-2"
             onClick={onNext}
           >
-            Next <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
+            Next
+            <span className="text-lg">→</span>
           </Button>
         </div>
       </div>
@@ -139,4 +154,3 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
 };
 
 export default InstructionsStep;
-
