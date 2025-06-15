@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import ImageUploader from "./ImageUploader";
 import { Button } from "@/components/ui/button";
 
@@ -17,7 +17,7 @@ interface InstructionsStepProps {
   onNext: () => void;
 }
 
-const defaultStep: InstructionStep = {
+const emptyStep: InstructionStep = {
   title: "",
   description: "",
   tip: "",
@@ -31,55 +31,82 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
   onSaveDraft,
   onNext,
 }) => {
-  // For demo: manage first step only; could expand to multiple with mapping
-  const step = steps[0] || defaultStep;
-  const setStep = (field: keyof InstructionStep, value: string) => {
-    const nextSteps = [...steps];
-    nextSteps[0] = { ...step, [field]: value };
+  // Handler for step changes
+  const setStepField = (idx: number, field: keyof InstructionStep, value: string) => {
+    const nextSteps = steps.map((step, i) =>
+      i === idx ? { ...step, [field]: value } : step
+    );
     onChange(nextSteps);
   };
 
+  // Handler for "+" (Add Step)
+  const handleAddStep = () => {
+    onChange([...steps, { ...emptyStep }]);
+  };
+
+  // Layout styles to match reference
   return (
     <div className="space-y-8">
-      <div className="bg-[#fcfbf8] border border-[#ede7df] rounded p-6 space-y-5">
-        <div>
-          <label className="block font-medium text-[#948268] mb-1">Step 1:</label>
-          <input
-            className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
-            placeholder="e.g. Prepare the wood"
-            type="text"
-            value={step.title}
-            onChange={e => setStep("title", e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block font-medium text-[#948268] mb-1">Description:</label>
-          <input
-            className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
-            placeholder="Description"
-            type="text"
-            value={step.description}
-            onChange={e => setStep("description", e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block font-medium text-[#948268] mb-1">Tip:</label>
-          <input
-            className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
-            placeholder="Tip"
-            type="text"
-            value={step.tip}
-            onChange={e => setStep("tip", e.target.value)}
-          />
-        </div>
-        <div>
-          <label className="block font-medium text-[#948268] mb-1">Image:</label>
-          <ImageUploader
-            value={step.image}
-            onChange={img => setStep("image", img)}
-          />
+      <div className="bg-[#fcfbf8] border border-[#ede7df] rounded p-6 space-y-7">
+        {steps.map((step, idx) => (
+          <div
+            key={idx}
+            className="border border-[#ede7df] rounded bg-white px-6 py-6 mb-4"
+          >
+            <div className="mb-2">
+              <label className="block font-medium text-[#948268] mb-1">{`Step ${idx + 1}:`}</label>
+              <input
+                className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
+                placeholder={`e.g. Prepare the wood`}
+                type="text"
+                value={step.title}
+                onChange={e => setStepField(idx, "title", e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block font-medium text-[#948268] mb-1">Description:</label>
+              <input
+                className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
+                placeholder="Description"
+                type="text"
+                value={step.description}
+                onChange={e => setStepField(idx, "description", e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block font-medium text-[#948268] mb-1">Tip:</label>
+              <input
+                className="w-full bg-[#FAF9F5] border-[#ede7df] rounded px-2 py-1"
+                placeholder="Tip"
+                type="text"
+                value={step.tip}
+                onChange={e => setStepField(idx, "tip", e.target.value)}
+              />
+            </div>
+            <div className="mb-2">
+              <label className="block font-medium text-[#948268] mb-1">Image:</label>
+              <ImageUploader
+                value={step.image}
+                onChange={img => setStepField(idx, "image", img)}
+              />
+            </div>
+          </div>
+        ))}
+
+        {/* + Button mittig */}
+        <div className="flex justify-center mt-2">
+          <Button
+            type="button"
+            variant="outline"
+            className="rounded-full border p-0 w-9 h-9 text-xl flex items-center justify-center bg-white"
+            aria-label="Add Step"
+            onClick={handleAddStep}
+          >
+            +
+          </Button>
         </div>
       </div>
+      {/* Bottom bar mit Back, Save as Draft, Next */}
       <div className="flex justify-between mt-4">
         <Button
           type="button"
@@ -112,3 +139,4 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
 };
 
 export default InstructionsStep;
+
