@@ -7,6 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import MaterialToolsStep, { MaterialToolsState } from "@/components/creator-dashboard/MaterialToolsStep";
 import BasicInfoStep from "@/components/creator-dashboard/BasicInfoStep";
 import InstructionsStep from "@/components/creator-dashboard/InstructionsStep";
+import VideoStep from "@/components/creator-dashboard/VideoStep";
 
 const tabList = [
   "Basic Information",
@@ -68,6 +69,9 @@ const UploadTutorialPage = () => {
     { title: "", description: "", tip: "", image: "" }
   ]);
 
+  const [videoDescription, setVideoDescription] = useState("");
+  const [videoFile, setVideoFile] = useState<File | null>(null);
+
   const handleBasicChange = (field: keyof FormState, value: any) => {
     setForm((f) => ({ ...f, [field]: value }));
   };
@@ -102,7 +106,7 @@ const UploadTutorialPage = () => {
         <div className="container max-w-4xl mx-auto py-8 px-4">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-serif font-semibold text-gray-900">
-              Create a New Tutorial
+              Upload Tutorial
             </h1>
             <Link to="/creator-dashboard">
               <Button
@@ -116,23 +120,29 @@ const UploadTutorialPage = () => {
           
           {/* FORM CARD */}
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
-            {/* Tabs */}
-            <div className="flex gap-1 mb-8 bg-gray-100 p-1 rounded-lg">
-              {tabList.map((tab, idx) => (
-                <button
-                  key={tab}
-                  className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all
-                    ${activeTab === idx
-                      ? "bg-white text-gray-900 shadow-sm"
-                      : "text-gray-500 hover:text-gray-700"
-                    }
-                  `}
-                  disabled={idx > activeTab}
-                  onClick={() => setActiveTab(idx)}
-                >
-                  {tab}
-                </button>
-              ))}
+            <div className="mb-8">
+              <h2 className="text-xl font-serif font-semibold text-gray-900 mb-6">
+                Create a New Tutorial
+              </h2>
+              
+              {/* Tabs */}
+              <div className="flex gap-1 bg-gray-100 p-1 rounded-lg">
+                {tabList.map((tab, idx) => (
+                  <button
+                    key={tab}
+                    className={`flex-1 px-4 py-2 rounded-md text-sm font-medium transition-all
+                      ${activeTab === idx
+                        ? "bg-white text-gray-900 shadow-sm"
+                        : "text-gray-500 hover:text-gray-700"
+                      }
+                    `}
+                    disabled={idx > activeTab}
+                    onClick={() => setActiveTab(idx)}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
             </div>
             
             <form className="space-y-0" onSubmit={handleSubmit}>
@@ -210,6 +220,19 @@ const UploadTutorialPage = () => {
                   onBack={handleBack}
                   onSaveDraft={() => {/* implement if needed */}}
                   onNext={handleNext}
+                />
+              )}
+
+              {/* STEP 4: Video */}
+              {activeTab === 3 && (
+                <VideoStep
+                  description={videoDescription}
+                  videoFile={videoFile}
+                  onDescriptionChange={setVideoDescription}
+                  onVideoChange={setVideoFile}
+                  onBack={handleBack}
+                  onSaveDraft={() => {/* implement if needed */}}
+                  onSubmit={handleSubmit}
                 />
               )}
             </form>
