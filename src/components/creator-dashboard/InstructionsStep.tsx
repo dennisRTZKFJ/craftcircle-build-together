@@ -34,7 +34,6 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
   onSaveDraft,
   onNext,
 }) => {
-  // Handler for step changes
   const setStepField = (idx: number, field: keyof InstructionStep, value: string) => {
     const nextSteps = steps.map((step, i) =>
       i === idx ? { ...step, [field]: value } : step
@@ -42,7 +41,6 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
     onChange(nextSteps);
   };
 
-  // Handler for "+" (Add Step)
   const handleAddStep = () => {
     onChange([...steps, { ...emptyStep }]);
   };
@@ -125,7 +123,7 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
         <Button
           type="button"
           variant="outline"
-          className="rounded-lg px-6 py-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50"
+          className="rounded-lg px-6 py-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-2"
           onClick={onBack}
         >
           ← Back
@@ -141,7 +139,7 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
           </Button>
           <Button
             type="button"
-            className="rounded-lg px-8 py-2 bg-orange-400 hover:bg-orange-500 text-white font-medium flex items-center gap-2"
+            className="rounded-lg px-8 py-2 bg-craft-wood hover:bg-craft-dark-wood text-white font-medium flex items-center gap-2"
             onClick={onNext}
           >
             Next

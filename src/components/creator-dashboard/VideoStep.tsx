@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -132,7 +132,7 @@ const VideoStep: React.FC<VideoStepProps> = ({
           </Button>
           <Button
             type="button"
-            className="rounded-lg px-6 py-2 bg-orange-400 hover:bg-orange-500 text-white font-medium"
+            className="rounded-lg px-6 py-2 bg-craft-wood hover:bg-craft-dark-wood text-white font-medium"
             onClick={handleSubmitClick}
           >
             Save & Publish

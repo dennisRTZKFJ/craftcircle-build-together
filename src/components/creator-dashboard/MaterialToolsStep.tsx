@@ -1,161 +1,213 @@
 
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 
-type MaterialToolsState = {
+export interface MaterialToolsState {
   materials: string[];
   tools: string[];
   recommendations: string;
   estimatedCostLow: string;
   estimatedCostHigh: string;
-};
+}
 
-type Props = {
+interface MaterialToolsStepProps {
   state: MaterialToolsState;
-  onChange: (newState: MaterialToolsState) => void;
+  onChange: (state: MaterialToolsState) => void;
   onBack: () => void;
   onSaveDraft: () => void;
   onNext: () => void;
-};
+}
 
-const MaterialToolsStep: React.FC<Props> = ({
+const MaterialToolsStep: React.FC<MaterialToolsStepProps> = ({
   state,
   onChange,
   onBack,
   onSaveDraft,
   onNext,
 }) => {
-  function updateMaterials(index: number, value: string) {
-    const updated = [...state.materials];
-    updated[index] = value;
-    onChange({ ...state, materials: updated });
-  }
-  function addMaterial() {
-    onChange({ ...state, materials: [...state.materials, ""] });
-  }
-  function updateTools(index: number, value: string) {
-    const updated = [...state.tools];
-    updated[index] = value;
-    onChange({ ...state, tools: updated });
-  }
-  function addTool() {
-    onChange({ ...state, tools: [...state.tools, ""] });
-  }
+  const updateState = (field: keyof MaterialToolsState, value: any) => {
+    onChange({ ...state, [field]: value });
+  };
+
+  const addMaterial = () => {
+    updateState("materials", [...state.materials, ""]);
+  };
+
+  const removeMaterial = (index: number) => {
+    const newMaterials = state.materials.filter((_, i) => i !== index);
+    updateState("materials", newMaterials);
+  };
+
+  const updateMaterial = (index: number, value: string) => {
+    const newMaterials = [...state.materials];
+    newMaterials[index] = value;
+    updateState("materials", newMaterials);
+  };
+
+  const addTool = () => {
+    updateState("tools", [...state.tools, ""]);
+  };
+
+  const removeTool = (index: number) => {
+    const newTools = state.tools.filter((_, i) => i !== index);
+    updateState("tools", newTools);
+  };
+
+  const updateTool = (index: number, value: string) => {
+    const newTools = [...state.tools];
+    newTools[index] = value;
+    updateState("tools", newTools);
+  };
 
   return (
-    <div className="space-y-6">
-      {/* --- Materials --- */}
+    <div className="space-y-8">
+      {/* Materials Section */}
       <div>
-        <label className="block font-semibold mb-1 text-[#23211a]">Material Description</label>
-        <div className="flex flex-col gap-2">
-          {state.materials.map((mat, i) => (
-            <Input
-              key={i}
-              type="text"
-              value={mat}
-              className="bg-[#FAF9F5]"
-              onChange={(e) => updateMaterials(i, e.target.value)}
-              placeholder={`e.g. 4-5 pieces wood boards`}
-            />
+        <Label className="text-base font-medium text-gray-900 mb-3 block">
+          Materials
+        </Label>
+        <div className="space-y-3">
+          {state.materials.map((material, index) => (
+            <div key={index} className="flex gap-2">
+              <Input
+                className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g. 4–5 pieces wood boards"
+                value={material}
+                onChange={(e) => updateMaterial(index, e.target.value)}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="px-3 border border-gray-200 hover:bg-gray-50"
+                onClick={() => removeMaterial(index)}
+              >
+                <Minus className="h-4 w-4" />
+              </Button>
+            </div>
           ))}
           <Button
             type="button"
-            size="sm"
             variant="outline"
-            className="w-9 p-0 rounded border border-[#ede7df] bg-white text-[#23211a] hover:bg-[#f4f3ef] self-start"
+            size="sm"
+            className="border border-gray-200 hover:bg-gray-50 flex items-center gap-2"
             onClick={addMaterial}
-            aria-label="Add new material"
           >
-            <Plus size={18} />
+            <Plus className="h-4 w-4" />
+            Add Material
           </Button>
         </div>
       </div>
-      {/* --- Tools --- */}
+
+      {/* Tools Section */}
       <div>
-        <label className="block font-semibold mb-1 text-[#23211a]">Tool Description</label>
-        <div className="flex flex-col gap-2">
-          {state.tools.map((tool, i) => (
-            <Input
-              key={i}
-              type="text"
-              value={tool}
-              className="bg-[#FAF9F5]"
-              onChange={(e) => updateTools(i, e.target.value)}
-              placeholder="e.g. Sander"
-            />
+        <Label className="text-base font-medium text-gray-900 mb-3 block">
+          Tools
+        </Label>
+        <div className="space-y-3">
+          {state.tools.map((tool, index) => (
+            <div key={index} className="flex gap-2">
+              <Input
+                className="flex-1 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g. Sander"
+                value={tool}
+                onChange={(e) => updateTool(index, e.target.value)}
+              />
+              <Button
+                type="button"
+                variant="outline"
+                size="sm"
+                className="px-3 border border-gray-200 hover:bg-gray-50"
+                onClick={() => removeTool(index)}
+              >
+                <Minus className="h-4 w-4" />
+              </Button>
+            </div>
           ))}
           <Button
             type="button"
-            size="sm"
             variant="outline"
-            className="w-9 p-0 rounded border border-[#ede7df] bg-white text-[#23211a] hover:bg-[#f4f3ef] self-start"
+            size="sm"
+            className="border border-gray-200 hover:bg-gray-50 flex items-center gap-2"
             onClick={addTool}
-            aria-label="Add new tool"
           >
-            <Plus size={18} />
+            <Plus className="h-4 w-4" />
+            Add Tool
           </Button>
         </div>
       </div>
-      {/* --- Recommendations --- */}
+
+      {/* Recommendations */}
       <div>
-        <label className="block font-semibold mb-1 text-[#23211a]">Recommendations</label>
+        <Label className="text-base font-medium text-gray-900 mb-3 block">
+          Recommendations
+        </Label>
         <Textarea
-          className="bg-[#FAF9F5]"
-          rows={3}
+          className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none min-h-[100px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          placeholder="Add any recommendations for materials or tools..."
           value={state.recommendations}
-          onChange={e => onChange({ ...state, recommendations: e.target.value })}
+          onChange={(e) => updateState("recommendations", e.target.value)}
         />
       </div>
-      {/* --- Estimated Cost --- */}
+
+      {/* Estimated Cost */}
       <div>
-        <label className="block font-semibold mb-1 text-[#23211a]">Estimated Cost</label>
-        <div className="flex gap-2 items-center max-w-xs">
-          <Input
-            type="number"
-            min={0}
-            className="w-16 bg-[#FAF9F5]"
-            value={state.estimatedCostLow}
-            onChange={e => onChange({ ...state, estimatedCostLow: e.target.value })}
-          />
-          <span className="text-[#948268]">€  –</span>
-          <Input
-            type="number"
-            min={0}
-            className="w-16 bg-[#FAF9F5]"
-            value={state.estimatedCostHigh}
-            onChange={e => onChange({ ...state, estimatedCostHigh: e.target.value })}
-          />
-          <span className="text-[#948268]">€</span>
+        <Label className="text-base font-medium text-gray-900 mb-3 block">
+          Estimated Cost
+        </Label>
+        <div className="flex gap-4 items-center">
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">$</span>
+            <Input
+              className="w-24 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="80"
+              value={state.estimatedCostLow}
+              onChange={(e) => updateState("estimatedCostLow", e.target.value)}
+            />
+          </div>
+          <span className="text-sm text-gray-400">to</span>
+          <div className="flex items-center gap-2">
+            <span className="text-sm text-gray-600">$</span>
+            <Input
+              className="w-24 border border-gray-200 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              placeholder="120"
+              value={state.estimatedCostHigh}
+              onChange={(e) => updateState("estimatedCostHigh", e.target.value)}
+            />
+          </div>
         </div>
       </div>
-      {/* --- Bottom Buttons --- */}
-      <div className="flex justify-between items-center mt-7">
+
+      {/* Bottom navigation bar */}
+      <div className="flex justify-between items-center pt-8 mt-8 border-t border-gray-100">
         <Button
           type="button"
           variant="outline"
-          className="border border-[#e3e0da] rounded-md text-[#23211a] px-5 py-2 hover:bg-[#f4f3ef]"
+          className="rounded-lg px-6 py-2 border border-gray-300 text-gray-700 bg-white hover:bg-gray-50 flex items-center gap-2"
           onClick={onBack}
         >
           ← Back
         </Button>
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Button
             type="button"
+            className="border border-teal-200 bg-teal-100 text-teal-700 rounded-lg px-6 py-2 hover:bg-teal-200 font-medium"
             variant="outline"
-            className="border border-[#c4d9b5] bg-[#e9efea] text-[#417147] rounded-md px-5 py-2 hover:bg-[#e8efe9]"
             onClick={onSaveDraft}
           >
             Save as Draft
           </Button>
           <Button
             type="button"
-            className="rounded-md px-7 py-2 bg-[#c69c6d] hover:bg-[#b38951] text-white flex items-center gap-2"
+            className="rounded-lg px-8 py-2 bg-craft-wood hover:bg-craft-dark-wood text-white font-medium flex items-center gap-2"
             onClick={onNext}
           >
-            Next <span className="ml-1 text-lg">{String.fromCharCode(8594)}</span>
+            Next
+            <span className="text-lg">→</span>
           </Button>
         </div>
       </div>
@@ -163,5 +215,4 @@ const MaterialToolsStep: React.FC<Props> = ({
   );
 };
 
-export type { MaterialToolsState };
 export default MaterialToolsStep;
