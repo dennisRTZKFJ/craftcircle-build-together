@@ -12,7 +12,7 @@ interface VideoStepProps {
   onVideoChange: (file: File | null) => void;
   onBack: () => void;
   onSaveDraft: () => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit: () => void;
 }
 
 const VideoStep: React.FC<VideoStepProps> = ({
@@ -41,12 +41,6 @@ const VideoStep: React.FC<VideoStepProps> = ({
     event.preventDefault();
   };
 
-  const handleSubmitClick = (e: React.MouseEvent) => {
-    e.preventDefault();
-    const formEvent = e as unknown as React.FormEvent;
-    onSubmit(formEvent);
-  };
-
   return (
     <div className="space-y-8">
       {/* Description */}
@@ -56,7 +50,7 @@ const VideoStep: React.FC<VideoStepProps> = ({
         </Label>
         <Textarea
           className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm resize-none min-h-[120px] focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-          placeholder="Describe your video tutorial..."
+          placeholder="Describe your tutorial..."
           value={description}
           onChange={(e) => onDescriptionChange(e.target.value)}
         />
@@ -133,7 +127,7 @@ const VideoStep: React.FC<VideoStepProps> = ({
           <Button
             type="button"
             className="rounded-lg px-6 py-2 bg-craft-wood hover:bg-craft-dark-wood text-white font-medium"
-            onClick={handleSubmitClick}
+            onClick={onSubmit}
           >
             Save & Publish
           </Button>

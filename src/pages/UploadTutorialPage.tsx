@@ -8,10 +8,10 @@ import UploadWizard from "@/components/creator-dashboard/UploadWizard";
 
 const UploadTutorialPage = () => {
   return (
-    <div className="min-h-screen bg-craft-light-wood flex flex-col">
+    <div className="min-h-screen flex flex-col">
       <Navbar />
-      <main className="flex-grow">
-        <div className="container max-w-4xl mx-auto py-8 px-4">
+      <main className="flex-grow py-12">
+        <div className="container max-w-4xl mx-auto px-4 md:px-6">
           <div className="flex items-center justify-between mb-8">
             <h1 className="text-2xl font-serif font-semibold text-gray-900">
               Upload Tutorial

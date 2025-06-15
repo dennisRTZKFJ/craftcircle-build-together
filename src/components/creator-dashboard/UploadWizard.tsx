@@ -89,8 +89,7 @@ const UploadWizard: React.FC = () => {
   const handleNext = () => setActiveTab((tab) => Math.min(tab + 1, tabList.length - 1));
   const handleBack = () => setActiveTab((tab) => Math.max(tab - 1, 0));
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     navigate("/creator-dashboard/upload/success");
   };
 
@@ -179,7 +178,7 @@ const UploadWizard: React.FC = () => {
         />
       </div>
       
-      <form className="space-y-0" onSubmit={handleSubmit}>
+      <div className="space-y-0">
         {/* Render current step without actions for steps 1 & 2 */}
         {(activeTab === 1 || activeTab === 2) ? (
           renderCurrentStep()
@@ -199,7 +198,7 @@ const UploadWizard: React.FC = () => {
             />
           </>
         )}
-      </form>
+      </div>
     </div>
   );
 };
