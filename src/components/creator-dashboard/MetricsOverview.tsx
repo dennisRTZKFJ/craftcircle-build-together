@@ -8,10 +8,12 @@ interface MetricCardProps {
 }
 
 const MetricCard = ({ icon, label, value }: MetricCardProps) => (
-  <div className="bg-white rounded-lg px-6 py-5 border border-gray-100">
-    <div className="flex items-center gap-2 mb-2">
-      {icon}
-      <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">{label}</span>
+  <div className="bg-white rounded-lg px-6 py-5 border border-gray-200 shadow-sm">
+    <div className="flex items-center gap-3 mb-3">
+      <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
+        {icon}
+      </div>
+      <span className="text-sm font-medium text-gray-600 uppercase tracking-wide">{label}</span>
     </div>
     <div className="text-2xl font-bold text-gray-900">{value}</div>
   </div>
