@@ -12,7 +12,7 @@ interface VideoStepProps {
   onVideoChange: (file: File | null) => void;
   onBack: () => void;
   onSaveDraft: () => void;
-  onSubmit: () => void;
+  onSubmit: (e: React.FormEvent) => void;
 }
 
 const VideoStep: React.FC<VideoStepProps> = ({
@@ -39,6 +39,12 @@ const VideoStep: React.FC<VideoStepProps> = ({
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
+  };
+
+  const handleSubmitClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const formEvent = e as unknown as React.FormEvent;
+    onSubmit(formEvent);
   };
 
   return (
@@ -127,7 +133,7 @@ const VideoStep: React.FC<VideoStepProps> = ({
           <Button
             type="button"
             className="rounded-lg px-6 py-2 bg-orange-400 hover:bg-orange-500 text-white font-medium"
-            onClick={onSubmit}
+            onClick={handleSubmitClick}
           >
             Save & Publish
           </Button>
