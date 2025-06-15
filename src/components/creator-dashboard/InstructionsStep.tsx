@@ -96,6 +96,16 @@ const InstructionsStep: React.FC<InstructionsStepProps> = ({
               <Label className="text-sm font-medium text-gray-900 mb-2 block">
                 Image:
               </Label>
+              {step.image && (
+                <div className="mb-4">
+                  <img
+                    src={step.image}
+                    alt={`Step ${idx + 1}`}
+                    className="max-w-md w-full rounded-lg object-cover border border-gray-200"
+                    style={{ maxHeight: 220 }}
+                  />
+                </div>
+              )}
               <ImageUploader
                 value={step.image}
                 onChange={img => setStepField(idx, "image", img)}

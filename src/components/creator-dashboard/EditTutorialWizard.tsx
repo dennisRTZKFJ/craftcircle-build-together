@@ -1,5 +1,5 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import TabNavigation from "./TabNavigation";
 import FormActions from "./FormActions";
@@ -7,6 +7,7 @@ import BasicInfoStep from "./BasicInfoStep";
 import MaterialToolsStep, { MaterialToolsState } from "./MaterialToolsStep";
 import InstructionsStep from "./InstructionsStep";
 import VideoStep from "./VideoStep";
+import { tutorialService } from "@/services/tutorial.service";
 
 const tabList = [
   "Basic Information",
@@ -29,40 +30,6 @@ const difficulties = [
   { value: "advanced", label: "Advanced" },
 ];
 
-// Mock tutorial data - in a real app, this would come from an API
-const mockTutorials = [
-  {
-    id: 1,
-    title: "Rustic Coffee Table",
-    category: "furniture-building",
-    difficulty: "intermediate",
-    duration: 6,
-    description: "A DIY project that combines tradition with modern design. This coffee table combines the warmth of reclaimed wood with the clean lines of industrial design.",
-    availability: "free",
-    price: "",
-    materials: ["4–5 pieces wood boards", "4 pieces Hairpin table legs", "Wood screws", "Wood glue"],
-    tools: ["Sander", "Drill", "Measuring tape", "Clamps"],
-    recommendations: "Make sure to pre-drill holes to prevent wood splitting. Use wood conditioner before staining for even color.",
-    estimatedCostLow: "80",
-    estimatedCostHigh: "120",
-  },
-  {
-    id: 2,
-    title: "Wall Shelves with Invisible Mounts",
-    category: "decoration",
-    difficulty: "beginner",
-    duration: 2,
-    description: "Modern floating shelves that appear to have no visible brackets for a clean, minimalist look.",
-    availability: "free",
-    price: "",
-    materials: ["Wooden shelf boards", "Hidden brackets", "Wall anchors"],
-    tools: ["Level", "Drill", "Screwdriver"],
-    recommendations: "Always use appropriate wall anchors for your wall type.",
-    estimatedCostLow: "25",
-    estimatedCostHigh: "45",
-  },
-];
-
 type FormState = {
   title: string;
   category: string;
@@ -80,34 +47,81 @@ type FormState = {
 
 const EditTutorialWizard: React.FC = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { id } = useParams();
 
-  // Find the tutorial to edit
-  const tutorialToEdit = mockTutorials.find(t => t.id === Number(id));
-  
   const [form, setForm] = useState<FormState>({
-    title: tutorialToEdit?.title || "",
-    category: tutorialToEdit?.category || categories[0].value,
-    difficulty: tutorialToEdit?.difficulty || difficulties[0].value,
-    duration: tutorialToEdit?.duration || 1,
-    description: tutorialToEdit?.description || "",
-    availability: tutorialToEdit?.availability || "free",
-    price: tutorialToEdit?.price || "",
-    materials: tutorialToEdit?.materials || [],
-    tools: tutorialToEdit?.tools || [],
-    recommendations: tutorialToEdit?.recommendations || "",
-    estimatedCostLow: tutorialToEdit?.estimatedCostLow || "",
-    estimatedCostHigh: tutorialToEdit?.estimatedCostHigh || "",
+    title: "",
+    category: categories[0].value,
+    difficulty: difficulties[0].value,
+    duration: 1,
+    description: "",
+    availability: "free",
+    price: "",
+    materials: [],
+    tools: [],
+    recommendations: "",
+    estimatedCostLow: "",
+    estimatedCostHigh: "",
   });
 
   const [instructionSteps, setInstructionSteps] = useState([
-    { title: "Prepare the wood", description: "Clean and sand the wood boards to prepare them for assembly.", tip: "Use 120-grit sandpaper for best results", image: "" },
-    { title: "Attach the legs", description: "Secure the hairpin legs to the underside of the table using the provided screws.", tip: "Pre-drill holes to prevent splitting", image: "" }
+    { title: "", description: "", tip: "", image: "" }
   ]);
 
-  const [videoDescription, setVideoDescription] = useState("Complete step-by-step video guide for building this rustic coffee table.");
+  const [videoDescription, setVideoDescription] = useState("");
   const [videoFile, setVideoFile] = useState<File | null>(null);
+
+  useEffect(() => {
+    const loadTutorial = async () => {
+      if (!id) return;
+      
+      try {
+        setLoading(true);
+        const tutorial = await tutorialService.getTutorial(Number(id));
+        
+        // Fill form with tutorial data
+        setForm({
+          title: tutorial.title || "",
+          category: tutorial.content?.category || categories[0].value,
+          difficulty: tutorial.content?.difficulty || difficulties[0].value,
+          duration: tutorial.content?.duration || 1,
+          description: tutorial.description || "",
+          availability: tutorial.content?.availability || "free",
+          price: tutorial.content?.price || "",
+          materials: tutorial.materials?.map(m => m.name) || [],
+          tools: tutorial.content?.tools || [],
+          recommendations: tutorial.content?.recommendations || "",
+          estimatedCostLow: tutorial.content?.estimatedCostLow || "",
+          estimatedCostHigh: tutorial.content?.estimatedCostHigh || "",
+        });
+
+        // Fill instruction steps
+        if (tutorial.content?.sections) {
+          const steps = tutorial.content.sections.map(section => ({
+            title: section.title,
+            description: section.content,
+            tip: "",
+            image: section.imageUrl || ""
+          }));
+          setInstructionSteps(steps);
+        }
+
+        // Fill video data if available
+        if (tutorial.content?.videoDescription) {
+          setVideoDescription(tutorial.content.videoDescription);
+        }
+
+      } catch (error) {
+        console.error("Error loading tutorial:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadTutorial();
+  }, [id]);
 
   const handleBasicChange = (field: keyof FormState, value: any) => {
     setForm((f) => ({ ...f, [field]: value }));
@@ -127,17 +141,34 @@ const EditTutorialWizard: React.FC = () => {
   const handleNext = () => setActiveTab((tab) => Math.min(tab + 1, tabList.length - 1));
   const handleBack = () => setActiveTab((tab) => Math.max(tab - 1, 0));
 
-  const handleSubmit = () => {
-    console.log("Updating tutorial:", form);
-    navigate("/creator-dashboard");
+  const handleSubmit = async () => {
+    try {
+      await tutorialService.updateTutorial(Number(id), {
+        title: form.title,
+        description: form.description,
+        // Add other form fields as needed
+      });
+      navigate("/creator-dashboard");
+    } catch (error) {
+      console.error("Error updating tutorial:", error);
+    }
   };
 
   const handleCancel = () => {
     navigate("/creator-dashboard");
   };
 
-  const handleSaveDraft = () => {
-    console.log("Saving tutorial as draft...");
+  const handleSaveDraft = async () => {
+    try {
+      await tutorialService.updateTutorial(Number(id), {
+        title: form.title,
+        description: form.description,
+        status: 'draft'
+      });
+      console.log("Tutorial saved as draft");
+    } catch (error) {
+      console.error("Error saving draft:", error);
+    }
   };
 
   const renderCurrentStep = () => {
@@ -202,7 +233,17 @@ const EditTutorialWizard: React.FC = () => {
     }
   };
 
-  if (!tutorialToEdit) {
+  if (loading) {
+    return (
+      <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
+        <div className="text-center">
+          <p className="text-gray-600">Tutorial wird geladen...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!id) {
     return (
       <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
         <div className="text-center">
@@ -225,7 +266,7 @@ const EditTutorialWizard: React.FC = () => {
     <div className="bg-white rounded-2xl border border-gray-200 shadow-sm p-8">
       <div className="mb-8">
         <h2 className="text-xl font-serif font-semibold text-gray-900 mb-6">
-          Tutorial bearbeiten: {tutorialToEdit.title}
+          Tutorial bearbeiten: {form.title}
         </h2>
         
         <TabNavigation
