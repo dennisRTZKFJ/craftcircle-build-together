@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
@@ -63,7 +62,7 @@ const popularTutorials = [
 
 const CreatorDashboard = () => {
   return (
-    <div className="section-y-space-lg">
+    <div className="section-y-space-lg" style={{ backgroundColor: '#fbfaf8' }}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="flex justify-between items-center mb-8">
