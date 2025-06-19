@@ -38,6 +38,11 @@ import AdminDashboard from "./pages/AdminDashboard";
 import SignOut from "./pages/SignOut";
 import NotFound from "./pages/NotFound";
 
+// New public pages
+import AddPaymentPage from "./pages/AddPaymentPage";
+import PartnerSelectWinnerPage from "./pages/PartnerSelectWinnerPage";
+import PublicSettingsPage from "./pages/PublicSettingsPage";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -60,6 +65,11 @@ const App = () => (
               <Route path="/register" element={<Register />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/sign-out" element={<SignOut />} />
+              
+              {/* New public routes */}
+              <Route path="/add-payment" element={<AddPaymentPage />} />
+              <Route path="/partner-select-winner/:id" element={<PartnerSelectWinnerPage />} />
+              <Route path="/account/settings" element={<PublicSettingsPage />} />
 
               {/* Make creator dashboard pages public for testing */}
               <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
@@ -80,7 +90,6 @@ const App = () => (
                 <Route path="/account/payments/update-method" element={<UpdatePaymentMethodPage />} />
                 <Route path="/account/projects" element={<ProjectsPage />} />
                 <Route path="/account/notifications" element={<NotificationsPage />} />
-                <Route path="/account/settings" element={<SettingsPage />} />
               </Route>
 
               {/* Partner routes */}
