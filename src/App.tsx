@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +13,7 @@ import Index from "./pages/Index";
 import Tutorials from "./pages/Tutorials";
 import TutorialDetail from "./pages/TutorialDetail";
 import Challenges from "./pages/Challenges";
+import ChallengeDetail from "./pages/ChallengeDetail";
 import Community from "./pages/Community";
 import Marketplace from "./pages/Marketplace";
 import Dashboard from "./pages/Dashboard";
@@ -59,6 +61,7 @@ const App = () => (
               <Route path="/tutorials" element={<Tutorials />} />
               <Route path="/tutorials/:id" element={<TutorialDetail />} />
               <Route path="/challenges" element={<Challenges />} />
+              <Route path="/challenges/:id" element={<ChallengeDetail />} />
               <Route path="/community" element={<Community />} />
               <Route path="/marketplace" element={<Marketplace />} />
               <Route path="/login" element={<Login />} />
