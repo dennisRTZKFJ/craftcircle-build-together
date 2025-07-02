@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 
@@ -45,22 +46,20 @@ const Footer = () => {
           <div>
             <h3 className="header-sub">Discover</h3>
             <ul className="space-y-3">
-              <li><a href="#projects" className="text-muted-foreground hover:text-foreground transition-colors">Projects</a></li>
-              <li><a href="#community" className="text-muted-foreground hover:text-foreground transition-colors">Community</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Become a Creator</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Success Stories</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Blog</a></li>
+              <li><Link to="/tutorials" className="text-muted-foreground hover:text-foreground transition-colors">Tutorials</Link></li>
+              <li><Link to="/challenges" className="text-muted-foreground hover:text-foreground transition-colors">Challenges</Link></li>
+              <li><Link to="/community" className="text-muted-foreground hover:text-foreground transition-colors">Community</Link></li>
+              <li><Link to="/marketplace" className="text-muted-foreground hover:text-foreground transition-colors">Marketplace</Link></li>
+              <li><Link to="/become-creator" className="text-muted-foreground hover:text-foreground transition-colors">Become a Creator</Link></li>
             </ul>
           </div>
           
           <div>
             <h3 className="header-sub">Support</h3>
             <ul className="space-y-3">
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Help Center</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Contact</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Resources</a></li>
-              <li><a href="#" className="text-muted-foreground hover:text-foreground transition-colors">Partnerships</a></li>
+              <li><Link to="/faq" className="text-muted-foreground hover:text-foreground transition-colors">FAQ</Link></li>
+              <li><Link to="/contact" className="text-muted-foreground hover:text-foreground transition-colors">Contact</Link></li>
+              <li><Link to="/partnerships" className="text-muted-foreground hover:text-foreground transition-colors">Partnerships</Link></li>
             </ul>
           </div>
           
@@ -89,10 +88,10 @@ const Footer = () => {
           <div className="text-sm text-muted-foreground">
             © {new Date().getFullYear()} CraftCircle. All rights reserved.
           </div>
-          <div className="flex-gap6-text-sm">
-            <Link to="/privacy-policy" className="hover:underline">Privacy Policy</Link>
-            <Link to="/terms-of-service" className="hover:underline">Terms of Service</Link>
-            <Link to="/contact" className="hover:underline">Contact Us</Link>
+          <div className="flex gap-6 text-sm">
+            <Link to="/privacy-policy" className="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</Link>
+            <Link to="/terms-of-service" className="text-muted-foreground hover:text-foreground transition-colors">Terms of Service</Link>
+            <Link to="/imprint" className="text-muted-foreground hover:text-foreground transition-colors">Imprint</Link>
           </div>
         </div>
       </div>
