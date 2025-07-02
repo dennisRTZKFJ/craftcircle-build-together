@@ -73,6 +73,15 @@ const App = () => (
               <Route path="/add-payment" element={<AddPaymentPage />} />
               <Route path="/partner-select-winner/:id" element={<PartnerSelectWinnerPage />} />
               <Route path="/account/settings" element={<PublicSettingsPage />} />
+              
+              {/* Additional public pages */}
+              <Route path="/become-creator" element={<BecomeCreator />} />
+              <Route path="/faq" element={<FAQ />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/partnerships" element={<Partnerships />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/imprint" element={<Imprint />} />
 
               {/* Make creator dashboard pages public for testing */}
               <Route path="/creator-dashboard" element={<CreatorDashboardPage />} />
