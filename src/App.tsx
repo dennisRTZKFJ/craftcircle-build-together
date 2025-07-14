@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { ProtectedRoute } from "./components/ProtectedRoute";
+import NoAccess from "./pages/NoAccess";
 
 // Pages
 import Index from "./pages/Index";
@@ -74,6 +75,7 @@ const App = () => (
               <Route path="/register" element={<Register />} />
               <Route path="/reset-password" element={<ResetPassword />} />
               <Route path="/sign-out" element={<SignOut />} />
+              <Route path="/no-access" element={<NoAccess />} />
               
               {/* New public routes */}
               <Route path="/add-payment" element={<AddPaymentPage />} />
